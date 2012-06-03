@@ -1,0 +1,3086 @@
+ACTOR MirageKnight : Enemy 16432
+{
+	//$Category Federation
+   Health 220
+   GibHealth 60
+   Radius 16
+   Height 40
+   Mass 999999
+   Speed 15
+   PainChance 50
+   PainChance "Shock", 255
+   Species hellknight
+   MONSTER 
+   +NOTARGET
+   +DONTHURTSPECIES
+   +MISSILEMORE
+   //+REFLECTIVE
+   //+SHIELDREFLECT
+   +FASTER
+   +LOOKALLAROUND
+   +FIXMAPTHINGPOS
+   
+   DropItem "Clip" 256
+   DropItem "Clip" 128
+   DropItem "GrenadeAmmo" 32
+   DropItem "20mmGrenade" 16
+   
+   Dropitem "Stimpack" 32
+   Dropitem "StrikeArmor" 4
+   
+   DropItem "MP7" 8
+   
+   //Dropitem "PDA" 4
+   
+   BloodType "NashGore_Blood"
+   SeeSound ""
+   AttackSound "MP7/FIRE"
+   PainSound "monster/inipai"
+   DeathSound "monster/inidth"
+   ActiveSound "monster/iniact"
+   Obituary "%o couldn't discern a Mirage Knight's disguise in time." 
+   Decal BulletChip
+  states
+  {
+  Spawn:
+    MKFA A 0                                                     //
+    TRE2 A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    TRE2 A 0 A_JumpIfInventory("Discovered",3,"DiscoveredSpawn") // NOT A TREE?
+    TRE2 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    TRE2 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn+4                                                 //
+  Spawn2:
+    TRE2 A 0                                                     //
+    TRE2 A 0 A_JumpIfInventory("Discovered",3,"DiscoveredSpawn2")// NOT A TREE?
+    TRE2 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TRE2 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn2+3                                                //
+  DiscoveredSpawn:
+    MKFA A 0                                                     //
+    MKFA A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    MKFA E 1 A_Look                                              // WHERE ARE YOU!
+    goto DiscoveredSpawn+2                                       //
+  DiscoveredSpawn2:
+    MKFA A 0                                                     //
+    MKFA E 1 A_Look                                              // WHERE ARE YOU!
+    goto DiscoveredSpawn2+1                                      //
+  Mirage:
+    TRE2 A 0 A_JumpIfInventory(Discovered,3,"See")               //
+    TRE2 A 0 A_Jump(64,"MirageFire")                             //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    loop
+  MirageFire:
+    TRE2 A 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    TRE2 A 10 A_FaceTarget                                       //
+    TRE2 A 0 A_JumpIfInventory("KnightAmmo", 10, 29)             // CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	TRE2 F 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	TRE2 F 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	TRE2 F 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	TRE2 F 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 2 A_FaceTarget                                        //
+    TRE2 A 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    TRE2 A 0 A_Jump(32, 2)                                       // CHANCE STOP SHOOTING
+    TRE2 A 0 A_SpidReFire                                        // KEEP SHOOTING!
+    Goto MirageFire+2                                            //
+    TRE2 A 0                                                     //
+    goto Mirage                                                  //
+    TRE2 A 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    TRE2 A 8 A_PlaySound("ZSec/DryFire")                         //
+    TRE2 A 55 A_PlaySound("ZSec/Reload")                         //
+    TRE2 A 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto Mirage                                                  //
+  See:
+    MKFA A 0 A_CheckSight("SEE2")                                //
+    MKFA A 0 A_CheckSight(26)                                    // IF PLAYER IN SIGHT CHANCE CHARGE
+    MKFA A 0 A_GiveInventory("KnightCharge", 1)                  // READY TO CHARGE
+    MKFA A 0 A_JumpIfHealthLower(50, 18)                         // LOW HEALTH
+    Goto HealthHigh                                              //
+    MKFA A 0 A_JumpIfInventory("KnightCharge", 1, 24)            // CHARGE IF READY TO!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MKFA A 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MKFA A 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MKFA B 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MKFA B 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MKFA C 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MKFA C 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MKFA D 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MKFA D 4 A_Chase                                             // NORMAL CHASE
+    Goto See                                                     //
+    MKFA A 0 A_Jump(32, 3)                                       // FEARLESS CHANCE
+    MKFA A 0 A_AlertMonsters                                     // ALERT OTHERS
+    MKFA A 0 A_ChangeFlag("Frightened", 1)                       // RUN AWAY!
+    MKFA D 0 HealThing(1)                                        // HEALING
+    MKFA A 0                                                     //
+    Goto See+5                                                   //
+    MKFA A 0 A_TakeInventory("KnightCharge", 1)                  // NOT READY TO CHARGE
+    Goto See+3                                                   //
+    MKFA A 0 A_Jump(128, 1)                                      // CHANCE CHARGE
+    Goto See+5                                                   //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MKFA A 2 A_Chase                                             // CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MKFA A 2 A_Chase                                             // CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MKFA A 2 A_Chase                                             // CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MKFA B 2 A_Chase                                             // CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MKFA B 2 A_Chase                                             // CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MKFA B 2 A_Chase                                             // CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MKFA C 2 A_Chase                                             // CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MKFA C 2 A_Chase                                             // CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MKFA C 2 A_Chase                                             // CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MKFA D 2 A_Chase                                             // CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MKFA D 2 A_Chase                                             // CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MKFA D 2 A_Chase                                             // CHARGE!
+    MKFA D 0 HealThing(1)                                        // HEALING
+    Goto See+29                                                  //
+  See2:
+    MKFA A 0 A_CheckSight(11)                                    // IF PLAYER IN SIGHT CHANCE CHARGE
+    MKFA A 0 A_GiveInventory("KnightCharge", 1)                  // READY TO CHARGE
+    MKFA A 0 A_JumpIfHealthLower(50, 3)                          // LOW HEALTH
+    Goto HealthHigh                                              //
+    MKFA A 0 A_JumpIfInventory("KnightCharge", 1, 9)             // CHARGE IF READY TO!
+    MKFA AABBCCDD 4 A_Chase                                      // NORMAL CHASE
+    Goto See                                                     //
+    MKFA A 0 A_Jump(32, 3)                                       // FEARLESS CHANCE
+    MKFA A 0 A_AlertMonsters                                     // ALERT OTHERS
+    MKFA A 0 A_ChangeFlag("Frightened", 1)                       // RUN AWAY!
+    MKFA D 0 HealThing(1)                                        // HEALING
+    MKFA A 0                                                     //
+    Goto See+5                                                   //
+    MKFA A 0 A_TakeInventory("KnightCharge", 1)                  // NOT READY TO CHARGE
+    Goto See+3                                                   //
+    MKFA A 0 A_Jump(128, 1)                                      // CHANCE CHARGE
+    Goto See+5                                                   //
+    MKFA AAABBBCCCDDD 2 A_Chase                                  // CHARGE!
+    MKFA D 0 HealThing(1)                                        // HEALING
+    Goto See+29                                                  //
+  Missile:
+    MKFA E 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    MKFA E 0 A_Jump(64, 35)                                      // CHANCE TEST IF CLOSE
+    MKFA E 10 A_FaceTarget                                       //
+    MKFA E 0 A_JumpIfInventory("KnightAmmo", 10, 29)             // CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    MKFA F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	MKFA F 2 BRIGHT A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    MKFA E 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    MKFA F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	MKFA F 2 BRIGHT A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    MKFA E 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    MKFA F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	MKFA F 2 BRIGHT A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    MKFA E 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    MKFA F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	MKFA F 2 BRIGHT A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    MKFA E 2 A_FaceTarget                                        //
+    MKFA E 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    MKFA E 0 A_Jump(32, 2)                                       // CHANCE STOP SHOOTING
+    MKFA E 0 A_SpidReFire                                        // KEEP SHOOTING!
+    Goto Missile+3                                               //
+    MKFA E 0                                                     //
+    goto See                                                     //
+    MKFA E 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    MKFA E 8 A_PlaySound("ZSec/DryFire")                         //
+    MKFA E 55 A_PlaySound("ZSec/Reload")                         //
+    MKFA E 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto See                                                     //
+    MKFA E 0 A_JumpIfCloser(1768, 1)                              // LAUNCH GRENADE IF NEAR
+    Goto Missile+2                                               //
+    MKFA E 0 A_Jump(16,6)                                        // CHANCE SMOKE GRENADE
+    MKFA E 8 A_FaceTarget                                        // GRENADE!
+    MKFA F 0 bright A_PlaySound("weapons/rocklf")                //
+    MKFA F 2 bright A_CustomMissile("KnightGrenadeShell",28,5,random(-15,15),2,random(0,10))//
+    MKFA E 6 A_FaceTarget                                        //
+    MKFA E 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    Goto See                                                     //
+    MKFA E 8 A_FaceTarget                                        // SMOKE GRENADE!
+    MKFA F 0 bright A_PlaySound("weapons/rocklf")                //
+    MKFA F 2 bright A_CustomMissile("KnightSmokeGrenade", 28,5,0)//
+    MKFA E 6 A_FaceTarget                                        //
+    MKFA E 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    Goto See                                                     //
+  HealthHigh:
+    MKFA A 0 A_ChangeFlag("Frightened", 0)                       // PUSH ONWARD
+    Goto See+5                                                   //    
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_GiveInventory("Discovered",1)                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_Pain                                              // OW!
+    goto Mirage                                                  //
+  Pain.Shock:
+    MKFA G 2 A_ChangeFlag("NoPain", 1)                           // STUNNED!
+    MKFA G 300 A_Pain                                            //
+    MKFA G 0 A_ChangeFlag("NoPain", 0)                           //
+    Goto See                                                     //
+  Death:
+    MKFA H 0 A_JumpIfHealthLower(-60,"Splode")                   //
+    MKFA H 5                                                     //
+    MKFA I 5 A_Scream                                            //
+    MKFA J 5 A_Fall                                              //
+    MKFA K 5                                                     //
+    MKFA L 5                                                     //
+    MKFA M 5                                                     //
+    MKFA N 0 A_Jump(5, 2)                                        // REGENERATING!
+    MKFA N -1                                                    //
+    stop                                                         //
+    MKFA NNNNN 70                                                //
+    MKFA NNNNN 70                                                //
+    MKFA NNNNN 70                                                //
+    MKFA N -1 Thing_Raise(0)                                     // STILL ALIVE
+    Wait                                                         //
+  Splode:
+    MKFA I 1                                                     // xDeath
+    MKFA I 0 A_SpawnDebris("NashGore_Gib9",0)                    // GIBS!
+    MKFA I 0 A_SpawnDebris("NashGore_Gib10",0)                   //
+    MKFA I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+    MKFA I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+    MKFA I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+    MKFA I 0                                                     //
+    MKFA I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+    MKFA I 0 A_XScream                                           //
+    MKFA I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+    MKFA I 0 A_NoBlocking                                        //
+    MKFA I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+    MKFA I 0                                                     //
+    MKFA Z 0 A_SpawnItemEx("DEADMirageKnightHead",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)//
+    stop                                                         //
+  Death.Fire2:
+    TNT1 A 1 A_SpawnItem("BurnDeath1", 2, 1)                     // SCORCHED
+    stop                                                         //
+  Raise:
+    MKFA KJ 5                                                    // REVIVED
+    MKFA IH 5 Thing_SetSpecial(0,226,613,0,random(30,40))        // RGA2 EXP COMPATIBILITY
+    Goto See                                                     //
+  Death.head:
+    MKFA O 9 A_PlaySound("headshot/splat")                       //
+    MKFA I 0 A_SpawnDebris("NashGore_Gib3",0)                    // GIBS!
+    MKFA I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+    MKFA I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+    MKFA P 9 A_XScream                                           //
+    MKFA Q 9 A_Fall                                              //
+    MKFA R 5                                                     //
+    MKFA S 5                                                     //
+    MKFA T 0 A_SpawnItemEx("DEADMirageKnight",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)// FAKE BODY
+    stop                                                         //
+  }
+}
+
+ACTOR DEADMirageKnight
+{
+ +FLOORCLIP
+ Radius 12
+ Height 11
+ States
+ {
+  Spawn:
+   MKFA T 0
+   MKFA T -1
+   stop
+ }
+}
+
+ACTOR DEADMirageKnightHead
+{
+ +FLOORCLIP
+ Radius 12
+ Height 11
+ States
+ {
+  Spawn:
+   MKFA Z 0
+   MKFA Z -1
+   stop
+ }
+}
+
+ACTOR Discovered : Inventory
+{
+  Inventory.MaxAmount "3"
+}
+
+ACTOR MirageKnightBigTree : MirageKnight 17432
+{
+	//$Category Federation
+   Health 220
+   GibHealth 60
+   Radius 16
+   Height 40
+   Mass 999999
+   Speed 15
+   PainChance 50
+   PainChance "Stunner", 255
+   Species hellknight
+   MONSTER 
+   +NOTARGET
+   +DONTHURTSPECIES
+   +MISSILEMORE
+   //+REFLECTIVE
+   //+SHIELDREFLECT
+   +FASTER
+   +LOOKALLAROUND
+   +FIXMAPTHINGPOS
+   DropItem "Clip" 256
+   DropItem "Clip" 128
+   Dropitem "Stimpack" 32
+   Dropitem "GrenadePickup" 16
+   Dropitem "Greenarmor" 8
+   DropItem "SMGGenerator" 64
+   DropItem "Uzi" 64
+   DropItem "40mmGrenades" 16
+   DropItem "CombatRifle" 4
+   DropItem "M16Masterkey" 4
+   Dropitem "PDA" 4
+   Dropitem "Reaper" 16
+   DropItem "Butchergun" 16
+   BloodType "NashGore_Blood"
+   SeeSound ""
+   AttackSound "monster/iniatk"
+   PainSound "monster/inipai"
+   DeathSound "monster/inidth"
+   ActiveSound "monster/iniact"
+   Obituary "%o couldn't discern a Mirage Knight's disguise in time." 
+   Decal BulletChip
+  States
+  {
+  Spawn:
+    MKFA A 0                                                     //
+    TRE2 A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    TRE2 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn") // NOT A TREE?
+    TRE2 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    TRE2 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn+4                                                 //
+  Spawn2:
+    TRE2 A 0                                                     //
+    TRE2 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn2")// NOT A TREE?
+    TRE2 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TRE2 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn2+3                                                //
+  Mirage:
+    TRE2 A 0 A_JumpIfInventory(Discovered,3,"See")               //
+    TRE2 A 0 A_Jump(64,"MirageFire")                             //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 4 A_FaceTarget                                        // I BE A TREE
+    loop
+  MirageFire:
+    TRE2 A 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    TRE2 A 10 A_FaceTarget                                       //
+    TRE2 A 0 A_JumpIfInventory("KnightAmmo", 10, 29)             // CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	TRE2 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	TRE2 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	TRE2 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	TRE2 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE2 A 2 A_FaceTarget                                        //
+    TRE2 A 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    TRE2 A 0 A_Jump(32, 2)                                       // CHANCE STOP SHOOTING
+    TRE2 A 0 A_SpidReFire                                        // KEEP SHOOTING!
+    Goto MirageFire+2                                            //
+    TRE2 A 0                                                     //
+    goto Mirage                                                  //
+    TRE2 A 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    TRE2 A 8 A_PlaySound("ZSec/DryFire")                         //
+    TRE2 A 55 A_PlaySound("ZSec/Reload")                         //
+    TRE2 A 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto Mirage                                                  //
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_GiveInventory("Discovered",1)                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_Pain                                              // OW!
+    goto Mirage                                                  //
+  }
+}
+
+ACTOR MirageKnightSmallTree : MirageKnight 18432
+{
+	//$Category Federation
+   Health 220
+   GibHealth 60
+   Radius 16
+   Height 40
+   Mass 999999
+   Speed 15
+   PainChance 50
+   PainChance "Stunner", 255
+   Species hellknight
+   MONSTER 
+   +NOTARGET
+   +DONTHURTSPECIES
+   +MISSILEMORE
+   //+REFLECTIVE
+   //+SHIELDREFLECT
+   +FASTER
+   +LOOKALLAROUND
+   +FIXMAPTHINGPOS
+   DropItem "Clip" 256
+   DropItem "Clip" 128
+   Dropitem "Stimpack" 32
+   Dropitem "GrenadePickup" 16
+   Dropitem "Greenarmor" 8
+   DropItem "SMGGenerator" 64
+   DropItem "Uzi" 64
+   DropItem "40mmGrenades" 16
+   DropItem "CombatRifle" 4
+   DropItem "M16Masterkey" 4
+   Dropitem "PDA" 4
+   Dropitem "Reaper" 16
+   DropItem "Butchergun" 16
+   BloodType "NashGore_Blood"
+   SeeSound ""
+   AttackSound "monster/iniatk"
+   PainSound "monster/inipai"
+   DeathSound "monster/inidth"
+   ActiveSound "monster/iniact"
+   Obituary "%o couldn't discern a Mirage Knight's disguise in time." 
+   Decal BulletChip
+  States
+  {
+  Spawn:
+    MKFA A 0                                                     //
+    TRE1 A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    TRE1 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn") // NOT A TREE?
+    TRE1 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    TRE1 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn+4                                                 //
+  Spawn2:
+    TRE1 A 0                                                     //
+    TRE1 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn2")// NOT A TREE?
+    TRE1 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TRE1 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn2+3                                                //
+  Mirage:
+    TRE1 A 0 A_JumpIfInventory(Discovered,3,"See")               //
+    TRE1 A 0 A_Jump(64,"MirageFire")                             //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 4 A_FaceTarget                                        // I BE A TREE
+    loop
+  MirageFire:
+    TRE1 A 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    TRE1 A 10 A_FaceTarget                                       //
+    TRE1 A 0 A_JumpIfInventory("KnightAmmo", 10, 29)             // CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	TRE1 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	TRE1 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	TRE1 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	TRE1 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TRE1 A 2 A_FaceTarget                                        //
+    TRE1 A 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    TRE1 A 0 A_Jump(32, 2)                                       // CHANCE STOP SHOOTING
+    TRE1 A 0 A_SpidReFire                                        // KEEP SHOOTING!
+    Goto MirageFire+2                                            //
+    TRE1 A 0                                                     //
+    goto Mirage                                                  //
+    TRE1 A 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    TRE1 A 8 A_PlaySound("ZSec/DryFire")                         //
+    TRE1 A 55 A_PlaySound("ZSec/Reload")                         //
+    TRE1 A 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto Mirage                                                  //
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_GiveInventory("Discovered",1)                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_Pain                                              // OW!
+    goto Mirage                                                  //
+  }
+}
+
+ACTOR MirageKnightHeartColumn : MirageKnight 19432
+{
+	//$Category Federation
+   Health 220
+   GibHealth 60
+   Radius 16
+   Height 40
+   Mass 999999
+   Speed 15
+   PainChance 50
+   PainChance "Stunner", 255
+   Species hellknight
+   MONSTER 
+   +NOTARGET
+   +DONTHURTSPECIES
+   +MISSILEMORE
+   //+REFLECTIVE
+   //+SHIELDREFLECT
+   +FASTER
+   +LOOKALLAROUND
+   +FIXMAPTHINGPOS
+   DropItem "Clip" 256
+   DropItem "Clip" 128
+   Dropitem "Stimpack" 32
+   Dropitem "GrenadePickup" 16
+   Dropitem "Greenarmor" 8
+   DropItem "SMGGenerator" 64
+   DropItem "Uzi" 64
+   DropItem "40mmGrenades" 16
+   DropItem "CombatRifle" 4
+   DropItem "M16Masterkey" 4
+   Dropitem "PDA" 4
+   Dropitem "Reaper" 16
+   DropItem "Butchergun" 16
+   BloodType "NashGore_Blood"
+   SeeSound ""
+   AttackSound "monster/iniatk"
+   PainSound "monster/inipai"
+   DeathSound "monster/inidth"
+   ActiveSound "monster/iniact"
+   Obituary "%o couldn't discern a Mirage Knight's disguise in time." 
+   Decal BulletChip
+  States
+  {
+  Spawn:
+    MKFA A 0                                                     //
+    COL5 A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    COL5 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn") // NOT A TREE?
+    COL5 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    COL5 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn+4                                                 //
+  Spawn2:
+    COL5 A 0                                                     //
+    COL5 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn2")// NOT A TREE?
+    COL5 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    COL5 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn2+3                                                //
+  Mirage:
+    COL5 A 0 A_JumpIfInventory(Discovered,3,"See")               //
+    COL5 A 0 A_Jump(64,"MirageFire")                             //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 4 A_FaceTarget                                        // I BE A TREE
+    loop
+  MirageFire:
+    COL5 A 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    COL5 A 10 A_FaceTarget                                       //
+    COL5 A 0 A_JumpIfInventory("KnightAmmo", 10, 29)             // CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL5 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL5 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL5 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL5 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL5 A 2 A_FaceTarget                                        //
+    COL5 A 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    COL5 A 0 A_Jump(32, 2)                                       // CHANCE STOP SHOOTING
+    COL5 A 0 A_SpidReFire                                        // KEEP SHOOTING!
+    Goto MirageFire+2                                            //
+    COL5 A 0                                                     //
+    goto Mirage                                                  //
+    COL5 A 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    COL5 A 8 A_PlaySound("ZSec/DryFire")                         //
+    COL5 A 55 A_PlaySound("ZSec/Reload")                         //
+    COL5 A 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto Mirage                                                  //
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_GiveInventory("Discovered",1)                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_Pain                                              // OW!
+    goto Mirage                                                  //
+  }
+}
+
+ACTOR MirageKnightShortRedColumn : MirageKnight 20432
+{
+	//$Category Federation
+   Health 220
+   GibHealth 60
+   Radius 16
+   Height 40
+   Mass 999999
+   Speed 15
+   PainChance 50
+   PainChance "Stunner", 255
+   Species hellknight
+   MONSTER 
+   +NOTARGET
+   +DONTHURTSPECIES
+   +MISSILEMORE
+   //+REFLECTIVE
+   //+SHIELDREFLECT
+   +FASTER
+   +LOOKALLAROUND
+   +FIXMAPTHINGPOS
+   DropItem "Clip" 256
+   DropItem "Clip" 128
+   Dropitem "Stimpack" 32
+   Dropitem "GrenadePickup" 16
+   Dropitem "Greenarmor" 8
+   DropItem "SMGGenerator" 64
+   DropItem "Uzi" 64
+   DropItem "40mmGrenades" 16
+   DropItem "CombatRifle" 4
+   DropItem "M16Masterkey" 4
+   Dropitem "PDA" 4
+   Dropitem "Reaper" 16
+   DropItem "Butchergun" 16
+   BloodType "NashGore_Blood"
+   SeeSound ""
+   AttackSound "monster/iniatk"
+   PainSound "monster/inipai"
+   DeathSound "monster/inidth"
+   ActiveSound "monster/iniact"
+   Obituary "%o couldn't discern a Mirage Knight's disguise in time." 
+   Decal BulletChip
+  States
+  {
+  Spawn:
+    MKFA A 0                                                     //
+    COL4 A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    COL4 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn") // NOT A TREE?
+    COL4 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    COL4 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn+4                                                 //
+  Spawn2:
+    COL4 A 0                                                     //
+    COL4 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn2")// NOT A TREE?
+    COL4 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    COL4 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn2+3                                                //
+  Mirage:
+    COL4 A 0 A_JumpIfInventory(Discovered,3,"See")               //
+    COL4 A 0 A_Jump(64,"MirageFire")                             //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 4 A_FaceTarget                                        // I BE A TREE
+    loop
+  MirageFire:
+    COL4 A 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    COL4 A 10 A_FaceTarget                                       //
+    COL4 A 0 A_JumpIfInventory("KnightAmmo", 10, 29)             // CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL4 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL4 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL4 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL4 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL4 A 2 A_FaceTarget                                        //
+    COL4 A 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    COL4 A 0 A_Jump(32, 2)                                       // CHANCE STOP SHOOTING
+    COL4 A 0 A_SpidReFire                                        // KEEP SHOOTING!
+    Goto MirageFire+2                                            //
+    COL4 A 0                                                     //
+    goto Mirage                                                  //
+    COL4 A 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    COL4 A 8 A_PlaySound("ZSec/DryFire")                         //
+    COL4 A 55 A_PlaySound("ZSec/Reload")                         //
+    COL4 A 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto Mirage                                                  //
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_GiveInventory("Discovered",1)                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_Pain                                              // OW!
+    goto Mirage                                                  //
+  }
+}
+
+ACTOR MirageKnightSkullColumn : MirageKnight 21432
+{
+	//$Category Federation
+   Health 220
+   GibHealth 60
+   Radius 16
+   Height 40
+   Mass 999999
+   Speed 15
+   PainChance 50
+   PainChance "Stunner", 255
+   Species hellknight
+   MONSTER 
+   +NOTARGET
+   +DONTHURTSPECIES
+   +MISSILEMORE
+   //+REFLECTIVE
+   //+SHIELDREFLECT
+   +FASTER
+   +LOOKALLAROUND
+   +FIXMAPTHINGPOS
+   DropItem "Clip" 256
+   DropItem "Clip" 128
+   Dropitem "Stimpack" 32
+   Dropitem "GrenadePickup" 16
+   Dropitem "Greenarmor" 8
+   DropItem "SMGGenerator" 64
+   DropItem "Uzi" 64
+   DropItem "40mmGrenades" 16
+   DropItem "CombatRifle" 4
+   DropItem "M16Masterkey" 4
+   Dropitem "PDA" 4
+   Dropitem "Reaper" 16
+   DropItem "Butchergun" 16
+   BloodType "NashGore_Blood"
+   SeeSound ""
+   AttackSound "monster/iniatk"
+   PainSound "monster/inipai"
+   DeathSound "monster/inidth"
+   ActiveSound "monster/iniact"
+   Obituary "%o couldn't discern a Mirage Knight's disguise in time." 
+   Decal BulletChip
+  States
+  {
+  Spawn:
+    MKFA A 0                                                     //
+    COL6 A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    COL6 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn") // NOT A TREE?
+    COL6 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    COL6 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn+4                                                 //
+  Spawn2:
+    COL6 A 0                                                     //
+    COL6 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn2")// NOT A TREE?
+    COL6 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    COL6 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn2+3                                                //
+  Mirage:
+    COL6 A 0 A_JumpIfInventory(Discovered,3,"See")               //
+    COL6 A 0 A_Jump(64,"MirageFire")                             //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 4 A_FaceTarget                                        // I BE A TREE
+    loop
+  MirageFire:
+    COL6 A 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    COL6 A 10 A_FaceTarget                                       //
+    COL6 A 0 A_JumpIfInventory("KnightAmmo", 10, 29)             // CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL6 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL6 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL6 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL6 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL6 A 2 A_FaceTarget                                        //
+    COL6 A 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    COL6 A 0 A_Jump(32, 2)                                       // CHANCE STOP SHOOTING
+    COL6 A 0 A_SpidReFire                                        // KEEP SHOOTING!
+    Goto MirageFire+2                                            //
+    COL6 A 0                                                     //
+    goto Mirage                                                  //
+    COL6 A 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    COL6 A 8 A_PlaySound("ZSec/DryFire")                         //
+    COL6 A 55 A_PlaySound("ZSec/Reload")                         //
+    COL6 A 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto Mirage                                                  //
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_GiveInventory("Discovered",1)                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_Pain                                              // OW!
+    goto Mirage                                                  //
+  }
+}
+
+ACTOR MirageKnightTallRedColumn : MirageKnight 22432
+{
+	//$Category Federation
+   Health 220
+   GibHealth 60
+   Radius 16
+   Height 40
+   Mass 999999
+   Speed 15
+   PainChance 50
+   PainChance "Stunner", 255
+   Species hellknight
+   MONSTER 
+   +NOTARGET
+   +DONTHURTSPECIES
+   +MISSILEMORE
+   //+REFLECTIVE
+   //+SHIELDREFLECT
+   +FASTER
+   +LOOKALLAROUND
+   +FIXMAPTHINGPOS
+   DropItem "Clip" 256
+   DropItem "Clip" 128
+   Dropitem "Stimpack" 32
+   Dropitem "GrenadePickup" 16
+   Dropitem "Greenarmor" 8
+   DropItem "SMGGenerator" 64
+   DropItem "Uzi" 64
+   DropItem "40mmGrenades" 16
+   DropItem "CombatRifle" 4
+   DropItem "M16Masterkey" 4
+   Dropitem "PDA" 4
+   Dropitem "Reaper" 16
+   DropItem "Butchergun" 16
+   BloodType "NashGore_Blood"
+   SeeSound ""
+   AttackSound "monster/iniatk"
+   PainSound "monster/inipai"
+   DeathSound "monster/inidth"
+   ActiveSound "monster/iniact"
+   Obituary "%o couldn't discern a Mirage Knight's disguise in time." 
+   Decal BulletChip
+  States
+  {
+  Spawn:
+    MKFA A 0                                                     //
+    COL3 A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    COL3 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn") // NOT A TREE?
+    COL3 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    COL3 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn+4                                                 //
+  Spawn2:
+    COL3 A 0                                                     //
+    COL3 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn2")// NOT A TREE?
+    COL3 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    COL3 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn2+3                                                //
+  Mirage:
+    COL3 A 0 A_JumpIfInventory(Discovered,3,"See")               //
+    COL3 A 0 A_Jump(64,"MirageFire")                             //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 4 A_FaceTarget                                        // I BE A TREE
+    loop
+  MirageFire:
+    COL3 A 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    COL3 A 10 A_FaceTarget                                       //
+    COL3 A 0 A_JumpIfInventory("KnightAmmo", 10, 29)             // CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL3 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL3 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL3 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL3 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL3 A 2 A_FaceTarget                                        //
+    COL3 A 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    COL3 A 0 A_Jump(32, 2)                                       // CHANCE STOP SHOOTING
+    COL3 A 0 A_SpidReFire                                        // KEEP SHOOTING!
+    Goto MirageFire+2                                            //
+    COL3 A 0                                                     //
+    goto Mirage                                                  //
+    COL3 A 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    COL3 A 8 A_PlaySound("ZSec/DryFire")                         //
+    COL3 A 55 A_PlaySound("ZSec/Reload")                         //
+    COL3 A 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto Mirage                                                  //
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_GiveInventory("Discovered",1)                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_Pain                                              // OW!
+    goto Mirage                                                  //
+  }
+}
+
+ACTOR MirageKnightStalagtite : MirageKnight 23432
+{
+	//$Category Federation
+   Health 220
+   GibHealth 60
+   Radius 16
+   Height 40
+   Mass 999999
+   Speed 15
+   PainChance 50
+   PainChance "Stunner", 255
+   Species hellknight
+   MONSTER 
+   +NOTARGET
+   +DONTHURTSPECIES
+   +MISSILEMORE
+   //+REFLECTIVE
+   //+SHIELDREFLECT
+   +FASTER
+   +LOOKALLAROUND
+   +FIXMAPTHINGPOS
+   DropItem "Clip" 256
+   DropItem "Clip" 128
+   Dropitem "Stimpack" 32
+   Dropitem "GrenadePickup" 16
+   Dropitem "Greenarmor" 8
+   DropItem "SMGGenerator" 64
+   DropItem "Uzi" 64
+   DropItem "40mmGrenades" 16
+   DropItem "CombatRifle" 4
+   DropItem "M16Masterkey" 4
+   Dropitem "PDA" 4
+   Dropitem "Reaper" 16
+   DropItem "Butchergun" 16
+   BloodType "NashGore_Blood"
+   SeeSound ""
+   AttackSound "monster/iniatk"
+   PainSound "monster/inipai"
+   DeathSound "monster/inidth"
+   ActiveSound "monster/iniact"
+   Obituary "%o couldn't discern a Mirage Knight's disguise in time." 
+   Decal BulletChip
+  States
+  {
+  Spawn:
+    MKFA A 0                                                     //
+    SMIT A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    SMIT A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn") // NOT A TREE?
+    SMIT A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    SMIT A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn+4                                                 //
+  Spawn2:
+    SMIT A 0                                                     //
+    SMIT A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn2")// NOT A TREE?
+    SMIT A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    SMIT A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn2+3                                                //
+  Mirage:
+    SMIT A 0 A_JumpIfInventory(Discovered,3,"See")               //
+    SMIT A 0 A_Jump(64,"MirageFire")                             //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 4 A_FaceTarget                                        // I BE A TREE
+    loop
+  MirageFire:
+    SMIT A 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    SMIT A 10 A_FaceTarget                                       //
+    SMIT A 0 A_JumpIfInventory("KnightAmmo", 10, 29)             // CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SMIT A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SMIT A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SMIT A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SMIT A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SMIT A 2 A_FaceTarget                                        //
+    SMIT A 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    SMIT A 0 A_Jump(32, 2)                                       // CHANCE STOP SHOOTING
+    SMIT A 0 A_SpidReFire                                        // KEEP SHOOTING!
+    Goto MirageFire+2                                            //
+    SMIT A 0                                                     //
+    goto Mirage                                                  //
+    SMIT A 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    SMIT A 8 A_PlaySound("ZSec/DryFire")                         //
+    SMIT A 55 A_PlaySound("ZSec/Reload")                         //
+    SMIT A 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto Mirage                                                  //
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_GiveInventory("Discovered",1)                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_Pain                                              // OW!
+    goto Mirage                                                  //
+  }
+}
+
+ACTOR MirageKnightTallGreenColumn : MirageKnight 24432
+{
+	//$Category Federation
+   Health 220
+   GibHealth 60
+   Radius 16
+   Height 40
+   Mass 999999
+   Speed 15
+   PainChance 50
+   PainChance "Stunner", 255
+   Species hellknight
+   MONSTER 
+   +NOTARGET
+   +DONTHURTSPECIES
+   +MISSILEMORE
+   //+REFLECTIVE
+   //+SHIELDREFLECT
+   +FASTER
+   +LOOKALLAROUND
+   +FIXMAPTHINGPOS
+   DropItem "Clip" 256
+   DropItem "Clip" 128
+   Dropitem "Stimpack" 32
+   Dropitem "GrenadePickup" 16
+   Dropitem "Greenarmor" 8
+   DropItem "SMGGenerator" 64
+   DropItem "Uzi" 64
+   DropItem "40mmGrenades" 16
+   DropItem "CombatRifle" 4
+   DropItem "M16Masterkey" 4
+   Dropitem "PDA" 4
+   Dropitem "Reaper" 16
+   DropItem "Butchergun" 16
+   BloodType "NashGore_Blood"
+   SeeSound ""
+   AttackSound "monster/iniatk"
+   PainSound "monster/inipai"
+   DeathSound "monster/inidth"
+   ActiveSound "monster/iniact"
+   Obituary "%o couldn't discern a Mirage Knight's disguise in time." 
+   Decal BulletChip
+  States
+  {
+  Spawn:
+    MKFA A 0                                                     //
+    COL1 A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    COL1 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn") // NOT A TREE?
+    COL1 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    COL1 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn+4                                                 //
+  Spawn2:
+    COL1 A 0                                                     //
+    COL1 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn2")// NOT A TREE?
+    COL1 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    COL1 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn2+3                                                //
+  Mirage:
+    COL1 A 0 A_JumpIfInventory(Discovered,3,"See")               //
+    COL1 A 0 A_Jump(64,"MirageFire")                             //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 4 A_FaceTarget                                        // I BE A TREE
+    loop
+  MirageFire:
+    COL1 A 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    COL1 A 10 A_FaceTarget                                       //
+    COL1 A 0 A_JumpIfInventory("KnightAmmo", 10, 29)             // CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL1 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL1 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL1 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL1 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL1 A 2 A_FaceTarget                                        //
+    COL1 A 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    COL1 A 0 A_Jump(32, 2)                                       // CHANCE STOP SHOOTING
+    COL1 A 0 A_SpidReFire                                        // KEEP SHOOTING!
+    Goto MirageFire+2                                            //
+    COL1 A 0                                                     //
+    goto Mirage                                                  //
+    COL1 A 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    COL1 A 8 A_PlaySound("ZSec/DryFire")                         //
+    COL1 A 55 A_PlaySound("ZSec/Reload")                         //
+    COL1 A 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto Mirage                                                  //
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_GiveInventory("Discovered",1)                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_Pain                                              // OW!
+    goto Mirage                                                  //
+  }
+}
+
+ACTOR MirageKnightShortGreenColumn : MirageKnight 25432
+{
+	//$Category Federation
+   Health 220
+   GibHealth 60
+   Radius 16
+   Height 40
+   Mass 999999
+   Speed 15
+   PainChance 50
+   PainChance "Stunner", 255
+   Species hellknight
+   MONSTER 
+   +NOTARGET
+   +DONTHURTSPECIES
+   +MISSILEMORE
+   //+REFLECTIVE
+   //+SHIELDREFLECT
+   +FASTER
+   +LOOKALLAROUND
+   +FIXMAPTHINGPOS
+   DropItem "Clip" 256
+   DropItem "Clip" 128
+   Dropitem "Stimpack" 32
+   Dropitem "GrenadePickup" 16
+   Dropitem "Greenarmor" 8
+   DropItem "SMGGenerator" 64
+   DropItem "Uzi" 64
+   DropItem "40mmGrenades" 16
+   DropItem "CombatRifle" 4
+   DropItem "M16Masterkey" 4
+   Dropitem "PDA" 4
+   Dropitem "Reaper" 16
+   DropItem "Butchergun" 16
+   BloodType "NashGore_Blood"
+   SeeSound ""
+   AttackSound "monster/iniatk"
+   PainSound "monster/inipai"
+   DeathSound "monster/inidth"
+   ActiveSound "monster/iniact"
+   Obituary "%o couldn't discern a Mirage Knight's disguise in time." 
+   Decal BulletChip
+  States
+  {
+  Spawn:
+    MKFA A 0                                                     //
+    COL2 A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    COL2 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn") // NOT A TREE?
+    COL2 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    COL2 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn+4                                                 //
+  Spawn2:
+    COL2 A 0                                                     //
+    COL2 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn2")// NOT A TREE?
+    COL2 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    COL2 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn2+3                                                //
+  Mirage:
+    COL2 A 0 A_JumpIfInventory(Discovered,3,"See")               //
+    COL2 A 0 A_Jump(64,"MirageFire")                             //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 4 A_FaceTarget                                        // I BE A TREE
+    loop
+  MirageFire:
+    COL2 A 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    COL2 A 10 A_FaceTarget                                       //
+    COL2 A 0 A_JumpIfInventory("KnightAmmo", 10, 29)             // CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL2 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL2 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL2 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	COL2 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    COL2 A 2 A_FaceTarget                                        //
+    COL2 A 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    COL2 A 0 A_Jump(32, 2)                                       // CHANCE STOP SHOOTING
+    COL2 A 0 A_SpidReFire                                        // KEEP SHOOTING!
+    Goto MirageFire+2                                            //
+    COL2 A 0                                                     //
+    goto Mirage                                                  //
+    COL2 A 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    COL2 A 8 A_PlaySound("ZSec/DryFire")                         //
+    COL2 A 55 A_PlaySound("ZSec/Reload")                         //
+    COL2 A 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto Mirage                                                  //
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_GiveInventory("Discovered",1)                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_Pain                                              // OW!
+    goto Mirage                                                  //
+  }
+}
+
+ACTOR MirageKnightShrub1 : MirageKnight 26432
+{
+	//$Category Federation
+   Health 220
+   GibHealth 60
+   Radius 16
+   Height 40
+   Mass 999999
+   Speed 15
+   PainChance 50
+   PainChance "Stunner", 255
+   Species hellknight
+   MONSTER 
+   +NOTARGET
+   +DONTHURTSPECIES
+   +MISSILEMORE
+   //+REFLECTIVE
+   //+SHIELDREFLECT
+   +FASTER
+   +LOOKALLAROUND
+   +FIXMAPTHINGPOS
+   DropItem "Clip" 256
+   DropItem "Clip" 128
+   Dropitem "Stimpack" 32
+   Dropitem "GrenadePickup" 16
+   Dropitem "Greenarmor" 8
+   DropItem "SMGGenerator" 64
+   DropItem "Uzi" 64
+   DropItem "40mmGrenades" 16
+   DropItem "CombatRifle" 4
+   DropItem "M16Masterkey" 4
+   Dropitem "PDA" 4
+   Dropitem "Reaper" 16
+   DropItem "Butchergun" 16
+   BloodType "NashGore_Blood"
+   SeeSound ""
+   AttackSound "monster/iniatk"
+   PainSound "monster/inipai"
+   DeathSound "monster/inidth"
+   ActiveSound "monster/iniact"
+   Obituary "%o couldn't discern a Mirage Knight's disguise in time." 
+   Decal BulletChip
+  States
+  {
+  Spawn:
+    MKFA A 0                                                     //
+    SHR1 A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    SHR1 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn") // NOT A TREE?
+    SHR1 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    SHR1 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn+4                                                 //
+  Spawn2:
+    SHR1 A 0                                                     //
+    SHR1 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn2")// NOT A TREE?
+    SHR1 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    SHR1 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn2+3                                                //
+  Mirage:
+    SHR1 A 0 A_JumpIfInventory(Discovered,3,"See")               //
+    SHR1 A 0 A_Jump(64,"MirageFire")                             //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 4 A_FaceTarget                                        // I BE A TREE
+    loop
+  MirageFire:
+    SHR1 A 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    SHR1 A 10 A_FaceTarget                                       //
+    SHR1 A 0 A_JumpIfInventory("KnightAmmo", 10, 29)             // CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR1 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR1 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR1 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR1 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR1 A 2 A_FaceTarget                                        //
+    SHR1 A 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    SHR1 A 0 A_Jump(32, 2)                                       // CHANCE STOP SHOOTING
+    SHR1 A 0 A_SpidReFire                                        // KEEP SHOOTING!
+    Goto MirageFire+2                                            //
+    SHR1 A 0                                                     //
+    goto Mirage                                                  //
+    SHR1 A 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    SHR1 A 8 A_PlaySound("ZSec/DryFire")                         //
+    SHR1 A 55 A_PlaySound("ZSec/Reload")                         //
+    SHR1 A 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto Mirage                                                  //
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_GiveInventory("Discovered",1)                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_Pain                                              // OW!
+    goto Mirage                                                  //
+  }
+}
+
+ACTOR MirageKnightShrub2 : MirageKnight 27432
+{
+	//$Category Federation
+   Health 220
+   GibHealth 60
+   Radius 16
+   Height 40
+   Mass 999999
+   Speed 15
+   PainChance 50
+   PainChance "Stunner", 255
+   Species hellknight
+   MONSTER 
+   +NOTARGET
+   +DONTHURTSPECIES
+   +MISSILEMORE
+   //+REFLECTIVE
+   //+SHIELDREFLECT
+   +FASTER
+   +LOOKALLAROUND
+   +FIXMAPTHINGPOS
+   DropItem "Clip" 256
+   DropItem "Clip" 128
+   Dropitem "Stimpack" 32
+   Dropitem "GrenadePickup" 16
+   Dropitem "Greenarmor" 8
+   DropItem "SMGGenerator" 64
+   DropItem "Uzi" 64
+   DropItem "40mmGrenades" 16
+   DropItem "CombatRifle" 4
+   DropItem "M16Masterkey" 4
+   Dropitem "PDA" 4
+   Dropitem "Reaper" 16
+   DropItem "Butchergun" 16
+   BloodType "NashGore_Blood"
+   SeeSound ""
+   AttackSound "monster/iniatk"
+   PainSound "monster/inipai"
+   DeathSound "monster/inidth"
+   ActiveSound "monster/iniact"
+   Obituary "%o couldn't discern a Mirage Knight's disguise in time." 
+   Decal BulletChip
+  States
+  {
+  Spawn:
+    MKFA A 0                                                     //
+    SHR2 A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    SHR2 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn") // NOT A TREE?
+    SHR2 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    SHR2 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn+4                                                 //
+  Spawn2:
+    SHR2 A 0                                                     //
+    SHR2 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn2")// NOT A TREE?
+    SHR2 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    SHR2 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn2+3                                                //
+  Mirage:
+    SHR2 A 0 A_JumpIfInventory(Discovered,3,"See")               //
+    SHR2 A 0 A_Jump(64,"MirageFire")                             //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 4 A_FaceTarget                                        // I BE A TREE
+    loop
+  MirageFire:
+    SHR2 A 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    SHR2 A 10 A_FaceTarget                                       //
+    SHR2 A 0 A_JumpIfInventory("KnightAmmo", 10, 29)             // CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR2 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR2 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR2 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR2 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR2 A 2 A_FaceTarget                                        //
+    SHR2 A 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    SHR2 A 0 A_Jump(32, 2)                                       // CHANCE STOP SHOOTING
+    SHR2 A 0 A_SpidReFire                                        // KEEP SHOOTING!
+    Goto MirageFire+2                                            //
+    SHR2 A 0                                                     //
+    goto Mirage                                                  //
+    SHR2 A 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    SHR2 A 8 A_PlaySound("ZSec/DryFire")                         //
+    SHR2 A 55 A_PlaySound("ZSec/Reload")                         //
+    SHR2 A 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto Mirage                                                  //
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_GiveInventory("Discovered",1)                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_Pain                                              // OW!
+    goto Mirage                                                  //
+  }
+}
+
+ACTOR MirageKnightShrub3 : MirageKnight 28432
+{
+	//$Category Federation
+   Health 220
+   GibHealth 60
+   Radius 16
+   Height 40
+   Mass 999999
+   Speed 15
+   PainChance 50
+   PainChance "Stunner", 255
+   Species hellknight
+   MONSTER 
+   +NOTARGET
+   +DONTHURTSPECIES
+   +MISSILEMORE
+   //+REFLECTIVE
+   //+SHIELDREFLECT
+   +FASTER
+   +LOOKALLAROUND
+   +FIXMAPTHINGPOS
+   DropItem "Clip" 256
+   DropItem "Clip" 128
+   Dropitem "Stimpack" 32
+   Dropitem "GrenadePickup" 16
+   Dropitem "Greenarmor" 8
+   DropItem "SMGGenerator" 64
+   DropItem "Uzi" 64
+   DropItem "40mmGrenades" 16
+   DropItem "CombatRifle" 4
+   DropItem "M16Masterkey" 4
+   Dropitem "PDA" 4
+   Dropitem "Reaper" 16
+   DropItem "Butchergun" 16
+   BloodType "NashGore_Blood"
+   SeeSound ""
+   AttackSound "monster/iniatk"
+   PainSound "monster/inipai"
+   DeathSound "monster/inidth"
+   ActiveSound "monster/iniact"
+   Obituary "%o couldn't discern a Mirage Knight's disguise in time." 
+   Decal BulletChip
+  States
+  {
+  Spawn:
+    MKFA A 0                                                     //
+    SHR3 A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    SHR3 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn") // NOT A TREE?
+    SHR3 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    SHR3 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn+4                                                 //
+  Spawn2:
+    SHR3 A 0                                                     //
+    SHR3 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn2")// NOT A TREE?
+    SHR3 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    SHR3 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn2+3                                                //
+  Mirage:
+    SHR3 A 0 A_JumpIfInventory(Discovered,3,"See")               //
+    SHR3 A 0 A_Jump(64,"MirageFire")                             //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 4 A_FaceTarget                                        // I BE A TREE
+    loop
+  MirageFire:
+    SHR3 A 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    SHR3 A 10 A_FaceTarget                                       //
+    SHR3 A 0 A_JumpIfInventory("KnightAmmo", 10, 29)             // CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR3 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR3 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR3 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR3 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR3 A 2 A_FaceTarget                                        //
+    SHR3 A 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    SHR3 A 0 A_Jump(32, 2)                                       // CHANCE STOP SHOOTING
+    SHR3 A 0 A_SpidReFire                                        // KEEP SHOOTING!
+    Goto MirageFire+2                                            //
+    SHR3 A 0                                                     //
+    goto Mirage                                                  //
+    SHR3 A 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    SHR3 A 8 A_PlaySound("ZSec/DryFire")                         //
+    SHR3 A 55 A_PlaySound("ZSec/Reload")                         //
+    SHR3 A 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto Mirage                                                  //
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_GiveInventory("Discovered",1)                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_Pain                                              // OW!
+    goto Mirage                                                  //
+  }
+}
+
+ACTOR MirageKnightShrub4 : MirageKnight 29432
+{
+	//$Category Federation
+   Health 220
+   GibHealth 60
+   Radius 16
+   Height 40
+   Mass 999999
+   Speed 15
+   PainChance 50
+   PainChance "Stunner", 255
+   Species hellknight
+   MONSTER 
+   +NOTARGET
+   +DONTHURTSPECIES
+   +MISSILEMORE
+   //+REFLECTIVE
+   //+SHIELDREFLECT
+   +FASTER
+   +LOOKALLAROUND
+   +FIXMAPTHINGPOS
+   DropItem "Clip" 256
+   DropItem "Clip" 128
+   Dropitem "Stimpack" 32
+   Dropitem "GrenadePickup" 16
+   Dropitem "Greenarmor" 8
+   DropItem "SMGGenerator" 64
+   DropItem "Uzi" 64
+   DropItem "40mmGrenades" 16
+   DropItem "CombatRifle" 4
+   DropItem "M16Masterkey" 4
+   Dropitem "PDA" 4
+   Dropitem "Reaper" 16
+   DropItem "Butchergun" 16
+   BloodType "NashGore_Blood"
+   SeeSound ""
+   AttackSound "monster/iniatk"
+   PainSound "monster/inipai"
+   DeathSound "monster/inidth"
+   ActiveSound "monster/iniact"
+   Obituary "%o couldn't discern a Mirage Knight's disguise in time." 
+   Decal BulletChip
+  States
+  {
+  Spawn:
+    MKFA A 0                                                     //
+    SHR4 A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    SHR4 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn") // NOT A TREE?
+    SHR4 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    SHR4 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn+4                                                 //
+  Spawn2:
+    SHR4 A 0                                                     //
+    SHR4 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn2")// NOT A TREE?
+    SHR4 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    SHR4 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn2+3                                                //
+  Mirage:
+    SHR4 A 0 A_JumpIfInventory(Discovered,3,"See")               //
+    SHR4 A 0 A_Jump(64,"MirageFire")                             //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 4 A_FaceTarget                                        // I BE A TREE
+    loop
+  MirageFire:
+    SHR4 A 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    SHR4 A 10 A_FaceTarget                                       //
+    SHR4 A 0 A_JumpIfInventory("KnightAmmo", 10, 29)             // CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR4 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR4 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR4 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR4 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR4 A 2 A_FaceTarget                                        //
+    SHR4 A 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    SHR4 A 0 A_Jump(32, 2)                                       // CHANCE STOP SHOOTING
+    SHR4 A 0 A_SpidReFire                                        // KEEP SHOOTING!
+    Goto MirageFire+2                                            //
+    SHR4 A 0                                                     //
+    goto Mirage                                                  //
+    SHR4 A 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    SHR4 A 8 A_PlaySound("ZSec/DryFire")                         //
+    SHR4 A 55 A_PlaySound("ZSec/Reload")                         //
+    SHR4 A 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto Mirage                                                  //
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_GiveInventory("Discovered",1)                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_Pain                                              // OW!
+    goto Mirage                                                  //
+  }
+}
+
+ACTOR MirageKnightShrub5 : MirageKnight 30432
+{
+	//$Category Federation
+   Health 220
+   GibHealth 60
+   Radius 16
+   Height 40
+   Mass 999999
+   Speed 15
+   PainChance 50
+   PainChance "Stunner", 255
+   Species hellknight
+   MONSTER 
+   +NOTARGET
+   +DONTHURTSPECIES
+   +MISSILEMORE
+   //+REFLECTIVE
+   //+SHIELDREFLECT
+   +FASTER
+   +LOOKALLAROUND
+   +FIXMAPTHINGPOS
+   DropItem "Clip" 256
+   DropItem "Clip" 128
+   Dropitem "Stimpack" 32
+   Dropitem "GrenadePickup" 16
+   Dropitem "Greenarmor" 8
+   DropItem "SMGGenerator" 64
+   DropItem "Uzi" 64
+   DropItem "40mmGrenades" 16
+   DropItem "CombatRifle" 4
+   DropItem "M16Masterkey" 4
+   Dropitem "PDA" 4
+   Dropitem "Reaper" 16
+   DropItem "Butchergun" 16
+   BloodType "NashGore_Blood"
+   SeeSound ""
+   AttackSound "monster/iniatk"
+   PainSound "monster/inipai"
+   DeathSound "monster/inidth"
+   ActiveSound "monster/iniact"
+   Obituary "%o couldn't discern a Mirage Knight's disguise in time." 
+   Decal BulletChip
+  States
+  {
+  Spawn:
+    MKFA A 0                                                     //
+    SHR5 A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    SHR5 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn") // NOT A TREE?
+    SHR5 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    SHR5 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn+4                                                 //
+  Spawn2:
+    SHR5 A 0                                                     //
+    SHR5 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn2")// NOT A TREE?
+    SHR5 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    SHR5 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn2+3                                                //
+  Mirage:
+    SHR5 A 0 A_JumpIfInventory(Discovered,3,"See")               //
+    SHR5 A 0 A_Jump(64,"MirageFire")                             //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 4 A_FaceTarget                                        // I BE A TREE
+    loop
+  MirageFire:
+    SHR5 A 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    SHR5 A 10 A_FaceTarget                                       //
+    SHR5 A 0 A_JumpIfInventory("KnightAmmo", 10, 29)             // CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR5 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR5 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR5 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR5 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR5 A 2 A_FaceTarget                                        //
+    SHR5 A 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    SHR5 A 0 A_Jump(32, 2)                                       // CHANCE STOP SHOOTING
+    SHR5 A 0 A_SpidReFire                                        // KEEP SHOOTING!
+    Goto MirageFire+2                                            //
+    SHR5 A 0                                                     //
+    goto Mirage                                                  //
+    SHR5 A 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    SHR5 A 8 A_PlaySound("ZSec/DryFire")                         //
+    SHR5 A 55 A_PlaySound("ZSec/Reload")                         //
+    SHR5 A 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto Mirage                                                  //
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_GiveInventory("Discovered",1)                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_Pain                                              // OW!
+    goto Mirage                                                  //
+  }
+}
+
+ACTOR MirageKnightShrub6 : MirageKnight 30532
+{
+	//$Category Federation
+   Health 220
+   GibHealth 60
+   Radius 16
+   Height 40
+   Mass 999999
+   Speed 15
+   PainChance 50
+   PainChance "Stunner", 255
+   Species hellknight
+   MONSTER 
+   +NOTARGET
+   +DONTHURTSPECIES
+   +MISSILEMORE
+   //+REFLECTIVE
+   //+SHIELDREFLECT
+   +FASTER
+   +LOOKALLAROUND
+   +FIXMAPTHINGPOS
+   DropItem "Clip" 256
+   DropItem "Clip" 128
+   Dropitem "Stimpack" 32
+   Dropitem "GrenadePickup" 16
+   Dropitem "Greenarmor" 8
+   DropItem "SMGGenerator" 64
+   DropItem "Uzi" 64
+   DropItem "40mmGrenades" 16
+   DropItem "CombatRifle" 4
+   DropItem "M16Masterkey" 4
+   Dropitem "PDA" 4
+   Dropitem "Reaper" 16
+   DropItem "Butchergun" 16
+   BloodType "NashGore_Blood"
+   SeeSound ""
+   AttackSound "monster/iniatk"
+   PainSound "monster/inipai"
+   DeathSound "monster/inidth"
+   ActiveSound "monster/iniact"
+   Obituary "%o couldn't discern a Mirage Knight's disguise in time." 
+   Decal BulletChip
+  States
+  {
+  Spawn:
+    MKFA A 0                                                     //
+    SHR6 A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    SHR6 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn") // NOT A TREE?
+    SHR6 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    SHR6 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn+4                                                 //
+  Spawn2:
+    SHR6 A 0                                                     //
+    SHR6 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn2")// NOT A TREE?
+    SHR6 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    SHR6 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn2+3                                                //
+  Mirage:
+    SHR6 A 0 A_JumpIfInventory(Discovered,3,"See")               //
+    SHR6 A 0 A_Jump(64,"MirageFire")                             //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 4 A_FaceTarget                                        // I BE A TREE
+    loop
+  MirageFire:
+    SHR6 A 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    SHR6 A 10 A_FaceTarget                                       //
+    SHR6 A 0 A_JumpIfInventory("KnightAmmo", 10, 29)             // CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR6 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR6 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR6 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR6 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR6 A 2 A_FaceTarget                                        //
+    SHR6 A 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    SHR6 A 0 A_Jump(32, 2)                                       // CHANCE STOP SHOOTING
+    SHR6 A 0 A_SpidReFire                                        // KEEP SHOOTING!
+    Goto MirageFire+2                                            //
+    SHR6 A 0                                                     //
+    goto Mirage                                                  //
+    SHR6 A 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    SHR6 A 8 A_PlaySound("ZSec/DryFire")                         //
+    SHR6 A 55 A_PlaySound("ZSec/Reload")                         //
+    SHR6 A 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto Mirage                                                  //
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_GiveInventory("Discovered",1)                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_Pain                                              // OW!
+    goto Mirage                                                  //
+  }
+}
+
+ACTOR MirageKnightShrub7 : MirageKnight 30632
+{
+	//$Category Federation
+   Health 220
+   GibHealth 60
+   Radius 16
+   Height 40
+   Mass 999999
+   Speed 15
+   PainChance 50
+   PainChance "Stunner", 255
+   Species hellknight
+   MONSTER 
+   +NOTARGET
+   +DONTHURTSPECIES
+   +MISSILEMORE
+   //+REFLECTIVE
+   //+SHIELDREFLECT
+   +FASTER
+   +LOOKALLAROUND
+   +FIXMAPTHINGPOS
+   DropItem "Clip" 256
+   DropItem "Clip" 128
+   Dropitem "Stimpack" 32
+   Dropitem "GrenadePickup" 16
+   Dropitem "Greenarmor" 8
+   DropItem "SMGGenerator" 64
+   DropItem "Uzi" 64
+   DropItem "40mmGrenades" 16
+   DropItem "CombatRifle" 4
+   DropItem "M16Masterkey" 4
+   Dropitem "PDA" 4
+   Dropitem "Reaper" 16
+   DropItem "Butchergun" 16
+   BloodType "NashGore_Blood"
+   SeeSound ""
+   AttackSound "monster/iniatk"
+   PainSound "monster/inipai"
+   DeathSound "monster/inidth"
+   ActiveSound "monster/iniact"
+   Obituary "%o couldn't discern a Mirage Knight's disguise in time." 
+   Decal BulletChip
+  States
+  {
+  Spawn:
+    MKFA A 0                                                     //
+    SHR7 A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    SHR7 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn") // NOT A TREE?
+    SHR7 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    SHR7 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn+4                                                 //
+  Spawn2:
+    SHR7 A 0                                                     //
+    SHR7 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn2")// NOT A TREE?
+    SHR7 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    SHR7 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn2+3                                                //
+  Mirage:
+    SHR7 A 0 A_JumpIfInventory(Discovered,3,"See")               //
+    SHR7 A 0 A_Jump(64,"MirageFire")                             //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 4 A_FaceTarget                                        // I BE A TREE
+    loop
+  MirageFire:
+    SHR7 A 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    SHR7 A 10 A_FaceTarget                                       //
+    SHR7 A 0 A_JumpIfInventory("KnightAmmo", 10, 29)             // CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR7 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR7 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR7 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR7 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR7 A 2 A_FaceTarget                                        //
+    SHR7 A 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    SHR7 A 0 A_Jump(32, 2)                                       // CHANCE STOP SHOOTING
+    SHR7 A 0 A_SpidReFire                                        // KEEP SHOOTING!
+    Goto MirageFire+2                                            //
+    SHR7 A 0                                                     //
+    goto Mirage                                                  //
+    SHR7 A 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    SHR7 A 8 A_PlaySound("ZSec/DryFire")                         //
+    SHR7 A 55 A_PlaySound("ZSec/Reload")                         //
+    SHR7 A 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto Mirage                                                  //
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_GiveInventory("Discovered",1)                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_Pain                                              // OW!
+    goto Mirage                                                  //
+  }
+}
+
+ACTOR MirageKnightShrub8 : MirageKnight 30732
+{
+	//$Category Federation
+   Health 220
+   GibHealth 60
+   Radius 16
+   Height 40
+   Mass 999999
+   Speed 15
+   PainChance 50
+   PainChance "Stunner", 255
+   Species hellknight
+   MONSTER 
+   +NOTARGET
+   +DONTHURTSPECIES
+   +MISSILEMORE
+   //+REFLECTIVE
+   //+SHIELDREFLECT
+   +FASTER
+   +LOOKALLAROUND
+   +FIXMAPTHINGPOS
+   DropItem "Clip" 256
+   DropItem "Clip" 128
+   Dropitem "Stimpack" 32
+   Dropitem "GrenadePickup" 16
+   Dropitem "Greenarmor" 8
+   DropItem "SMGGenerator" 64
+   DropItem "Uzi" 64
+   DropItem "40mmGrenades" 16
+   DropItem "CombatRifle" 4
+   DropItem "M16Masterkey" 4
+   Dropitem "PDA" 4
+   Dropitem "Reaper" 16
+   DropItem "Butchergun" 16
+   BloodType "NashGore_Blood"
+   SeeSound ""
+   AttackSound "monster/iniatk"
+   PainSound "monster/inipai"
+   DeathSound "monster/inidth"
+   ActiveSound "monster/iniact"
+   Obituary "%o couldn't discern a Mirage Knight's disguise in time." 
+   Decal BulletChip
+  States
+  {
+  Spawn:
+    MKFA A 0                                                     //
+    SHR8 A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    SHR8 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn") // NOT A TREE?
+    SHR8 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    SHR8 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn+4                                                 //
+  Spawn2:
+    SHR8 A 0                                                     //
+    SHR8 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn2")// NOT A TREE?
+    SHR8 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    SHR8 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn2+3                                                //
+  Mirage:
+    SHR8 A 0 A_JumpIfInventory(Discovered,3,"See")               //
+    SHR8 A 0 A_Jump(64,"MirageFire")                             //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 4 A_FaceTarget                                        // I BE A TREE
+    loop
+  MirageFire:
+    SHR8 A 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    SHR8 A 10 A_FaceTarget                                       //
+    SHR8 A 0 A_JumpIfInventory("KnightAmmo", 10, 29)             // CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR8 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR8 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR8 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR8 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR8 A 2 A_FaceTarget                                        //
+    SHR8 A 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    SHR8 A 0 A_Jump(32, 2)                                       // CHANCE STOP SHOOTING
+    SHR8 A 0 A_SpidReFire                                        // KEEP SHOOTING!
+    Goto MirageFire+2                                            //
+    SHR8 A 0                                                     //
+    goto Mirage                                                  //
+    SHR8 A 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    SHR8 A 8 A_PlaySound("ZSec/DryFire")                         //
+    SHR8 A 55 A_PlaySound("ZSec/Reload")                         //
+    SHR8 A 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto Mirage                                                  //
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_GiveInventory("Discovered",1)                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_Pain                                              // OW!
+    goto Mirage                                                  //
+  }
+}
+
+ACTOR MirageKnightShrub9 : MirageKnight 30832
+{
+	//$Category Federation
+   Health 220
+   GibHealth 60
+   Radius 16
+   Height 40
+   Mass 999999
+   Speed 15
+   PainChance 50
+   PainChance "Stunner", 255
+   Species hellknight
+   MONSTER 
+   +NOTARGET
+   +DONTHURTSPECIES
+   +MISSILEMORE
+   //+REFLECTIVE
+   //+SHIELDREFLECT
+   +FASTER
+   +LOOKALLAROUND
+   +FIXMAPTHINGPOS
+   DropItem "Clip" 256
+   DropItem "Clip" 128
+   Dropitem "Stimpack" 32
+   Dropitem "GrenadePickup" 16
+   Dropitem "Greenarmor" 8
+   DropItem "SMGGenerator" 64
+   DropItem "Uzi" 64
+   DropItem "40mmGrenades" 16
+   DropItem "CombatRifle" 4
+   DropItem "M16Masterkey" 4
+   Dropitem "PDA" 4
+   Dropitem "Reaper" 16
+   DropItem "Butchergun" 16
+   BloodType "NashGore_Blood"
+   SeeSound ""
+   AttackSound "monster/iniatk"
+   PainSound "monster/inipai"
+   DeathSound "monster/inidth"
+   ActiveSound "monster/iniact"
+   Obituary "%o couldn't discern a Mirage Knight's disguise in time." 
+   Decal BulletChip
+  States
+  {
+  Spawn:
+    MKFA A 0                                                     //
+    SHR9 A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    SHR9 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn") // NOT A TREE?
+    SHR9 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    SHR9 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn+4                                                 //
+  Spawn2:
+    SHR9 A 0                                                     //
+    SHR9 A 0 A_JumpIfInventory("Discovered",1,"DiscoveredSpawn2")// NOT A TREE?
+    SHR9 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    SHR9 A 1 A_LookEx(LOF_NOSOUNDCHECK,0,768,0,360,"Mirage")     // WHERE ARE YOU!
+    goto Spawn2+3                                                //
+  Mirage:
+    SHR9 A 0 A_JumpIfInventory(Discovered,3,"See")               //
+    SHR9 A 0 A_Jump(64,"MirageFire")                             //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 4 A_FaceTarget                                        // I BE A TREE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 4 A_FaceTarget                                        // I BE A TREE
+    loop
+  MirageFire:
+    SHR9 A 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    SHR9 A 10 A_FaceTarget                                       //
+    SHR9 A 0 A_JumpIfInventory("KnightAmmo", 10, 29)             // CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR9 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR9 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR9 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 0 A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	SHR9 A 2 A_CustomMissile("MirageTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    SHR9 A 2 A_FaceTarget                                        //
+    SHR9 A 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    SHR9 A 0 A_Jump(32, 2)                                       // CHANCE STOP SHOOTING
+    SHR9 A 0 A_SpidReFire                                        // KEEP SHOOTING!
+    Goto MirageFire+2                                            //
+    SHR9 A 0                                                     //
+    goto Mirage                                                  //
+    SHR9 A 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    SHR9 A 8 A_PlaySound("ZSec/DryFire")                         //
+    SHR9 A 55 A_PlaySound("ZSec/Reload")                         //
+    SHR9 A 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto Mirage                                                  //
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_GiveInventory("Discovered",1)                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    MKFA G 3 A_Pain                                              // OW!
+    goto Mirage                                                  //
+  }
+}

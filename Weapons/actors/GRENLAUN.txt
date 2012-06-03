@@ -1,0 +1,696 @@
+ACTOR "Grenade Launcher" : Weapon //replaces GrenadeLauncher
+{
+
+	obituary "\ca %k \cb --> Grenade Launcher --> \cc %o "
+	inventory.pickupmessage "Grenade Launcher found."
+
+	weapon.ammotype "loaded20mmGrenade"
+	weapon.ammouse 1
+	weapon.ammogive 6
+   
+	weapon.ammotype2 "20mmGrenade"
+	weapon.ammouse2 0
+	weapon.ammogive2 0
+
+	Weapon.SlotNumber 5
+	+NOALERT
+	+AMMO_OPTIONAL
+	+NOAUTOFIRE
+   
+	States
+	{
+	Spawn:
+	   GLMM A -1
+	   Stop
+
+	Select:
+       GNLA A 0 A_TakeInventory("IronSight",1)
+	   GNLA A 0 A_ZoomFactor(1,ZOOM_INSTANT)
+	   GNLA A 0 A_Raise
+	   loop
+	  
+	Ready:  // This is for show. Just the animation
+	   GNLA A 2 A_TakeInventory("Reloading",1)
+	   GNLA BCDEFGHIJKLMN 2 A_WeaponReady(WRF_NOPRIMARY)
+	   
+	ReadySwitch:
+	   GNLA N 0 A_JumpIfInventory("FireGrenG",1,"ReadyLoopG")
+	   GNLA N 0 A_JumpIfInventory("FireGrenF",1,"ReadyLoopF")
+	   GNLA N 0 A_JumpIfInventory("FireGrenI",1,"ReadyLoopI")
+	   GNLA N 0 A_JumpIfInventory("FireGrenB",1,"ReadyLoopB")
+	   GNLA N 0 A_JumpIfInventory("FireGrenS",1,"ReadyLoopS")
+	  
+	ReadyloopG:
+	   GNLA N 0 A_JumpIfInventory("FireGrenF",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("FireGrenI",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("FireGrenB",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("FireGrenS",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("Reloading",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("SpecFire",1,"Fire")
+	   GNLA N 1 A_WeaponReady
+	   GNLA N 0 A_JumpIfNoAmmo("ReloadSwitch")
+	   loop
+	   
+	ReadyloopF:
+	   GNLA N 0 A_JumpIfInventory("FireGrenG",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("FireGrenI",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("FireGrenB",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("FireGrenS",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("Reloading",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("SpecFire",1,"Fire")
+	   GNLA N 1 A_WeaponReady
+	   GNLA N 0 A_JumpIfNoAmmo("ReloadSwitch")
+	   loop
+	   
+	ReadyloopI:
+	   GNLA N 0 A_JumpIfInventory("FireGrenF",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("FireGrenG",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("FireGrenB",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("FireGrenS",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("Reloading",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("SpecFire",1,"Fire")
+	   GNLA N 1 A_WeaponReady
+	   GNLA N 0 A_JumpIfNoAmmo("ReloadSwitch")
+	   loop
+	   
+	ReadyloopB:
+	   GNLA N 0 A_JumpIfInventory("FireGrenF",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("FireGrenI",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("FireGrenG",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("FireGrenS",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("Reloading",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("SpecFire",1,"Fire")
+	   GNLA N 1 A_WeaponReady
+	   GNLA N 0 A_JumpIfNoAmmo("ReloadSwitch")
+	   loop
+	   
+	ReadyloopS:
+	   GNLA N 0 A_JumpIfInventory("FireGrenF",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("FireGrenI",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("FireGrenB",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("FireGrenG",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("Reloading",1,"ReloadSwitch")
+	   GNLA N 0 A_JumpIfInventory("SpecFire",1,"Fire")
+	   GNLA N 1 A_WeaponReady
+	   GNLA N 0 A_JumpIfNoAmmo("ReloadSwitch")
+	   loop
+	 
+	Deselect:
+	   TNT1 AAAAAAAAAA 0 A_Lower
+	  
+	DeselectLoop: // Makes sure it wraps up
+	   TNT1 A 1 A_Lower
+	   loop
+	  
+	Fire:
+      TNT1 A 0 A_JumpIfInventory("IronSight",1,"FireIron")
+	  TNT1 A 0 A_JumpIfInventory("FireGrenG",1,"FireGrenade")
+	  TNT1 A 0 A_JumpIfInventory("FireGrenF",1,"FireGrenadeFire")
+	  TNT1 A 0 A_JumpIfInventory("FireGrenI",1,"FireGrenadeIce")
+	  TNT1 A 0 A_JumpIfInventory("FireGrenB",1,"FireGrenadeBio")
+	  TNT1 A 0 A_JumpIfInventory("FireGrenS",1,"FireGrenadeShock")
+	  Goto ReadySwitch
+   
+	DryFire:
+	   GNLN R 10 A_PlayWeaponSound("dryfire")
+	   goto ReadySwitch
+   
+	AltFire:
+	   SCOP E 0 A_JumpIfInventory("IronSight",1,"AltFire2")
+       SCOP E 0 A_ZoomFactor(3.0,ZOOM_INSTANT)	
+       SCOP E 5
+       SCOP E 0 A_GiveInventory("IronSight",1)
+       SCOP E 1 A_WeaponReady(WRF_NOBOB)
+	//CLTC D 0 ACS_ExecuteAlways(602,0,0,0,0) [AKA Voltlock's accuracy adjustment script?]
+	   goto IronSightSwitch
+   
+	AltFire2:
+	   SCOP E 1 A_ZoomFactor(1.0,ZOOM_INSTANT)
+       SCOP E 1
+       SCOP E 0 A_TakeInventory("IronSight",1)
+	   GNLA N 1 A_WeaponReady(WRF_NOBOB)
+	//CLTC A 0 ACS_ExecuteAlways(602,0,0,0,0) [AKA Voltlock's accuracy adjustment script?]
+	   goto ReadySwitch
+	
+	IronSightSwitch:
+	   SCOP E 0 A_JumpIfInventory("FireGrenG",1,"IronSightG")
+	   SCOP E 0 A_JumpIfInventory("FireGrenF",1,"IronSightF")
+	   SCOP E 0 A_JumpIfInventory("FireGrenI",1,"IronSightI")
+	   SCOP E 0 A_JumpIfInventory("FireGrenB",1,"IronSightB")
+	   SCOP E 0 A_JumpIfInventory("FireGrenS",1,"IronSightS")
+	
+	IronSightG:
+	   SCOP E 0 A_JumpIfInventory("FireGrenF",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("FireGrenI",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("FireGrenB",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("FireGrenS",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("Reloading",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfNoAmmo("ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("SpecFire",1,"SpecialFireIron")
+	   SCOP E 1 A_WeaponReady(WRF_NOBOB)
+	   loop
+	   
+	IronSightF:
+	   SCOP E 0 A_JumpIfInventory("FireGrenG",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("FireGrenI",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("FireGrenB",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("FireGrenS",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("Reloading",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfNoAmmo("ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("SpecFire",1,"SpecialFireIron")
+	   SCOP E 1 A_WeaponReady(WRF_NOBOB)
+	   loop
+	   
+	IronSightI:
+	   SCOP E 0 A_JumpIfInventory("FireGrenF",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("FireGrenG",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("FireGrenB",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("FireGrenS",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("Reloading",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfNoAmmo("ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("SpecFire",1,"SpecialFireIron")
+	   SCOP E 1 A_WeaponReady(WRF_NOBOB)
+	   loop
+	   
+	IronSightB:
+	   SCOP E 0 A_JumpIfInventory("FireGrenF",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("FireGrenI",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("FireGrenG",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("FireGrenS",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("Reloading",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfNoAmmo("ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("SpecFire",1,"SpecialFireIron")
+	   SCOP E 1 A_WeaponReady(WRF_NOBOB)
+	   loop
+	   
+	IronSightS:
+	   SCOP E 0 A_JumpIfInventory("FireGrenF",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("FireGrenI",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("FireGrenB",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("FireGrenG",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("Reloading",1,"ReloadSwitch")
+	   SCOP E 0 A_JumpIfNoAmmo("ReloadSwitch")
+	   SCOP E 0 A_JumpIfInventory("SpecFire",1,"SpecialFireIron")
+	   SCOP E 1 A_WeaponReady(WRF_NOBOB)
+	   loop
+
+	FireIron:
+	  TNT1 A 0 A_TakeInventory("SpecFire",1)
+	  TNT1 A 0 A_JumpIfInventory("FireGrenG",1,"FireGrenadeIron")
+	  TNT1 A 0 A_JumpIfInventory("FireGrenF",1,"FireGrenadeFireIron")
+	  TNT1 A 0 A_JumpIfInventory("FireGrenI",1,"FireGrenadeIceIron")
+	  TNT1 A 0 A_JumpIfInventory("FireGrenB",1,"FireGrenadeBioIron")
+	  TNT1 A 0 A_JumpIfInventory("FireGrenS",1,"FireGrenadeShockIron")
+	  goto IronSightSwitch
+
+	DryIron:
+	   SCOP E 10 A_PlayWeaponSound("dryfire")
+	   goto IronSightSwitch
+
+	ReloadSwitch:
+	   TNT1 A 0 A_JumpIfInventory("FireGrenG",1,"ReloadG")
+	   TNT1 A 0 A_JumpIfInventory("FireGrenF",1,"ReloadF")
+	   TNT1 A 0 A_JumpIfInventory("FireGrenI",1,"ReloadI")
+	   TNT1 A 0 A_JumpIfInventory("FireGrenB",1,"ReloadB")
+	   TNT1 A 0 A_JumpIfInventory("FireGrenS",1,"ReloadS")
+
+	ReloadG: //This is more or less a confirm state to trigger the animation
+	   TNT1 A 0 A_JumpIfInventory("Loaded20mmGrenade",6,2)
+	   TNT1 A 0 A_JumpIfInventory("20mmGrenade",1,"ReloadAnimationG")
+	   TNT1 A 0 A_TakeInventory("Reloading",1) // Bullets = 0. RELOAD DENIED!
+	   TNT1 A 0 A_JumpIfInventory("IronSight",1,"IronHack") // Fixes a visual glitch when you have 0 total ammo
+	   goto ReadySwitch
+	   
+	ReloadF: //This is more or less a confirm state to trigger the animation
+	   TNT1 A 0 A_JumpIfInventory("Loaded20mmGrenadeFire",6,2)
+	   TNT1 A 0 A_JumpIfInventory("20mmGrenadeFire",1,"ReloadAnimationF")
+	   TNT1 A 0 A_TakeInventory("Reloading",1) // Bullets = 0. RELOAD DENIED!
+	   TNT1 A 0 A_JumpIfInventory("IronSight",1,"IronHack") // Fixes a visual glitch when you have 0 total ammo
+	   goto ReadySwitch
+	   
+	ReloadI: //This is more or less a confirm state to trigger the animation
+	   TNT1 A 0 A_JumpIfInventory("Loaded20mmGrenadeIce",6,2)
+	   TNT1 A 0 A_JumpIfInventory("20mmGrenadeIce",1,"ReloadAnimationI")
+	   TNT1 A 0 A_TakeInventory("Reloading",1) // Bullets = 0. RELOAD DENIED!
+	   TNT1 A 0 A_JumpIfInventory("IronSight",1,"IronHack") // Fixes a visual glitch when you have 0 total ammo
+	   goto ReadySwitch
+	   
+	ReloadB: //This is more or less a confirm state to trigger the animation
+	   TNT1 A 0 A_JumpIfInventory("Loaded20mmGrenadeBio",6,2)
+	   TNT1 A 0 A_JumpIfInventory("20mmGrenadeBio",1,"ReloadAnimationB")
+	   TNT1 A 0 A_TakeInventory("Reloading",1) // Bullets = 0. RELOAD DENIED!
+	   TNT1 A 0 A_JumpIfInventory("IronSight",1,"IronHack") // Fixes a visual glitch when you have 0 total ammo
+	   goto ReadySwitch
+	   
+	ReloadS: //This is more or less a confirm state to trigger the animation
+	   TNT1 A 0 A_JumpIfInventory("Loaded20mmGrenadeShock",6,2)
+	   TNT1 A 0 A_JumpIfInventory("20mmGrenadeShock",1,"ReloadAnimationS")
+	   TNT1 A 0 A_TakeInventory("Reloading",1) // Bullets = 0. RELOAD DENIED!
+	   TNT1 A 0 A_JumpIfInventory("IronSight",1,"IronHack") // Fixes a visual glitch when you have 0 total ammo
+	   goto ReadySwitch
+	   
+	IronHack: // It's so awesome, I know! :V
+		goto IronsightSwitch
+		
+	//Special Fire and all of it's mess. Requires 2 tokens: SpecFire and a grenade choice token.
+	SpecialFire:
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		TNT1 A 0 A_JumpIfInventory("FireGrenG",1,"FireGrenade")
+		TNT1 A 0 A_JumpIfInventory("FireGrenF",1,"FireGrenadeFire")
+		TNT1 A 0 A_JumpIfInventory("FireGrenI",1,"FireGrenadeIce")
+		TNT1 A 0 A_JumpIfInventory("FireGrenB",1,"FireGrenadeBio")
+		TNT1 A 0 A_JumpIfInventory("FireGrenS",1,"FireGrenadeShock")
+		goto ReadySwitch
+		
+	SpecialFireIron:
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		TNT1 A 0 A_JumpIfInventory("FireGrenG",1,"FireGrenadeIron")
+		TNT1 A 0 A_JumpIfInventory("FireGrenF",1,"FireGrenadeFireIron")
+		TNT1 A 0 A_JumpIfInventory("FireGrenI",1,"FireGrenadeIceIron")
+		TNT1 A 0 A_JumpIfInventory("FireGrenB",1,"FireGrenadeBioIron")
+		TNT1 A 0 A_JumpIfInventory("FireGrenS",1,"FireGrenadeShockIron")
+		goto IronSightSwitch
+		
+	FireGrenade:
+		TNT1 A 0 A_JumpIfInventory("Loaded20mmGrenade",1,"LaunchGrenade")
+		Goto ReadySwitch
+	LaunchGrenade:
+		TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 Radius_Quake(1,8,0,1,0)
+		GNLB A 0 A_TakeInventory("Loaded20mmGrenade",1)
+		GNLB A 2 BRIGHT A_FireCustomMissile("P20mmGrenade",0,0,8,8)
+		GNLB BCDEFGHIJKLMNOPQRSTUVWX 2
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		GNLB A 0 A_ReFire
+		Goto ReadySwitch
+		
+	FireGrenadeFire:
+		TNT1 A 0 A_JumpIfInventory("Loaded20mmGrenadeFire",1,"LaunchGrenadeFire")
+		Goto ReadySwitch
+	LaunchGrenadeFire:
+		TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 Radius_Quake(1,8,0,1,0)
+		GNLB A 0 A_TakeInventory("Loaded20mmGrenadeFire",1)
+		GNLB A 2 BRIGHT A_FireCustomMissile("P20mmGrenadeFire",0,0,8,8)
+		GNLB BCDEFGHIJKLMNOPQRSTUVWX 2
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		GNLB A 0 A_ReFire
+		Goto ReadySwitch
+		
+	FireGrenadeIce:
+		TNT1 A 0 A_JumpIfInventory("Loaded20mmGrenadeIce",1,"LaunchGrenadeIce")
+		Goto ReadySwitch
+	LaunchGrenadeIce:
+		TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 Radius_Quake(1,8,0,1,0)
+		GNLB A 0 A_TakeInventory("Loaded20mmGrenadeIce",1)
+		GNLB A 2 BRIGHT A_FireCustomMissile("P20mmGrenadeIce",0,0,8,8)
+		GNLB BCDEFGHIJKLMNOPQRSTUVWX 2
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		GNLB A 0 A_ReFire
+		Goto ReadySwitch
+		
+	FireGrenadeBio:
+		TNT1 A 0 A_JumpIfInventory("Loaded20mmGrenadeBio",1,"LaunchGrenadeBio")
+		Goto ReadySwitch
+	LaunchGrenadeBio:
+		TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 Radius_Quake(1,8,0,1,0)
+		GNLB A 0 A_TakeInventory("Loaded20mmGrenadeBio",1)
+		GNLB A 2 BRIGHT A_FireCustomMissile("P20mmGrenadeBio",0,0,8,8)
+		GNLB BCDEFGHIJKLMNOPQRSTUVWX 2
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		GNLB A 0 A_ReFire
+		Goto ReadySwitch
+		
+	FireGrenadeShock:
+		TNT1 A 0 A_JumpIfInventory("Loaded20mmGrenadeShock",1,"LaunchGrenadeShock")
+		Goto ReadySwitch
+	LaunchGrenadeShock:
+		TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 Radius_Quake(1,8,0,1,0)
+		GNLB A 0 A_TakeInventory("Loaded20mmGrenadeShock",1)
+		GNLB A 2 BRIGHT A_FireCustomMissile("P20mmGrenadeShock",0,0,8,8)
+		GNLB BCDEFGHIJKLMNOPQRSTUVWX 2
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		GNLB A 0 A_ReFire
+		Goto ReadySwitch
+	
+	// Grenade Iron
+	
+	FireGrenadeIron:
+		TNT1 A 0 A_JumpIfInventory("Loaded20mmGrenade",1,"LaunchGrenadeIron")
+		Goto IronSightSwitch
+	LaunchGrenadeIron:
+		TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 Radius_Quake(1,8,0,1,0)
+		SCOP A 0 A_TakeInventory("Loaded20mmGrenade",1)
+		SCOP E 2 BRIGHT A_FireCustomMissile("P20mmGrenade",0,0,8,8)
+		SCOP EEEEEEEEEEEEEEEEEEEEEEE 2
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		SCOP A 0 A_ReFire
+		Goto IronSightSwitch
+		
+	FireGrenadeFireIron:
+		TNT1 A 0 A_JumpIfInventory("Loaded20mmGrenadeFire",1,"LaunchGrenadeFireIron")
+		Goto IronSightSwitch
+	LaunchGrenadeFireIron:
+		TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 Radius_Quake(1,8,0,1,0)
+		SCOP A 0 A_TakeInventory("Loaded20mmGrenadeFire",1)
+		SCOP E 2 BRIGHT A_FireCustomMissile("P20mmGrenadeFire",0,0,8,8)
+		SCOP EEEEEEEEEEEEEEEEEEEEEEE 2
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		SCOP A 0 A_ReFire
+		Goto IronSightSwitch
+		
+	FireGrenadeIceIron:
+		TNT1 A 0 A_JumpIfInventory("Loaded20mmGrenadeIce",1,"LaunchGrenadeIceIron")
+		Goto IronSightSwitch
+	LaunchGrenadeIceIron:
+		TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 Radius_Quake(1,8,0,1,0)
+		SCOP A 0 A_TakeInventory("Loaded20mmGrenadeIce",1)
+		SCOP E 2 BRIGHT A_FireCustomMissile("P20mmGrenadeIce",0,0,8,8)
+		SCOP EEEEEEEEEEEEEEEEEEEEEEE 2
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		SCOP A 0 A_ReFire
+		Goto IronSightSwitch
+		
+	FireGrenadeBioIron:
+		TNT1 A 0 A_JumpIfInventory("Loaded20mmGrenadeBio",1,"LaunchGrenadeBioIron")
+		Goto IronSightSwitch
+	LaunchGrenadeBioIron:
+		TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 Radius_Quake(1,8,0,1,0)
+		SCOP A 0 A_TakeInventory("Loaded20mmGrenadeBio",1)
+		SCOP E 2 BRIGHT A_FireCustomMissile("P20mmGrenadeBio",0,0,8,8)
+		SCOP EEEEEEEEEEEEEEEEEEEEEEE 2
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		SCOP A 0 A_ReFire
+		Goto IronSightSwitch
+		
+	FireGrenadeShockIron:
+		TNT1 A 0 A_JumpIfInventory("Loaded20mmGrenadeShock",1,"LaunchGrenadeShockIron")
+		Goto IronSightSwitch
+	LaunchGrenadeShockIron:
+		TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 Radius_Quake(1,8,0,1,0)
+		SCOP A 0 A_TakeInventory("Loaded20mmGrenadeShock",1)
+		SCOP E 2 BRIGHT A_FireCustomMissile("P20mmGrenadeShock",0,0,8,8)
+		SCOP EEEEEEEEEEEEEEEEEEEEEEE 2
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		SCOP A 0 A_ReFire
+		Goto IronSightSwitch
+	  
+	ReloadAnimationG:
+	   GNLC A 0 A_TakeInventory("IronSight",1)
+	   GNLC A 0 A_ZoomFactor(1.0)
+	   GNLC AUVWXYZ 3 A_WeaponReady(WRF_NOFIRE)
+	   GNLD A 0 A_PlaySoundEx("357_R1","SoundSlot5")
+	   GNLD ABCDEFGHIJKLMNOPQRSTUVWXYZ 3 A_WeaponReady(WRF_NOFIRE)
+	   GNLE AB 2 A_WeaponReady(WRF_NOFIRE)
+	   goto ReloadStoreGG
+	   
+	ReloadStoreGG:
+	   GNLE C 0 A_JumpIfInventory("loaded20mmGrenade",1,1)
+	   goto ReloadStoreGF
+	   GNLE C 0 A_TakeInventory("loaded20mmGrenade",1)
+	   GNLE C 0 A_GiveInventory("20mmGrenade",1)
+	   loop
+	   
+	ReloadStoreGF:
+	   GNLE C 0 A_JumpIfInventory("loaded20mmGrenadeFire",1,1)
+	   goto ReloadStoreGI
+	   GNLE C 0 A_TakeInventory("loaded20mmGrenadeFire",1)
+	   GNLE C 0 A_GiveInventory("20mmGrenadeFire",1)
+	   loop
+	   
+	ReloadStoreGI:
+	   GNLE C 0 A_JumpIfInventory("loaded20mmGrenadeIce",1,1)
+	   goto ReloadStoreGB
+	   GNLE C 0 A_TakeInventory("loaded20mmGrenadeIce",1)
+	   GNLE C 0 A_GiveInventory("20mmGrenadeIce",1)
+	   loop
+	   
+	ReloadStoreGB:
+	   GNLE C 0 A_JumpIfInventory("loaded20mmGrenadeBio",1,1)
+	   goto ReloadStoreGS
+	   GNLE C 0 A_TakeInventory("loaded20mmGrenadeBio",1)
+	   GNLE C 0 A_GiveInventory("20mmGrenadeBio",1)
+	   loop
+	   
+	ReloadStoreGS:
+	   GNLE C 0 A_JumpIfInventory("loaded20mmGrenadeShock",1,1)
+	   goto ReloadAmmoG
+	   GNLE C 0 A_TakeInventory("loaded20mmGrenadeShock",1)
+	   GNLE C 0 A_GiveInventory("20mmGrenadeShock",1)
+	   loop
+      
+	ReloadAmmoG: // at this point animation wraps up and ammo is displayed
+	   GNLE C 0 A_GiveInventory("loaded20mmGrenade",1)
+	   GNLE C 0 A_TakeInventory("20mmGrenade",1)
+	   GNLE C 0 A_JumpIfInventory("loaded20mmGrenade",6,"ReloadEndG")
+	   GNLE C 0 A_JumpIfInventory("20mmGrenade",1,"ReloadAmmoG")
+	   goto ReloadEndG
+	  
+	ReloadEndG:
+	   TNT1 A 0 A_TakeInventory("Reloading",1)
+	   GNLE C 3 A_PlaySoundEx("357_R3","SoundSlot5")
+	   GNLE DE 3 A_WeaponReady(WRF_NOFIRE)
+	   TNT1 A 0 A_ReFire
+	   goto ReadySwitch
+	  
+	ReloadAnimationF:
+	   GNLC A 0 A_TakeInventory("IronSight",1)
+	   GNLC A 0 A_ZoomFactor(1.0)
+	   GNLC AUVWXYZ 3 A_WeaponReady(WRF_NOFIRE)
+	   GNLD A 0 A_PlaySoundEx("357_R1","SoundSlot5")
+	   GNLD ABCDEFGHIJKLMNOPQRSTUVWXYZ 3 A_WeaponReady(WRF_NOFIRE)
+	   GNLE AB 2 A_WeaponReady(WRF_NOFIRE)
+	   goto ReloadStoreFG
+	   
+	ReloadStoreFG:
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenade",1,1)
+	   goto ReloadStoreFF
+	   GNLN W 0 A_TakeInventory("loaded20mmGrenade",1)
+	   GNLN W 0 A_GiveInventory("20mmGrenade",1)
+	   loop
+	   
+	ReloadStoreFF:
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenadeFire",1,1)
+	   goto ReloadStoreFI
+	   GNLN W 0 A_TakeInventory("loaded20mmGrenadeFire",1)
+	   GNLN W 0 A_GiveInventory("20mmGrenadeFire",1)
+	   loop
+	   
+	ReloadStoreFI:
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenadeIce",1,1)
+	   goto ReloadStoreFB
+	   GNLN W 0 A_TakeInventory("loaded20mmGrenadeIce",1)
+	   GNLN W 0 A_GiveInventory("20mmGrenadeIce",1)
+	   loop
+	   
+	ReloadStoreFB:
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenadeBio",1,1)
+	   goto ReloadStoreFS
+	   GNLN W 0 A_TakeInventory("loaded20mmGrenadeBio",1)
+	   GNLN W 0 A_GiveInventory("20mmGrenadeBio",1)
+	   loop
+	   
+	ReloadStoreFS:
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenadeShock",1,1)
+	   goto ReloadAmmoF
+	   GNLN W 0 A_TakeInventory("loaded20mmGrenadeShock",1)
+	   GNLN W 0 A_GiveInventory("20mmGrenadeShock",1)
+	   loop
+      
+	ReloadAmmoF: // at this point animation wraps up and ammo is displayed
+	   GNLN W 0 A_GiveInventory("loaded20mmGrenadeFire",1)
+	   GNLN W 0 A_TakeInventory("20mmGrenadeFire",1)
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenadeFire",6,"ReloadEndF")
+	   GNLN W 0 A_JumpIfInventory("20mmGrenadeFire",1,"ReloadAmmoF")
+	   goto ReloadEndF
+	  
+	ReloadEndF:
+	   TNT1 A 0 A_TakeInventory("Reloading",1)
+	   GNLE C 3 A_PlaySoundEx("357_R3","SoundSlot5")
+	   GNLE DE 3 A_WeaponReady(WRF_NOFIRE)
+	   TNT1 A 0 A_ReFire
+	   goto ReadySwitch
+	  
+	ReloadAnimationI:
+	   GNLC A 0 A_TakeInventory("IronSight",1)
+	   GNLC A 0 A_ZoomFactor(1.0)
+	   GNLC AUVWXYZ 3 A_WeaponReady(WRF_NOFIRE)
+	   GNLD A 0 A_PlaySoundEx("357_R1","SoundSlot5")
+	   GNLD ABCDEFGHIJKLMNOPQRSTUVWXYZ 3 A_WeaponReady(WRF_NOFIRE)
+	   GNLE AB 2 A_WeaponReady(WRF_NOFIRE)
+	   goto ReloadStoreIG
+	   
+	ReloadStoreIG:
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenade",1,1)
+	   goto ReloadStoreIF
+	   GNLN W 0 A_TakeInventory("loaded20mmGrenade",1)
+	   GNLN W 0 A_GiveInventory("20mmGrenade",1)
+	   loop
+	   
+	ReloadStoreIF:
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenadeFire",1,1)
+	   goto ReloadStoreII
+	   GNLN W 0 A_TakeInventory("loaded20mmGrenadeFire",1)
+	   GNLN W 0 A_GiveInventory("20mmGrenadeFire",1)
+	   loop
+	   
+	ReloadStoreII:
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenadeIce",1,1)
+	   goto ReloadStoreIB
+	   GNLN W 0 A_TakeInventory("loaded20mmGrenadeIce",1)
+	   GNLN W 0 A_GiveInventory("20mmGrenadeIce",1)
+	   loop
+	   
+	ReloadStoreIB:
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenadeBio",1,1)
+	   goto ReloadStoreIS
+	   GNLN W 0 A_TakeInventory("loaded20mmGrenadeBio",1)
+	   GNLN W 0 A_GiveInventory("20mmGrenadeBio",1)
+	   loop
+	   
+	ReloadStoreIS:
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenadeShock",1,1)
+	   goto ReloadAmmoI
+	   GNLN W 0 A_TakeInventory("loaded20mmGrenadeShock",1)
+	   GNLN W 0 A_GiveInventory("20mmGrenadeShock",1)
+	   loop
+      
+	ReloadAmmoI: // at this point animation wraps up and ammo is displayed
+	   GNLN W 0 A_GiveInventory("loaded20mmGrenadeIce",1)
+	   GNLN W 0 A_TakeInventory("20mmGrenadeIce",1)
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenadeIce",6,"ReloadEndI")
+	   GNLN W 0 A_JumpIfInventory("20mmGrenadeIce",1,"ReloadAmmoI")
+	   goto ReloadEndI
+	  
+	ReloadEndI:
+	   TNT1 A 0 A_TakeInventory("Reloading",1)
+	   GNLE C 3 A_PlaySoundEx("357_R3","SoundSlot5")
+	   GNLE DE 3 A_WeaponReady(WRF_NOFIRE)
+	   TNT1 A 0 A_ReFire
+	   goto ReadySwitch
+	  
+	ReloadAnimationB:
+	   GNLC A 0 A_TakeInventory("IronSight",1)
+	   GNLC A 0 A_ZoomFactor(1.0)
+	   GNLC AUVWXYZ 3 A_WeaponReady(WRF_NOFIRE)
+	   GNLD A 0 A_PlaySoundEx("357_R1","SoundSlot5")
+	   GNLD ABCDEFGHIJKLMNOPQRSTUVWXYZ 3 A_WeaponReady(WRF_NOFIRE)
+	   GNLE AB 2 A_WeaponReady(WRF_NOFIRE)
+	   goto ReloadStoreBG
+	   
+	ReloadStoreBG:
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenade",1,1)
+	   goto ReloadStoreBF
+	   GNLN W 0 A_TakeInventory("loaded20mmGrenade",1)
+	   GNLN W 0 A_GiveInventory("20mmGrenade",1)
+	   loop
+	   
+	ReloadStoreBF:
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenadeFire",1,1)
+	   goto ReloadStoreBI
+	   GNLN W 0 A_TakeInventory("loaded20mmGrenadeFire",1)
+	   GNLN W 0 A_GiveInventory("20mmGrenadeFire",1)
+	   loop
+	   
+	ReloadStoreBI:
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenadeIce",1,1)
+	   goto ReloadStoreBB
+	   GNLN W 0 A_TakeInventory("loaded20mmGrenadeIce",1)
+	   GNLN W 0 A_GiveInventory("20mmGrenadeIce",1)
+	   loop
+	   
+	ReloadStoreBB:
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenadeBio",1,1)
+	   goto ReloadStoreBS
+	   GNLN W 0 A_TakeInventory("loaded20mmGrenadeBio",1)
+	   GNLN W 0 A_GiveInventory("20mmGrenadeBio",1)
+	   loop
+	   
+	ReloadStoreBS:
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenadeShock",1,1)
+	   goto ReloadAmmoB
+	   GNLN W 0 A_TakeInventory("loaded20mmGrenadeShock",1)
+	   GNLN W 0 A_GiveInventory("20mmGrenadeShock",1)
+	   loop
+      
+	ReloadAmmoB: // at this point animation wraps up and ammo is displayed
+	   GNLN W 0 A_GiveInventory("loaded20mmGrenadeBio",1)
+	   GNLN W 0 A_TakeInventory("20mmGrenadeBio",1)
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenadeBio",6,"ReloadEndB")
+	   GNLN W 0 A_JumpIfInventory("20mmGrenadeBio",1,"ReloadAmmoB")
+	   goto ReloadEndB
+	  
+	ReloadEndB:
+	   TNT1 A 0 A_TakeInventory("Reloading",1)
+	   GNLE C 3 A_PlaySoundEx("357_R3","SoundSlot5")
+	   GNLE DE 3 A_WeaponReady(WRF_NOFIRE)
+	   TNT1 A 0 A_ReFire
+	   goto ReadySwitch
+	  
+	ReloadAnimationS:
+	   GNLC A 0 A_TakeInventory("IronSight",1)
+	   GNLC A 0 A_ZoomFactor(1.0)
+	   GNLC AUVWXYZ 3 A_WeaponReady(WRF_NOFIRE)
+	   GNLD A 0 A_PlaySoundEx("357_R1","SoundSlot5")
+	   GNLD ABCDEFGHIJKLMNOPQRSTUVWXYZ 3 A_WeaponReady(WRF_NOFIRE)
+	   GNLE AB 2 A_WeaponReady(WRF_NOFIRE)
+	   goto ReloadStoreSG
+	   
+	ReloadStoreSG:
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenade",1,1)
+	   goto ReloadStoreSF
+	   GNLN W 0 A_TakeInventory("loaded20mmGrenade",1)
+	   GNLN W 0 A_GiveInventory("20mmGrenade",1)
+	   loop
+	   
+	ReloadStoreSF:
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenadeFire",1,1)
+	   goto ReloadStoreSI
+	   GNLN W 0 A_TakeInventory("loaded20mmGrenadeFire",1)
+	   GNLN W 0 A_GiveInventory("20mmGrenadeFire",1)
+	   loop
+	   
+	ReloadStoreSI:
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenadeIce",1,1)
+	   goto ReloadStoreSB
+	   GNLN W 0 A_TakeInventory("loaded20mmGrenadeIce",1)
+	   GNLN W 0 A_GiveInventory("20mmGrenadeIce",1)
+	   loop
+	   
+	ReloadStoreSB:
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenadeBio",1,1)
+	   goto ReloadStoreSS
+	   GNLN W 0 A_TakeInventory("loaded20mmGrenadeBio",1)
+	   GNLN W 0 A_GiveInventory("20mmGrenadeBio",1)
+	   loop
+	   
+	ReloadStoreSS:
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenadeShock",1,1)
+	   goto ReloadAmmoS
+	   GNLN W 0 A_TakeInventory("loaded20mmGrenadeShock",1)
+	   GNLN W 0 A_GiveInventory("20mmGrenadeShock",1)
+	   loop
+      
+	ReloadAmmoS: // at this point animation wraps up and ammo is displayed
+	   GNLN W 0 A_GiveInventory("loaded20mmGrenadeBio",1)
+	   GNLN W 0 A_TakeInventory("20mmGrenadeShock",1)
+	   GNLN W 0 A_JumpIfInventory("loaded20mmGrenadeBio",6,"ReloadEndS")
+	   GNLN W 0 A_JumpIfInventory("20mmGrenadeShock",1,"ReloadAmmoS")
+	   goto ReloadEndS
+	  
+	ReloadEndS:
+	   TNT1 A 0 A_TakeInventory("Reloading",1)
+	   GNLE C 3 A_PlaySoundEx("357_R3","SoundSlot5")
+	   GNLE DE 3 A_WeaponReady(WRF_NOFIRE)
+	   TNT1 A 0 A_ReFire
+	   goto ReadySwitch
+  }
+}

@@ -1,0 +1,43 @@
+//Ammo
+#include "actors/AMMO.txt"
+
+//Weapons
+//#include "actors/Knife.txt"
+#include "actors/WAKIZASH.txt"
+
+#include "actors/M9P.txt"
+#include "actors/RAGEBULL.txt"
+#include "actors/DEAGLE.txt"
+
+#include "actors/MP7.txt"
+#include "actors/MP5.txt"
+#include "actors/M4C.txt"
+
+#include "actors/SPAS12.txt"
+//#include "actors/JACKHAMR.txt" Should we remove this one? The model's kinda crap.
+#include "actors/DBLBSHOT.txt"
+
+#include "actors/GRENLAUN.txt"
+#include "actors/RPG.txt"
+#include "actors/GRENADE.txt"
+
+
+#include "actors/OICW.txt"
+//#include "actors/JUSTIGUN.txt"
+#include "actors/BSR.txt"
+
+#include "actors/FLAMETHR.txt"
+#include "actors/FREEZECA.txt"
+//#include "actors/PULSEGUN.txt"
+#include "actors/MINIGUN.txt"
+
+//Projectiles and Special effects
+#include "actors/PROJCTLE.txt"
+#include "actors/SEFFECTS.txt"
+
+//Misc
+#include "actors/TOKENS.txt"
+#include "actors/BULLETPU.txt"
+#include "actors/DUSTSMOK.txt"
+#include "actors/FEDPLAYR.txt"
+#include "actors/TRACERS.txt"

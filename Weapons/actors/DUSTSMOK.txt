@@ -1,0 +1,580 @@
+/*actor dirtysmokebomb
+{
+//Scale 0.25
+speed 0//1
+radius 6
+height 1
+damage 0
+//gravity 0.85
+PROJECTILE
++RIPPER
+-NOGRAVITY
+states
+{
+Spawn:
+TNT1 A 0
+TNT1 A 1
+loop
+Death:
+TNT1 A 1 A_SpawnItem("dirtysmokespawner2")
+//TNT1 AAAAAAAAAA 2 A_CustomMissile("dirtysmoke9",0,0,random(0,359),2,random(22,90))
+stop
+}
+}
+
+actor dirtysmoke
+{
+Scale 2.5
+renderstyle translucent
+alpha 0.30
++NOGRAVITY
++NOCLIP
++CLIENTSIDEONLY
+states
+{
+Spawn:
+FDDG A 0
+FDDG A 0 A_Jump(255,"1","2","3","4","5","6","7","8","9","10")
+stop
+1:
+FDDG A 0 A_FadeOut(0.25)
+FDDG A 70
+goto FadeOut
+2:
+FDDG A 0 A_FadeOut(0.25)
+FDDG A 75
+goto FadeOut
+3:
+FDDG A 0 A_FadeOut(0.25)
+FDDG A 80
+goto FadeOut
+4:
+FDDG A 0 A_FadeOut(0.25)
+FDDG A 85
+goto FadeOut
+5:
+FDDG A 0  A_FadeOut(0.25)
+FDDG A 90
+goto FadeOut
+6:
+FDDG A 0 A_FadeOut(0.25)
+FDDG A 95
+goto FadeOut
+7:
+FDDG A 0 A_FadeOut(0.25)
+FDDG A 100
+goto FadeOut
+8:
+FDDG A 0 A_FadeOut(0.25)
+FDDG A 105
+goto FadeOut
+9:
+FDDG A 0 A_FadeOut(0.25)
+FDDG A 110
+goto FadeOut
+10:
+FDDG A 0 A_FadeOut(0.25)
+FDDG A 115
+goto FadeOut
+FadeOut:
+FDDG A 1 A_FadeOut(0.005)
+loop
+}
+}
+
+actor dirtygravsmoke : dirtysmoke
+{
+radius 1
+height 1
+PROJECTILE
++NOGRAVITY //-NOGRAVITY
+//+FLOORHUGGER
++CLIENTSIDEONLY
+}
+
+actor dirtysmoke1
+{
+Scale 1.1
+speed 25
+renderstyle translucent
+alpha 0.30
+PROJECTILE
++NOGRAVITY
++NOCLIP
++CLIENTSIDEONLY
+states
+{
+Spawn:
+TNT1 A 0
+FDDG A 1
+TNT1 A 0 A_SpawnItem("dirtysmoke")
+stop
+}
+}
+
+actor dirtysmoke2 : dirtysmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDDG A 1
+TNT1 A 0 A_SpawnItem("dirtysmoke")
+stop
+}
+}
+
+actor dirtysmoke3 : dirtysmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDDG A 1
+TNT1 A 0 A_SpawnItem("dirtysmoke")
+stop
+}
+}
+
+actor dirtysmoke4 : dirtysmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDDG A 2
+TNT1 A 0 A_SpawnItem("dirtysmoke")
+stop
+}
+}
+
+actor dirtysmoke5 : dirtysmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDDG A 2
+TNT1 A 0 A_SpawnItem("dirtysmoke")
+stop
+}
+}
+
+actor dirtysmoke6 : dirtysmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDDG A 2
+TNT1 A 0 A_SpawnItem("dirtysmoke")
+stop
+}
+}
+
+actor dirtysmoke7 : dirtysmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDDG A 3
+TNT1 A 0 A_SpawnItem("dirtysmoke")
+stop
+}
+}
+
+actor dirtysmoke8 : dirtysmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDDG A 3
+TNT1 A 0 A_SpawnItem("dirtysmoke")
+stop
+}
+}
+
+actor dirtysmoke9 : dirtysmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDDG A 3
+TNT1 A 0 A_SpawnItem("dirtysmoke")
+stop
+}
+}
+
+actor dirtysmoke888 : dirtysmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDDG A 2
+TNT1 A 0 A_SpawnItem("dirtygravsmoke")
+FDDG A 2
+TNT1 A 0 A_SpawnItem("dirtygravsmoke")
+FDDG A 2
+TNT1 A 0 A_SpawnItem("dirtygravsmoke")
+FDDG A 2
+TNT1 A 0 A_SpawnItem("dirtygravsmoke")
+stop
+}
+}
+
+actor dirtysmokespawner
+{
++CLIENTSIDEONLY
++NOGRAVITY
+states
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_Jump(255,"Spawn1","Spawn2")
+Spawn1:
+TNT1 A 0
+TNT1 A 0 A_CustomMissile("dirtysmoke1",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("dirtysmoke3",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("dirtysmoke5",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("dirtysmoke7",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("dirtysmoke888",0,0,0,2,-15)
+stop
+Spawn2:
+TNT1 A 0
+TNT1 A 0 A_CustomMissile("dirtysmoke2",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("dirtysmoke4",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("dirtysmoke6",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("dirtysmoke8",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("dirtysmoke888",0,0,0,2,-15)
+stop
+}
+}
+
+actor dirtysmokespawner2
+{
++CLIENTSIDEONLY
++NOGRAVITY
+states
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, 0, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, 30, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, 60, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, 90, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, 120, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, 150, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, 180, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, -30, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, -60, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, -90, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, -120, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, -150, 128, 0)
+stop
+}
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*actor icesmokebomb
+{
+//Scale 0.25
+speed 15
+radius 6
+height 1
+damage 0
+gravity 0.85
+PROJECTILE
++RIPPER
+-NOGRAVITY
+translation "48:79=80:111", "112:255=80:111"
+states
+{
+Spawn:
+TNT1 A 0
+TNT1 A 1 A_PlaySound("items/sbombf")
+loop
+Death:
+TNT1 A 0 A_Playsound("items/sbombx")
+TNT1 A 1 A_SpawnItem("icesmokespawner2")
+GRND A 0 A_PlaySound("items/sbombs")
+TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 2 A_CustomMissile("icesmoke9",0,0,random(0,359),2,random(22,90))
+stop
+}
+}
+
+actor icesmoke
+{
+Scale 5
+obituary "%o was blasted by a wave of ice."
+renderstyle translucent
+alpha 0.30
+//damage 10
+//DamageType Ice
++NOGRAVITY
+//+RIPPER
+//+NOCLIP
++CLIENTSIDEONLY
+states
+{
+Spawn:
+FDIG A 0
+FDIG A 0 A_Jump(255,"1","2","3","4","5","6","7","8","9","10")
+stop
+1:
+FDIG A 0 A_FadeOut(0.25)
+FDIG A 70
+goto FadeOut
+2:
+FDIG A 0 A_FadeOut(0.25)
+FDIG A 75
+goto FadeOut
+3:
+FDIG A 0 A_FadeOut(0.25)
+FDIG A 80
+goto FadeOut
+4:
+FDIG A 0 A_FadeOut(0.25)
+FDIG A 85
+goto FadeOut
+5:
+FDIG A 0  A_FadeOut(0.25)
+FDIG A 90
+goto FadeOut
+6:
+FDIG A 0 A_FadeOut(0.25)
+FDIG A 95
+goto FadeOut
+7:
+FDIG A 0 A_FadeOut(0.25)
+FDIG A 100
+goto FadeOut
+8:
+FDIG A 0 A_FadeOut(0.25)
+FDIG A 105
+goto FadeOut
+9:
+FDIG A 0 A_FadeOut(0.25)
+FDIG A 110
+goto FadeOut
+10:
+FDIG A 0 A_FadeOut(0.25)
+FDIG A 115
+goto FadeOut
+FadeOut:
+FDIG A 1 A_FadeOut(0.005)
+loop
+}
+}
+
+actor icegravsmoke : icesmoke
+{
+radius 1
+height 1
+PROJECTILE
+-NOGRAVITY
++FLOORHUGGER
++CLIENTSIDEONLY
+}
+
+actor icesmoke1
+{
+Scale 2.2
+speed 25
+renderstyle translucent
+alpha 0.30
+//damage 10
+//DamageType Ice
+PROJECTILE
++NOGRAVITY
+//+NOCLIP
++CLIENTSIDEONLY
+states
+{
+Spawn:
+TNT1 A 0
+FDIG A 1
+TNT1 A 0 A_SpawnItem("icesmoke")
+stop
+}
+}
+
+actor icesmoke2 : icesmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDIG A 2
+TNT1 A 0 A_SpawnItem("icesmoke")
+stop
+}
+}
+
+actor icesmoke3 : icesmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDIG A 3
+TNT1 A 0 A_SpawnItem("icesmoke")
+stop
+}
+}
+
+actor icesmoke4 : icesmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDIG A 4
+TNT1 A 0 A_SpawnItem("icesmoke")
+stop
+}
+}
+
+actor icesmoke5 : icesmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDIG A 5
+TNT1 A 0 A_SpawnItem("icesmoke")
+stop
+}
+}
+
+actor icesmoke6 : icesmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDIG A 6
+TNT1 A 0 A_SpawnItem("icesmoke")
+stop
+}
+}
+
+actor icesmoke7 : icesmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDIG A 7
+TNT1 A 0 A_SpawnItem("icesmoke")
+stop
+}
+}
+
+actor icesmoke8 : icesmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDIG A 8
+TNT1 A 0 A_SpawnItem("icesmoke")
+stop
+}
+}
+
+actor icesmoke9 : icesmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDIG A 11
+TNT1 A 0 A_SpawnItem("icesmoke")
+stop
+}
+}
+
+actor icesmoke888 : icesmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDIG A 2
+TNT1 A 0 A_SpawnItem("icegravsmoke")
+FDIG A 2
+TNT1 A 0 A_SpawnItem("icegravsmoke")
+FDIG A 2
+TNT1 A 0 A_SpawnItem("icegravsmoke")
+FDIG A 2
+TNT1 A 0 A_SpawnItem("icegravsmoke")
+stop
+}
+}
+
+actor icesmokespawner
+{
++CLIENTSIDEONLY
+states
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_Jump(255,"Spawn1","Spawn2")
+Spawn1:
+TNT1 A 0
+TNT1 A 0 A_CustomMissile("icesmoke1",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("icesmoke3",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("icesmoke5",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("icesmoke7",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("icesmoke888",0,0,0,2,-15)
+stop
+Spawn2:
+TNT1 A 0
+TNT1 A 0 A_CustomMissile("icesmoke2",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("icesmoke4",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("icesmoke6",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("icesmoke8",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("icesmoke888",0,0,0,2,-15)
+stop
+}
+}
+
+actor icesmokespawner2
+{
++CLIENTSIDEONLY
+states
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, 0, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, 30, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, 60, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, 90, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, 120, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, 150, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, 180, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, -30, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, -60, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, -90, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, -120, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, -150, 128, 0)
+stop
+}
+}*/

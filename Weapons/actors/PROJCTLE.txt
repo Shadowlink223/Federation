@@ -1,0 +1,86 @@
+
+// you can play with these values if you want min. I'm more worried bout the states. ~Avi
+
+actor P20mmGrenade
+{
+  obituary "%k >> 20mm Grenade >> %o ."
+  radius 5
+  height 5
+  speed 45
+  damage (45)
+  SeeSound "RPG/MissileLaunch"
+  PROJECTILE
+  -NOGRAVITY
+  +RANDOMIZE
+  +ROCKETTRAIL
+  +FORCERADIUSDMG
+  +CANBOUNCEWATER
+  -NOTELEPORT
+  Scale 0.1
+  gravity 0.4
+  bouncefactor 0.5
+  DamageType "Explosion"
+  states
+  {
+  
+  Spawn:
+    G20M A 1
+    Loop
+  Death:
+    TNT1 A 0 
+    TNT1 A 0 A_AlertMonsters
+	TNT1 A 0 A_CustomMissile("dirtysmokebomb",0,0,0)
+    TNT1 A 0 A_SpawnItemEx("Explosion",0,0,1,0,0,0,0,0,0)
+	TNT1 A 0 A_PlaySound("Grenade/Explode",CHAN_AUTO)
+    stop
+  }
+}
+
+Actor P20mmGrenadeFire : P20mmGrenade {
+  DamageType "Fire2"
+	States {
+		Death:
+			TNT1 A 0 
+			TNT1 A 0 A_AlertMonsters
+			TNT1 A 0 A_CustomMissile("dirtysmokebomb",0,0,0)
+			TNT1 A 0 A_SpawnItemEx("FireExplosion",0,0,1,0,0,0,0,0,0)
+			stop
+	}
+}
+
+Actor P20mmGrenadeIce : P20mmGrenade {
+  DamageType "Ice"
+	States {
+		Death:
+			TNT1 A 0 
+			TNT1 A 0 A_AlertMonsters
+			TNT1 A 0 A_CustomMissile("icesmokebomb",0,0,0)
+			//TNT1 A 0 A_SpawnItemEx("IceExplosion",0,0,1,0,0,0,0,0,0)
+			stop
+	}
+}
+
+Actor P20mmGrenadeBio : P20mmGrenade {
+  DamageType "Poison"
+	States {
+		Death:
+			TNT1 A 0 
+			TNT1 A 0 A_AlertMonsters
+			TNT1 A 0 A_CustomMissile("dirtysmokebomb",0,0,0)
+			TNT1 A 0 A_SpawnItemEx("BioExplosion",0,0,1,0,0,0,0,0,0)
+			stop
+	}
+}
+
+Actor P20mmGrenadeShock : P20mmGrenade {
+  DeathSound "shock/empdie"
+  DamageType "Shock"
+	States {
+		Death:
+			TNT1 A 0 
+			TNT1 A 0 A_AlertMonsters
+			TNT1 A 0 A_CustomMissile("dirtysmokebomb",0,0,0)
+			TNT1 A 0 A_SpawnItemEx("ShockExplosion",0,0,1,0,0,0,0,0,0)
+			stop
+	}
+}

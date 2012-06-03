@@ -1,0 +1,25 @@
+flickerlight GrenBioSludgeLight
+{
+color 0.0 0.5 0.0
+size 32
+secondarysize 48
+chance 0.1
+dontlightself 1
+}
+
+Object GrenBioSludgeExplosion
+{
+Frame SLUD { Light BioSludgeLight }
+}
+
+Object GrenBioSludgeBall
+{
+Frame SLUD { Light BioSludgeLight }
+Frame SLUG { Light BioSludgeLight }
+}
+
+Object GrenBioSludge
+{
+Frame SLUD { Light BioSludgeLight }
+Frame SLUE { Light BioSludgeLight }
+}

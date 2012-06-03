@@ -1,0 +1,131 @@
+ACTOR "RPG" : Weapon replaces RocketLauncher {
+
+  Weapon.AmmoType "LoadedRPG"
+  Weapon.AmmoUse 1
+  Weapon.AmmoGive 1
+
+  Weapon.AmmoType2 "RPGAmmo"
+  Weapon.AmmoUse2 0
+  Weapon.AmmoGive2 1
+
+  Weapon.SelectionOrder 115
+  Weapon.SlotNumber 5
+  
+  +NOALERT
+  
+  Scale 0.25
+  
+  inventory.pickupmessage "RPG found."
+  obituary "\ca %k \cb --> RPG --> \cc %o"
+   
+  States {
+  
+  Spawn:
+	RNPR A -1
+	Stop
+
+  Select:
+	RPGA A 0 A_TakeInventory("IronSight",1)
+	RPGA A 0 A_ZoomFactor(1,ZOOM_INSTANT)
+	RPGA A 0 A_Raise
+	loop
+	  
+  Ready:  // This is for show. Just the animation
+	RPGA ABCDEFGHIJKLMNOPQRSTUVWXYZ 1 A_WeaponReady(WRF_NOPRIMARY)
+	RPGB ABCDEFGHI 1 A_WeaponReady(WRF_NOPRIMARY)
+	  
+  Readyloop:
+	RPGB A 0 A_JumpIfInventory(RPGAmmo,1,1)
+	goto NoRocket
+	RPGB I 0 A_JumpIfNoAmmo("Reload")
+	RPGB I 1 A_WeaponReady
+	loop
+
+  NoRocket:
+	RPGB I 1 A_WeaponReady
+	goto Readyloop
+	 
+  Deselect:
+	TNT1 AAAAAAAAAA 0 A_Lower
+	  
+  DeselectLoop: // Makes sure it wraps up
+	TNT1 A 1 A_Lower
+	loop
+	  
+  Fire:
+	RPGC A 0
+	TNT1 A 0 A_JumpIfNoAmmo("DryFire")
+	TNT1 A 0 A_Recoil(5)
+	TNT1 A 0 Radius_Quake(9,16,0,3,0)
+	RPGC A 2 A_FireCustomMissile("RPGRocket",random(-2,2),1,8,0,0,random(-2,2))
+	TNT1 A 0 ACS_ExecuteAlways(505,0)
+	RPGC BCDEFG 2
+	//RPGC H 2 BRIGHT
+	RPGC IJKLMNOPQRSTUVWX 2
+	TNT1 A 0 A_JumpIfNoAmmo("Readyloop")
+	Goto Reload
+
+  DryFire:
+	RPGC I 10 A_PlayWeaponSound("dryfire")
+	goto ReadyLoop
+
+  Reload: //This is more or less a confirm state to trigger the animation
+	TNT1 A 0 A_JumpIfInventory("RPGAmmo",1,"ReloadAnimation")
+	goto ReadyLoop
+	  
+  ReloadAnimation:
+	RPGD ABCDEFGHIJKLMNO 2 A_WeaponReady(WRF_NOFIRE)
+	goto ReloadAmmo
+      
+  ReloadAmmo: // at this point change in ammo is displayed
+	RPGD T 0 A_GiveInventory("loadedRPG",1)
+	RPGD T 0 A_TakeInventory("RPGAmmo",1)
+	goto ReloadEnd
+	  
+  ReloadEnd: // Animation wraps up
+	RPGD PQRSTUVWXYZ 2 A_WeaponReady(WRF_NOFIRE)
+	RPGE ABDEFGH 2 A_WeaponReady(WRF_NOFIRE) // Frames IJKLMNOPQRSTUVW just slow things down too much
+	TNT1 A 0 A_ReFire
+	goto ReadyLoop
+  }
+}
+
+ACTOR RPGRocket {
+  Height 8
+  Radius 8
+  Speed 20
+  
+  Damage 10
+  DamageType "Explosive"
+  
+  Scale 0.25
+  
+  PROJECTILE
+  +DEHEXPLOSION
+  +ROCKETTRAIL
+  +FULLVOLDEATH
+  
+  SeeSound "RPG/MissileLaunch"
+  DeathSound "Grenade/Explode"
+  
+  obituary "\ca %k \cb --> RPG --> \cc %o"
+  
+  States {
+  
+  Spawn:
+	RPGR A 0
+	RPGR A 12
+	RPGR A 0 A_PlaySound("RPG/MissileThrust",5)
+	RPGR A 1 BRIGHT
+	goto Spawn+3
+  Death:
+	TNT1 A 0 Radius_Quake(9,16,0,8,0)
+	TNT1 A 0 A_PlaySound("BLANKSND",5)
+    TNT1 A 0 A_AlertMonsters
+	TNT1 A 0 A_CustomMissile("dirtysmokebomb",0,0,0)
+	TNT1 A 0 A_SpawnItemEx("Explosion",0,0,1,0,0,0,0,0,0)
+	TNT1 A 1 A_Explode(200,256)
+	TNT1 A 1 A_Explode(200,256)
+	stop
+  }
+}

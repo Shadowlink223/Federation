@@ -1,0 +1,318 @@
+ACTOR FedPlasmaSpawner : RandomSpawner replaces PlasmaRifle {
+	Dropitem "OICW" 255 2
+	Dropitem "FBR3 Lance" 255 1
+}
+
+ACTOR "OICW" : Weapon
+{
+
+   obituary "\ca %k \cb --> OICW --> \cc %o "
+   inventory.pickupmessage "O.I.C.W."
+
+   weapon.ammotype "loadedOICW"
+   weapon.ammouse 1
+   weapon.ammogive 30
+   
+   weapon.ammotype2 "556"
+   weapon.ammouse2 0
+   weapon.ammogive2 30
+
+   Weapon.SlotNumber 6
+   Decal BulletChip
+   +NOALERT
+   +AMMO_OPTIONAL
+   +NOAUTOFIRE
+   
+   States
+   {
+   Spawn:
+      CHAN X -1
+      Stop
+	  
+   Select:
+      OICA A 0 A_TakeInventory("IronSight",1)
+      OICA A 0 A_TakeInventory("SpecFire",1)
+	  OICA A 0 A_ZoomFactor(1,ZOOM_INSTANT)
+      OICA A 0 A_Raise
+      loop
+	  
+   Ready:
+      OICA A 2 A_TakeInventory("Reloading",1)
+      OICA BCDEFG 2 A_WeaponReady(WRF_NOPRIMARY)
+	 
+   Readyloop:
+      OICA H 0 A_JumpIfNoAmmo("Reload")
+      OICA H 0 A_JumpIfInventory("Reloading",1,"Reload")
+	  OICA H 0 A_JumpIfInventory("SpecFire",1,"SpecialFire")
+      OICA H 1 A_WeaponReady
+      loop
+	  
+   Deselect:
+      TNT1 AAAAAAAAAA 0 A_Lower
+	  
+   DeselectLoop: // Makes sure it wraps up
+      TNT1 A 1 A_Lower
+      loop
+	  
+   Fire:
+      TNT1 A 0 A_JumpIfInventory("IronSight",1,"FireIron")
+      TNT1 A 0 A_JumpIfNoAmmo("DryFire")
+      TNT1 A 0 A_PlaySoundEx("OICW_FIR","SoundSlot5")
+      TNT1 A 0 A_AlertMonsters
+	  TNT1 A 0 A_Recoil(0.2)
+      OICB A 0 BRIGHT A_Firebullets (2.5,2.5,-1,30,"BulletPuff")
+	  //TNT1 A 0 A_TakeInventory("loadedOICW",1)
+      OICB A 2 A_FireCustomMissile("OICWTracer",random(-2.5,2.5),0,0,0,0,random(-2.5,2.5))
+	  TNT1 A 0 ACS_ExecuteAlways(505,0)
+	  TNT1 A 0 A_ZoomFactor(.93)
+      OICB B 1 BRIGHT A_GunFlash
+      //OICB A 0 A_JumpIfInventory("556",1,1)
+	  TNT1 A 0 A_ZoomFactor(1.0)
+      OICB A 0 A_ReFire
+      OICB CDEFGHIJKLMNOPQRS 2 A_WeaponReady
+      goto ReadyLoop
+      OICB A 0 A_JumpIfNoAmmo(2)
+      OICB A 0 A_ReFire
+      goto ReadyLoop
+      OICB A 0 A_GiveInventory("Reloading",1)
+      goto Reload
+	  
+	DryFire:
+		OICB H 10 A_PlayWeaponSound("dryfire")
+		goto ReadyLoop
+	  
+   AltFire:
+      SCOP E 0 A_JumpIfInventory("IronSight",1,"AltFire2")
+      SCOP E 0 A_ZoomFactor(3.0,ZOOM_INSTANT)	
+      SCOP E 5
+      SCOP E 0 A_GiveInventory("IronSight",1)
+      SCOP E 1 A_WeaponReady(WRF_NOBOB)
+      //CLTC D 0 ACS_ExecuteAlways(602,0,0,0,0)
+      goto IronSight
+   
+   AltFire2:
+      SCOP E 1 A_ZoomFactor(1.0,ZOOM_INSTANT)
+      SCOP E 1
+      SCOP E 0 A_TakeInventory("IronSight",1)
+      OICA O 1
+      //CLTC A 0 ACS_ExecuteAlways(602,0,0,0,0)
+      goto ReadyLoop+2
+	
+
+	  
+   IronSight:
+      SCOP E 0 A_JumpIfInventory("Reloading",1,"Reload")
+      SCOP E 0 A_JumpIfNoAmmo("Reload")
+	  SCOP E 0 A_JumpIfInventory("SpecFire",1,"SpecialFireIron")
+      SCOP E 1 A_WeaponReady(WRF_NOBOB)
+      loop
+
+   FireIron:
+      TNT1 A 0 A_JumpIfNoAmmo("DryIron")
+      TNT1 A 0 A_PlaySoundEx("OICW_FIR","SoundSlot5")
+      TNT1 A 0 A_AlertMonsters
+	  TNT1 A 0 A_Recoil(0.1)
+      SCOP E 0 BRIGHT A_FireBullets (0, 0, -1, 30, "BulletPuff")
+	  //TNT1 A 0 A_TakeInventory("loadedOICW",1)
+      SCOP E 1 A_FireCustomMissile("OICWTracer",0,0,0,0,0,0)
+	  TNT1 A 0 ACS_ExecuteAlways(505,0)
+	  TNT1 A 0 A_ZoomFactor(2.75)
+      SCOP E 1 BRIGHT A_GunFlash
+      //SCOP E 0 A_JumpIfInventory("556",1,1)
+      TNT1 A 0 A_ZoomFactor(3.0)
+      SCOP EEEEEEEEE 2 A_WeaponReady
+      SCOP A 0 A_JumpIfInventory("9mm",1,2)
+      SCOP A 0 A_ReFire
+      goto IronSight
+      SCOP A 0 A_JumpIfNoAmmo(2)
+      SCOP A 0 A_ReFire
+      goto IronSight
+      SCOP A 0 A_GiveInventory("Reloading",1)		//Go to reload
+      goto Reload
+	  
+	DryIron:
+		SCOP E 10 A_PlayWeaponSound("dryfire")
+		goto IronSight
+
+	//Special Fire and all of it's mess. Requires 2 tokens: SpecFire and a grenade choice token.
+	SpecialFire:
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		TNT1 A 0 A_JumpIfInventory("FireGrenG",1,"FireGrenade")
+		TNT1 A 0 A_JumpIfInventory("FireGrenF",1,"FireGrenadeFire")
+		TNT1 A 0 A_JumpIfInventory("FireGrenI",1,"FireGrenadeIce")
+		TNT1 A 0 A_JumpIfInventory("FireGrenB",1,"FireGrenadeBio")
+		TNT1 A 0 A_JumpIfInventory("FireGrenS",1,"FireGrenadeShock")
+		goto Readyloop
+		
+	SpecialFireIron:
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		TNT1 A 0 A_JumpIfInventory("FireGrenG",1,"FireGrenadeIron")
+		TNT1 A 0 A_JumpIfInventory("FireGrenF",1,"FireGrenadeFireIron")
+		TNT1 A 0 A_JumpIfInventory("FireGrenI",1,"FireGrenadeIceIron")
+		TNT1 A 0 A_JumpIfInventory("FireGrenB",1,"FireGrenadeBioIron")
+		TNT1 A 0 A_JumpIfInventory("FireGrenS",1,"FireGrenadeShockIron")
+		goto Readyloop
+		
+	FireGrenade:
+		TNT1 A 0 A_JumpIfInventory("20mmGrenade",1,"LaunchGrenade")
+		Goto ReadyLoop
+	LaunchGrenade:
+		TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 Radius_Quake(1,8,0,1,0)
+		OICB A 0 A_TakeInventory("20mmGrenade",1)
+		OICB A 1 BRIGHT A_FireCustomMissile("P20mmGrenade",0,0,8,8)
+		TNT1 A 0 ACS_ExecuteAlways(506,0)
+	    TNT1 A 0 A_ZoomFactor(.93)
+		OICB B 1
+		TNT1 A 0 A_ZoomFactor(1.0)
+		OICB CDEFGHIJKLMNOPQRS 2
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		Goto ReadyLoop
+		
+	FireGrenadeFire:
+		TNT1 A 0 A_JumpIfInventory("20mmGrenadeFire",1,"LaunchGrenadeFire")
+		Goto ReadyLoop
+	LaunchGrenadeFire:
+		TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 Radius_Quake(1,8,0,1,0)
+		OICB A 0 A_TakeInventory("20mmGrenadeFire",1)
+		OICB A 1 BRIGHT A_FireCustomMissile("P20mmGrenadeFire",0,0,8,8)
+		OICB BCDEFGHIJKLMNOPQRS 2
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		Goto ReadyLoop
+		
+	FireGrenadeIce:
+		TNT1 A 0 A_JumpIfInventory("20mmGrenadeIce",1,"LaunchGrenadeIce")
+		Goto ReadyLoop
+	LaunchGrenadeIce:
+		TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 Radius_Quake(1,8,0,1,0)
+		OICB A 0 A_TakeInventory("20mmGrenadeIce",1)
+		OICB A 1 BRIGHT A_FireCustomMissile("P20mmGrenadeIce",0,0,8,8)
+		TNT1 A 0 ACS_ExecuteAlways(506,0)
+		TNT1 A 0 A_ZoomFactor(.93)
+		OICB B 1
+		TNT1 A 0 A_ZoomFactor(1.0)
+		OICB CDEFGHIJKLMNOPQRS 2
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		Goto ReadyLoop
+		
+	FireGrenadeBio:
+		TNT1 A 0 A_JumpIfInventory("20mmGrenadeBio",1,"LaunchGrenadeBio")
+		Goto ReadyLoop
+	LaunchGrenadeBio:
+		TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 Radius_Quake(1,8,0,1,0)
+		OICB A 0 A_TakeInventory("20mmGrenadeBio",1)
+		OICB A 2 BRIGHT A_FireCustomMissile("P20mmGrenadeBio",0,0,8,8)
+		OICB BCDEFGHIJKLMNOPQRS 2
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		Goto ReadyLoop
+		
+	FireGrenadeShock:
+		TNT1 A 0 A_JumpIfInventory("20mmGrenadeShock",1,"LaunchGrenadeShock")
+		Goto ReadyLoop
+	LaunchGrenadeShock:
+		TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 Radius_Quake(1,8,0,1,0)
+		OICB A 0 A_TakeInventory("20mmGrenadeShock",1)
+		OICB A 2 BRIGHT A_FireCustomMissile("P20mmGrenadeShock",0,0,8,8)
+		OICB BCDEFGHIJKLMNOPQRS 2
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		Goto ReadyLoop
+	
+	// Grenade Iron
+	
+	FireGrenadeIron:
+		TNT1 A 0 A_JumpIfInventory("20mmGrenade",1,"LaunchGrenadeIron")
+		Goto IronSight
+	LaunchGrenadeIron:
+		TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 Radius_Quake(1,8,0,1,0)
+		SCOP A 0 A_TakeInventory("20mmGrenade",1)
+		SCOP E 2 BRIGHT A_FireCustomMissile("P20mmGrenade",0,0,8,8)
+		SCOP EEEEEEEEE 2
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		Goto IronSight
+		
+	FireGrenadeFireIron:
+		TNT1 A 0 A_JumpIfInventory("20mmGrenadeFire",1,"LaunchGrenadeFireIron")
+		Goto IronSight
+	LaunchGrenadeFireIron:
+		TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 Radius_Quake(1,8,0,1,0)
+		SCOP A 0 A_TakeInventory("20mmGrenadeFire",1)
+		SCOP E 2 BRIGHT A_FireCustomMissile("P20mmGrenadeFire",0,0,8,8)
+		SCOP EEEEEEEEE 2
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		Goto IronSight
+		
+	FireGrenadeIceIron:
+		TNT1 A 0 A_JumpIfInventory("20mmGrenadeIce",1,"LaunchGrenadeIceIron")
+		Goto IronSight
+	LaunchGrenadeIceIron:
+		TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 Radius_Quake(1,8,0,1,0)
+		SCOP A 0 A_TakeInventory("20mmGrenadeIce",1)
+		SCOP E 2 BRIGHT A_FireCustomMissile("P20mmGrenadeIce",0,0,8,8)
+		SCOP EEEEEEEEE 2
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		Goto IronSight
+		
+	FireGrenadeBioIron:
+		TNT1 A 0 A_JumpIfInventory("20mmGrenadeBio",1,"LaunchGrenadeBioIron")
+		Goto IronSight
+	LaunchGrenadeBioIron:
+		TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 Radius_Quake(1,8,0,1,0)
+		SCOP A 0 A_TakeInventory("20mmGrenadeBio",1)
+		SCOP E 2 BRIGHT A_FireCustomMissile("P20mmGrenadeBio",0,0,8,8)
+		SCOP EEEEEEEEE 2
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		Goto IronSight
+		
+	FireGrenadeShockIron:
+		TNT1 A 0 A_JumpIfInventory("20mmGrenadeShock",1,"LaunchGrenadeShockIron")
+		Goto IronSight
+	LaunchGrenadeShockIron:
+		TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 Radius_Quake(1,8,0,1,0)
+		SCOP A 0 A_TakeInventory("20mmGrenadeShock",1)
+		SCOP E 2 BRIGHT A_FireCustomMissile("P20mmGrenadeShock",0,0,8,8)
+		SCOP EEEEEEEEE 2
+		TNT1 A 0 A_TakeInventory("SpecFire",1)
+		Goto IronSight
+
+   Reload: //This is more or less a confirm state to trigger the animation
+      TNT1 A 0 A_JumpIfInventory("556",1,"ReloadAnimation")
+      TNT1 A 0 A_TakeInventory("Reloading",1) // Bullets = 0. RELOAD DENIED!
+      TNT1 A 0 A_JumpIfInventory("IronSight",1,"IronHack") // Fixes a visual glitch when you have 0 total ammo
+      goto ReadyLoop+2
+	  
+	IronHack: // It's so awesome, I know! :V
+	   goto Ironsight+2
+	  
+   ReloadAnimation:
+      OICD B 0 A_TakeInventory("IronSight",1)
+      OICD B 0 A_ZoomFactor(1.0)
+      OICD BC 2 A_WeaponReady(WRF_NOFIRE)
+      OICD D 2 A_PlaySoundEx("OICW_REL","SoundSlot5")
+      OICD EFGHIJKLMNOPQRSTUVWXYZ 2 A_WeaponReady(WRF_NOFIRE)
+      OICE EFGHIJKLM 2 A_WeaponReady(WRF_NOFIRE)
+      goto ReloadAmmo
+      
+   ReloadAmmo: // at this point change in ammo is displayed
+      OICE T 0 A_GiveInventory("loadedOICW",1)
+      OICE T 0 A_TakeInventory("556",1)
+      OICE T 0 A_JumpIfInventory("loadedOICW",30,"ReloadEnd")
+      OICE T 0 A_JumpIfInventory("556",1,"ReloadAmmo")
+      goto ReloadEnd
+	  
+   ReloadEnd: // Animation wraps up
+      TNT1 A 0 A_TakeInventory("Reloading",1)
+      OICE NOPQRSTU 2 A_WeaponReady(WRF_NOFIRE)
+      TNT1 A 0 A_ReFire
+      goto ReadyLoop+2
+	  
+  }
+}

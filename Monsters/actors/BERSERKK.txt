@@ -1,0 +1,339 @@
+ACTOR BerserkKnight : Enemy 13774 {
+  //$Category Federation
+  
+  Health 100
+  GibHealth 60
+  Radius 16
+  Height 40
+  Mass 750
+  Speed 10 //30
+  
+  MONSTER 
+  +NOTARGET
+  +DONTHURTSPECIES
+  +MISSILEMORE
+  +FASTER
+  
+  DropItem "Clip" 256
+  DropItem "Clip" 128
+  DropItem "GrenadeAmmo" 32
+  DropItem "20mmGrenade" 16
+  
+  Dropitem "Stimpack" 32
+  Dropitem "StrikeArmor" 4
+  
+  DropItem "MP7" 8
+  
+  Translation "112:127=176:191"
+  
+  BloodType "NashGore_Blood"
+  Decal BulletChip
+  
+  PainChance 1
+  PainChance "Shock", 64
+  
+  MeleeThreshold 256
+  MeleeDamage 10
+  
+  Species hellknight
+  
+  SeeSound "Phage/Sight"
+  AttackSound "MP7/FIRE"
+  PainSound "Phage/Pain"
+  DeathSound "Phage/Death"
+  ActiveSound "Phage/Active"
+  
+  damagetype "Berserker"
+  damagefactor "Berserker", 0
+  
+  Obituary "A Berserk Knight took out his rage on %o." 
+  Hitobituary "%o was piledrived by a Berserk Knight!"
+  
+  States {
+  
+/******************************************************************************\
+================================HEADSHOT STATES=================================
+\******************************************************************************/
+
+  Spawn:
+    GO99 A 0                                                     				//
+    GO99 A 0 A_CheckSight("Spawn2")                              				// DO NOT SPAWN HEADSHOT BOX 
+    GO99 A 0 Thing_SetSpecial(0,226,613,0,random(8,10))          				// RGA2 EXP COMPATIBILITY
+  SpawnLoop:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          				// MAKE HEADSHOT BOX
+    GO99 AB 3 A_LookEx(0,0,random(512,2048),random(1024,4096),random(120,180),"See")// WHERE ARE YOU!
+    GO99 AB 2 A_LookEx(0,0,random(512,2048),random(1024,4096),random(120,180),"See")// WHERE ARE YOU!
+    GO99 AB 1 A_LookEx(0,0,random(512,2048),random(1024,4096),random(120,180),"See")// WHERE ARE YOU!
+    goto SpawnLoop                                                 				//	
+  See:
+    GO99 A 0 A_CheckSight("SEE2")                                				//
+    GO99 A 0 A_CheckSight("ChanceCharge")                                    	// IF PLAYER IN SIGHT CHANCE CHARGE
+    GO99 A 0 A_GiveInventory("KnightCharge", 1)                  				// READY TO CHARGE
+  IfLowHealth:
+    GO99 A 0 A_JumpIfHealthLower(50, "LowHealth")                         		// LOW HEALTH
+    Goto HealthHigh                                              				//
+  Chase:
+    GO99 A 0 A_JumpIfInventory("KnightCharge", 1, 23)            				// CHARGE IF READY TO!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 AAAA 1 A_Chase                                             			// NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 AAAA 1 A_Chase                                             			// NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 BBBB 1 A_Chase                                             			// NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 BBBB 1 A_Chase                                             			// NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 CCCC 1 A_Chase                                             			// NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 CCCC 1 A_Chase                                             			// NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 DDDD 1 A_Chase                                             			// NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 DDDD 1 A_Chase                                             			// NORMAL CHASE
+    Goto See                                                     				//
+  HealthHigh:
+    GO99 A 0 A_ChangeFlag("Frightened", 0)                       				// PUSH ONWARD
+	Goto Chase
+  LowHealth:
+    GO99 A 0 A_Jump(32, "HealUp")                                       		// FEARLESS CHANCE
+    GO99 A 0 A_AlertMonsters                                     				// ALERT OTHERS
+    GO99 A 0 A_ChangeFlag("Frightened", 1)                       				// RUN AWAY!
+  HealUp:
+    SKFA D 0 HealThing(1)                                        				// HEALING
+    GO99 A 0                                                     				//
+    Goto Chase                                                  				//
+  ChanceCharge:
+    GO99 A 0 A_Jump(128, "Charge")                                      		// CHANCE CHARGE
+    Goto Chase                                                   				//
+  Charge:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 AA 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 AA 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 AA 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 BB 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 BB 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 BB 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 CC 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 CC 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 CC 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 DD 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 DD 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 DD 1 A_Chase                                             				// CHARGE!
+    GO99 D 0 HealThing(1)                                        				// HEALING
+  NoCharge:
+    GO99 A 0 A_TakeInventory("KnightCharge", 1)                  				// NOT READY TO CHARGE
+    Goto IfLowHealth                                                   			//
+	
+/******************************************************************************\
+==============================NON-HEADSHOT STATES===============================
+\******************************************************************************/
+	
+  Spawn2:
+    GO99 A 0                                                     				//
+    GO99 A 0 Thing_SetSpecial(0,226,613,0,random(8,10))          				// RGA2 EXP COMPATIBILITY
+  Spawn2Loop:
+    GO99 AB 3 A_LookEx(0,0,random(512,2048),random(1024,4096),random(120,180),"See")// WHERE ARE YOU!
+    GO99 AB 2 A_LookEx(0,0,random(512,2048),random(1024,4096),random(120,180),"See")// WHERE ARE YOU!
+    GO99 AB 1 A_LookEx(0,0,random(512,2048),random(1024,4096),random(120,180),"See")// WHERE ARE YOU!
+    goto Spawn2Loop                                                				//
+  See2:
+    GO99 A 0 A_CheckSight("See2Action")                       					// IF PLAYER IN SIGHT SWITCH TO SEE
+	Goto See
+  See2Action:
+	GO99 A 0 A_Jump(128,"ChanceCharge2")										// CHANCE TO CHARGE
+    GO99 A 0 A_GiveInventory("KnightCharge", 1)                  				// READY TO CHARGE
+  IfHealthLow2:
+    GO99 A 0 A_JumpIfHealthLower(50, "LowHealth2")                         		// LOW HEALTH
+    Goto HealthHigh2                                              				//
+  Chase2:
+    GO99 A 0 A_JumpIfInventory("KnightCharge", 1, "Charge2")            		// CHARGE IF READY TO!
+    GO99 AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase              				// NORMAL CHASE
+    Goto See2                                                     				//
+  HealthHigh2:
+    GO99 A 0 A_ChangeFlag("Frightened", 0)                       				// PUSH ONWARD
+	Goto Chase2
+  LowHealth2:
+    GO99 A 0 A_Jump(32, "HealUp2")                                       		// FEARLESS CHANCE
+    GO99 A 0 A_ChangeFlag("Frightened", 1)                       				// RUN AWAY!
+  HealUp2:
+    GO99 A 0 HealThing(1)                                        				// HEALING
+	Goto Chase2
+  ChanceCharge2:
+    GO99 A 0 A_Jump(128, "Charge2")                                      		// CHANCE CHARGE
+    Goto Chase2                                                   				//
+  Charge2:
+    GO99 AAAAAABBBBBBCCCCCCDDDDDD 1 A_Chase                      				// CHARGE!
+    GO99 D 0 HealThing(1)                                        				// HEALING
+  NoCharge2:
+    GO99 A 0 A_TakeInventory("KnightCharge", 1)                  				// NOT READY TO CHARGE
+    Goto IfLowHealth2                                                   			//
+	
+/******************************************************************************\
+=================================ATTACK STATES==================================
+\******************************************************************************/
+	
+  Missile:
+    GO99 C 0 A_Jump (192, "Leap")                                				// CHANCE TO LEAP
+    GO99 E 0 A_ChangeFlag("NoPain", 1)                           				// WILL NOT ENTER PAIN STATE
+    GO99 E 0 A_Jump(64, "IfClose")                                      		// CHANCE TEST IF CLOSE
+    GO99 E 10 A_FaceTarget                                       				//
+  BulletAttack:
+    GO99 E 0 A_JumpIfInventory("KnightAmmo", 10, "Reload")             			// CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+	GO99 F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   		// 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	GO99 F 2 BRIGHT A_CustomMissile("BerserkTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 E 2 A_FaceTarget                                        				//
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+	GO99 F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   		// 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	GO99 F 2 BRIGHT A_CustomMissile("BerserkTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 E 2 A_FaceTarget                                        				//
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   		// 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	GO99 F 2 BRIGHT A_CustomMissile("BerserkTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 E 2 A_FaceTarget                                        				//
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   		// 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	GO99 F 2 BRIGHT A_CustomMissile("BerserkTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 E 2 A_FaceTarget                                        				//
+    GO99 E 0 A_GiveInventory("KnightAmmo", 1)                    				// LESSEN AMMO
+    GO99 E 0 A_Jump(32, "StopShooting")                                       	// CHANCE STOP SHOOTING
+    GO99 E 0 A_SpidReFire                                        				// KEEP SHOOTING!
+    Goto BulletAttack                                               			//
+  StopShooting:
+    GO99 E 0                                                     				//
+    goto See                                                     				//
+  Reload:
+    GO99 E 0 A_TakeInventory("KnightAmmo", 10)                   				// RELOAD!
+    GO99 E 8 A_PlaySound("ZSec/DryFire")                         				//
+    GO99 E 55 A_PlaySound("ZSec/Reload")                         				//
+    GO99 E 0 A_ChangeFlag("NoPain", 0)                           				// WILL ENTER PAIN STATE
+    goto See                                                     				//
+  IfClose:
+    GO99 E 0 A_JumpIfCloser(1768, 1)                              				// LAUNCH GRENADE IF NEAR
+    Goto Missile+3                                               				//
+  Grenade:
+    GO99 E 8 A_FaceTarget                                        				// GRENADE!
+    GO99 F 0 bright A_PlaySound("weapons/rocklf")                				//
+    GO99 F 2 bright A_CustomMissile("KnightGrenadeShell",28,5,random(-15,15),2,random(0,10))//
+    GO99 E 6 A_FaceTarget                                        				//
+    GO99 E 0 A_ChangeFlag("NoPain", 0)                           				// WILL ENTER PAIN STATE
+    Goto See                                                     				//
+  Melee:
+    GO99 A 0 A_FaceTarget                                        				//
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 E 3 A_CustomMeleeAttack(10,"monster/inipunc1","none")    				//
+    GO99 A 0 A_FaceTarget                                        				//
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 A 3 A_CustomMissile("Knockback",32,0,0,0)               				//
+    Goto See                                                     				//
+  Leap:
+    GO99 A 0 A_ChangeFlag("NoPain",1)                            				// WILL NOT ENTER PAIN STATE
+    GO99 A 0 A_ChangeFlag("NoDamage",1)                          				// INDESTRUCTIBLE
+    GO99 A 12 A_FaceTarget                                       				//
+    GO99 A 0 A_PlaySound ("Phage/Leap")                          				//
+    GO99 B 1 ThrustThingZ (0, 28, 0, 0)                          				// LEAP
+    GO99 B 0 ThrustThing(angle*256/360, 20, 0, 0)                				//
+  MidLeap:
+    GO99 B 1 A_Explode (25, 44, 0, 1)                            				// DAMAGE TARGET
+    GO99 B 0 A_CheckFloor ("Land")                               				// LAND
+    loop                                                         				//
+  Land:
+    GO99 A 0 A_ChangeFlag("NoPain",0)                            				// WILL ENTER PAIN STATE
+    GO99 A 0 A_ChangeFlag("NoDamage",0)                          				// CAN BE HURT
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    GO99 A 12 A_Stop                                             				//
+    goto See                                                     				// 
+	
+/******************************************************************************\
+==================================PAIN STATES===================================
+\******************************************************************************/
+	
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            				// MAKE HEADSHOT BOX
+    GO99 G 3                                                     				//
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            				// MAKE HEADSHOT BOX
+    GO99 G 3 A_Pain                                              				// OW!
+    goto See                                                     				//
+  Pain.Shock:
+    GO99 G 2 A_ChangeFlag("NoPain", 1)                           				// STUNNED!
+    GO99 G 300 A_Pain                                            				//
+    GO99 G 0 A_ChangeFlag("NoPain", 0)                           				//
+    Goto See                                                     				//
+	
+/******************************************************************************\
+==================================DEATH STATES==================================
+\******************************************************************************/
+	
+  Death:
+    GO99 H 0 A_JumpIfHealthLower(-60,"Splode")                   				//
+	TNT1 A 0 A_AlertMonsters
+    GO99 H 5                                                     				//
+    GO99 I 5 A_Scream                                            				//
+    GO99 J 5 A_Fall                                              				//
+    GO99 K 5                                                     				//
+    GO99 L 5                                                     				//
+    GO99 M 5                                                     				//
+    GO99 N 0 A_Jump(128, 2)                                      				// REGENERATING!
+    GO99 N -1                                                    				//
+    stop                                                         				//
+    GO99 NNNNN 70                                                				//
+    GO99 NNNNN 70                                                				//
+    GO99 NNNNN 70                                                				//
+    GO99 N -1 Thing_Raise(0)                                     				// STILL ALIVE
+    Wait                                                         				//
+  Splode:
+    GO99 I 1                                                     				// xDeath
+    GO99 I 0 A_SpawnDebris("NashGore_Gib9",0)                    				// GIBS!
+    GO99 I 0 A_SpawnDebris("NashGore_Gib10",0)                   				//
+    GO99 I 0 A_SpawnDebris("NashGore_Gib11",0)                   				//
+    GO99 I 0 A_SpawnDebris("NashGore_Gib11",0)                   				//
+    GO99 I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        				//
+    GO99 I 0                                                     				//
+    GO99 I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        				//
+    GO99 I 0 A_XScream                                           				//
+    GO99 I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        				//
+    GO99 I 0 A_NoBlocking                                        				//
+    GO99 I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        				//
+    GO99 I 0                                                     				//
+    GO99 Z 0 A_SpawnItemEx("DEADInitiateHead",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)//
+    stop                                                         				//
+  Death.Fire2:
+    TNT1 A 1 A_SpawnItem("BurnDeath1", 2, 1)                     				// SCORCHED
+	TNT1 A 0 A_AlertMonsters
+    stop                                                         				//
+  Death.head:
+    GO99 O 9 A_PlaySound("headshot/splat")                       				//
+    GO99 I 0 A_SpawnDebris("NashGore_Gib3",0)                    				// GIBS!
+    GO99 I 0 A_SpawnDebris("NashGore_Gib11",0)                   				//
+    GO99 I 0 A_SpawnDebris("NashGore_Gib11",0)                   				//
+    GO99 P 9 A_XScream                                           				//
+    GO99 Q 9 A_Fall                                              				//
+    GO99 R 5                                                     				//
+    GO99 S 5                                                     				//
+    GO99 T 0 A_SpawnItemEx("DEADInitiate",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)// FAKE BODY
+    stop                                                         				//
+  Raise:
+    GO99 KJ 5                                                    				// REVIVED
+    GO99 IH 5 Thing_SetSpecial(0,226,613,0,random(8,10))         				// RGA2 EXP COMPATIBILITY
+    Goto See                                                     				//
+  }
+}

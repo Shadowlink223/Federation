@@ -1,0 +1,12 @@
+// Temporary Pickup Sprites Credits
+
+Glock18 JoeyTD
+MP5 JoeyTD, NeuralStunner
+SPAS-12 3D Realms 0.5
+UberMinigun lolo_is_cool
+Machinegun Id Software
+Autogun Kuju, 3D Realms, Captain Toenail
+Machete Exhumed
+Channeler JoeyTD, Id Software
+PSRevolver 0.6 Lobotomy Software
+DeviationLauncher 0.85 3DRealms, Scuba Steve, CaptainToenail

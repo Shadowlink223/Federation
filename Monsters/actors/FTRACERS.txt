@@ -1,0 +1,56 @@
+Actor KnightTracer {
+	PROJECTILE
+	+RANDOMIZE
+	+FORCEXYBILLBOARD
+	+DONTSPLASH
+	+BLOODSPLATTER
+	//+NOEXTREMEDEATH
+	//+THRUGHOST
+	
+	damage 0
+	radius 2
+	height 0
+	speed 100
+	
+	renderstyle ADD
+	alpha 0.9
+	
+	scale .15
+	
+	Damagetype Bullet
+	//Decal "BulletChip"
+	
+	states {
+		Spawn:
+			TRAC A 1 BRIGHT
+			Loop
+		Death:
+			TNT1 A 1 A_SpawnItem("BurstPuff")
+			Stop
+		XDeath:
+			TNT1 A 0
+			Stop
+	}
+}
+
+ACTOR InitiateTracer : KnightTracer { Damage 0 } //(random(1,3)) }
+ACTOR ZoneTracer : KnightTracer { Damage 0 } //(random(1,3)) }
+ACTOR StrikeTracer : KnightTracer { Damage 0 } //(random(1,3)) }
+ACTOR HeavyTracer : KnightTracer { Damage 0 } //(random(1,5)*3) }
+ACTOR GrenadeTracer : KnightTracer { Damage 0 } //(random(1,3)) }
+ACTOR BerserkTracer : KnightTracer { Damage 0 } //(random(1,3)) }
+ACTOR RiotTracer : KnightTracer { Damage 0 } //(random(1,3)) }
+ACTOR BioTracer : KnightTracer { Damage 0 } //(random(1,3)) }
+ACTOR IceTracer : KnightTracer { Damage 0 } //(random(1,3)) }
+ACTOR FireTracer : KnightTracer { Damage 0 } //(random(1,3)) }
+ACTOR ShockTracer : KnightTracer { Damage 0 } //(random(1,3)) }
+ACTOR SentryTracer : KnightTracer { Damage 0 } //(random(1,3)) }
+ACTOR BishopTracer : KnightTracer { Damage 0 } //(random(1,3)*10) }
+ACTOR RookTracer : KnightTracer { Damage 0 } //(random(1,3)) }
+ACTOR SkyTracer : KnightTracer { Damage 0 } //(random(1,3)) }
+ACTOR MirageTracer : KnightTracer { Damage 0 } //(random(1,3)) }
+ACTOR TremorTracer : KnightTracer { Damage 0 } //(random(1,3)) }
+ACTOR LegionaryTracer : KnightTracer { Damage 0 } //(random(1,3)*3) }
+ACTOR CaptainTracer : KnightTracer { Damage 0 } //(random(1,3)) }
+ACTOR JusticarTracer : KnightTracer { Damage 0 } //(random(1,3)) }
+ACTOR JusticarShotgunTracer : KnightTracer { Damage 0 } //(random(1,3)*10) }

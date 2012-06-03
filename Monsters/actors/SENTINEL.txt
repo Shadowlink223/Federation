@@ -1,0 +1,115 @@
+Actor FedSentinel : Enemy replaces LostSoul 13208
+{
+	//$Category Federation
+  Health 80
+  Painchance 100
+  PainChance "Fire2", 0
+  PainChance "Shock", 255
+  Damagefactor "Shock", 1.5
+  Damagefactor "head", 0.0
+  Speed 20
+  Radius 23
+  Height 53
+  Mass 300
+  Floatspeed 5
+  
+  DropItem "Cell" 128
+  DropItem "FlameAmmo" 16
+  
+  MONSTER
+  +FLOAT
+  +NOGRAVITY
+  +DROPOFF
+  +NOBLOOD
+  +MISSILEMORE
+  +LOOKALLAROUND
+  +STEALTH
+  +DONTHURTSPECIES
+  MinMissileChance 200
+  Species hellknight
+  SeeSound "scanner/see"
+  DeathSound "scanner/death"
+  ActiveSound "scanner/active"
+  Obituary "%o was shot down by a Sentinel"
+  States
+  {
+  Spawn:
+    SCAN A 0 
+    SCAN A 0 Thing_SetSpecial(0,226,613,0,random(8,10))
+    SCAN A 10 A_Look
+    goto Spawn+2
+  See:
+    SCAN A 4 A_Chase
+    Loop
+  Missile:
+    SCAN A 0 A_Jump(100,"Attack2")
+    SCAN B 4 A_FaceTarget
+    SCAN C 6 Bright A_CustomMissile("ScannerLaser",28,0,0)
+    SCAN C 4 Bright A_SentinelRefire
+    Goto Missile+1
+  Attack2:
+    SCAN B 0 A_PlaySound("scanner/charge")
+	SCAN A 0 A_Jump(128,"Attack21")
+    SCAN B 8 A_FaceTarget
+    SCAN C 0 A_CustomMissile("ScannerLaser",28,0,-4)
+    SCAN C 0 A_CustomMissile("ScannerLaser",28,0,4)
+    SCAN C 8 Bright A_CustomMissile("ScannerLaser",28,0,0)
+    SCAN C 4 Bright
+    Goto See
+  Attack21:
+    SCAN B 8 A_FaceTarget
+    SCAN CCCCC 3 Bright A_CustomMissile("ScannerLaser",28,0,0)
+    SCAN C 4 Bright
+    Goto See
+  Pain:
+    SCAN D 5 A_Pain
+    Goto Missile+3
+  Death:
+    SCAN D 7 A_Fall
+    SCAN E 8 Bright A_TossGib
+    SCAN F 5 Bright A_Scream
+    SCAN GH 4 Bright A_TossGib
+    SCAN I 4
+    SCAN J -1
+    Stop
+}
+}
+
+Actor ScannerLaser
+{
+  Radius 6
+  Height 6
+  Speed 22
+  Damage 1
+  Projectile
+  seesound "scanner/fire"
+  States
+  {
+  Spawn:
+    LASA A 3 BRIGHT A_SpawnItem("ScannerLaserFX")
+    Loop
+  Death:
+    LASA CDEFG 3 BRIGHT
+    Stop
+  }
+}
+
+ACTOR ScannerLaserFX
+{   
+   Radius 0
+   Height 0
+   Speed 0
+   PROJECTILE
+   +NOCLIP
+   +NOBLOCKMAP
+   scale 0.9
+   RENDERSTYLE Translucent
+   ALPHA 0.70
+   States
+   {
+   Spawn:
+      LASA B 1
+      LASA B 3 A_FadeOut(0.10)
+      goto Spawn+1
+   }
+}

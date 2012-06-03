@@ -1,0 +1,724 @@
+
+//***                                *//
+//**    357 Magnum - "The Lucca"    **//
+//*                                ***//
+
+actor 357 : Ammo // Main cache
+{
+    inventory.pickupmessage "357 Magnum Rounds" 
+    inventory.amount 6
+    inventory.maxamount 18 // 2 cylinders' worth + what's in the gun
+    ammo.backpackamount 6
+    ammo.backpackmaxamount 24 // 4 cyninders' worth + what's in the gun
+    +IGNORESKILL 
+    Scale 0.5
+    States 
+	{
+      Spawn:
+        PROC A -1
+        Stop
+      }
+}
+
+actor Large357 : 357
+{
+  inventory.pickupmessage "4 357 Magnum Rounds"
+  inventory.amount 24
+  +IGNORESKILL
+  states
+      {
+    Spawn:
+      MINE A -1
+      stop
+    }
+}
+
+actor 50BMG : Ammo
+{
+	inventory.pickupmessage ".50 BMG Rounds"
+    inventory.amount 10
+    inventory.maxamount 30
+    ammo.backpackamount 20
+    ammo.backpackmaxamount 40
+    +IGNORESKILL 
+    States 
+	{
+      Spawn:
+        BLIT A -1
+        Stop
+      }
+}
+
+actor Large50BMG : 50BMG
+{
+  inventory.pickupmessage "2 .50 BMG Rounds"
+  inventory.amount 20
+  +IGNORESKILL
+  Scale 0.5
+  states
+      {
+    Spawn:
+      BBOX A -1
+      stop
+    }
+}
+
+actor 50AE : Ammo
+{
+	inventory.pickupmessage ".50 AE Rounds"
+    inventory.amount 7
+    inventory.maxamount 21
+    ammo.backpackamount 14
+    ammo.backpackmaxamount 28
+    +IGNORESKILL 
+    States 
+	{
+      Spawn:
+        BLIT A -1
+        Stop
+      }
+}
+
+actor Large50AE : 50AE
+{
+  inventory.pickupmessage "2 .50 AE Rounds"
+  inventory.amount 14
+  +IGNORESKILL
+  Scale 0.5
+  states
+      {
+    Spawn:
+      BBOX A -1
+      stop
+    }
+}
+
+actor 556 : Ammo
+{
+	inventory.pickupmessage "556 Nato Rounds"
+    inventory.amount 15
+    inventory.maxamount 60
+    ammo.backpackamount 30
+    ammo.backpackmaxamount 120
+    +IGNORESKILL 
+    States 
+	{
+      Spawn:
+        BLIT A -1
+        Stop
+      }
+}
+
+actor Large556 : 556
+{
+  inventory.pickupmessage "4 556 Nato Rounds"
+  inventory.amount 60
+  +IGNORESKILL
+  Scale 0.5
+  states
+      {
+    Spawn:
+      BBOX A -1
+      stop
+    }
+}
+
+actor 762mm : Ammo
+{
+    inventory.pickupmessage "7.62mm Rounds"
+	inventory.amount 150
+	inventory.maxamount 1000
+	ammo.backpackamount 300
+	ammo.backpackmaxamount 2000
+    +IGNORESKILL
+	States {
+	Spawn:
+	      BBOX A -1
+          Stop
+    }
+}
+
+actor Large762mm : 762mm
+{
+  inventory.pickupmessage "4 7.62mm Rounds"
+  inventory.amount 450
+  +IGNORESKILL
+  Scale 0.5
+  states
+      {
+    Spawn:
+      762B A -1
+      stop
+    }
+}
+
+actor 9mm : Ammo
+{
+    inventory.pickupmessage "9mm Rounds"
+	inventory.amount 15
+	inventory.maxamount 60
+	ammo.backpackamount 30
+	ammo.backpackmaxamount 120
+	+IGNORESKILL
+	Scale 0.7
+	States {
+		Spawn:
+			CLIP A -1
+			Stop
+	}
+}
+
+actor Large9mm : 9mm
+{
+  inventory.pickupmessage "4 9mm Rounds"
+  inventory.amount 24
+  +IGNORESKILL
+  states
+      {
+    Spawn:
+      AMMO A -1
+      stop
+    }
+}
+
+actor BuckShot : Ammo replaces shell // We need to math the number later.
+{
+	inventory.pickupmessage "BuckShot Rounds"
+	inventory.amount 8
+	inventory.maxamount 64
+	ammo.backpackamount 16
+	ammo.backpackmaxamount 128
+	+IGNORESKILL
+	States {
+		Spawn:
+			SHEL A -1
+			Stop
+	}
+}
+
+actor LargeBuckShot : Buckshot replaces shellbox
+{
+  inventory.pickupmessage "4 BuckShot Rounds"
+  inventory.amount 16
+  +IGNORESKILL
+  states
+      {
+    Spawn:
+      SBOX A -1
+      stop
+    }
+}
+
+ACTOR FedGrenadeAmmo : Ammo {
+  Inventory.Amount 1
+  Inventory.MaxAmount 6
+  Ammo.BackpackAmount 6
+  Ammo.BackpackMaxAmount 12
+  
+  Scale 0.15
+  
+  Inventory.Icon GHEIA0
+  Inventory.PickupMessage "Picked up a hand grenade."
+  
+  States {
+  
+  Spawn:
+	GHEI B -1
+	Stop
+  }
+}
+
+/*actor GrenadeAmmoBox : GrenadeAmmo
+{
+  inventory.amount 6
+  
+  inventory.pickupmessage "Box of Rockets"
+  
+  +IGNORESKILL
+  
+  Scale 0.8
+  
+  states
+  {
+  Spawn:
+	ROKT A -1
+	stop
+  }
+}*/
+
+/*--20MM Grenade Ammo---------*/
+actor 20mmGrenade : Ammo {
+	Inventory.amount 1
+	Inventory.MaxAmount 6
+	Ammo.BackpackAmount 6
+	Ammo.BackpackMaxAmount 12
+	scale 0.1
+	
+	Inventory.Icon G20IA0
+	Inventory.PickUpMessage "Picked up a 20MM Grenade."
+	States {
+		Spawn:
+			G20I A -1
+			Stop
+	}
+}
+
+
+actor 20mmGrenadeFire : Ammo {
+	Inventory.amount 1
+	Inventory.MaxAmount 3
+	Ammo.BackpackAmount 3
+	Ammo.BackpackMaxAmount 6
+	scale 0.1
+	
+	Inventory.Icon G20IA0
+	Inventory.PickUpMessage "Picked up a 20MM Fire Grenade."
+	States {
+		Spawn:
+			G20I A -1
+			Stop
+	}
+}
+
+actor 20mmGrenadeIce : Ammo {
+	Inventory.amount 1
+	Inventory.MaxAmount 3
+	Ammo.BackpackAmount 3
+	Ammo.BackpackMaxAmount 6
+	scale 0.1
+	
+	Inventory.Icon G20IA0
+	Inventory.PickUpMessage "Picked up a 20MM Ice Grenade."
+	States {
+		Spawn:
+			G20I A -1
+			Stop
+	}
+}
+
+actor 20mmGrenadeBio : Ammo {
+	Inventory.amount 1
+	Inventory.MaxAmount 3
+	Ammo.BackpackAmount 3
+	Ammo.BackpackMaxAmount 6
+	scale 0.1
+	
+	Inventory.Icon G20IA0
+	Inventory.PickUpMessage "Picked up a 20MM Bio Grenade."
+	States {
+		Spawn:
+			G20I A -1
+			Stop
+	}
+}
+
+actor 20mmGrenadeShock : Ammo {
+	Inventory.amount 1
+	Inventory.MaxAmount 3
+	Ammo.BackpackAmount 3
+	Ammo.BackpackMaxAmount 6
+	scale 0.1
+	
+	Inventory.Icon G20IA0
+	Inventory.PickUpMessage "Picked up a 20MM Shock Grenade."
+	States {
+		Spawn:
+			G20I A -1
+			Stop
+	}
+}
+
+/*actor 20mmGrenSmoke : 20mmGren {
+	Inventory.PickUpMessage "Picked up a 20MM Smoke Grenade."
+}*/
+
+/*----------------------------*/
+
+actor RPGAmmo : Ammo
+{
+	inventory.pickupmessage "Picked up a Rocket."
+	inventory.amount 1
+	inventory.maxamount 2
+	ammo.backpackamount 2
+	ammo.backpackmaxamount 5
+	+IGNORESKILL
+	States {
+		Spawn:
+			MSSL A -1
+			Stop
+	}
+}
+
+/*actor RPGAmmoBox : RPGAmmo
+{
+  inventory.pickupmessage "Box of Rockets"
+  inventory.amount 4
+  +IGNORESKILL
+  states
+      {
+    Spawn:
+      ROKT A -1
+      stop
+    }
+}*/
+
+Actor ExplosiveAmmoBox : CustomInventory {
+	inventory.pickupmessage "Picked up an explosive bento box!"
+	+IGNORESKILL
+	+INVENTORY.ALWAYSPICKUP
+	States {
+		Spawn:
+			ROKT A -1
+			stop
+		Pickup:
+			TNT1 A 0 A_GiveInventory("RPGAmmo",random(1,2))
+			TNT1 A 0 A_GiveInventory("FedGrenadeAmmo",2)
+			TNT1 A 0 A_GiveInventory("20mmGrenade",2)
+			TNT1 A 0 A_Jump(255,1,2,3,4)
+			TNT1 A 0 A_GiveInventory("20mmGrenadeFire",1)
+			stop
+			TNT1 A 0 A_GiveInventory("20mmGrenadeIce",1)
+			stop
+			TNT1 A 0 A_GiveInventory("20mmGrenadeBio",1)
+			stop
+			TNT1 A 0 A_GiveInventory("20mmGrenadeShock",1)
+			stop
+	}
+}
+
+actor FlameAmmo : Ammo {
+	inventory.pickupmessage "Flame Canister"
+	inventory.amount 60
+	inventory.maxamount 300
+	ammo.backpackamount 120
+	ammo.backpackmaxamount 600
+	+IGNORESKILL
+	Scale 0.5
+	States {
+		Spawn:
+			PYTN A -1
+			Stop
+	}
+}
+
+actor LargeFlameAmmo : FlameAmmo {
+	inventory.pickupmessage "Large Flame Canister"
+	inventory.amount 120
+	+IGNORESKILL
+	Scale 0.5
+	states {
+		Spawn:
+			PYTN B -1
+			stop
+	}
+}
+
+actor IceAmmo : Ammo {
+	inventory.pickupmessage "Nitrogen Canister"
+	inventory.amount 60
+	inventory.maxamount 300
+	ammo.backpackamount 120
+	ammo.backpackmaxamount 600
+	+IGNORESKILL
+	Scale 0.5
+	States {
+		Spawn:
+			PYTN A -1
+			Stop
+	}
+}
+
+actor LargeIceAmmo : IceAmmo {
+	inventory.pickupmessage "Large Nitrogen Canister"
+	inventory.amount 120
+	+IGNORESKILL
+	Scale 0.5
+	states {
+		Spawn:
+			PYTN B -1
+			stop
+	}
+}
+
+ACTOR HandgunAmmoSpawner : RandomSpawner replaces Clip
+{
+ Dropitem "9mm" 255 6
+ Dropitem "357" 255 1
+ Dropitem "50AE" 255 1
+}
+
+ACTOR LargeHandgunAmmoSpawner : RandomSpawner replaces ClipBox
+{
+ Dropitem "Large9mm" 255 6
+ Dropitem "Large357" 255 1
+ Dropitem "Large50AE" 255 1
+}
+
+ACTOR RPGGrenadeAmmoSpawner : RandomSpawner replaces RocketAmmo
+{
+ Dropitem "RPGAmmo" 255
+ Dropitem "FedGrenadeAmmo" 255
+ Dropitem "20mmGrenade" 255
+ Dropitem "20mmGrenadeFire" 255
+ Dropitem "20mmGrenadeIce" 255
+ Dropitem "20mmGrenadeBio" 255
+ Dropitem "20mmGrenadeShock" 255
+ Dropitem "FlameAmmo" 255
+ Dropitem "IceAmmo" 255
+ Dropitem "LargeFlameAmmo" 255
+ Dropitem "LargeIceAmmo" 255
+}
+
+ACTOR LargeRPGGrenadeAmmoSpawner : RandomSpawner replaces RocketBox
+{
+ DropItem "ExplosiveAmmoBox" 255
+ /*Dropitem "RPGAmmoBox" 255
+ Dropitem "GrenadeAmmoBox" 255*/
+}
+
+ACTOR OICWMiniAmmoSpawner : RandomSpawner replaces Cell
+{
+ Dropitem "556" 255 4
+ Dropitem "762mm" 255 1
+ Dropitem "50BMG" 255 2
+}
+
+ACTOR LargeOICWMiniAmmoSpawner : RandomSpawner replaces CellPack
+{
+ Dropitem "Large556" 255 4
+ Dropitem "Large762mm" 255 1
+ Dropitem "Large50BMG" 255 2
+}
+
+actor Loaded357 : Ammo // Ammo inside the cylinder
+{
+    inventory.amount 0
+    inventory.maxamount 6
+    ammo.backpackamount 0
+    ammo.backpackmaxamount 6
+    +IGNORESKILL
+    Scale 0.5
+    States {
+		Spawn:
+			PROC A -1
+			Stop
+	}
+}
+
+actor Loaded20mmGrenade : Ammo
+{
+    inventory.amount 0
+    inventory.maxamount 6
+    ammo.backpackamount 0
+    ammo.backpackmaxamount 6
+    +IGNORESKILL
+    Scale 0.1
+    States {
+		Spawn:
+			G20I A -1
+			Stop
+	}
+}
+
+actor Loaded20mmGrenadeFire : Ammo
+{
+    inventory.amount 0
+    inventory.maxamount 6
+    ammo.backpackamount 0
+    ammo.backpackmaxamount 6
+    +IGNORESKILL
+    Scale 0.1
+    States {
+		Spawn:
+			G20I A -1
+			Stop
+	}
+}
+
+actor Loaded20mmGrenadeIce : Ammo
+{
+    inventory.amount 0
+    inventory.maxamount 6
+    ammo.backpackamount 0
+    ammo.backpackmaxamount 6
+    +IGNORESKILL
+    Scale 0.1
+    States {
+		Spawn:
+			G20I A -1
+			Stop
+	}
+}
+
+actor Loaded20mmGrenadeBio : Ammo
+{
+    inventory.amount 0
+    inventory.maxamount 6
+    ammo.backpackamount 0
+    ammo.backpackmaxamount 6
+    +IGNORESKILL
+    Scale 0.1
+    States {
+		Spawn:
+			G20I A -1
+			Stop
+	}
+}
+
+actor Loaded20mmGrenadeShock : Ammo
+{
+    inventory.amount 0
+    inventory.maxamount 6
+    ammo.backpackamount 0
+    ammo.backpackmaxamount 6
+    +IGNORESKILL
+    Scale 0.1
+    States {
+		Spawn:
+			G20I A -1
+			Stop
+	}
+}
+
+actor LoadedBSR : Ammo // Ammo inside the magazine
+{
+	inventory.amount 0
+	inventory.maxamount 10
+	ammo.backpackamount 0
+	ammo.backpackmaxamount 10
+	+IGNORESKILL
+	States {
+		Spawn:
+			BLIT A -1
+			Stop
+	}
+}
+
+actor LoadedDE : Ammo // Ammo inside the magazine
+{
+	inventory.amount 0
+	inventory.maxamount 7
+	ammo.backpackamount 0
+	ammo.backpackmaxamount 7
+	+IGNORESKILL
+	States {
+		Spawn:
+			BLIT A -1
+			Stop
+	}
+}
+
+actor LoadedM4C : Ammo // Ammo inside the magazine
+{
+	inventory.amount 0
+	inventory.maxamount 30
+	ammo.backpackamount 0
+	ammo.backpackmaxamount 30
+	+IGNORESKILL
+	States {
+		Spawn:
+			BLIT A -1
+			Stop
+	}
+}
+
+actor LoadedMP7 : Ammo // Ammo inside the magazine
+{
+	inventory.amount 0
+	inventory.maxamount 30
+	ammo.backpackamount 0
+	ammo.backpackmaxamount 30
+	+IGNORESKILL
+	Scale 0.7
+	States {
+		Spawn:
+			CLIP A -1
+			Stop
+	}
+}
+
+actor LoadedMP5 : Ammo // Ammo inside the magazine
+{
+	inventory.amount 0
+	inventory.maxamount 30
+	ammo.backpackamount 0
+	ammo.backpackmaxamount 30
+	+IGNORESKILL
+	Scale 0.7
+	States {
+		Spawn:
+			CLIP A -1
+			Stop
+	}
+}
+
+actor LoadedM9 : Ammo // Ammo inside the magazine
+{
+	inventory.amount 0
+	inventory.maxamount 15
+	ammo.backpackamount 0
+	ammo.backpackmaxamount 15
+	+IGNORESKILL
+	Scale 0.7
+	States {
+		Spawn:
+			CLIP A -1
+			Stop
+	}
+}
+
+actor LoadedOICW : Ammo // Ammo inside the magazine
+{
+	inventory.amount 0
+	inventory.maxamount 30
+	ammo.backpackamount 0
+	ammo.backpackmaxamount 30
+	+IGNORESKILL
+	States {
+		Spawn:
+			BLIT A -1
+			Stop
+	}
+}
+
+actor LoadedS12 : Ammo
+{
+	inventory.amount 0
+	inventory.maxamount 6
+	ammo.backpackamount 0
+	ammo.backpackmaxamount 6
+	+IGNORESKILL
+	States {
+		Spawn:
+			SHEL A -1
+			Stop
+	}
+}
+
+actor LoadedSOS : Ammo
+{
+	inventory.amount 0
+	inventory.maxamount 2
+	ammo.backpackamount 0
+	ammo.backpackmaxamount 2
+	+IGNORESKILL
+	States {
+		Spawn:
+			SHEL A -1
+			Stop
+	}
+}
+
+actor LoadedRPG : Ammo
+{
+	inventory.amount 0
+	inventory.maxamount 1
+	ammo.backpackamount 0
+	ammo.backpackmaxamount 1
+	+IGNORESKILL
+	States {
+		Spawn:
+			MSSL A -1
+			Stop
+	}
+}

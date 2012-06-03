@@ -1,0 +1,240 @@
+Wad made by Minesae Hiromu
+Help from Avi "Myself Again", Voltlock "Prot3us", Spleen, Shadowlink223,
+	AceOfSleep, Berg "Medic", Taion, Stigy, Knocka Sharp, One-O-Four, Fletto,
+	Clayton, General Mike, and Joey
+
+Note that this wad should not be released in the public, as there is still 
+borrowed content from other wads that is slowly being replaced to become more
+original, such as sprites and sounds.
+
+This is only the monsters wad of the Federation set.
+
+================================================================================
+------------------------:::::::::::SMOKE BOMB:::::::::::------------------------
+================================================================================
+CREDITS:
+Code, Smoke sprite - Konda
+smoke bob sprites - Realm667(Grenade), recolored by Konda
+Sounds - found on youtube. There is an epic user that releases sound effects.
+Take a look! (http://www.youtube.com/user/EpicSoundEffects)
+================================================================================
+
+================================================================================
+----------------------:::::::::::DARK INQUISITOR:::::::::::---------------------
+================================================================================
+Submitted: ProjectAngel
+Decorate: ProjectAngel
+GLDefs: ProjectAngel
+Sounds: Wirehead Studios, id Software, RavenSoftware, ProjectAngel
+Sprites: Rogue Entertainment, Monolith, Id Software, 3d Realms, Ghastly_Dragon
+Sprite Edit: Ichor, Ghastly_Dragon
+Idea Base: Strife Inquisitor, Metroid Prime 2: Echoes Dark Pirate Commando
+================================================================================
+
+================================================================================
+----------------------::::::::::::ZOMBIE FLYER::::::::::::----------------------
+================================================================================
+Submitted: Tormentor667, Mancubus
+Decorate: Tormentor667, Mancubus, Bouncy
+GLDEFs: Dreadopp
+Sounds: Id Software, 3DRealms
+Sprites: Id Software, 3DRealms
+Sprite Edit: Tormentor667
+Idea Base: Duke Nukem 3D Pig Cop Flyer
+================================================================================
+
+================================================================================
+---------------------::::::::::::DEAD SCIENTISTS::::::::::::--------------------
+================================================================================
+Submitted: scalliano
+Decorate: scalliano
+GLDefs: none
+Sprites: Id Software (Zombieman), the Skulltag Team (Illucia), DavidRaven, The
+	Kins (Shotgun Guy Alt Death)
+Sprite Edit: scalliano
+Idea Base: The UAC's apparent lack of staff
+================================================================================
+
+================================================================================
+---------------------::::::::::::MARINE CORSPES::::::::::::---------------------
+================================================================================
+Submitted: MDK
+Decorate: MDK
+Sprites: MDK, ID Software
+Idea Base: Dead Corpses of Doom
+Description: A pack of 6 marine corpses
+================================================================================
+
+================================================================================
+--------------------::::::::::::SITTING CORPSES::::::::::::---------------------
+================================================================================
+Credits: KDiZD Team
+Submitted: PillowBlaster
+Decorate: N/A
+GLDefs: N/A
+Sounds: N/A
+Sprites: NMN
+Sprite Edit: N/A
+Idea Base:N/A
+================================================================================
+
+================================================================================
+------------------------::::::::::::ASSASSIN::::::::::::------------------------
+================================================================================
+Submitted: Hellstorm Archon
+Decorate: Ghastly_dragon, Captain Toenail, Hellstorm Archon
+GLDefs: Ghastly_dragon
+Sounds: Id Software
+Sprites: Rogue Entertainment
+Sprite Edit: Marty Kirra
+================================================================================
+
+================================================================================
+------------------------:::::::::::CHANGE LOG:::::::::::------------------------
+================================================================================
+SOON
+---
+- add Gordon Macarius
+- add suiciding sentinels
+
+v11
+---
+- Added a custom PLAYPAL and COLORMAP for Fed
+- Added temporary civilian sounds
+- Adjusted the jump states on some monsters
+- Organized the Berserk Knight decorate
+- Added Sky Knights
+- Added 2 new scientist corpse decorations
+- Adjusted elemental knight elemental attack rates to be more frequent
+- Added a bubbling effect to bio sludge
+
+v10
+---
+- Working headshot animations
+- added elemental headshot boxes to keep elementals from killing themselves
+
+V09
+---
+- Berserk Knight speed boosted.
+- Smoother movement for more knight types
+
+v08
+---
+- Adjusted Spawn rates.
+- Strike Knights now have a chance of spawning as imp replacements.
+- Added Smooth movement to Initiates.
+- Longer Grenade Launches
+- Added health upgrades.
+
+v07
+---
+- Changed heavy grenade explosions.
+- Ice Knight projectile attacks no longer bounce on walls, they spread into ice
+	chunks on impact.
+- New Sekrit Justicar attack.
+- Adjusted projectile attack heights on the heavy knight and flash knight to 24
+	like the medic, hopefully to keep the attacks from hitting the headshot box.
+- Added the Federation Eye decoration.
+- Changed Initiate firing and reloading sound.
+- Changed Initiate firing rate.
+- Added tracers.
+- Gave Berserk Knights smoother movement.
+
+V06(Henceforth known as FederationMonsters.PK3)
+---
+- Reorganized the entire wad into a PK3 system.
+- Added new skill definitions and text colors.
+- Simplified monster decorates.
+- Added Shock and Fire Grenades.
+- Adjusted damage types on monsters.
+- Changed Pain.Stun states to Pain.Shock.
+- Made a change to the Bio Grenades.
+- Added Ice Templar.
+- Added Light Templar (Cheat summon).
+- Added Dark Templar (Cheat summon).
+
+V05
+---
+- Nerfed Initiate by lessening their damage, giving them a reload state, and
+	giving them a chance to stop firing.
+- Changed Initiate and Knight firing sounds.
+- Changed Zone Knight voices, made them deeper.
+- Added Tremor Knight.
+- Added Mirage Knight.
+- Added Bishop Knight.
+- Added Vegetation that spawns around trees.
+- Increased Beacon drop rate.
+- Fixed EXP again.
+- Added more traitor beacons and a shield generator.
+- Made traitor orbit markers disappear when the traitor dies, and reappear when
+	revived.
+- Added traitor obituaries.
+- Made Fire Knights explode with smoke and more smoke and fire with a gib death.
+- Made Poison gas and Nitrogen take the form of the smoke grenade's gas.
+- Added new poison gas and freezer grenades to player's inventory.
+- Changed Fire Knight's fire from Duke Nukem fire to the PNG fire.
+- Made Fire Templar's attacks leave behind flames.
+- Poison gas now explodes if it comes into contact with explosions.
+- Nerfed Crusader's EMP attack.
+- Added new armors.
+- Added new bullet puff.
+- Added new Rook Knight attack.
+- Knight Captains can now drop beacons for reinforcements.
+- Added Terror Mites.
+- Added Legionaries.
+- Added Hoplites.
+- Added Mortar Strike Comm inventory item.
+- Reorganized Monster DECORATES.
+
+V04
+---
+- Added respawn EXP.
+- Added in the Fire Templar's Hell Sword (Not yet added to Fire Templar's
+	attacks).
+- Added new headshot animation (Bugged).
+
+V03
+---
+- Added traitors.
+- Bugfixing.
+- Added glowing rings and orbit markers around traitors.
+- Raised Riot Knight health.
+- Added Zone Knights.
+- Added Strike Knight Flyers.
+
+V02
+---
+- Added Shock Knights.
+- Adjusted unit skins to be more logical.
+- Added regenerating health for more units to fix their live to fight again AI.
+- Remade the Crusader using ProjectAngel's Dark Inquisitor.
+- Increased damage of Captain's melee attack.
+- Made Captain and Justicar Decorates a little more logical.
+- Nerfed Grenade Knight and made his grenades fire one at a time.
+- Changed Heavy Knight's first frame to show their new skin, though it does not
+	actually use it at this time.
+- Nerfed Knight Plasma Tank damage and firing rate.
+- Crusader now has a rare chance of spawning where a Mancubus, Arachnotron, or
+	Cyberdemon spawns.
+- Nerfed Fire Templar Damage, mostly on fireball explosions.
+- Corrected all instances of 'beserk' to 'berserk'.
+- Fixed Open GL lights appearing on Knights all the time.
+- Added new chat sounds.
+- Bugfixing.
+- Set all soldiers gib health to 30.
+- Lowered Justicar and Berserk Knight revival rate.
+- Fixed Captain's melee not doing damage.
+- Fixed Ice Knights killing themselves.
+- Adjusted Headshot damage.
+
+V01
+---
+- Added Brutal Doom Headshots.
+- Rewrote much of the Decorate.
+- Added comments.
+
+
+Alpha
+-----
+- All the old stuff added in here that I didn't keep track of.
+================================================================================

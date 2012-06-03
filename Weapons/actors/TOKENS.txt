@@ -1,0 +1,77 @@
+actor Reloading : Inventory
+{
+     inventory.amount 0
+	 inventory.maxamount 1
+}
+
+actor IronSight : Inventory
+{
+      inventory.amount 0
+	  inventory.maxamount 1
+}
+
+actor IronSight2 : Inventory
+{
+	  inventory.amount 0
+	  inventory.maxamount 1
+}
+
+actor ReloadAlt : Inventory
+{
+	  inventory.amount 0
+	  inventory.maxamount 1
+}
+
+Actor NadeButton : Inventory
+{
+	inventory.amount 0
+	inventory.maxamount 1
+}
+
+Actor SpecFire : Inventory
+{
+	inventory.amount 0
+	inventory.maxamount 1
+}
+
+Actor RoF : Inventory
+{
+	inventory.amount 0
+	inventory.maxamount 1
+}
+
+Actor RoF_sos : Inventory
+{
+	inventory.amount 0
+	inventory.maxamount 1
+}
+
+Actor FireGrenG : Inventory
+{
+	inventory.amount 0
+	inventory.maxamount 1
+}
+
+Actor FireGrenF : Inventory
+{
+	inventory.amount 0
+	inventory.maxamount 1
+}
+
+Actor FireGrenI : Inventory
+{
+	inventory.amount 0
+	inventory.maxamount 1
+}
+
+Actor FireGrenB : Inventory
+{
+	inventory.amount 0
+	inventory.maxamount 1
+}
+
+Actor FireGrenS : Inventory
+{
+	inventory.amount 0
+	inventory.maxamount 1
+}

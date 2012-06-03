@@ -1,0 +1,231 @@
+ACTOR Initiate : Enemy 13201 {
+  //$Category Federation
+  
+  Health 60
+  GibHealth 60
+  Radius 16
+  Height 40
+  Mass 100
+  Speed 3//10
+  
+  MONSTER
+  +NOTARGET
+  +DONTHURTSPECIES
+  +MISSILEMORE
+  +FASTER
+  
+  DropItem "Clip" 256
+  DropItem "Clip" 128
+  
+  Dropitem "Stimpack" 16
+  Dropitem "InitiateArmor" 4 													// Armor = 60 Armor points
+  
+  DropItem "M9 Pistol" 8
+  
+  //Dropitem "PDA" 2
+  
+  Dropitem "5Beacon" 2 															// Beacon = 5 Initiates
+  
+  Translation 0 																// Translation = GRAY
+  
+  BloodType "NashGore_Blood"
+  Decal "BulletChip"
+  
+  PainChance 100
+  PainChance "Shock", 255
+  //PainChance "Traitor", 256
+  
+  Species "hellknight"
+  
+  SeeSound "monster/inisit"
+  AttackSound "Initiate/FireM9"
+  PainSound "monster/inipai"
+  DeathSound "monster/inidth"
+  ActiveSound "monster/iniact"
+  
+  Obituary "An Initiate was promoted for killing %o."
+  
+  States { 
+
+/******************************************************************************\
+================================HEADSHOT STATES=================================
+\******************************************************************************/
+
+   Spawn: 
+      GO99 A 0                                                     				//
+      GO99 A 0 A_CheckSight("Spawn2")                              				// DO NOT SPAWN HEADSHOT BOX 
+      GO99 A 0 Thing_SetSpecial(0,226,613,0,random(8,10))          				// RGA2 EXP COMPATIBILITY
+   SpawnLoop:
+      TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          				// MAKE HEADSHOT BOX
+      GO99 AB 10 A_LookEx(0,0,random(256,2048),random(512,4096),random(90,180),"See")// WHERE ARE YOU!
+      goto SpawnLoop                                                    		//
+   See: 
+      GO99 A 0 A_CheckSight("See2")                                				//
+      TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+      GO99 AAAA 1 A_Chase                                             			// NORMAL CHASE
+      TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+      GO99 AAAA 1 A_Chase                                             			// NORMAL CHASE
+      TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+      GO99 BBBB 1 A_Chase                                             			// NORMAL CHASE
+      TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+      GO99 BBBB 1 A_Chase                                             			// NORMAL CHASE
+      TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+      GO99 CCCC 1 A_Chase                                             			// NORMAL CHASE
+      TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+      GO99 CCCC 1 A_Chase                                             			// NORMAL CHASE
+      TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+      GO99 DDDD 1 A_Chase                                             			// NORMAL CHASE
+      TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+      GO99 DDDD 1 A_Chase                                             			// NORMAL CHASE
+      Loop                                                         				//
+
+/******************************************************************************\
+==============================NON-HEADSHOT STATES===============================
+\******************************************************************************/
+
+  Spawn2: 
+	GO99 A 0                                                     				//
+	GO99 A 0 Thing_SetSpecial(0,226,613,0,random(8,10))          				// RGA2 EXP COMPATIBILITY
+  Spawn2Loop:
+	GO99 AB 10 A_LookEx(0,0,random(256,2048),random(512,4096),random(90,180),"See2")// WHERE ARE YOU!
+	goto Spawn2Loop                                                    			//
+  See2: 
+	GO99 AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase								// NORMAL CHASE
+	Loop                                                         				//
+
+/******************************************************************************\
+=================================ATTACK STATES==================================
+\******************************************************************************/
+
+  Missile: 
+	GO99 E 10 A_FaceTarget                                       				//
+  BulletAttack:
+	GO99 E 0 A_JumpIfInventory("KnightAmmo", 10, "Reload")       				// CHECK AMMO
+	TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+	GO99 F 0 Bright A_CustomBulletAttack(22.5,22.5,1,random(1,3),"BulletPuff")	// SHOOT
+    TNT1 A 0 A_PlaySoundEx("Initiate/FireM9","SoundSlot6")
+    TNT1 A 0 A_AlertMonsters
+	GO99 F 5 BRIGHT A_CustomMissile("InitiateTracer",38,0,random(-22.5,22.5),2,random(-22.5,22.5))
+	TNT1 A 0 A_Jump(256,1,2,3,4)												// RANDOMIZED DURATION
+	GO99 EEEE 1
+	TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+	GO99 E 0 A_GiveInventory("KnightAmmo", 1)                    				// LESSEN AMMO
+	GO99 E 0 A_Jump(32, "StopShooting")                          				// CHANCE STOP SHOOTING
+	GO99 E 1 A_CPosRefire                                        				// SHOOT AGAIN
+	Goto BulletAttack                                            				//
+  StopShooting:
+	GO99 E 0                                                     				//
+	goto See                                                     				//
+  Reload:
+	GO99 E 0 A_TakeInventory("KnightAmmo", 10)                   				// RELOAD!
+	GO99 E 4 A_PlaySound("ZSec/DryFire")                         				//
+	GO99 E 4 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+	GO99 E 3 A_PlaySound("Initiate/ReloadM9")                          			//
+	GO99 EEEEEEEEEEEEE 4 A_SpawnItem ("HeadshotTarget10", 0, 40,0)				// MAKE HEADSHOT BOX
+	GO99 E 0 A_ChangeFlag("NoPain", 0)                           				// WILL ENTER PAIN STATE
+	goto See                                                     				//
+
+/******************************************************************************\
+==================================PAIN STATES===================================
+\******************************************************************************/
+
+  Pain: 
+	TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            				// MAKE HEADSHOT BOX
+	GO99 G 3                                                     				//
+	TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            				// MAKE HEADSHOT BOX
+	GO99 G 3 A_Pain                                              				// OW!
+	Goto See                                                     				//
+  Pain.Shock:
+	GO99 G 2 A_ChangeFlag("NoPain", 1)                           				// STUNNED!
+	GO99 G 300 A_Pain                                            				//
+	GO99 G 0 A_ChangeFlag("NoPain", 0)                           				//
+	Goto See                                                     				//
+  //Pain.Traitor:
+	//TNT1 A 0 A_ChangeFlag("SOLID", 0)                            				//
+	//TNT1 A 0 A_SpawnItemEx("FInitiate",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)       //
+	//Goto See                                                     				//
+
+/******************************************************************************\
+==================================DEATH STATES==================================
+\******************************************************************************/
+
+  Death: 
+	GO99 H 0 A_JumpIfHealthLower(-60,"Splode")                   				//
+    TNT1 A 0 A_AlertMonsters
+	GO99 H 5                                                     				//
+	GO99 I 5 A_Scream                                            				//
+	GO99 J 5 A_Fall                                              				//
+	GO99 K 5                                                     				//
+	GO99 L 5                                                     				//
+	GO99 M 5                                                     				//
+	GO99 N 0 A_Jump(1, "Regenerating")                           				// REGENERATING!
+	GO99 N -1                                                    				//
+	stop                                                         				//
+  Regenerating:
+	GO99 NNNNN 70                                                				//
+	GO99 NNNNN 70                                                				//
+	GO99 NNNNN 70                                                				//
+	GO99 N -1 Thing_Raise(0)                                     				// STILL ALIVE
+	Wait                                                         				//
+  Splode:
+	GO99 I 1                                                     				// xDeath
+	GO99 I 0 A_SpawnDebris("NashGore_Gib9",0)                    				// GIBS!
+	GO99 I 0 A_SpawnDebris("NashGore_Gib10",0)                   				//
+	GO99 I 0 A_SpawnDebris("NashGore_Gib11",0)                   				//
+	GO99 I 0 A_SpawnDebris("NashGore_Gib11",0)                   				//
+	GO99 I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        				//
+	GO99 I 0                                                     				//
+	GO99 I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        				//
+	GO99 I 0 A_XScream                                           				//
+	GO99 I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        				//
+	GO99 I 0 A_NoBlocking                                        				//
+	GO99 I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        				//
+	GO99 I 0                                                     				//
+	GO99 Z 0 A_SpawnItemEx("DEADInitiateHead",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)//
+	stop                                                         				//
+  Death.Fire2:
+	TNT1 A 1 A_SpawnItem("BurnDeath1", 2, 1)                     				// SCORCHED
+    TNT1 A 0 A_AlertMonsters
+	stop                                                         				//
+  Death.head:
+	GO99 O 9 A_PlaySound("headshot/splat")                       				//
+	GO99 I 0 A_SpawnDebris("NashGore_Gib3",0)                    				// GIBS!
+	GO99 I 0 A_SpawnDebris("NashGore_Gib11",0)                   				//
+	GO99 I 0 A_SpawnDebris("NashGore_Gib11",0)                   				//
+	GO99 P 9 A_XScream                                           				//
+	GO99 Q 9 A_Fall                                              				//
+	GO99 R 5                                                     				//
+	GO99 S 5                                                     				//
+	GO99 T 0 A_SpawnItemEx("DEADInitiate",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)// FAKE BODY
+	stop                                                         				//
+  Raise: 
+	GO99 K 5
+	GO99 J 5 //A_JumpIfInventory("traitor",1,"RaiseTraitor")       				// REVIVED BY TRAITOR MEDIC
+	GO99 IH 5 Thing_SetSpecial(0,226,613,0,random(8,10))         				// RGA2 EXP COMPATIBILITY
+	Goto See                                                     				//
+  } 
+}
+
+ACTOR DEADInitiate {
+	+FLOORCLIP
+	Radius 12
+	Height 11
+	States {
+		Spawn:
+			GO99 T 0
+			GO99 T -1
+			stop
+	}
+}
+
+ACTOR DEADInitiateHead {
+	+FLOORCLIP
+	Radius 12
+	Height 11
+	States {
+		Spawn:
+			GO99 Z 0
+			GO99 Z -1
+			stop
+	}
+}

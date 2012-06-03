@@ -1,0 +1,162 @@
+ACTOR "Desert Eagle" : Weapon // DESERT EAGLE IN DEVELOPMENT
+
+{
+
+	obituary "\ca %k \cb --> D. Eagle --> \cc %o "
+	inventory.pickupmessage "Desert Eagle."
+
+	weapon.ammotype "LoadedDE"
+	weapon.ammouse 1
+	weapon.ammogive 15
+   
+	weapon.ammotype2 "50AE"
+	weapon.ammouse2 0
+	weapon.ammogive2 15
+
+	Weapon.SlotNumber 2
+        Decal BulletChip
+	+NOALERT
+	+AMMO_OPTIONAL
+	+NOAUTOFIRE //Keeps altfire from going apeshit. Also lets gun be semi auto
+               // but slow to fire when just held down.
+   
+	States
+	{
+	Spawn:
+      DEAG I -1
+      Stop
+	  
+	Select:
+       DEMA A 0 A_TakeInventory("IronSight",1)
+	   DEMA A 0 A_ZoomFactor(1,ZOOM_INSTANT)
+	   DEMA A 0 A_Raise
+	   loop
+	  
+	Ready: // Pretty shit, doesn't really start the true weapon's ready state. See ReadyLoop
+	   DEMA A 2 A_TakeInventory("Reloading",1)
+	   DEMA BCDE 2 A_WeaponReady(WRF_NOPRIMARY)
+	   DEMA F 0 A_PlaySoundEx("DE_SLIDE","SoundSlot5")
+	   DEMA FGHIJKLMNOPQRSTU 2 A_WeaponReady(WRF_NOPRIMARY)
+	 
+	ReadyLoop: // Designed to look for our custom features to work at a second's notice.
+	   DEMA U 0 A_JumpIfNoAmmo("Reload")
+	   DEMA U 0 A_JumpIfInventory("Reloading",1,"Reload")
+	   DEMA U 1 A_WeaponReady
+	   loop
+	  
+	Deselect: //Simple hack, makes gun quick switch faster than Doom.
+	   TNT1 AAAAAAAAAA 0 A_Lower
+	  
+	DeselectLoop: // Makes sure it wraps up, otherwise shit crashes!
+	   TNT1 A 1 A_Lower
+	   loop
+	  
+	Fire: // More complicated then just "bang." Basically has checks for all our unnecessary icing.
+	   TNT1 A 0 A_JumpIfInventory("IronSight",-1,"FireIron")
+	   TNT1 A 0 A_JumpIfNoAmmo("DryFire")
+	   TNT1 A 0 A_PlaySoundEx("DE_FIRE","SoundSlot5")
+	   TNT1 A 0 A_AlertMonsters
+	   TNT1 A 0 A_Recoil(0.1)
+	   DEMB A 0 BRIGHT A_Firebullets (5.5,5.5,-1,30,"BurstPuff")
+	   //TNT1 A 0 A_TakeInventory("loadedM9",1)
+	   DEMB A 2 A_FireCustomMissile("DeagleTracer",random(-5.5,5.5),0,0,0,0,random(-5.5,5.5))
+	   TNT1 A 0 ACS_ExecuteAlways(505,0)
+	   TNT1 A 0 A_ZoomFactor(0.92)
+	   DEMB B 2 BRIGHT A_GunFlash
+	   TNT1 A 0 A_ZoomFactor(1.0)
+	   DEMB CCDDEEFFGGHHIIJJKKLLMMNNOOPPQQRR 1 A_WeaponReady //Speed hack to up semi auto fire
+	   //M9PB A 0 A_JumpIfInventory("9mm",1,1)
+	   DEMB A 0 A_ReFire
+	   goto ReadyLoop
+	   DEMB A 0 A_JumpIfNoAmmo(2)
+	   DEMB A 0 A_ReFire
+	   goto ReadyLoop
+	   DEMB A 0 A_GiveInventory("Reloading",1)
+	   goto Reload
+	  
+	DryFire: // *click click* Oshi...
+	   DEMB H 10 A_PlayWeaponSound("dryfire")
+	   goto ReadyLoop
+	  
+	AltFire: // Known to some as "Iron Sight Aiming".
+	   DEMC A 0 A_JumpIfInventory("IronSight",1,"AltFire2")
+	   DEMC A 0 A_ZoomFactor(1.5)	
+	   DEMC ABCDEFGHIJ 1
+	   DEMC F 0 A_GiveInventory("IronSight",1)
+	   DEMC KLMN 1 A_WeaponReady(WRF_NOBOB)
+	   goto IronSight
+   
+	AltFire2: // Return to hip fire, you sexy devil you
+	   DEMC N 0 A_ZoomFactor(1.0)
+	   TNT1 A 0 A_TakeInventory("IronSight",1)
+	   DEMC LKIFEDCBA 1 A_WeaponReady(WRF_NOBOB)
+	   goto ReadyLoop+2
+	
+	IronSight: // Fancy version of Ready Loop, but for Ironsighting
+	   DEMC N 0 A_JumpIfInventory("Reloading",1,"Reload")
+	   DEMC N 0 A_JumpIfNoAmmo("Reload")
+	   DEMC N 1 A_WeaponReady(WRF_NOBOB)
+	   loop
+
+	FireIron: // Sadly, we don't have a mod for firing iron bullets. They rust.
+	   TNT1 A 0 A_JumpIfNoAmmo("DryIron")
+	   TNT1 A 0 A_PlaySoundEx("DE_FIRE","SoundSlot5")
+	   TNT1 A 0 A_AlertMonsters
+	   TNT1 A 0 A_Recoil(0.05)
+	   DEMD A 0 BRIGHT A_FireBullets (.165, .165, -1, 30, "BulletPuff")
+	   //TNT1 A 0 A_TakeInventory("loadedM9",1)
+	   DEMD A 1 A_FireCustomMissile("DeagleTracer",random(-.165,.165),0,0,0,0,random(-.165,.165))
+	   TNT1 A 0 ACS_ExecuteAlways(505,0)
+	   TNT1 A 0 A_ZoomFactor(1.32)
+	   DEMD B 1 BRIGHT A_GunFlash
+	   DEMD C 2 A_ZoomFactor(1.5)
+	   DEMD DDEEFFGGHHIIJJKKLLMMNNOOPPQQRRSTTUUVVWWXXYY 1 A_WeaponReady
+	   //M9PD A 0 A_JumpIfInventory("9mm",1,2)
+	   DEMD A 0 A_ReFire
+	   goto IronSight
+	   DEMD A 0 A_JumpIfNoAmmo(2)
+	   DEMD A 0 A_ReFire
+	   goto IronSight
+ 	   DEMD A 0 A_GiveInventory("Reloading",1)		//Go to reload
+	   goto Reload
+	  
+	DryIron: // More clicky clicky, luck shitty shitty.
+	   DEMD G 10 A_PlayWeaponSound("dryfire")
+	   goto IronSight
+
+	Reload: //This is more or less a confirm state to trigger the animation
+	   TNT1 A 0 A_JumpIfInventory("50AE",1,"ReloadAnimation")
+	   TNT1 A 0 A_TakeInventory("Reloading",1) // Bullets = 0. RELOAD DENIED!
+	   TNT1 A 0 A_JumpIfInventory("IronSight",1,"IronHack") // Fixes a visual glitch when you have 0 total ammo
+	   goto ReadyLoop+2
+	   
+	IronHack: // It's so awesome, I know! :V
+		goto Ironsight+2
+	  
+	ReloadAnimation: // Purely for looking pretty.
+	   DEME A 0 A_TakeInventory("IronSight",1)
+	   DEME A 0 A_ZoomFactor(1.0)
+	   DEME ABC 2 A_WeaponReady(WRF_NOFIRE)
+	   DEME D 2 A_PlaySoundEx("DE_R1","SoundSlot5")
+	   DEME EFGHIJKLMNOPQRSTUV 2 A_WeaponReady(WRF_NOFIRE)
+	   goto ReloadAmmo
+      
+	ReloadAmmo: // at this point animation wraps up and ammo is displayed
+	   DEME R 0 A_GiveInventory("LoadedDE",1)
+	   DEME R 0 A_TakeInventory("50AE",1)
+	   DEME R 0 A_JumpIfInventory("LoadedDE",15,"ReloadEnd")
+	   DEME R 0 A_JumpIfInventory("50AE",1,"ReloadAmmo")
+	   goto ReloadEnd
+	  
+	ReloadEnd: // Final half of the animation. At this point, bullets are actually in the gun.
+	   TNT1 A 0 A_TakeInventory("Reloading",1)
+	   DEME WXYZ 2 A_WeaponReady(WRF_NOFIRE)
+	   DEMF ABCDEFGHIJ 2 A_WeaponReady(WRF_NOFIRE)
+	   DEMF k 2 A_PlaySoundEx("DE_R2","SoundSlot5")
+	   DEMF LMNOPQRSTUVWXYZ 2 A_WeaponReady(WRF_NOFIRE)
+	   DEMG A 2 A_WeaponReady(WRF_NOFIRE)
+	   TNT1 A 0 A_ReFire
+	   goto ReadyLoop+2
+	  
+  }
+}

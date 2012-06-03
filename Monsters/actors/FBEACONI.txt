@@ -1,0 +1,677 @@
+ACTOR BeaconTeleportFog : TeleportFog
+{
+}
+
+ACTOR 2Beacon : CustomInventory
+{
+  +INVENTORY.INVBAR
+  Inventory.MaxAmount 5
+  Inventory.Icon "2BEAB0"
+  Inventory.PickupMessage "You picked up a traitor beacon! - 1 Captain - 3 Strike Knights - 1 Heavy Knight -"
+  States
+  {
+  Spawn:
+    2BEA A 8
+    2BEA A 0
+    loop
+  Use:
+    TNT1 A 1 A_SpawnItemEx ("Active2Beacon", 56, 0, 8, 0, 0, 0, 0, 1)
+    Stop
+  }
+}
+
+actor Active2Beacon
+{
+  -SOLID
+  -SHOOTABLE
+  States
+  {
+  Spawn:
+    2BEA A 105 BRIGHT
+    2BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    2BEA A 0 A_SpawnItemEx ("FKnightCaptain", 0, 0, 8, 0, 0, 0, 0, 1)
+    2BEA A 105 BRIGHT
+    2BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    2BEA A 0 A_SpawnItemEx ("FStrikeKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    2BEA A 105 BRIGHT
+    2BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    2BEA A 0 A_SpawnItemEx ("FStrikeKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    2BEA A 105 BRIGHT
+    2BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    2BEA A 0 A_SpawnItemEx ("FStrikeKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    2BEA A 105 BRIGHT
+    2BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    2BEA A 0 A_SpawnItemEx ("FHeavyKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    2BEA A 105 BRIGHT
+    goto Death
+  Death:
+    TNT1 A 1 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    stop
+  }
+}
+
+ACTOR 5Beacon : CustomInventory
+{
+  +INVENTORY.INVBAR
+  Inventory.MaxAmount 5
+  Inventory.Icon "5BEAB0"
+  Inventory.PickupMessage "You picked up a traitor beacon! - 5 Initiates -"
+  States
+  {
+  Spawn:
+    5BEA A 8
+    5BEA A 0
+    loop
+  Use:
+    TNT1 A 1 A_SpawnItemEx ("Active5Beacon", 56, 0, 8, 0, 0, 0, 0, 1)
+    Stop
+  }
+}
+
+actor Active5Beacon
+{
+  -SOLID
+  -SHOOTABLE
+  States
+  {
+  Spawn:
+    5BEA A 105 BRIGHT
+    5BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    5BEA A 0 A_SpawnItemEx ("FInitiate", 0, 0, 8, 0, 0, 0, 0, 1)
+    5BEA A 105 BRIGHT
+    5BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    5BEA A 0 A_SpawnItemEx ("FInitiate", 0, 0, 8, 0, 0, 0, 0, 1)
+    5BEA A 105 BRIGHT
+    5BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    5BEA A 0 A_SpawnItemEx ("FInitiate", 0, 0, 8, 0, 0, 0, 0, 1)
+    5BEA A 105 BRIGHT
+    5BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    5BEA A 0 A_SpawnItemEx ("FInitiate", 0, 0, 8, 0, 0, 0, 0, 1)
+    5BEA A 105 BRIGHT
+    5BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    5BEA A 0 A_SpawnItemEx ("FInitiate", 0, 0, 8, 0, 0, 0, 0, 1)
+    5BEA A 105 BRIGHT
+    goto Death
+  Death:
+    TNT1 A 1 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    stop
+  }
+}
+
+ACTOR 6Beacon : CustomInventory
+{
+  +INVENTORY.INVBAR
+  Inventory.MaxAmount 5
+  Inventory.Icon "6BEAB0"
+  Inventory.PickupMessage "You picked up a traitor beacon! - 5 Heavy Knights -"
+  States
+  {
+  Spawn:
+    6BEA A 8
+    6BEA A 0
+    loop
+  Use:
+    TNT1 A 1 A_SpawnItemEx ("Active6Beacon", 56, 0, 8, 0, 0, 0, 0, 1)
+    Stop
+  }
+}
+
+actor Active6Beacon
+{
+  -SOLID
+  -SHOOTABLE
+  States
+  {
+  Spawn:
+    6BEA A 105 BRIGHT
+    6BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    6BEA A 0 A_SpawnItemEx ("FHeavyKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    6BEA A 105 BRIGHT
+    6BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    6BEA A 0 A_SpawnItemEx ("FHeavyKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    6BEA A 105 BRIGHT
+    6BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    6BEA A 0 A_SpawnItemEx ("FHeavyKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    6BEA A 105 BRIGHT
+    6BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    6BEA A 0 A_SpawnItemEx ("FHeavyKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    6BEA A 105 BRIGHT
+    6BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    6BEA A 0 A_SpawnItemEx ("FHeavyKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    6BEA A 105 BRIGHT
+    goto Death
+  Death:
+    TNT1 A 1 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    stop
+  }
+}
+
+ACTOR 7Beacon : CustomInventory
+{
+  +INVENTORY.INVBAR
+  Inventory.MaxAmount 5
+  Inventory.Icon "7BEAB0"
+  Inventory.PickupMessage "You picked up a traitor beacon! - 5 Strike Knights -"
+  States
+  {
+  Spawn:
+    7BEA A 8
+    7BEA A 0
+    loop
+  Use:
+    TNT1 A 1 A_SpawnItemEx ("Active7Beacon", 56, 0, 8, 0, 0, 0, 0, 1)
+    Stop
+  }
+}
+
+actor Active7Beacon
+{
+  -SOLID
+  -SHOOTABLE
+  States
+  {
+  Spawn:
+    7BEA A 105 BRIGHT
+    7BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    7BEA A 0 A_SpawnItemEx ("FStrikeKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    7BEA A 105 BRIGHT
+    7BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    7BEA A 0 A_SpawnItemEx ("FStrikeKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    7BEA A 105 BRIGHT
+    7BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    7BEA A 0 A_SpawnItemEx ("FStrikeKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    7BEA A 105 BRIGHT
+    7BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    7BEA A 0 A_SpawnItemEx ("FStrikeKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    7BEA A 105 BRIGHT
+    7BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    7BEA A 0 A_SpawnItemEx ("FStrikeKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    7BEA A 105 BRIGHT
+    goto Death
+  Death:
+    TNT1 A 1 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    stop
+  }
+}
+
+ACTOR 8Beacon : CustomInventory
+{
+  +INVENTORY.INVBAR
+  Inventory.MaxAmount 5
+  Inventory.Icon "8BEAB0"
+  Inventory.PickupMessage "You picked up a traitor beacon! - 3 Rook Knights -"
+  States
+  {
+  Spawn:
+    8BEA A 8
+    8BEA A 0
+    loop
+  Use:
+    TNT1 A 1 A_SpawnItemEx ("Active8Beacon", 56, 0, 8, 0, 0, 0, 0, 1)
+    Stop
+  }
+}
+
+actor Active8Beacon
+{
+  -SOLID
+  -SHOOTABLE
+  States
+  {
+  Spawn:
+    8BEA A 105 BRIGHT
+    8BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    8BEA A 0 A_SpawnItemEx ("FRookKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    8BEA A 105 BRIGHT
+    8BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    8BEA A 0 A_SpawnItemEx ("FRookKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    8BEA A 105 BRIGHT
+    8BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    8BEA A 0 A_SpawnItemEx ("FRookKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    8BEA A 105 BRIGHT
+    goto Death
+  Death:
+    TNT1 A 1 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    stop
+  }
+}
+
+ACTOR 9Beacon : CustomInventory
+{
+  +INVENTORY.INVBAR
+  Inventory.MaxAmount 5
+  Inventory.Icon "9BEAB0"
+  Inventory.PickupMessage "You picked up a traitor beacon! - 5 Riot Knights -"
+  States
+  {
+  Spawn:
+    9BEA A 8
+    9BEA A 0
+    loop
+  Use:
+    TNT1 A 1 A_SpawnItemEx ("Active9Beacon", 56, 0, 8, 0, 0, 0, 0, 1)
+    Stop
+  }
+}
+
+actor Active9Beacon
+{
+  -SOLID
+  -SHOOTABLE
+  States
+  {
+  Spawn:
+    9BEA A 105 BRIGHT
+    9BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    9BEA A 0 A_SpawnItemEx ("FRiotKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    9BEA A 105 BRIGHT
+    9BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    9BEA A 0 A_SpawnItemEx ("FRiotKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    9BEA A 105 BRIGHT
+    9BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    9BEA A 0 A_SpawnItemEx ("FRiotKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    9BEA A 105 BRIGHT
+    9BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    9BEA A 0 A_SpawnItemEx ("FRiotKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    9BEA A 105 BRIGHT
+    9BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    9BEA A 0 A_SpawnItemEx ("FRiotKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    9BEA A 105 BRIGHT
+    goto Death
+  Death:
+    TNT1 A 1 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    stop
+  }
+}
+
+ACTOR 0Beacon : CustomInventory
+{
+  +INVENTORY.INVBAR
+  Inventory.MaxAmount 5
+  Inventory.Icon "0BEAB0"
+  Inventory.PickupMessage "You picked up a traitor beacon! - 5 Zone Knights -"
+  States
+  {
+  Spawn:
+    0BEA A 8
+    0BEA A 0
+    loop
+  Use:
+    TNT1 A 1 A_SpawnItemEx ("Active0Beacon", 56, 0, 8, 0, 0, 0, 0, 1)
+    Stop
+  }
+}
+
+actor Active0Beacon
+{
+  -SOLID
+  -SHOOTABLE
+  States
+  {
+  Spawn:
+    0BEA A 105 BRIGHT
+    0BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    0BEA A 0 A_SpawnItemEx ("FZoneKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    0BEA A 105 BRIGHT
+    0BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    0BEA A 0 A_SpawnItemEx ("FZoneKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    0BEA A 105 BRIGHT
+    0BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    0BEA A 0 A_SpawnItemEx ("FZoneKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    0BEA A 105 BRIGHT
+    0BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    0BEA A 0 A_SpawnItemEx ("FZoneKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    0BEA A 105 BRIGHT
+    0BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    0BEA A 0 A_SpawnItemEx ("FZoneKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    0BEA A 105 BRIGHT
+    goto Death
+  Death:
+    TNT1 A 1 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    stop
+  }
+}
+
+ACTOR ABeacon : CustomInventory
+{
+  +INVENTORY.INVBAR
+  Inventory.MaxAmount 5
+  Inventory.Icon "ABEAB0"
+  Inventory.PickupMessage "You picked up a traitor beacon! - 1 Grenade Knight -"
+  States
+  {
+  Spawn:
+    ABEA A 8
+    ABEA A 0
+    loop
+  Use:
+    TNT1 A 1 A_SpawnItemEx ("ActiveABeacon", 56, 0, 8, 0, 0, 0, 0, 1)
+    Stop
+  }
+}
+
+actor ActiveABeacon
+{
+  -SOLID
+  -SHOOTABLE
+  States
+  {
+  Spawn:
+    ABEA A 105 BRIGHT
+    ABEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    ABEA A 0 A_SpawnItemEx ("FGrenadeKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    ABEA A 105 BRIGHT
+    goto Death
+  Death:
+    TNT1 A 1 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    stop
+  }
+}
+
+ACTOR BBeacon : CustomInventory
+{
+  +INVENTORY.INVBAR
+  Inventory.MaxAmount 5
+  Inventory.Icon "BBEAB0"
+  Inventory.PickupMessage "You picked up a traitor beacon! - 2 Fire Knights -"
+  States
+  {
+  Spawn:
+    BBEA A 8
+    BBEA A 0
+    loop
+  Use:
+    TNT1 A 1 A_SpawnItemEx ("ActiveBBeacon", 56, 0, 8, 0, 0, 0, 0, 1)
+    Stop
+  }
+}
+
+actor ActiveBBeacon
+{
+  -SOLID
+  -SHOOTABLE
+  States
+  {
+  Spawn:
+    BBEA A 105 BRIGHT
+    BBEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    BBEA A 0 A_SpawnItemEx ("FFireKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    BBEA A 105 BRIGHT
+    BBEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    BBEA A 0 A_SpawnItemEx ("FFireKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    BBEA A 105 BRIGHT
+    goto Death
+  Death:
+    TNT1 A 1 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    stop
+  }
+}
+
+ACTOR CBeacon : CustomInventory
+{
+  +INVENTORY.INVBAR
+  Inventory.MaxAmount 5
+  Inventory.Icon "CBEAB0"
+  Inventory.PickupMessage "You picked up a traitor beacon! - 2 Ice Knights -"
+  States
+  {
+  Spawn:
+    CBEA A 8
+    CBEA A 0
+    loop
+  Use:
+    TNT1 A 1 A_SpawnItemEx ("ActiveCBeacon", 56, 0, 8, 0, 0, 0, 0, 1)
+    Stop
+  }
+}
+
+actor ActiveCBeacon
+{
+  -SOLID
+  -SHOOTABLE
+  States
+  {
+  Spawn:
+    CBEA A 105 BRIGHT
+    CBEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    CBEA A 0 A_SpawnItemEx ("FIceKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    CBEA A 105 BRIGHT
+    CBEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    CBEA A 0 A_SpawnItemEx ("FIceKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    CBEA A 105 BRIGHT
+    goto Death
+  Death:
+    TNT1 A 1 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    stop
+  }
+}
+
+ACTOR DBeacon : CustomInventory
+{
+  +INVENTORY.INVBAR
+  Inventory.MaxAmount 5
+  Inventory.Icon "DBEAB0"
+  Inventory.PickupMessage "You picked up a traitor beacon! - 1 Bio Knight -"
+  States
+  {
+  Spawn:
+    DBEA A 8
+    DBEA A 0
+    loop
+  Use:
+    TNT1 A 1 A_SpawnItemEx ("ActiveDBeacon", 56, 0, 8, 0, 0, 0, 0, 1)
+    Stop
+  }
+}
+
+actor ActiveDBeacon
+{
+  -SOLID
+  -SHOOTABLE
+  States
+  {
+  Spawn:
+    DBEA A 105 BRIGHT
+    DBEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    DBEA A 0 A_SpawnItemEx ("FBioKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    DBEA A 105 BRIGHT
+    goto Death
+  Death:
+    TNT1 A 1 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    stop
+  }
+}
+
+ACTOR EBeacon : CustomInventory
+{
+  +INVENTORY.INVBAR
+  Inventory.MaxAmount 5
+  Inventory.Icon "EBEAB0"
+  Inventory.PickupMessage "You picked up a traitor beacon! - 1 Bishop Knight -"
+  States
+  {
+  Spawn:
+    EBEA A 8
+    EBEA A 0
+    loop
+  Use:
+    TNT1 A 1 A_SpawnItemEx ("ActiveEBeacon", 56, 0, 8, 0, 0, 0, 0, 1)
+    Stop
+  }
+}
+
+actor ActiveEBeacon
+{
+  -SOLID
+  -SHOOTABLE
+  States
+  {
+  Spawn:
+    EBEA A 105 BRIGHT
+    EBEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    EBEA A 0 A_SpawnItemEx ("FBishopKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    EBEA A 105 BRIGHT
+    goto Death
+  Death:
+    TNT1 A 1 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    stop
+  }
+}
+
+ACTOR FBeacon : CustomInventory
+{
+  +INVENTORY.INVBAR
+  Inventory.MaxAmount 5
+  Inventory.Icon "FBEAB0"
+  Inventory.PickupMessage "You picked up a traitor beacon! - 1 Justicar -"
+  States
+  {
+  Spawn:
+    FBEA A 8
+    FBEA A 0
+    loop
+  Use:
+    TNT1 A 1 A_SpawnItemEx ("ActiveFBeacon", 56, 0, 8, 0, 0, 0, 0, 1)
+    Stop
+  }
+}
+
+actor ActiveFBeacon
+{
+  -SOLID
+  -SHOOTABLE
+  States
+  {
+  Spawn:
+    FBEA A 105 BRIGHT
+    FBEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    FBEA A 0 A_SpawnItemEx ("FJusticar", 0, 0, 8, 0, 0, 0, 0, 1)
+    FBEA A 105 BRIGHT
+    goto Death
+  Death:
+    TNT1 A 1 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    stop
+  }
+}
+
+ACTOR GBeacon : CustomInventory
+{
+  +INVENTORY.INVBAR
+  Inventory.MaxAmount 5
+  Inventory.Icon "GBEAB0"
+  Inventory.PickupMessage "You picked up a traitor beacon! - 2 Shock Knights -"
+  States
+  {
+  Spawn:
+    GBEA A 8
+    GBEA A 0
+    loop
+  Use:
+    TNT1 A 1 A_SpawnItemEx ("ActiveGBeacon", 56, 0, 8, 0, 0, 0, 0, 1)
+    Stop
+  }
+}
+
+actor ActiveGBeacon
+{
+  -SOLID
+  -SHOOTABLE
+  States
+  {
+  Spawn:
+    GBEA A 105 BRIGHT
+    GBEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    GBEA A 0 A_SpawnItemEx ("FShockKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    GBEA A 105 BRIGHT
+    GBEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    GBEA A 0 A_SpawnItemEx ("FShockKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+    GBEA A 105 BRIGHT
+    goto Death
+  Death:
+    TNT1 A 1 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    stop
+  }
+}
+
+ACTOR ShieldGenerator : CustomInventory
+{
+  +INVENTORY.INVBAR
+  Inventory.MaxAmount 5
+  Inventory.Icon "4BEAB0"
+  Inventory.PickupMessage "You picked up a shield generator!"
+  States
+  {
+  Spawn:
+    4BEA A 8
+    4BEA A 0
+    loop
+  Use:
+    TNT1 A 1 A_SpawnItemEx ("ActiveShieldGenerator", 56, 0, 8, 0, 0, 0, 0, 1)
+    Stop
+  }
+}
+
+actor ActiveShieldGenerator
+{
+  -SOLID
+  -SHOOTABLE
+  States
+  {
+  Spawn:
+    4BEA A 35 BRIGHT
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,0,32)    // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,90,32)   // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,180,32)  // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,-90,32)  // BRING UP SHIELD
+    4BEA A 105
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,0,32)    // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,90,32)   // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,180,32)  // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,-90,32)  // BRING UP SHIELD
+    4BEA A 105
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,0,32)    // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,90,32)   // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,180,32)  // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,-90,32)  // BRING UP SHIELD
+    4BEA A 105
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,0,32)    // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,90,32)   // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,180,32)  // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,-90,32)  // BRING UP SHIELD
+    4BEA A 105
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,0,32)    // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,90,32)   // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,180,32)  // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,-90,32)  // BRING UP SHIELD
+    4BEA A 105
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,0,32)    // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,90,32)   // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,180,32)  // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,-90,32)  // BRING UP SHIELD
+    4BEA A 105
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,0,32)    // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,90,32)   // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,180,32)  // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,-90,32)  // BRING UP SHIELD
+    4BEA A 105
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,0,32)    // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,90,32)   // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,180,32)  // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,-90,32)  // BRING UP SHIELD
+    4BEA A 105
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,0,32)    // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,90,32)   // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,180,32)  // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,-90,32)  // BRING UP SHIELD
+    4BEA A 105
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,0,32)    // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,90,32)   // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,180,32)  // BRING UP SHIELD
+    4BEA A 0 bright A_SpawnItemEx ("ShieldSpawner",0,96,0,0,0,0,-90,32)  // BRING UP SHIELD
+    4BEA A 105
+    goto Death
+  Death:
+    TNT1 A 1 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+    stop
+  }
+}

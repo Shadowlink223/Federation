@@ -1,0 +1,77 @@
+clearskills
+
+skill Initiate
+{
+	aggressiveness = 0.5
+	ammofactor = 1.5
+	damagefactor = 0.5
+	SpawnFilter = Normal
+	TextColor = "InitiateGrey"
+	Name = "Initiate"
+	key = "i"
+	easybossbrain
+}
+
+skill Knight
+{
+	aggressiveness = 0.75
+	damagefactor = 0.75
+	ammofactor = 1
+	SpawnFilter = Hard
+	TextColor = "StrikeKnightRed"
+	Name = "Knight"
+	Key = "k"
+}
+
+skill Paladin
+{
+	aggressiveness = 1
+	ammofactor = 1
+	damagefactor = 1
+	SpawnFilter = Hard
+	TextColor = "PaladinGold"
+	Name = "Paladin"
+	key = "p"
+}
+
+skill Justicar
+{
+	aggressiveness = 1
+	ammofactor = 1
+	damagefactor = 1.2
+	SpawnFilter = Hard
+	TextColor = "JusticarGreen"
+	Name = "Justicar"
+	key = "j"
+}
+
+skill Knightmare
+{
+	aggressiveness = 1
+	ammofactor = 1
+	damagefactor = 1.35
+	fastmonsters 
+	SpawnFilter = Nightmare
+	TextColor = "KnightmareBlack"
+	Name = "Knightmare"
+	Key = "m"
+	disablecheats
+	
+	mustconfirm = "With great power comes great responsibility. Do you accept this hellish path, Commander?"
+}
+
+skill Angel
+{
+	aggressiveness = 1
+	ammofactor = 0.8
+	damagefactor = 1.5
+	fastmonsters 
+	RespawnTime = 12
+	SpawnFilter = Nightmare
+	TextColor = "AngelWhite"
+	Name = "Angel"
+	Key = "a"
+	disablecheats
+	
+	mustconfirm = "Remember you are mortal... They are not."
+}

@@ -1,0 +1,184 @@
+ACTOR "Flamethrower" : Weapon {
+
+  Weapon.AmmoType "FlameAmmo"
+  Weapon.AmmoUse 1
+  Weapon.AmmoGive 150
+
+  Weapon.SelectionOrder 115
+  Weapon.SlotNumber 7
+  
+  +NOALERT
+  
+  Scale 0.5
+  
+  inventory.pickupmessage "Flamethrower found."
+  obituary "\ca %k \cb --> Flamethrower --> \cc %o"
+   
+  States {
+  
+  Spawn:
+	PYCN C -1
+	Stop
+
+  Select:
+	FLMA A 0 A_TakeInventory("IronSight",1)
+	FLMA A 0 A_ZoomFactor(1,ZOOM_INSTANT)
+	FLMA A 0 A_Raise
+	loop
+	  
+  Ready:  // This is for show. Just the animation
+	FLMA ABCDEFGHIJKLMNO 1 A_WeaponReady(WRF_NOPRIMARY)
+	  
+  Readyloop:
+	FLMA A 0 A_JumpIfInventory("FlameAmmo",1,1)
+	goto NoGas
+	FLMA O 1 A_WeaponReady
+	loop
+
+  NoGas:
+	FLMA O 1 A_WeaponReady
+	goto Readyloop
+	 
+  Deselect:
+	TNT1 AAAAAAAAAA 0 A_Lower
+	  
+  DeselectLoop: // Makes sure it wraps up
+	TNT1 A 1 A_Lower
+	loop
+	  
+  Fire:
+	FLMA A 0
+	FLMA ONMLKJI 2
+  Hold:
+	TNT1 A 0 A_JumpIfNoAmmo("DryFire")
+	TNT1 A 0 A_Recoil(.1)
+	TNT1 A 0 A_AlertMonsters
+	FLMA I 2 A_FireCustomMissile("FKFire",random(-2,2),1,8,0,0,random(-2,2))
+	TNT1 A 0 ACS_ExecuteAlways(505,0)
+	TNT1 A 0 A_Refire
+	FLMA IJKLMNO 2
+	Goto ReadyLoop
+
+  DryFire:
+	FLMA I 10 A_PlayWeaponSound("dryfire")
+	goto ReadyLoop
+  }
+}
+
+/*ACTOR FKFire
+{
+   Radius 2
+   Height 4
+   Speed 16
+   Damage 1
+   PROJECTILE
+   RENDERSTYLE ADD
+   DamageType Fire2
+   ALPHA 0.67
+   Scale 0.67
+   SeeSound "weapons/flamer"
+   DeathSound "weapons/scorch"
+   DONTHURTSHOOTER
+   +THRUGHOST
+   States
+   {
+   Spawn:
+      NULL A 2 Bright
+      FRFX ABCD 2 Bright A_Explode(2,8,0)
+      FRFX D 0 Bright A_Gravity
+      FRFX EFG 2 Bright A_Explode(2,16,0)
+      FRFX HIJ 2 Bright A_Explode(2,32,0)
+      FRFX KLM 2 Bright A_Explode(2,64,0)
+      FRFX NO 2 Bright
+      //stop
+   Death:
+      FRFX HIJ 2 Bright A_Explode(2,32)
+	  TNT1 A 0 A_SpawnItemEx("IgnitedSurface",random(-15,15),random(-15,15),random(5,15),0,32)
+      //TNT1 A 0 A_CustomMissile("IgnitedSurface", random(5,15), random(-15, 15), 0, 0)
+      //FRFX J 0 A_CustomMissile ("FKDropFire",0,0,0)
+      FRFX KLM 2 Bright A_Explode(2,64,0)
+      FRFX NO 2 Bright
+      stop
+   }
+}
+
+actor RocketFire
+{
+ Height 2
+ Radius 2
+ Speed 3
+ RenderStyle Add
+ Alpha 0.9
+ Scale 0.75
+ DamageType "Fire2"
+ +NOGRAVITY
+ +FORCEXYBILLBOARD
+ +DONTSPLASH
+ +NOTELEPORT
+ +NOBLOCKMAP
+ +RIPPER
+ +BLOODLESSIMPACT
+ +CANNOTPUSH
+ -BLOODSPLATTER
+ -ACTIVATEPCROSS
+ -ACTIVATEIMPACT
+ -NOCLIP
+ States
+ {
+ Spawn:
+ 	64P1 A 0
+ 	64P1 A 0 A_Jump(127, "Spawn2", "Spawn3")
+ 	64P1 ABCDEFGHIJKLMNOPQRSTUVWXYZ 1 BRIGHT
+ 	stop
+ Spawn2:
+ 	64P2 ABCDEFGHIJKLMNOPQRSTUVWXYZ 1 BRIGHT
+ 	stop
+ Spawn3:
+ 	64P3 ABCDEFGHIJKLMNOPQRSTUVWXYZ 1 BRIGHT
+ 	stop
+ }
+}
+
+actor IgnitedSurfaceFlame : RocketFire
+{
+	Scale 0.3
+	Alpha 0.7
+        DamageType "Fire2"
+	+NOINTERACTION
+}
+
+actor IgnitedSurface
+{
+ Projectile
+ Height 5
+ Radius 2
+ BounceFactor 0.0
+ obituary "%o was purified by cleansing flame."
+ RenderStyle Add
+ Scale 0.5
+ ReactionTime 120
+ DamageType "Fire2"
+ -SOLID
+ +NODAMAGETHRUST
+ +LOWGRAVITY
+ -NOGRAVITY
+ +HEXENBOUNCE
+ +SKYEXPLODE
+ +DONTSPLASH
+ States
+ {
+ Spawn:
+ TFIR A 0 A_CountDown
+ TNT1 A 0 A_SpawnItemEx("IgnitedSurfaceFlame", random(-8,8), Random(-8,8), 0, 0, 0, Random(1, 2), 0, 128, 0)
+ TNT1 A 2 A_Explode(3, 18, 1)
+ TNT1 A 0 A_JumpIf(waterlevel == 3, "Disappear")
+ loop
+ Death:
+ TNT1 A 1
+ stop
+ Disappear:
+ TNT1 A 0
+ TNT1 A 1
+ stop
+ }
+}*/

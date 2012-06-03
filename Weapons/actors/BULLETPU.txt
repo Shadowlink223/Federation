@@ -1,0 +1,46 @@
+/*ACTOR BurstPuff : bulletpuff replaces bulletpuff
+{
+    Scale 0.6
+    Radius 8
+    Height 6
+    Speed 0
+    VSpeed 0
+    +NOBLOCKMAP
+    +BRIGHT
+	+PUFFONACTORS
+	+ALWAYSPUFF
+    renderstyle normal
+    damagetype "BulletNormal"
+    States
+    { 
+    Crash:
+       HITM A 0 A_Jump(85,"ping1")
+       HITM A 0 A_Jump(85,"ping2")
+       SMKE ABCDEFGH 2
+       stop
+    Spawn:
+       HITM A 0 A_Jump(85,"ping1")
+       HITM A 0 A_Jump(85,"ping2")
+    Smoke:
+       SMKE ABCDEFGH 2
+       stop
+    Ping1:
+       HITM A 1 A_PlaySound("pings")
+       HITM B 1
+       HITM C 1
+       HITM D 1
+       stop
+    Ping2:
+       HITM E 1 A_PlaySound("pings")
+       HITM F 1
+       HITM G 1
+       HITM H 1
+       stop
+    Death:
+       TNT1 A 0
+       stop
+    }
+}*/
+
+ACTOR HollowPointPuff : BurstPuff { damagetype "HollowPoint"}
+ACTOR ArmorPiercingPuff : BurstPuff { damagetype "ArmorPiercing" +PIERCEARMOR }

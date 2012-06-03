@@ -1,0 +1,157 @@
+ACTOR "M9 Pistol" : Weapon replaces Pistol
+{
+
+	obituary "\ca %k \cb --> M9 pistol --> \cc %o "
+	inventory.pickupmessage "M9 Pistol found."
+
+	weapon.ammotype "LoadedM9"
+	weapon.ammouse 1
+	weapon.ammogive 15
+   
+	weapon.ammotype2 "9mm"
+	weapon.ammouse2 0
+	weapon.ammogive2 15
+
+	Weapon.SlotNumber 2
+        Decal BulletChip
+	+NOALERT
+	+AMMO_OPTIONAL
+	+NOAUTOFIRE //Keeps altfire from going apeshit. Also lets gun be semi auto
+               // but slow to fire when just held down.
+   
+	States
+	{
+	Spawn:
+      GLOI A -1
+      Stop
+	  
+	Select:
+       M9PA A 0 A_TakeInventory("IronSight",1)
+	   M9PA A 0 A_ZoomFactor(1,ZOOM_INSTANT)
+	   M9PA A 0 A_Raise
+	   loop
+	  
+	Ready: // Pretty shit, doesn't really start the true weapon's ready state. See ReadyLoop
+	   M9PA A 2 A_TakeInventory("Reloading",1)
+	   M9PA BCDEFGHIJY 2 A_WeaponReady(WRF_NOPRIMARY)
+	 
+	ReadyLoop: // Designed to look for our custom features to work at a second's notice.
+	   M9PA Y 0 A_JumpIfNoAmmo("Reload")
+	   M9PA Y 0 A_JumpIfInventory("Reloading",1,"Reload")
+	   M9PA Y 1 A_WeaponReady
+	   loop
+	  
+	Deselect: //Simple hack, makes gun quick switch faster than Doom.
+	   TNT1 AAAAAAAAAA 0 A_Lower
+	  
+	DeselectLoop: // Makes sure it wraps up, otherwise shit crashes!
+	   TNT1 A 1 A_Lower
+	   loop
+	  
+	Fire: // More complicated then just "bang." Basically has checks for all our unnecessary icing.
+	   TNT1 A 0 A_JumpIfInventory("IronSight",-1,"FireIron")
+	   TNT1 A 0 A_JumpIfNoAmmo("DryFire")
+	   TNT1 A 0 A_PlaySoundEx("M9FIRE","SoundSlot5")
+	   TNT1 A 0 A_AlertMonsters
+	   TNT1 A 0 A_Recoil(0.1)
+	   M9PB A 0 BRIGHT A_Firebullets (5.5,5.5,-1,15,"BurstPuff")
+	   //TNT1 A 0 A_TakeInventory("loadedM9",1)
+	   M9PB A 2 A_FireCustomMissile("M9PTracer",random(-5.5,5.5),0,0,0,0,random(-5.5,5.5))
+	   TNT1 A 0 ACS_ExecuteAlways(505,0)
+	   TNT1 A 0 A_ZoomFactor(0.96)
+	   M9PB B 2 BRIGHT A_GunFlash
+	   TNT1 A 0 A_ZoomFactor(1.0)
+	   M9PB CCDDEEFFGGHH 1 A_WeaponReady //Speed hack to up semi auto fire
+	   //M9PB A 0 A_JumpIfInventory("9mm",1,1)
+	   M9PB A 0 A_ReFire
+	   goto ReadyLoop
+	   M9PB A 0 A_JumpIfNoAmmo(2)
+	   M9PB A 0 A_ReFire
+	   goto ReadyLoop
+	   M9PB A 0 A_GiveInventory("Reloading",1)
+	   goto Reload
+	  
+	DryFire: // *click click* Oshi...
+	   M9PB H 10 A_PlayWeaponSound("dryfire")
+	   goto ReadyLoop
+	  
+	AltFire: // Known to some as "Iron Sight Aiming".
+	   M9PC A 0 A_JumpIfInventory("IronSight",1,"AltFire2")
+	   M9PC A 0 A_ZoomFactor(1.5)	
+	   M9PC ABCDEFGHIJ 1
+	   M9PC F 0 A_GiveInventory("IronSight",1)
+	   M9PC KLMN 1 A_WeaponReady(WRF_NOBOB)
+	   goto IronSight
+   
+	AltFire2: // Return to hip fire, you sexy devil you
+	   M9PC N 0 A_ZoomFactor(1.0)
+	   TNT1 A 0 A_TakeInventory("IronSight",1)
+	   M9PC LKIFEDCBA 1 A_WeaponReady(WRF_NOBOB)
+	   goto ReadyLoop+2
+	
+	IronSight: // Fancy version of Ready Loop, but for Ironsighting
+	   M9PC N 0 A_JumpIfInventory("Reloading",1,"Reload")
+	   M9PC N 0 A_JumpIfNoAmmo("Reload")
+	   M9PC N 1 A_WeaponReady(WRF_NOBOB)
+	   loop
+
+	FireIron: // Sadly, we don't have a mod for firing iron bullets. They rust.
+	   TNT1 A 0 A_JumpIfNoAmmo("DryIron")
+	   TNT1 A 0 A_PlaySoundEx("M9FIRE","SoundSlot5")
+	   TNT1 A 0 A_AlertMonsters
+	   TNT1 A 0 A_Recoil(0.05)
+	   M9PD A 0 BRIGHT A_FireBullets (.165, .165, -1, 15, "BulletPuff")
+	   //TNT1 A 0 A_TakeInventory("loadedM9",1)
+	   M9PD A 1 A_FireCustomMissile("M9PTracer",random(-.165,.165),0,0,0,0,random(-.165,.165))
+	   TNT1 A 0 ACS_ExecuteAlways(505,0)
+	   TNT1 A 0 A_ZoomFactor(1.37)
+	   M9PD B 1 BRIGHT A_GunFlash
+	   M9PD C 2 A_ZoomFactor(1.5)
+	   M9PD DEFGH 2 A_WeaponReady
+	   //M9PD A 0 A_JumpIfInventory("9mm",1,2)
+	   M9PD A 0 A_ReFire
+	   goto IronSight
+	   M9PD A 0 A_JumpIfNoAmmo(2)
+	   M9PD A 0 A_ReFire
+	   goto IronSight
+ 	   M9PD A 0 A_GiveInventory("Reloading",1)		//Go to reload
+	   goto Reload
+	  
+	DryIron: // More clicky clicky, luck shitty shitty.
+	   M9PD G 10 A_PlayWeaponSound("dryfire")
+	   goto IronSight
+
+	Reload: //This is more or less a confirm state to trigger the animation
+	   TNT1 A 0 A_JumpIfInventory("9mm",1,"ReloadAnimation")
+	   TNT1 A 0 A_TakeInventory("Reloading",1) // Bullets = 0. RELOAD DENIED!
+	   TNT1 A 0 A_JumpIfInventory("IronSight",1,"IronHack") // Fixes a visual glitch when you have 0 total ammo
+	   goto ReadyLoop+2
+	   
+	IronHack: // It's so awesome, I know! :V
+		goto Ironsight+2
+	  
+	ReloadAnimation: // Purely for looking pretty.
+	   M9PE A 0 A_TakeInventory("IronSight",1)
+	   M9PE A 0 A_ZoomFactor(1.0)
+	   M9PE ABC 2 A_WeaponReady(WRF_NOFIRE)
+	   M9PE D 2 A_PlaySoundEx("USP_R1","SoundSlot5")
+	   M9PE EFGHIJKLMNOPQR 2 A_WeaponReady(WRF_NOFIRE)
+	   goto ReloadAmmo
+      
+	ReloadAmmo: // at this point animation wraps up and ammo is displayed
+	   M9PE R 0 A_GiveInventory("LoadedM9",1)
+	   M9PE R 0 A_TakeInventory("9mm",1)
+	   M9PE R 0 A_JumpIfInventory("LoadedM9",15,"ReloadEnd")
+	   M9PE R 0 A_JumpIfInventory("9mm",1,"ReloadAmmo")
+	   goto ReloadEnd
+	  
+	ReloadEnd: // Final half of the animation. At this point, bullets are actually in the gun.
+	   TNT1 A 0 A_TakeInventory("Reloading",1)
+	   M9PE STUVWX 1 A_WeaponReady(WRF_NOFIRE)
+	   M9PE YZ 2 A_WeaponReady(WRF_NOFIRE)
+	   M9PF ABDEFGHI 2 A_WeaponReady(WRF_NOFIRE)
+	   TNT1 A 0 A_ReFire
+	   goto ReadyLoop+2
+	  
+  }
+}

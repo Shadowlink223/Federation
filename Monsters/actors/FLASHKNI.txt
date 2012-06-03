@@ -1,0 +1,108 @@
+actor FlashKnight : Enemy replaces Revenant 13203
+{
+	//$Category Federation
+obituary "%o was assassinated by a Flash Knight."
+health 200
+GibHealth 60
+radius 20
+height 56
+mass 100
+speed 30
+painchance 50
+PainChance "Shock", 255
+Translation "112:127=192:207"
+BloodType "NashGore_Blood"
+SeeSound "monster/inisit"
+AttackSound "monster/iniat2"
+PainSound "monster/inipai"
+DeathSound "monster/inidth"
+ActiveSound "monster/iniact"
+
+DropItem "Cell" 64
+
+Dropitem "Stimpack" 32
+Dropitem "FlashArmor" 4
+
+DropItem "Silenced MP5" 8
+DropItem "M4 Carbine" 1
+
+//Dropitem "PDA" 4
+
+missiletype PlasmaBall
+Species hellknight
+Decal PlasmaScorchLower
+MONSTER
++NOTARGET
++STEALTH
++DONTHURTSPECIES
++MISSILEMORE
+-SOLID
+states
+  {
+   Spawn:
+      SKFA A 0                                                   //
+      SKFA A 0 Thing_SetSpecial(0,226,613,0,random(30,40))       // RGA2 EXP COMPATIBILITY
+      SKFA AB 10 A_LookEx(0,0,random(1024,4096),random(1024,4096),random(150,180),"See")// WHERE ARE YOU!
+      goto Spawn+2                                               //
+   See:
+      SKFA AABBCCDD 1 A_Fastchase                                // FAST CHASE
+      loop                                                       //
+   Missile:
+      SKFA E 0 A_SetShootable                                    // CAN BE SHOT
+      SKFA E 10 A_FaceTarget                                     //
+      SKFA F 20 A_CustomMissile("PlasmaBall",24,0)               // FIRE PLASMA
+      SKFA E 5                                                   //
+      SKFA E 5 A_UnSetShootable                                  // CANNOT BE SHOT
+      SKFA E 1 A_PlaySound ("wizard/tele")                       //
+      Goto See                                                   //
+   Pain:
+      SKFA G 3                                                   //
+      SKFA G 5 A_Pain                                            // OW!
+      SKFA G 0 A_PlaySound ("wizard/tele")                       //
+      Goto See                                                   //
+   Pain.Shock:
+      SKFA G 2 A_ChangeFlag("NoPain", 1)                         // STUNNED!
+      SKFA G 300 A_Pain                                          //
+      SKFA G 0 A_ChangeFlag("NoPain", 0)                         //
+      Goto See                                                   //
+   Death:
+      SKFA H 0 A_JumpIfHealthLower(-60,"Splode")                   //
+      SKFA H 5                                                   //
+      SKFA I 5 A_Scream                                          //
+      SKFA J 5 A_Fall                                            //
+      SKFA K 5                                                   //
+      SKFA L 5                                                   //
+      SKFA M 5                                                   //
+      SKFA N 0 A_Jump(5, 2)                                      // REGENERATING!
+      SKFA N -1                                                  //
+      stop                                                       //
+      SKFA NNNNN 70                                              //
+      SKFA NNNNN 70                                              //
+      SKFA NNNNN 70                                              //
+      SKFA N -1 Thing_Raise(0)                                   // STILL ALIVE
+      Wait                                                       //
+   Splode:
+      SKFA I 1                                                     // xDeath
+      SKFA I 0 A_SpawnDebris("NashGore_Gib9",0)                    // GIBS!
+      SKFA I 0 A_SpawnDebris("NashGore_Gib10",0)                   //
+      SKFA I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+      SKFA I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+      SKFA I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+      SKFA I 0                                                     //
+      SKFA I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+      SKFA I 0 A_XScream                                           //
+      SKFA I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+      SKFA I 0 A_NoBlocking                                        //
+      SKFA I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+      SKFA I 0                                                     //
+      SKFA Z 0 A_SpawnItemEx("DEADStrikeKnightHead",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)//
+      stop                                                         //
+   Death.Fire2:
+      TNT1 A 1 A_SpawnItem("BurnDeath1", 2, 1)                   // SCORCHED
+      stop                                                       //
+   Raise: 
+      SKFA KJ 5                                                  // REVIVED
+      SKFA IH 5 Thing_SetSpecial(0,226,613,0,random(30,40))      // RGA2 EXP COMPATIBILITY
+      Goto See                                                   //
+  }
+}

@@ -1,0 +1,1490 @@
+ACTOR StrikeKnight : Enemy 13202 {
+  //$Category Federation
+
+  Health 220
+  GibHealth 60
+  Radius 16
+  Height 40
+  Mass 100
+  Speed 5//15
+
+  MONSTER 
+  +NOTARGET
+  +DONTHURTSPECIES
+  +MISSILEMORE
+  +FASTER
+
+  DropItem "Clip" 256
+  DropItem "Clip" 128
+  DropItem "GrenadeAmmo" 32
+  DropItem "20mmGrenade" 16
+  
+  Dropitem "Stimpack" 32
+  Dropitem "StrikeArmor" 4 														// Armor = 220 Armor points
+  
+  DropItem "MP7" 8
+  
+  //Dropitem "PDA" 4
+  
+  Dropitem "7Beacon" 2 															// Beacon = 5 Strike Knights
+
+  Translation 2 																// Translation = RED
+
+  BloodType "NashGore_Blood"
+  Decal "BulletChip"
+
+  PainChance 50
+  PainChance "Shock", 255
+
+  Species "hellknight"
+
+  SeeSound "monster/inisit"
+  AttackSound "MP7/FIRE"
+  PainSound "monster/inipai"
+  DeathSound "monster/inidth"
+  ActiveSound "monster/iniact"
+
+  Obituary "%o felt the force of a Strike Knight." 
+  HitObituary "A Strike Knight quick slashed %o with their knife." 
+
+  states {
+
+/******************************************************************************\
+================================HEADSHOT STATES=================================
+\******************************************************************************/
+
+  Spawn:
+    SKFA A 0                                                     				//
+    SKFA A 0 A_CheckSight("Spawn2")                              				// DO NOT SPAWN HEADSHOT BOX 
+    SKFA A 0 Thing_SetSpecial(0,226,613,0,random(14,28))         				// RGA2 EXP COMPATIBILITY
+  SpawnLoop:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          				// MAKE HEADSHOT BOX
+    SKFA E 1 A_LookEx(0,0,random(512,2048),random(1024,4096),random(120,180),"See")// WHERE ARE YOU!
+    goto SpawnLoop                                               				//
+  See:
+    SKFA A 0 A_CheckSight("See2")                                				//
+    SKFA A 0 A_CheckSight("ChanceCharge")                        				// IF PLAYER IN SIGHT CHANCE CHARGE
+    SKFA A 0 A_GiveInventory("KnightCharge", 1)                  				// READY TO CHARGE
+  IfLowHealth:
+    SKFA A 0 A_JumpIfHealthLower(50, "LowHealth")                				// LOW HEALTH
+    Goto HealthHigh                                              				//
+  Chase:
+    SKFA A 0 A_JumpIfInventory("KnightCharge", 1, "Charge")      				// CHARGE IF READY TO!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA AAAA 1 A_Chase                                             				// NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA AAAA 1 A_Chase                                             				// NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA BBBB 1 A_Chase                                             				// NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA BBBB 1 A_Chase                                             				// NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA CCCC 1 A_Chase                                             				// NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA CCCC 1 A_Chase                                             				// NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA DDDD 1 A_Chase                                             				// NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA DDDD 1 A_Chase                                             				// NORMAL CHASE
+    Goto See                                                     				//
+  HealthHigh:
+    SKFA A 0 A_ChangeFlag("Frightened", 0)                       				// PUSH ONWARD
+    Goto Chase                                                   				// 
+  LowHealth:
+    SKFA A 0 A_Jump(32, "HealUp")                                				// FEARLESS CHANCE
+    SKFA A 0 A_AlertMonsters                                     				// ALERT OTHERS
+    SKFA A 0 A_ChangeFlag("Frightened", 1)                       				// RUN AWAY!
+  HealUp:
+    SKFA D 0 HealThing(1)                                        				// HEALING
+    SKFA A 0                                                     				//
+    Goto Chase                                                   				//
+  ChanceCharge:
+    SKFA A 0 A_Jump(128, "Charge")                               				// CHANCE CHARGE
+    Goto Chase                                                   				//
+  Charge:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA A 0 A_Chase															//
+    SKFA A 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA A 0 A_Chase															//
+    SKFA A 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA A 0 A_Chase															//
+    SKFA A 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA B 0 A_Chase															//
+    SKFA B 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA B 0 A_Chase															//
+    SKFA B 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA B 0 A_Chase															//
+    SKFA B 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA C 0 A_Chase															//
+    SKFA C 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA C 0 A_Chase															//
+    SKFA C 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA C 0 A_Chase															//
+    SKFA C 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA D 0 A_Chase															//
+    SKFA D 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA D 0 A_Chase															//
+    SKFA D 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA D 0 A_Chase															//
+    SKFA D 1 A_Chase                                             				// CHARGE!
+    SKFA D 0 HealThing(1)                                        				// HEALING
+  NoCharge:
+    SKFA A 0 A_TakeInventory("KnightCharge", 1)                  				// NOT READY TO CHARGE
+    Goto IfLowHealth                                             				//
+
+/******************************************************************************\
+==============================NON-HEADSHOT STATES===============================
+\******************************************************************************/
+
+  Spawn2:
+    SKFA A 0                                                     				//
+    SKFA A 0 Thing_SetSpecial(0,226,613,0,random(14,28))         				// RGA2 EXP COMPATIBILITY
+  Spawn2Loop:
+    SKFA E 1 A_LookEx(0,0,random(512,2048),random(1024,4096),random(120,180),"See2")// WHERE ARE YOU!
+    goto Spawn2Loop                                              				//
+  See2:
+    SKFA A 0 A_CheckSight("See2Action")                       					// IF PLAYER IN SIGHT SWITCH TO SEE
+	Goto See
+  See2Action:
+	SKFA A 0 A_Jump(128,"ChanceCharge2")										// CHANCE TO CHARGE
+    SKFA A 0 A_GiveInventory("KnightCharge", 1)                  				// READY TO CHARGE
+  IfLowHealth2:
+    SKFA A 0 A_JumpIfHealthLower(50, "LowHealth2")               				// LOW HEALTH
+    Goto HealthHigh2                                              				//
+  Chase2:
+    SKFA A 0 A_JumpIfInventory("KnightCharge", 1, "Charge2")             		// CHARGE IF READY TO!
+    SKFA AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase                             // NORMAL CHASE
+    Goto See2                                                     				//
+  HealthHigh2:
+    SKFA A 0 A_ChangeFlag("Frightened", 0)                       				// PUSH ONWARD
+    Goto Chase2                                                  				//   
+  LowHealth2:
+    SKFA A 0 A_Jump(32, "HealUp2")                               				// FEARLESS CHANCE
+    SKFA A 0 A_AlertMonsters                                     				// ALERT OTHERS
+    SKFA A 0 A_ChangeFlag("Frightened", 1)                       				// RUN AWAY!
+  HealUp2:
+    SKFA D 0 HealThing(1)                                        				// HEALING
+    Goto Chase2                                                  				//
+  ChanceCharge2:
+    SKFA A 0 A_Jump(128, "Charge2")                              				// CHANCE CHARGE
+    Goto Chase2                                                  				//
+  Charge2:
+    SKFA A 0 A_Chase															// CHARGE!
+    SKFA A 1 A_Chase                                  							//
+    SKFA A 0 A_Chase															//
+    SKFA A 1 A_Chase                                  							//
+    SKFA A 0 A_Chase															//
+    SKFA A 1 A_Chase                                  							//
+    SKFA B 0 A_Chase															//
+    SKFA B 1 A_Chase                                  							//
+    SKFA B 0 A_Chase															//
+    SKFA B 1 A_Chase                                  							//
+    SKFA B 0 A_Chase															//
+    SKFA B 1 A_Chase                                  							//
+    SKFA C 0 A_Chase															//
+    SKFA C 1 A_Chase                                  							//
+    SKFA C 0 A_Chase															//
+    SKFA C 1 A_Chase                                  							//
+    SKFA C 0 A_Chase															//
+    SKFA C 1 A_Chase                                  							//
+    SKFA D 0 A_Chase															//
+    SKFA D 1 A_Chase                                  							//
+    SKFA D 0 A_Chase															//
+    SKFA D 1 A_Chase                                  							//
+    SKFA D 0 A_Chase															//
+    SKFA D 1 A_Chase                                  							//
+    SKFA D 0 HealThing(1)                                        				// HEALING
+  NoCharge2:
+    SKFA A 0 A_TakeInventory("KnightCharge", 1)                  				// NOT READY TO CHARGE
+    Goto IfLowHealth2                                            				//
+
+/******************************************************************************\
+=================================ATTACK STATES==================================
+\******************************************************************************/
+
+  Missile:
+    SKFA E 0 A_ChangeFlag("NoPain", 1)                           				// WILL NOT ENTER PAIN STATE
+    SKFA E 0 A_Jump(64, "IfClose")                               				// CHANCE TEST IF CLOSE
+    SKFA E 10 A_FaceTarget                                       				//
+  BulletAttack:
+    SKFA E 0 A_JumpIfInventory("KnightAmmo", 10, "Reload")             			// CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   				// 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+    TNT1 A 0 A_AlertMonsters
+	SKFA F 2 BRIGHT A_CustomMissile("StrikeTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA E 2 A_FaceTarget                                        				//
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   				// 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+    TNT1 A 0 A_AlertMonsters
+	SKFA F 2 BRIGHT A_CustomMissile("StrikeTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA E 2 A_FaceTarget                                        				//
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   				// 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+    TNT1 A 0 A_AlertMonsters
+	SKFA F 2 BRIGHT A_CustomMissile("StrikeTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA E 2 A_FaceTarget                                        				//
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   				// 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+    TNT1 A 0 A_AlertMonsters
+	SKFA F 2 BRIGHT A_CustomMissile("StrikeTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    SKFA E 2 A_FaceTarget                                        				//
+    SKFA E 0 A_GiveInventory("KnightAmmo", 1)                    				// LESSEN AMMO
+    SKFA E 0 A_Jump(32, "StopShooting")                         				// CHANCE STOP SHOOTING
+    SKFA E 0 A_SpidReFire                                        				// KEEP SHOOTING!
+    Goto BulletAttack                                            				//
+  StopShooting:
+    SKFA E 0                                                     				//
+    goto See                                                     				//
+  Reload:
+    SKFA E 0 A_TakeInventory("KnightAmmo", 10)                   				// RELOAD!
+    SKFA E 8 A_PlaySound("ZSec/DryFire")                         				//
+    SKFA E 55 A_PlaySound("ZSec/Reload")                         				//
+    SKFA E 0 A_ChangeFlag("NoPain", 0)                           				// WILL ENTER PAIN STATE
+    goto See                                                     				//
+  IfClose:
+    SKFA E 0 A_JumpIfCloser(1768, 1)                              				// LAUNCH GRENADE IF NEAR
+    Goto Missile+2                                               				//
+  Grenade:
+    SKFA E 0 A_JumpIfCloser(192,"KnifeLunge")                    				// CHANCE KNIFE
+    SKFA E 8 A_FaceTarget                                        				// GRENADE!
+    SKFA F 0 bright A_PlaySound("weapons/rocklf")                				//
+    SKFA F 2 bright A_CustomMissile("KnightGrenadeShell",28,5,random(-15,15),2,random(0,10))//
+    SKFA E 6 A_FaceTarget                                        				//
+    SKFA E 0 A_ChangeFlag("NoPain", 0)                           				// WILL ENTER PAIN STATE
+    Goto See                                                     				//
+  KnifeLunge:
+    SKFA E 5 A_FaceTarget                                        				// KNIFE!
+    SKFA E 0 ThrustThing(angle*256/360,25,0,0)                   				// LUNGE
+    SKFA E 5 A_FaceTarget                                        				//
+    SKFA E 0 A_PlaySound("knife/swing")                          				//
+    SKFA E 2 A_CustomMeleeAttack(34,"knife/swing","knife/swing","Knife",1)		//
+    SKFA E 6 A_FaceTarget                                        				//
+    SKFA E 0 A_ChangeFlag("NoPain", 0)                           				// WILL ENTER PAIN STATE
+    Goto See                                                     				// 
+
+/******************************************************************************\
+==================================PAIN STATES===================================
+\******************************************************************************/
+
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            				// MAKE HEADSHOT BOX
+    SKFA G 3                                                     				//
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            				// MAKE HEADSHOT BOX
+    SKFA G 3 A_Pain                                              				// OW!
+    goto See                                                     				//
+  Pain.Shock:
+    SKFA G 2 A_ChangeFlag("NoPain", 1)                           				// STUNNED!
+    SKFA G 300 A_Pain                                            				//
+    SKFA G 0 A_ChangeFlag("NoPain", 0)                           				//
+    Goto See                                                     				//
+
+/******************************************************************************\
+==================================DEATH STATES==================================
+\******************************************************************************/
+
+  Death:
+    SKFA H 0 A_JumpIfHealthLower(-60,"Splode")                   				//
+    TNT1 A 0 A_AlertMonsters
+    SKFA H 5                                                     				//
+    SKFA I 5 A_Scream                                            				//
+    SKFA J 5 A_Fall                                              				//
+    SKFA K 5                                                     				//
+    SKFA L 5                                                     				//
+    SKFA M 5                                                     				//
+    SKFA N 0 A_Jump(5, 2)                                        				// REGENERATING!
+    SKFA N -1                                                    				//
+    stop                                                         				//
+    SKFA NNNNN 70                                                				//
+    SKFA NNNNN 70                                                				//
+    SKFA NNNNN 70                                                				//
+    SKFA N -1 Thing_Raise(0)                                     				// STILL ALIVE
+    Wait                                                         				//
+  Splode:
+    SKFA I 1                                                     				// xDeath
+    SKFA I 0 A_SpawnDebris("NashGore_Gib9",0)                    				// GIBS!
+    SKFA I 0 A_SpawnDebris("NashGore_Gib10",0)                   				//
+    SKFA I 0 A_SpawnDebris("NashGore_Gib11",0)                   				//
+    SKFA I 0 A_SpawnDebris("NashGore_Gib11",0)                   				//
+    SKFA I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        				//
+    SKFA I 0                                                     				//
+    SKFA I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        				//
+    SKFA I 0 A_XScream                                           				//
+    SKFA I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        				//
+    SKFA I 0 A_NoBlocking                                        				//
+    SKFA I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        				//
+    SKFA I 0                                                     				//
+    SKFA Z 0 A_SpawnItemEx("DEADStrikeKnightHead",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)//
+    stop                                                         				//
+  Death.Fire2:
+    TNT1 A 1 A_SpawnItem("BurnDeath1", 2, 1)                     				// SCORCHED
+    TNT1 A 0 A_AlertMonsters
+    stop                                                         				//
+  Death.head:
+    SKFA O 9 A_PlaySound("headshot/splat")                       				//
+    SKFA I 0 A_SpawnDebris("NashGore_Gib3",0)                    				// GIBS!
+    SKFA I 0 A_SpawnDebris("NashGore_Gib11",0)                   				//
+    SKFA I 0 A_SpawnDebris("NashGore_Gib11",0)                   				//
+    SKFA P 9 A_XScream                                           				//
+    SKFA Q 9 A_Fall                                              				//
+    SKFA R 5                                                     				//
+    SKFA S 5                                                     				//
+    SKFA T 0 A_SpawnItemEx("DEADStrikeKnight",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)// FAKE BODY
+    stop                                                         				//
+  Raise:
+    SKFA KJ 5                                                    				// REVIVED
+    SKFA IH 5 Thing_SetSpecial(0,226,613,0,random(14,28))        				// RGA2 EXP COMPATIBILITY
+    Goto See                                                     				//
+  }
+}
+
+ACTOR DEADStrikeKnight {
+  +FLOORCLIP
+  Radius 12
+  Height 11
+  States {
+  Spawn:
+	SKFA T 0
+	SKFA T -1
+	stop
+  }
+}
+
+ACTOR DEADStrikeKnightHead {
+  +FLOORCLIP
+  Radius 12
+  Height 11
+  States {
+  Spawn:
+	SKFA Z 0
+	SKFA Z -1
+	stop
+  }
+}
+
+actor KnightAmmo : inventory { Inventory.MaxAmount "10" }
+
+actor KnightCharge : inventory { Inventory.MaxAmount "1" }
+
+Actor KnightGrenade {
+  obituary "%o was fragged by a Knight's grenade."
+  radius 6
+  height 8
+  speed 20
+  damage (10)
+  seesound "ZSec/bounce"
+  PROJECTILE
+  +DOOMBOUNCE
+  -NOGRAVITY
+  +GRENADETRAIL
+  +DONTFALL
+  bouncefactor 0.5
+  bouncecount 10
+  states
+  {
+  Spawn:
+	GRND AAA 35 bright
+  Death:
+	MISL C 0 bright A_PlaySound("weapons/rocklx")
+	MISL C 0 bright A_ChangeFlag(NoGravity, 1)
+	MISL C 0 bright A_CustomMissile("dirtysmokebomb",0,0,0)
+	MISL C 5 bright A_Explode(30,128,1)
+	MISL D 4 bright
+	MISL E 3 bright
+	stop
+  }
+}
+
+Actor KnightSmokeGrenade {
+  obituary "%o was fragged by a Knight's grenade."
+  radius 6
+  height 8
+  speed 20
+  damage (10)
+  seesound "ZSec/bounce"
+  PROJECTILE
+  +DOOMBOUNCE
+  -NOGRAVITY
+  +GRENADETRAIL
+  +DONTFALL
+  bouncefactor 0.5
+  bouncecount 10
+  states
+  {
+  Spawn:
+	GRND AAA 35 bright
+  Death:
+	MISL C 0 bright A_PlaySound("weapons/rocklx")
+	MISL C 0 bright A_ChangeFlag(NoGravity, 1)
+	MISL C 5 bright A_CustomMissile("smokebomb")
+	MISL D 4 bright
+	MISL E 3 bright
+	stop
+  }
+}
+
+/*Actor WanderingSmoke 23554
+{
+  Health 5000
+  Radius 40
+  Height 60
+  Mass 3000000
+  Speed 1
+  Bloodtype None
+  Monster
+  +FLOORCLIP
+  +NOBLOODDECALS
+  -SOLID
+  +FLOAT
+  +NOGRAVITY
+  +NOTARGET
+  +LOOKALLAROUND
+  +NOINTERACTION
+  HitObituary "Shouldn't see this"
+  Obituary "Shouldn't see this"
+  States
+  {
+  Spawn:
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2
+  See:
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 2 A_Wander
+    TNT1 A 0 A_Jump(64,1)
+    Loop
+    TNT1 A 0
+    Goto Death
+  Death:
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 0 A_SpawnItemEx("RiftCloudSpawner", 0, 0, 30, 0, 0, 0, 0, 128)
+    TNT1 A 1
+    Stop
+  }
+}
+
+Actor RiftCloudSpawner
+{
+  radius 0
+  height 0
+  +NOGRAVITY
+  +NOBLOCKMAP
+  +NOLIFTDROP
+  +NOTARGET
+  +DONTSQUASH
+  +NOTELEOTHER
+  +NONSHOOTABLE
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 1 A_SpawnItemEx("RiftCloud", 0, 0, 0, random(-4, 4), random(-4, 4), random(-2, 2))
+    Stop
+  }
+}
+
+Actor RiftCloud
+{
+  renderstyle translucent
+  alpha 0.7
+  radius 0
+  height 0
+  +NOGRAVITY
+  +NOBLOCKMAP
+  +NOLIFTDROP
+  +NOTARGET
+  +DONTSQUASH
+  +NOTELEOTHER
+  +NONSHOOTABLE
+  States
+  {
+  Spawn:
+    DRFT A 0
+    DRFT A 0 A_Jump(128, 6)
+    DRFT ABCDE 3 A_FadeOut(0.05)
+    Goto Spawn+1
+    DRFT F 0 A_Jump(128, 6)
+    DRFT FGHIJ 3 A_FadeOut(0.05)
+    Goto Spawn+7
+    DRFT KLMNO 3 A_FadeOut(0.05)
+    Goto Spawn+12
+  }
+}*/
+
+//Smoke bomb - by Konda
+
+actor SmokeBombItem : CustomInventory
+{
+Scale 0.85
+inventory.amount 1
+inventory.maxamount 1
+inventory.icon "AGRNA0"
+inventory.pickupmessage "Smoke bomb!"
++INVBAR
+states
+{
+Spawn:
+AGRN A -1
+stop
+Use:
+TNT1 A 0
+TNT1 A 0 A_FireCustomMissile("smokebomb")
+TNT1 A 0
+stop
+}
+}
+
+actor smokebomb
+{
+//Scale 0.25
+speed 15
+radius 6
+height 1
+damage 0
+gravity 0.85
+PROJECTILE
++RIPPER
+-NOGRAVITY
+translation "48:79=80:111", "112:255=80:111"
+states
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_PlaySound("items/sbombf")
+goto spawn2
+Spawn2:
+GRND AAAAAA 3
+loop
+Death:
+TNT1 A 0 A_Playsound("items/sbombx")
+GRND A 17 A_SpawnItem("smokespawner2")
+GRND A 0 A_PlaySound("items/sbombs")
+GRND AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 2 A_CustomMissile("smoke9",0,0,random(0,359),2,random(22,90))
+stop
+}
+}
+
+actor smoke
+{
+Scale 5
+renderstyle translucent
+alpha 0.50
++CLIENTSIDEONLY
++NOGRAVITY
++NOCLIP
+states
+{
+Spawn:
+SMOK A 0
+SMOK A 0 A_Jump(255,"1","2","3","4","5","6","7","8","9","10")
+stop
+1:
+SMOK A 0 A_FadeOut(0.25)
+SMOK A 700
+goto FadeOut
+2:
+SMOK A 0 A_FadeOut(0.25)
+SMOK A 750
+goto FadeOut
+3:
+SMOK A 0 A_FadeOut(0.25)
+SMOK A 800
+goto FadeOut
+4:
+SMOK A 0 A_FadeOut(0.25)
+SMOK A 850
+goto FadeOut
+5:
+SMOK A 0  A_FadeOut(0.25)
+SMOK A 900
+goto FadeOut
+6:
+SMOK A 0 A_FadeOut(0.25)
+SMOK A 950
+goto FadeOut
+7:
+SMOK A 0 A_FadeOut(0.25)
+SMOK A 1000
+goto FadeOut
+8:
+SMOK A 0 A_FadeOut(0.25)
+SMOK A 1050
+goto FadeOut
+9:
+SMOK A 0 A_FadeOut(0.25)
+SMOK A 1100
+goto FadeOut
+10:
+SMOK A 0 A_FadeOut(0.25)
+SMOK A 1150
+goto FadeOut
+FadeOut:
+SMOK A 1 A_FadeOut(0.005)
+loop
+}
+}
+
+actor gravsmoke : smoke
+{
+radius 1
+height 1
+PROJECTILE
++CLIENTSIDEONLY
+-NOGRAVITY
++FLOORHUGGER
+}
+
+actor smoke1
+{
+Scale 2.2
+speed 25
+renderstyle translucent
+PROJECTILE
++CLIENTSIDEONLY
++NOGRAVITY
++NOCLIP
+states
+{
+Spawn:
+TNT1 A 0
+SMOK A 1
+TNT1 A 0 A_SpawnItem("smoke")
+stop
+}
+}
+
+actor smoke2 : smoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+SMOK A 2
+TNT1 A 0 A_SpawnItem("smoke")
+stop
+}
+}
+
+actor smoke3 : smoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+SMOK A 3
+TNT1 A 0 A_SpawnItem("smoke")
+stop
+}
+}
+
+actor smoke4 : smoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+SMOK A 4
+TNT1 A 0 A_SpawnItem("smoke")
+stop
+}
+}
+
+actor smoke5 : smoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+SMOK A 5
+TNT1 A 0 A_SpawnItem("smoke")
+stop
+}
+}
+
+actor smoke6 : smoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+SMOK A 6
+TNT1 A 0 A_SpawnItem("smoke")
+stop
+}
+}
+
+actor smoke7 : smoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+SMOK A 7
+TNT1 A 0 A_SpawnItem("smoke")
+stop
+}
+}
+
+actor smoke8 : smoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+SMOK A 8
+TNT1 A 0 A_SpawnItem("smoke")
+stop
+}
+}
+
+actor smoke9 : smoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+SMOK A 11
+TNT1 A 0 A_SpawnItem("smoke")
+stop
+}
+}
+
+actor smoke888 : smoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+SMOK A 2
+TNT1 A 0 A_SpawnItem("gravsmoke")
+SMOK A 2
+TNT1 A 0 A_SpawnItem("gravsmoke")
+SMOK A 2
+TNT1 A 0 A_SpawnItem("gravsmoke")
+SMOK A 2
+TNT1 A 0 A_SpawnItem("gravsmoke")
+stop
+}
+}
+
+actor smokespawner
+{
++CLIENTSIDEONLY
+states
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_Jump(255,"Spawn1","Spawn2")
+Spawn1:
+TNT1 A 0
+TNT1 A 0 A_CustomMissile("smoke1",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("smoke3",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("smoke5",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("smoke7",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("smoke888",0,0,0,2,-15)
+stop
+Spawn2:
+TNT1 A 0
+TNT1 A 0 A_CustomMissile("smoke2",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("smoke4",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("smoke6",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("smoke8",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("smoke888",0,0,0,2,-15)
+stop
+}
+}
+
+actor smokespawner2
+{
++CLIENTSIDEONLY
+states
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_SpawnItemEx ("smokespawner", 0, 0, 0, 0, 0, 0, 0, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("smokespawner", 0, 0, 0, 0, 0, 0, 30, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("smokespawner", 0, 0, 0, 0, 0, 0, 60, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("smokespawner", 0, 0, 0, 0, 0, 0, 90, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("smokespawner", 0, 0, 0, 0, 0, 0, 120, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("smokespawner", 0, 0, 0, 0, 0, 0, 150, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("smokespawner", 0, 0, 0, 0, 0, 0, 180, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("smokespawner", 0, 0, 0, 0, 0, 0, -30, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("smokespawner", 0, 0, 0, 0, 0, 0, -60, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("smokespawner", 0, 0, 0, 0, 0, 0, -90, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("smokespawner", 0, 0, 0, 0, 0, 0, -120, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("smokespawner", 0, 0, 0, 0, 0, 0, -150, 128, 0)
+stop
+}
+}
+
+
+
+
+
+
+
+
+
+
+actor dirtysmokebomb
+{
+//Scale 0.25
+speed 1
+radius 6
+height 1
+damage 0
+//gravity 0.85
+PROJECTILE
++RIPPER
++NOGRAVITY
+states
+{
+Spawn:
+TNT1 A 0
+TNT1 A 1
+//loop
+Death:
+TNT1 A 1 A_SpawnItem("dirtysmokespawner2")
+//TNT1 AAAAAAAAAA 2 A_CustomMissile("dirtysmoke9",0,0,random(0,359),2,random(22,90))
+stop
+}
+}
+
+actor dirtysmoke
+{
+Scale 2.5
+renderstyle translucent
+alpha 0.30
++NOGRAVITY
++NOCLIP
++CLIENTSIDEONLY
+states
+{
+Spawn:
+FDDG A 0
+FDDG A 0 A_Jump(255,"1","2","3","4","5","6","7","8","9","10")
+stop
+1:
+FDDG A 0 A_FadeOut(0.25)
+FDDG A 70
+goto FadeOut
+2:
+FDDG A 0 A_FadeOut(0.25)
+FDDG A 75
+goto FadeOut
+3:
+FDDG A 0 A_FadeOut(0.25)
+FDDG A 80
+goto FadeOut
+4:
+FDDG A 0 A_FadeOut(0.25)
+FDDG A 85
+goto FadeOut
+5:
+FDDG A 0  A_FadeOut(0.25)
+FDDG A 90
+goto FadeOut
+6:
+FDDG A 0 A_FadeOut(0.25)
+FDDG A 95
+goto FadeOut
+7:
+FDDG A 0 A_FadeOut(0.25)
+FDDG A 100
+goto FadeOut
+8:
+FDDG A 0 A_FadeOut(0.25)
+FDDG A 105
+goto FadeOut
+9:
+FDDG A 0 A_FadeOut(0.25)
+FDDG A 110
+goto FadeOut
+10:
+FDDG A 0 A_FadeOut(0.25)
+FDDG A 115
+goto FadeOut
+FadeOut:
+FDDG A 1 A_FadeOut(0.005)
+loop
+}
+}
+
+actor dirtygravsmoke : dirtysmoke
+{
+radius 1
+height 1
+PROJECTILE
++NOGRAVITY //-NOGRAVITY
+//+FLOORHUGGER
++CLIENTSIDEONLY
+}
+
+actor dirtysmoke1
+{
+Scale 1.1
+speed 25
+renderstyle translucent
+alpha 0.30
+PROJECTILE
++NOGRAVITY
++NOCLIP
++CLIENTSIDEONLY
+states
+{
+Spawn:
+TNT1 A 0
+FDDG A 1
+TNT1 A 0 A_SpawnItem("dirtysmoke")
+stop
+}
+}
+
+actor dirtysmoke2 : dirtysmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDDG A 1
+TNT1 A 0 A_SpawnItem("dirtysmoke")
+stop
+}
+}
+
+actor dirtysmoke3 : dirtysmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDDG A 1
+TNT1 A 0 A_SpawnItem("dirtysmoke")
+stop
+}
+}
+
+actor dirtysmoke4 : dirtysmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDDG A 2
+TNT1 A 0 A_SpawnItem("dirtysmoke")
+stop
+}
+}
+
+actor dirtysmoke5 : dirtysmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDDG A 2
+TNT1 A 0 A_SpawnItem("dirtysmoke")
+stop
+}
+}
+
+actor dirtysmoke6 : dirtysmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDDG A 2
+TNT1 A 0 A_SpawnItem("dirtysmoke")
+stop
+}
+}
+
+actor dirtysmoke7 : dirtysmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDDG A 3
+TNT1 A 0 A_SpawnItem("dirtysmoke")
+stop
+}
+}
+
+actor dirtysmoke8 : dirtysmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDDG A 3
+TNT1 A 0 A_SpawnItem("dirtysmoke")
+stop
+}
+}
+
+actor dirtysmoke9 : dirtysmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDDG A 3
+TNT1 A 0 A_SpawnItem("dirtysmoke")
+stop
+}
+}
+
+actor dirtysmoke888 : dirtysmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDDG A 2
+TNT1 A 0 A_SpawnItem("dirtygravsmoke")
+FDDG A 2
+TNT1 A 0 A_SpawnItem("dirtygravsmoke")
+FDDG A 2
+TNT1 A 0 A_SpawnItem("dirtygravsmoke")
+FDDG A 2
+TNT1 A 0 A_SpawnItem("dirtygravsmoke")
+stop
+}
+}
+
+actor dirtysmokespawner
+{
++CLIENTSIDEONLY
+//+NOGRAVITY
+states
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_Jump(255,"Spawn1","Spawn2")
+Spawn1:
+TNT1 A 0
+TNT1 A 0 A_CustomMissile("dirtysmoke1",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("dirtysmoke3",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("dirtysmoke5",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("dirtysmoke7",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("dirtysmoke888",0,0,0,2,-15)
+stop
+Spawn2:
+TNT1 A 0
+TNT1 A 0 A_CustomMissile("dirtysmoke2",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("dirtysmoke4",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("dirtysmoke6",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("dirtysmoke8",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("dirtysmoke888",0,0,0,2,-15)
+stop
+}
+}
+
+actor dirtysmokespawner2
+{
++CLIENTSIDEONLY
+//+NOGRAVITY
+states
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, 0, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, 30, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, 60, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, 90, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, 120, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, 150, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, 180, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, -30, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, -60, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, -90, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, -120, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("dirtysmokespawner", 0, 0, 0, 0, 0, 0, -150, 128, 0)
+stop
+}
+}
+
+// RGA3 -- Voltlock Grenade Shell Decorate
+
+actor KnightGrenadeShell {
+	radius 5
+	height 5
+	speed 60
+	damage (10)
+	
+	deathsound "ZSec/bounce"
+	
+	PROJECTILE
+	-NOGRAVITY
+	+RANDOMIZE
+	+NOEXTREMEDEATH
+	+FORCERADIUSDMG
+	+CANBOUNCEWATER
+	-NOTELEPORT
+	+BLOODSPLATTER
+	
+	gravity 0.3
+	bouncefactor 0.5
+	
+	DamageType "GrenadeImpact"
+	
+	obituary "%o was punched by a Knight's grenade."
+	
+	states {
+		Spawn:
+			GRND AAAA 1 A_SpawnItemEx("MiniBombTrail", 0, 0, 0, 0, 0, 0, 0, 128, 0)
+			GRND A 0 A_GiveInventory("KnightGrenadeArmed",1)
+			Loop
+		XDeath:
+			TNT1 A 0 
+			TNT1 A 0 //A_GiveToTarget("HitIndicator",1)
+		Death:
+			TNT1 A 0 A_JumpIfInventory("KnightGrenadeArmed",1,"DeathArmed")
+			TNT1 A 0 A_Explode(30,16,0)
+			TNT1 A 20 A_SpawnItemEx("KnightGrenadeShellUnarmedDrop",0,0,0,-2,0,2,random(-8,8),0,0)
+			stop
+		DeathArmed:
+			TNT1 A 0 
+			TNT1 A 0 A_AlertMonsters
+			TNT1 A 0 A_SpawnItemEx("SmokeExplosion",0,0,1,0,0,0,0,0,0)
+			TNT1 A 0 A_SpawnItemEx("KnightGrenadeShellExplosion",-1,0,0,0,0,0,0,0,0)
+			TNT1 A 0 A_SpawnItemEx("KnightGrenadeShock",-1,0,0,0,0,0,0,0,0)
+			TNT1 A 0 A_CustomMissile("dirtysmokebomb",0,0,0)
+			TNT1 A 0 A_PlaySoundEx("Artillery/KABOOM","SoundSlot5")
+			TNT1 A 0 A_PlaySoundEx("farexp","SoundSlot6")
+			TNT1 A 15 Radius_Quake(9,15,0,8,0)
+			TNT1 A 15 Radius_Quake(5,15,0,16,0)
+			TNT1 A 15 Radius_Quake(1,15,0,125,0)
+			stop
+	}
+}
+
+actor KnightGrenadeShellExplosion {
+	Speed 1
+	Damage 0
+	
+	RenderStyle None
+	
+	PROJECTILE
+	-RANDOMIZE
+	+NOCLIP
+	
+	Scale 0.7
+	
+	obituary "%o was fragged by a Knight's grenade."
+	
+	DamageType "Explosion"
+	
+	states {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Explode(15,152,0)
+			TNT1 A 5 A_Explode(5,72)
+			stop
+	}
+}
+
+actor KnightGrenadeShock {
+	Scale 0.7
+	
+	RenderStyle None
+	
+	PROJECTILE
+	-RANDOMIZE
+	+NOCLIP
+	
+	Speed 1
+	Damage 0
+	
+	obituary "%o was fataly shellshocked by a Knight's grenade."
+	
+	DamageType "Shock"
+	
+	states {
+		Spawn:
+			TNT1 A 1
+			TNT1 A 5 A_Explode(5,80)
+			stop
+	}  
+}
+
+ACTOR KnightGrenadeShellUnarmedDrop {
+	Speed 1
+	Height 1
+	Radius 0
+	
+	gravity 0.5
+	bouncefactor 0.5
+	bouncecount 3
+	
+	+DOOMBOUNCE
+	+MISSILE
+	
+	SeeSound "ZSec/bounce"
+	DeathSound "ZSec/bounce"
+	
+	States {
+		Spawn:
+			GRND A 0 
+			GRND AAAAA 5 A_SpawnItemEx("MiniBombTrail", 0, 0, 0, 0, 0, 0, 0, 128, 0)
+			GRND A -1
+			Loop
+		Death:
+			GRND A 1050
+			Stop
+	}
+}
+
+Actor KnightGrenadeArmed : Inventory {
+    inventory.amount 0
+    inventory.maxamount 1
+}
+
+Actor SmokeExplosion {
+	radius 5
+	height 5
+	-SOLID
+	+NOGRAVITY
+	+NOTELEPORT
+	+CLIENTSIDEONLY
+	states {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItem("SmokeExplosionBig",0,0,0)
+			TNT1 A 5 A_SpawnItemEx("SmokeExplosionStream",0,0,0,random(-5,5),random(-5,5),random(8,10),0,0,0)
+			TNT1 A 10 A_SpawnItemEx("SmokeExplosionStream",0,0,0,random(-5,5),random(-5,5),random(8,10),0,0,0)
+			TNT1 A 0 A_SpawnItem("SmokeExplosionNuke",0,0,0)
+			TNT1 A 0 A_SpawnItem("SmokeExplosionNuke",0,0,0)
+			TNT1 A 1 A_SpawnItem("SmokeExplosionNuke",0,0,0)
+			goto Death
+		Death:
+			stop
+	}
+}
+
+actor SmokeExplosionBig {
+	radius 10
+	height 10
+	scale 8
+	-SOLID
+	+NOGRAVITY
+	+NOTELEPORT
+	+CLIENTSIDEONLY
+	states {
+		Spawn:
+			TNT1 A 0
+			SMOK A 10 BRIGHT
+			goto Death
+		Death:
+			SMOK A 5 BRIGHT A_FadeOut(0.1)
+			Loop
+	}
+}
+
+actor SmokeExplosionNuke {
+	radius 5
+	height 5
+	mass 99999999
+	-SOLID
+	+NOGRAVITY
+	+NOTELEPORT
+	+CLIENTSIDEONLY
+	states {
+		Spawn:
+			TNT1 A 0
+			TNT1 AAAA 3 A_SpawnItemEx("SmokeExplosionBoom",random(-20,20),random(-20,20),random(-20,20),random(-5,5),random(-5,5),random(-5,5),0,0,0)
+			goto Death
+		Death:
+			stop
+	}
+}
+
+actor SmokeExplosionStream {
+	radius 1
+	height 1
+	PROJECTILE
+	-NOGRAVITY
+	+SLIDESONWALLS
+	+SKYEXPLODE
+	-SOLID
+	+NOTELEPORT
+	+CLIENTSIDEONLY
+	states {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 2 A_SpawnItemEx("SmokeExplosionSmall",random(-1,1),random(-1,1),random(-1,1),random(-5,5),random(-5,5),random(-5,5),0,0,0)
+			loop
+		Death:
+			SMOK A 0 A_SpawnItem("SmokeExplosionBig",0,0,0)
+			stop
+	}
+}
+
+actor SmokeExplosionSmall {
+	radius 5
+	height 5
+	scale 2
+	-SOLID
+	+NOGRAVITY
+	+NOTELEPORT
+	+CLIENTSIDEONLY
+	states {
+		Spawn:
+			TNT1 A 0
+			SMOK A 10 BRIGHT
+			goto Death
+		Death:
+			SMOK A 5 BRIGHT A_FadeOut(0.1)
+			Loop
+	}
+}
+
+actor SmokeExplosionBoom {
+	radius 8
+	height 8
+	-SOLID
+	+NOGRAVITY
+	+NOTELEPORT
+	+CLIENTSIDEONLY
+	scale 4
+	states {
+		Spawn:
+			TNT1 A 0
+			SMOK A 24 BRIGHT
+			goto Death
+		Death:
+			SMOK A 5 BRIGHT A_FadeOut(0.1)
+			Loop
+	}
+}

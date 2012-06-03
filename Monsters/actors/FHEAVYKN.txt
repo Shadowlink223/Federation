@@ -1,0 +1,194 @@
+ACTOR FHeavyKnight : HeavyKnight 11204
+{
+	//$Category Federation
+  Health 500
+	damagefactor "KillMe", 0.0
+  +NOBLOCKMONST
+  +FRIENDLY
+  States 
+  { 
+  Spawn:
+    HEVY A 0                                                     //
+    G99P A 0 A_CustomMissile("OrbitFriendly", 44, 0, 0, 2, 0)    //
+    G99P A 0 A_CustomMissile("OrbitFriendly2", 44, 0, 180, 2, 0) //
+    HEVY A 1 A_ChangeFlag("FRIENDLY",1)                          // MAKE FRIENDLY
+    HEVY A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    G99P A 0 Thing_SetSpecial(0,226,613,0,0)                     // RGA2 EXP COMPATIBILITY
+	TNT1 A 0 A_SpawnItem ("KillMe")
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    G99P AB 10 A_Look                                            // WHERE ARE YOU!
+    goto Spawn+7                                                 //
+  Spawn2:
+    G99P A 0                                                     //
+    G99P A 0 Thing_SetSpecial(0,226,613,0,random(0,0))           // RGA2 EXP COMPATIBILITY
+    G99P AB 10 A_Look                                            // WHERE ARE YOU!
+    goto Spawn2+2                                                 //
+  See:
+    G99P A 0 A_CheckSight("SEE2")                                //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    G99P A 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    G99P A 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    G99P B 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    G99P B 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    G99P C 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    G99P C 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    G99P D 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    G99P D 4 A_Chase                                             // NORMAL CHASE
+    G99P D 0 HealThing(1)                                        // HEALING
+    Loop                                                         //
+  See2:
+    G99P AABBCCDD 4 A_Chase                                      // NORMAL CHASE
+    G99P D 0 HealThing(1)                                        // HEALING
+    Loop                                                         //
+  Missile:
+    G99P E 0 A_Jump(80, 8)                                       // NORMAL ATTACK
+    G99P E 0 A_Jump(128, "FireRocket")                           // ROCKET ATTACK
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    G99P E 10 A_FaceTarget                                       //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    G99P F 10 A_CustomMissile("HeavyGrenade",32,0,random(16,-16),0)// BALLS OF STEEL
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    G99P E 10                                                    //
+    Goto See                                                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    G99P E 10 A_FaceTarget                                       //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    G99P F 0 BRIGHT A_CustomBulletAttack(22.5,22.5,1,random(1,5)*3,"FBulletPuff")// 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	G99P F 1 BRIGHT A_CustomMissile("HeavyTracer",38,0,random(-22.5,22.5),2,random(-22.5,22.5))
+    G99P E 0 BRIGHT A_CustomBulletAttack(22.5,22.5,1,random(1,5)*3,"FBulletPuff")// 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	G99P E 1 BRIGHT A_CustomMissile("HeavyTracer",38,0,random(-22.5,22.5),2,random(-22.5,22.5))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    G99P F 1                                                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    G99P F 0 BRIGHT A_CustomBulletAttack(22.5,22.5,1,random(1,5)*3,"FBulletPuff")// 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	G99P F 1 BRIGHT A_CustomMissile("HeavyTracer",38,0,random(-22.5,22.5),2,random(-22.5,22.5))
+    G99P E 0 BRIGHT A_CustomBulletAttack(22.5,22.5,1,random(1,5)*3,"FBulletPuff")// 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	G99P E 1 BRIGHT A_CustomMissile("HeavyTracer",38,0,random(-22.5,22.5),2,random(-22.5,22.5))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    G99P F 1                                                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    G99P F 0 BRIGHT A_CustomBulletAttack(22.5,22.5,1,random(1,5)*3,"FBulletPuff")// 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	G99P F 1 BRIGHT A_CustomMissile("HeavyTracer",38,0,random(-22.5,22.5),2,random(-22.5,22.5))
+    G99P E 0 BRIGHT A_CustomBulletAttack(22.5,22.5,1,random(1,5)*3,"FBulletPuff")// 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	G99P E 1 BRIGHT A_CustomMissile("HeavyTracer",38,0,random(-22.5,22.5),2,random(-22.5,22.5))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    G99P F 1                                                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    G99P F 0 BRIGHT A_CustomBulletAttack(22.5,22.5,1,random(1,5)*3,"FBulletPuff")// 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	G99P F 1 BRIGHT A_CustomMissile("HeavyTracer",38,0,random(-22.5,22.5),2,random(-22.5,22.5))
+    G99P E 0 BRIGHT A_CustomBulletAttack(22.5,22.5,1,random(1,5)*3,"FBulletPuff")// 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	G99P E 1 BRIGHT A_CustomMissile("HeavyTracer",38,0,random(-22.5,22.5),2,random(-22.5,22.5))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    G99P F 1                                                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    G99P F 0 BRIGHT A_CustomBulletAttack(22.5,22.5,1,random(1,5)*3,"FBulletPuff")// 5TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	G99P F 1 BRIGHT A_CustomMissile("HeavyTracer",38,0,random(-22.5,22.5),2,random(-22.5,22.5))
+    G99P E 0 BRIGHT A_CustomBulletAttack(22.5,22.5,1,random(1,5)*3,"FBulletPuff")// 5TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	G99P E 1 BRIGHT A_CustomMissile("HeavyTracer",38,0,random(-22.5,22.5),2,random(-22.5,22.5))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    G99P F 1                                                     //
+    Goto See                                                     //
+  FireRocket:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    G99P E 6 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    G99P F 12 A_CustomMissile("HeavyRocket", 32, 0, random(16,-16), 0)// 1ST ROCKET
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    G99P E 12 A_FaceTarget                                       //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    G99P F 12 A_CustomMissile("HeavyRocket", 32, 0, random(16,-16), 0)// 2ND ROCKET
+    Goto See                                                     //
+  HealthHigh:
+    G99P A 0 A_ChangeFlag("Frightened", 0)                       // PUSH ONWARD
+    Goto See+5                                                   //   
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    G99P G 3                                                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    G99P G 3 A_Pain                                              // OW!
+    G99P G 0 A_Jump(128,1)                                       // CHANCE RETALIATION
+    Goto Missile                                                 //
+    G99P G 0                                                     //
+    Goto Missile+32                                              // RETALIATE WITH ROCKETS
+  Pain.Shock:
+    G99P G 2 A_ChangeFlag("NoPain", 1)                           // STUNNED!
+    G99P G 300 A_Pain                                            //
+    G99P G 0 A_ChangeFlag("NoPain", 0)                           //
+    Goto See                                                     //
+   Death: 
+      G99P H 0 A_JumpIfHealthLower(-60,"Splode")                   //
+      G99P H 5 ACS_ExecuteAlways(757,0,random(101,125),0,0)        //
+      G99P I 5 A_Scream                                            //
+      G99P J 5 A_Fall                                              //
+      G99P K 5                                                     //
+      G99P L 5                                                     //
+      G99P M 5                                                     //
+      G99P N 0 A_Jump(5, 3)                                        // REGENERATING!
+      G99P N 0 A_GiveInventory("isDead", 1)                        //
+      G99P N -1                                                    //
+      stop                                                         //
+      G99P NNNNN 70                                                //
+      G99P NNNNN 70                                                //
+      G99P NNNNN 70                                                //
+      G99P N -1 Thing_Raise(0)                                     // STILL ALIVE
+      Wait                                                         //
+   Splode:
+      G99P I 1 ACS_ExecuteAlways(757,0,random(101,125),0,0)        //
+      G99P I 0 A_SpawnDebris("NashGore_Gib9",0)                    // GIBS!
+      G99P I 0 A_SpawnDebris("NashGore_Gib10",0)                   //
+      G99P I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+      G99P I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+      G99P I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+      G99P I 0                                                     //
+      G99P I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+      G99P I 0 A_XScream                                           //
+      G99P I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+      G99P I 0 A_NoBlocking                                        //
+      G99P I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+      G99P I 0 A_GiveInventory("isDead", 1)                        //
+      G99P Z 0 A_SpawnItemEx("DEADFInitiateHead",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)//
+      stop                                                         //
+   Death.Fire2:
+      TNT1 A 0 ACS_ExecuteAlways(757,0,random(101,125),0,0)        //
+      G99P N 0 A_GiveInventory("isDead", 1)                        //
+      TNT1 A 1 A_SpawnItem("BurnDeath1", 2, 1)                     // SCORCHED
+      stop                                                         //
+   Raise: 
+      G99P KJ 5 A_ChangeFlag("FRIENDLY",1)                         // REVIVED
+      G99P N 0 A_TakeInventory("isDead", 1)                        //
+      G99P A 0 A_CustomMissile("OrbitFriendly", 44, 0, 0, 2, 0)    //
+      G99P A 0 //A_CustomMissile("OrbitFriendly2", 44, 0, 180, 2, 0) //
+      G99P IH 5 Thing_SetSpecial(0,226,613,0,0)                    // RGA2 EXP COMPATIBILITY
+	  TNT1 A 0 A_SpawnItem ("KillMe")
+      Goto See                                                     //
+   Death.head:
+      TNT1 A 0 ACS_ExecuteAlways(757,0,random(101,125),0,0)        //
+      G99P O 9 A_PlaySound("headshot/splat")                       //
+      G99P I 0 A_SpawnDebris("NashGore_Gib3",0)                    // GIBS!
+      G99P I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+      G99P I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+      G99P P 9 A_XScream                                           //
+      G99P Q 9 A_Fall                                              //
+      G99P R 5                                                     //
+      G99P S 5 A_GiveInventory("isDead", 1)                        //
+      G99P T 0 A_SpawnItemEx("DEADFInitiate",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)// FAKE BODY
+      stop                                                         //
+    }
+}

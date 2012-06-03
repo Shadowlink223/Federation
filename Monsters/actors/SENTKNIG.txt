@@ -1,0 +1,349 @@
+ACTOR SentryKnight : Enemy replaces PainElemental 13952
+{
+	//$Category Federation
+   Health 250
+   GibHealth 60
+   Radius 16
+   Height 40
+   Mass 100
+   Speed 15
+   PainChance 50
+   PainChance "Shock", 255
+   Species hellknight
+   MONSTER 
+   +NOTARGET
+   +DONTHURTSPECIES
+   +MISSILEMORE
+   +FASTER
+   
+   DropItem "Clip" 256
+   DropItem "Clip" 128
+   DropItem "GrenadeAmmo" 32
+   DropItem "20mmGrenade" 16
+   
+   Dropitem "Stimpack" 32
+   Dropitem "StrikeArmor" 4
+   
+   DropItem "MP7" 8
+   
+   //Dropitem "PDA" 4
+   
+   Translation "112:127=250:254"
+   BloodType "NashGore_Blood"
+   SeeSound "monster/inisit"
+   AttackSound "MP7/FIRE"
+   PainSound "monster/inipai"
+   DeathSound "monster/inidth"
+   ActiveSound "monster/iniact"
+   Obituary "A Sentinel Knight took down %o by their own gun." 
+   Decal BulletChip
+  states
+  {
+  Spawn:
+    GO99 A 0                                                     //
+    GO99 A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    GO99 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    GO99 E 1 A_LookEx(0,0,random(1024,4096),random(1024,4096),random(150,180),"See")// WHERE ARE YOU!
+    goto Spawn+3                                                 //
+  Spawn2:
+    GO99 A 0                                                     //
+    GO99 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    GO99 E 1 A_LookEx(0,0,random(1024,4096),random(1024,4096),random(150,180),"See")// WHERE ARE YOU!
+    goto Spawn2+2                                                //
+  See:
+    GO99 A 0 A_CheckSight("SEE2")                                //
+    GO99 A 0 A_CheckSight(25)                                    // IF PLAYER IN SIGHT CHANCE CHARGE
+    GO99 A 0 A_GiveInventory("KnightCharge", 1)                  // READY TO CHARGE
+    GO99 A 0 A_JumpIfHealthLower(50, 18)                         // LOW HEALTH
+    Goto HealthHigh                                              //
+    GO99 A 0 A_JumpIfInventory("KnightCharge", 1, 23)            // CHARGE IF READY TO!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 A 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 A 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 B 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 B 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 C 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 C 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 D 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 D 4 A_Chase                                             // NORMAL CHASE
+    Goto See                                                     //
+    GO99 A 0 A_Jump(32, 2)                                       // FEARLESS CHANCE
+    GO99 A 0 A_ChangeFlag("Frightened", 1)                       // RUN AWAY!
+    SKFA D 0 HealThing(1)                                        // HEALING
+    GO99 A 0                                                     //
+    Goto See+5                                                   //
+    GO99 A 0 A_TakeInventory("KnightCharge", 1)                  // NOT READY TO CHARGE
+    Goto See+3                                                   //
+    GO99 A 0 A_Jump(128, 1)                                      // CHANCE CHARGE
+    Goto See+5                                                   //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 A 2 A_Chase                                             // CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 A 2 A_Chase                                             // CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 A 2 A_Chase                                             // CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 B 2 A_Chase                                             // CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 B 2 A_Chase                                             // CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 B 2 A_Chase                                             // CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 C 2 A_Chase                                             // CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 C 2 A_Chase                                             // CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 C 2 A_Chase                                             // CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 D 2 A_Chase                                             // CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 D 2 A_Chase                                             // CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 D 2 A_Chase                                             // CHARGE!
+    GO99 D 0 HealThing(1)                                        // HEALING
+    Goto See+28                                                  //
+  See2:
+    GO99 A 0 A_CheckSight(10)                                    // IF PLAYER IN SIGHT CHANCE CHARGE
+    GO99 A 0 A_GiveInventory("KnightCharge", 1)                  // READY TO CHARGE
+    GO99 A 0 A_JumpIfHealthLower(50, 3)                          // LOW HEALTH
+    Goto HealthHigh                                              //
+    GO99 A 0 A_JumpIfInventory("KnightCharge", 1, 8)             // CHARGE IF READY TO!
+    GO99 AABBCCDD 4 A_Chase                                      // NORMAL CHASE
+    Goto See                                                     //
+    GO99 A 0 A_Jump(32, 2)                                       // FEARLESS CHANCE
+    GO99 A 0 A_ChangeFlag("Frightened", 1)                       // RUN AWAY!
+    SKFA D 0 HealThing(1)                                        // HEALING
+    GO99 A 0                                                     //
+    Goto See+5                                                   //
+    GO99 A 0 A_TakeInventory("KnightCharge", 1)                  // NOT READY TO CHARGE
+    Goto See+3                                                   //
+    GO99 A 0 A_Jump(128, 1)                                      // CHANCE CHARGE
+    Goto See+5                                                   //
+    GO99 AAABBBCCCDDD 2 A_Chase                                  // CHARGE!
+    GO99 D 0 HealThing(1)                                        // HEALING
+    Goto See+28                                                  //
+  Missile:
+    GO99 E 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    GO99 E 0 A_Jump(64, 35)                                      // CHANCE TEST IF CLOSE
+    GO99 E 10 A_FaceTarget                                       //
+    GO99 E 0 A_JumpIfInventory("KnightAmmo", 10, 29)             // CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	GO99 F 2 BRIGHT A_CustomMissile("SentryTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 E 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	GO99 F 2 BRIGHT A_CustomMissile("SentryTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 E 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	GO99 F 2 BRIGHT A_CustomMissile("SentryTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 E 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	GO99 F 2 BRIGHT A_CustomMissile("SentryTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 E 2 A_FaceTarget                                        //
+    GO99 E 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    GO99 E 0 A_Jump(32, 2)                                       // CHANCE STOP SHOOTING
+    GO99 E 0 A_SpidReFire                                        // KEEP SHOOTING!
+    Goto Missile+3                                               //
+    GO99 E 0                                                     //
+    goto See                                                     //
+    GO99 E 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    GO99 E 8 A_PlaySound("ZSec/DryFire")                         //
+    GO99 E 55 A_PlaySound("ZSec/Reload")                         //
+    GO99 E 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto See                                                     //
+    GO99 E 0 A_JumpIfCloser(1768, 1)                              // LAUNCH GRENADE IF NEAR
+    Goto Missile+2                                               //
+    GO99 E 0 A_Jump(16,6)                                        // CHANCE SMOKE GRENADE
+    GO99 E 8 A_FaceTarget                                        // GRENADE!
+    GO99 F 0 bright A_PlaySound("weapons/rocklf")                //
+    GO99 F 2 bright A_CustomMissile("KnightGrenadeShell",28,5,random(-15,15),2,random(0,10))//
+    GO99 E 6 A_FaceTarget                                        //
+    GO99 E 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    Goto See                                                     //
+    GO99 E 8 A_FaceTarget                                        // SMOKE GRENADE!
+    GO99 F 0 bright A_PlaySound("weapons/rocklf")                //
+    GO99 F 2 bright A_CustomMissile("KnightSmokeGrenade", 28,5,0)//
+    GO99 E 6 A_FaceTarget                                        //
+    GO99 E 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    Goto See                                                     //
+  HealthHigh:
+    GO99 A 0 A_ChangeFlag("Frightened", 0)                       // PUSH ONWARD
+    Goto See+5                                                   //   
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    SKFA G 3                                                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    SKFA G 3 A_Pain                                              // OW!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    GO99 G 4                                                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    GO99 G 2 A_Jump(32,9)                                        //
+    GO99 G 0 Bright A_CustomMissile("GCSpawner",24,0,0,0)        // SUMMON SENTINEL 1
+    GO99 G 0 Bright A_CustomMissile("GCSpawner",24,0,45,0)       // SUMMON SENTINEL 2
+    GO99 G 0 Bright A_CustomMissile("GCSpawner",24,0,90,0)       // SUMMON SENTINEL 3
+    GO99 G 0 Bright A_CustomMissile("GCSpawner",24,0,135,0)      // SUMMON SENTINEL 4
+    GO99 G 0 Bright A_CustomMissile("GCSpawner",24,0,180,0)      // SUMMON SENTINEL 5
+    GO99 G 0 Bright A_CustomMissile("GCSpawner",24,0,-135,0)     // SUMMON SENTINEL 6
+    GO99 G 0 Bright A_CustomMissile("GCSpawner",24,0,-90,0)      // SUMMON SENTINEL 7
+    GO99 G 0 Bright A_CustomMissile("GCSpawner",24,0,-45,0)      // SUMMON SENTINEL 8
+    GO99 G 1                                                     //
+    goto See                                                     //
+  Pain.Shock:
+    GO99 G 2 A_ChangeFlag("NoPain", 1)                           // STUNNED!
+    GO99 G 300 A_Pain                                            //
+    GO99 G 0 A_ChangeFlag("NoPain", 0)                           //
+    Goto See                                                     //
+  Death:
+    GO99 H 0 A_JumpIfHealthLower(-60,"Splode")                   //
+    GO99 H 5                                                     //
+    GO99 I 5 A_Scream                                            //
+    GO99 J 5 A_Fall                                              //
+    GO99 J 0 Bright A_CustomMissile("GCSpawner",24,0,0,0)        // SUMMON SENTINEL 1
+    GO99 J 0 Bright A_CustomMissile("GCSpawner",24,0,20,0)       // SUMMON SENTINEL 2
+    GO99 J 0 Bright A_CustomMissile("GCSpawner",24,0,40,0)       // SUMMON SENTINEL 3
+    GO99 J 0 Bright A_CustomMissile("GCSpawner",24,0,60,0)       // SUMMON SENTINEL 4
+    GO99 J 0 Bright A_CustomMissile("GCSpawner",24,0,80,0)       // SUMMON SENTINEL 5
+    GO99 J 0 Bright A_CustomMissile("GCSpawner",24,0,100,0)      // SUMMON SENTINEL 6
+    GO99 J 0 Bright A_CustomMissile("GCSpawner",24,0,120,0)      // SUMMON SENTINEL 7
+    GO99 J 0 Bright A_CustomMissile("GCSpawner",24,0,140,0)      // SUMMON SENTINEL 8
+    GO99 J 0 Bright A_CustomMissile("GCSpawner",24,0,160,0)      // SUMMON SENTINEL 9
+    GO99 J 0 Bright A_CustomMissile("GCSpawner",24,0,180,0)      // SUMMON SENTINEL 10
+    GO99 J 0 Bright A_CustomMissile("GCSpawner",24,0,-160,0)     // SUMMON SENTINEL 11
+    GO99 J 0 Bright A_CustomMissile("GCSpawner",24,0,-140,0)     // SUMMON SENTINEL 12
+    GO99 J 0 Bright A_CustomMissile("GCSpawner",24,0,-120,0)     // SUMMON SENTINEL 13
+    GO99 J 0 Bright A_CustomMissile("GCSpawner",24,0,-100,0)     // SUMMON SENTINEL 14
+    GO99 J 0 Bright A_CustomMissile("GCSpawner",24,0,-80,0)      // SUMMON SENTINEL 15
+    GO99 J 0 Bright A_CustomMissile("GCSpawner",24,0,-60,0)      // SUMMON SENTINEL 16
+    GO99 J 0 Bright A_CustomMissile("GCSpawner",24,0,-40,0)      // SUMMON SENTINEL 17
+    GO99 J 0 Bright A_CustomMissile("GCSpawner",24,0,-20,0)      // SUMMON SENTINEL 18
+    GO99 K 5                                                     //
+    GO99 L 5                                                     //
+    GO99 M 5                                                     //
+    GO99 N 0 A_Jump(5, 2)                                        // REGENERATING!
+    GO99 N -1                                                    //
+    stop                                                         //
+    GO99 NNNNN 70                                                //
+    GO99 NNNNN 70                                                //
+    GO99 NNNNN 70                                                //
+    GO99 N -1 Thing_Raise(0)                                     // STILL ALIVE
+    Wait                                                         //
+   Splode:
+      GO99 I 1                                                     // xDeath
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,0,0)        // SUMMON SENTINEL 1
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,20,0)       // SUMMON SENTINEL 2
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,40,0)       // SUMMON SENTINEL 3
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,60,0)       // SUMMON SENTINEL 4
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,80,0)       // SUMMON SENTINEL 5
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,100,0)      // SUMMON SENTINEL 6
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,120,0)      // SUMMON SENTINEL 7
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,140,0)      // SUMMON SENTINEL 8
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,160,0)      // SUMMON SENTINEL 9
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,180,0)      // SUMMON SENTINEL 10
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,-160,0)     // SUMMON SENTINEL 11
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,-140,0)     // SUMMON SENTINEL 12
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,-120,0)     // SUMMON SENTINEL 13
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,-100,0)     // SUMMON SENTINEL 14
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,-80,0)      // SUMMON SENTINEL 15
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,-60,0)      // SUMMON SENTINEL 16
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,-40,0)      // SUMMON SENTINEL 17
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,-20,0)      // SUMMON SENTINEL 18
+      GO99 I 0 A_SpawnDebris("NashGore_Gib9",0)                    // GIBS!
+      GO99 I 0 A_SpawnDebris("NashGore_Gib10",0)                   //
+      GO99 I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+      GO99 I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+      GO99 I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+      GO99 I 0                                                     //
+      GO99 I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+      GO99 I 0 A_XScream                                           //
+      GO99 I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+      GO99 I 0 A_NoBlocking                                        //
+      GO99 I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+      GO99 I 0                                                     //
+      GO99 Z 0 A_SpawnItemEx("DEADInitiateHead",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)//
+      stop                                                         //
+   Death.Fire2:
+      TNT1 A 1 A_SpawnItem("BurnDeath1", 2, 1)                   // SCORCHED
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,0,0)      // SUMMON SENTINEL 1
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,20,0)     // SUMMON SENTINEL 2
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,40,0)     // SUMMON SENTINEL 3
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,60,0)     // SUMMON SENTINEL 4
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,80,0)     // SUMMON SENTINEL 5
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,100,0)    // SUMMON SENTINEL 6
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,120,0)    // SUMMON SENTINEL 7
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,140,0)    // SUMMON SENTINEL 8
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,160,0)    // SUMMON SENTINEL 9
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,180,0)    // SUMMON SENTINEL 10
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,-160,0)   // SUMMON SENTINEL 11
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,-140,0)   // SUMMON SENTINEL 12
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,-120,0)   // SUMMON SENTINEL 13
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,-100,0)   // SUMMON SENTINEL 14
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,-80,0)    // SUMMON SENTINEL 15
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,-60,0)    // SUMMON SENTINEL 16
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,-40,0)    // SUMMON SENTINEL 17
+      GO99 I 0 Bright A_CustomMissile("GCSpawner",24,0,-20,0)    // SUMMON SENTINEL 18
+      stop                                                       //
+  Raise:
+    GO99 KJ 5                                                    // REVIVED
+    GO99 IH 5 Thing_SetSpecial(0,226,613,0,random(30,40))        // RGA2 EXP COMPATIBILITY
+    Goto See                                                     //
+   Death.head:
+      GO99 O 9 A_PlaySound("headshot/splat")                       //
+      GO99 I 0 A_SpawnDebris("NashGore_Gib3",0)                    // GIBS!
+      GO99 I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+      GO99 I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+      GO99 P 9 A_XScream                                           //
+      GO99 Q 9 A_Fall                                              //
+      GO99 R 5                                                     //
+      GO99 S 5                                                     //
+      GO99 T 0 A_SpawnItemEx("DEADInitiate",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)// FAKE BODY
+      stop                                                         //
+  }
+}
+
+ACTOR GCSpawner
+{
+   Radius 5
+   Height 5
+   Speed 50
+   RenderStyle ADD
+   Alpha 0.0
+   PROJECTILE
+   +THRUGHOST
+   -NOGRAVITY
+   +LOWGRAVITY 
+   States
+   {
+   Spawn:
+      TNT1 AAAA 40
+      TNT1 AAAA 40
+      TNT1 AAAA 40
+      TNT1 AAAA 40
+      TNT1 AAAA 40
+      TNT1 AAAA 40
+      loop
+   Death:
+      TNT1 A 1
+      TNT1 A 1 A_SpawnItem("FedSentinel",0,0)
+      TNT1 A 1
+      Stop
+   }
+}

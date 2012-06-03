@@ -1,0 +1,337 @@
+actor StrikeFlyer : Enemy 16422
+{
+	//$Category Federation
+    Health 350
+    Radius 27
+    Height 56
+    Speed 20
+    PainChance 1
+    PainChance "Fire2", 0
+    Damagefactor "Fire2", 0.1
+    PainChance "Shock", 255
+    Damagefactor "Shock", 1.5
+  Damagefactor "head", 0.0
+    Floatspeed 5
+    Species hellknight
+    MONSTER 
+    +FLOAT
+    +NOGRAVITY
+    +NOBLOOD
+    +NOTARGET
+    +DONTHURTSPECIES
+    +FASTER
+    Translation 2
+    //DropItem StrikeKnight
+    SeeSound "monster/inisit"
+    PainSound "monster/inipai"
+    DeathSound "monster/inidth"
+    ActiveSound "monster/iniact"
+    Obituary "%o was shredded by a flying Strike Knight."
+    States
+    {
+    Spawn:
+        FLYC A 0
+        FLYC A 0 Thing_SetSpecial(0,226,613,0,random(60,80))         // RGA2 EXP COMPATIBILITY
+        FLYC A 1 A_LookEx(0,0,random(512,2048),random(1024,4096),random(120,180),"See")
+        Goto Spawn+2
+    See:
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC A 2 A_FaceTarget
+        FLYC A 0 ThrustThing(angle*256/360, 3, 0, 0)
+        FLYC A 2 A_Chase
+        FLYC A 0 A_SpawnItemEx("Fliersmoke", -20, 0, 10, 6, 0, 0, 180, 128)
+        FLYC A 0 A_SpawnItemEx("Fliersmoke", 20, 0, 10, 6, 0, 0, 180, 128)
+        Loop
+    Missile:
+        FLYC A 0 A_Jump(1,"Grenade")
+        FLYC A 0 A_Jump(192,24)
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC A 0 ThrustThing(angle*256/360, 4, 0, 0)
+        FLYC A 8 A_Chase("", "", 1)
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC A 0 A_SpawnItemEx("Fliersmoke", -20, 0, 10, 6, 0, 0, 180, 128)
+        FLYC A 0 A_SpawnItemEx("Fliersmoke", 20, 0, 10, 6, 0, 0, 180, 128)
+        FLYC B 8 A_FaceTarget
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC C 0 A_CustomMissile("FodderLaser",2,20,0)
+        FLYC C 8 A_CustomMissile("FodderLaser",2,-20,0)
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC A 0 ThrustThing(angle*256/360, 4, 0, 0)
+        FLYC A 8 A_Chase("", "", 1)
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC A 0 A_SpawnItemEx("Fliersmoke", -20, 0, 10, 6, 0, 0, 180, 128)
+        FLYC A 0 A_SpawnItemEx("Fliersmoke", 20, 0, 10, 6, 0, 0, 180, 128)
+        FLYC B 8 A_FaceTarget
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC C 0 A_CustomMissile("FodderLaser",2,20,0)
+        FLYC C 8 A_CustomMissile("FodderLaser",2,-20,0)
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC A 1 A_Jump(64,"See")
+        FLYC A 4 A_CPosRefire
+        Goto Missile
+        FLYC A 0 A_Jump(127,24)
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC A 0 ThrustThing(angle*256/360+64, 4, 0, 0)
+        FLYC A 8 A_Chase("", "", 1)
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC A 0 A_SpawnItemEx("Fliersmoke", -20, 0, 10, 6, 0, 0, 180, 128)
+        FLYC A 0 A_SpawnItemEx("Fliersmoke", 20, 0, 10, 6, 0, 0, 180, 128)
+        FLYC B 8 A_FaceTarget
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC C 0 A_CustomMissile("FodderLaser",2,20,0)
+        FLYC C 8 A_CustomMissile("FodderLaser",2,-20,0)
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC A 0 ThrustThing(angle*256/360+64, 4, 0, 0)
+        FLYC A 8 A_Chase("", "", 1)
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC A 0 A_SpawnItemEx("Fliersmoke", -20, 0, 10, 6, 0, 0, 180, 128)
+        FLYC A 0 A_SpawnItemEx("Fliersmoke", 20, 0, 10, 6, 0, 0, 180, 128)
+        FLYC B 8 A_FaceTarget
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC C 0 A_CustomMissile("FodderLaser",2,20,0)
+        FLYC C 8 A_CustomMissile("FodderLaser",2,-20,0)
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC A 1 A_Jump(64,"See")
+        FLYC A 4 A_CPosRefire
+        Goto Missile
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC A 0 ThrustThing(angle*256/360+192, 4, 0, 0)
+        FLYC A 8 A_Chase("", "", 1)
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC A 0 A_SpawnItemEx("Fliersmoke", -20, 0, 10, 6, 0, 0, 180, 128)
+        FLYC A 0 A_SpawnItemEx("Fliersmoke", 20, 0, 10, 6, 0, 0, 180, 128)
+        FLYC B 8 A_FaceTarget
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC C 0 A_CustomMissile("FodderLaser",2,20,0)
+        FLYC C 8 A_CustomMissile("FodderLaser",2,-20,0)
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC A 0 ThrustThing(angle*256/360+192, 4, 0, 0)
+        FLYC A 8 A_Chase("", "", 1)
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC A 0 A_SpawnItemEx("Fliersmoke", -20, 0, 10, 6, 0, 0, 180, 128)
+        FLYC A 0 A_SpawnItemEx("Fliersmoke", 20, 0, 10, 6, 0, 0, 180, 128)
+        FLYC B 8 A_FaceTarget
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC C 0 A_CustomMissile("FodderLaser",2,20,0)
+        FLYC C 8 A_CustomMissile("FodderLaser",2,-20,0)
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC A 1 A_Jump(64,"See")
+        FLYC A 4 A_CPosRefire
+        Goto Missile
+    Grenade:
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC A 0 A_SpawnItemEx("Fliersmoke", -20, 0, 10, 6, 0, 0, 180, 128)
+        FLYC A 0 A_SpawnItemEx("Fliersmoke", 20, 0, 10, 6, 0, 0, 180, 128)
+        FLYC A 8 A_FaceTarget
+        FLYC A 0 bright A_PlaySound("weapons/rocklf")
+        FLYC B 2 A_CustomMissile("KnightSmokeGrenade", 28,5,0)
+        FLYC C 2
+        FLYC A 0 A_PlaySoundEx("flyer/flying", "Item", 0, 0)
+        FLYC A 0 A_SpawnItemEx("Fliersmoke", -20, 0, 10, 6, 0, 0, 180, 128)
+        FLYC A 0 A_SpawnItemEx("Fliersmoke", 20, 0, 10, 6, 0, 0, 180, 128)
+        FLYC A 4
+        Goto See
+    Pain:
+        FLYC A 2 A_TossGib
+        FLYC A 2 A_Pain
+        Goto See
+    Death:
+		TNT1 A 0 A_ChangeFlag("NOGRAVITY",1)
+        TNT1 A 0 A_StopSoundEx("Item")
+		TNT1 A 0 A_PlaySoundEX("flier/explosion","Body",0,0)
+        //TNT1 A 0 A_CustomMissile("CrashingFlier",0,0,0)
+		TNT1 A 0 BRIGHT A_Explode(32,128)
+		TNT1 A 0 A_SpawnItemEx("SmokeExplosion",0,0,1,0,0,0,0,0,0)
+        EXPL A 0 bright A_SpawnItemEx("dirtysmokebomb",0,0,0)
+        EXPL A 4 BRIGHT A_CustomMissile("StrikeKnight", 0, 0, 180)
+		TNT1 AAAAAAAAAAAAAAAAAAAA 0 A_TossGib
+        TNT1 A 0 A_Explode
+		EXPL BCDEFGHIJKLMNOPQRSTU 4 BRIGHT
+        TNT1 A 0 A_NoBlocking
+        TNT1 A 1
+        Stop
+    }
+}
+
+ACTOR Fliersmoke
+{
+Speed 8
+Renderstyle Translucent
+Alpha 0.67
+PROJECTILE
+States
+{
+   Spawn:
+    FLSM ABCDE 4
+    Stop
+}
+}
+
+ACTOR FodderLaser {
+	Scale 0.4
+	Radius 8
+	Height 8
+	RenderStyle ADD
+	Speed 20
+	Damage 1
+	Projectile
+	SeeSound "flyer/lasernew"
+	DeathSound "lizard/laserx"
+	Decal PlasmaScorchLower
+	States 
+	{ 
+	Spawn:
+		DLAS A 1 BRIGHT A_SpawnItemEx("FodderLaserTrail", 0, 0, 0, 0, 0, 0, 0, 128)
+		Loop
+	Death:
+		DLAS A 2 BRIGHT A_FadeOut(0.1)
+		Loop
+	}
+	}
+
+ACTOR FodderLaserTrail {
+	Scale 0.4
+	Radius 8
+	Height 8
+	RenderStyle ADD
+	+Nogravity
+	States 
+	{ 
+	Spawn:
+		DLAS A 4
+		Stop 
+	}
+}
+
+actor CrashingFlier
+{
+     SeeSound ""
+     Translation 2
+     +NOCLIP
+     Speed 3
+     MissileHeight 0
+     States
+     {
+     Spawn:
+		FLYC A 0
+	 Death:
+         FLYC AAAAAA 1 Bright A_CustomMissile("FlierExplosion",random (-20,20),random (-30,30),random (-359,359))
+         FLYC A 1 A_CustomMissile("CrashingFlier2", 0, 0, 75)
+         Stop
+     }
+}
+
+actor CrashingFlier2
+{
+     SeeSound ""
+     Translation 2
+     +NOCLIP
+     Speed 3
+     MissileHeight 0
+     States
+     {
+     Spawn:
+		FLYC A 0
+	 Death:
+         FLYC AAAAAAA 1 Bright A_CustomMissile("FlierExplosion",random (-20,20),random (-30,30),random (-359,359))
+         FLYC A 0 A_Explode(32,64)
+         FLYC A 1 A_CustomMissile("CrashingFlier3", 0, 0, 75)
+         Stop
+     }
+}
+
+actor CrashingFlier3
+{
+     SeeSound ""
+     Translation 2
+     +NOCLIP
+     Speed 3
+     MissileHeight 0
+     States
+     {
+     Spawn:
+		FLYC A 0
+	 Death:
+         FLYC AAAAAAA 1 Bright A_CustomMissile("FlierExplosion",random (-20,20),random (-30,30),random (-359,359))
+         FLYC A 1 A_CustomMissile("CrashingFlier4", 0, 0, 75)
+         Stop
+     }
+}
+
+actor CrashingFlier4
+{
+     SeeSound ""
+     Translation 2
+     +NOCLIP
+     Speed 3
+     MissileHeight 0
+     States
+     {
+     Spawn:
+		FLYC A 0
+	 Death:
+         FLYC AAAAAAA 1 Bright A_CustomMissile("FlierExplosion",random (-20,20),random (-30,30),random (-359,359))
+         FLYC A 1 A_CustomMissile("CrashingFlier5", 0, 0, 75)
+         Stop
+     }
+}
+
+actor CrashingFlier5
+{
+     SeeSound ""
+     Translation 2
+     +NOCLIP
+     Speed 3
+     MissileHeight 0
+     States
+     {
+     Spawn:
+		FLYC A 0
+	 Death:
+         FLYC AAAAAAA 1 Bright A_CustomMissile("FlierExplosion",random (-20,20),random (-30,30),random (-359,359))
+         FLYC A 1 A_CustomMissile("CrashingFlier6", 0, 0, 75)
+         Stop
+     }
+}
+
+actor CrashingFlier6
+{
+     SeeSound ""
+     Translation 2
+     +NOCLIP
+     Speed 3
+     RenderStyle ADD
+     MissileHeight 0
+     States
+     {
+     Spawn:
+		FLYC A 0
+	 Death:
+         FLYC AAAAAA 1 Bright A_CustomMissile("FlierExplosion",random (-20,20),random (-30,30),random (-359,359))
+			TNT1 A 0 A_SpawnItemEx("SmokeExplosion",0,0,1,0,0,0,0,0,0)
+         EXPL A 0 bright A_SpawnItemEx("dirtysmokebomb",0,0,0)
+         EXPL ABCDEFG 4 BRIGHT
+         EXPL H 4 BRIGHT A_CustomMissile("ShotgunGuy", 0, 0, 180)
+         EXPL IJKLMNOPQRSTU 4 BRIGHT
+         Stop
+     }
+}
+
+ACTOR FlierExplosion
+{
+Speed 0
+Renderstyle Add
+Seesound "flier/explosion"
+Alpha 0.87
+Scale 0.6
+PROJECTILE
+States
+{
+   Spawn:
+		EXPL A 0
+	 Death:
+    EXPL A 4 BRIGHT //A_Explode(32,64)
+    EXPL BCDEFGHIJKLMNOPQRSTU 4 BRIGHT
+    Stop
+}
+}

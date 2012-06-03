@@ -1,0 +1,7 @@
+ACTOR Enemy {
+	States {
+	Pain.KillMe:
+        TNT1 A 0
+        Goto Missile
+	}
+}

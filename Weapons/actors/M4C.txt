@@ -1,0 +1,173 @@
+ACTOR FedRailSpawner : RandomSpawner replaces Railgun {
+	Dropitem "M4 Carbine" 255 1
+	Dropitem "FBR3 Lance" 255 1
+}
+
+ACTOR "M4 Carbine" : Weapon
+{
+
+   obituary "\ca %k \cb --> M4 --> \cc %o "
+   inventory.pickupmessage "M4 Carbine."
+
+   weapon.ammotype "loadedM4C"
+   weapon.ammouse 1
+   weapon.ammogive 30
+   
+   weapon.ammotype2 "556"
+   weapon.ammouse2 0
+   weapon.ammogive2 30
+
+   Weapon.SlotNumber 4
+   Decal BulletChip
+   +NOALERT
+   +AMMO_OPTIONAL
+   +NOAUTOFIRE
+   
+   States
+   {
+   Spawn:
+      AUTP A -1
+      Stop
+	  
+   Select:
+      M4CA A 0 A_TakeInventory("IronSight",1)
+	  M4CA A 0 A_ZoomFactor(1,ZOOM_INSTANT)
+      M4CA A 0 A_Raise
+      loop
+	  
+   Ready:
+      M4CA A 2 A_TakeInventory("Reloading",1)
+	  M4CA BC 2 A_PlaySoundEx("M4_RISE","SoundSlot5")
+	  M4CA DEFGHIJL 2 A_WeaponReady(WRF_NOPRIMARY)
+	  M4CA M 2 A_PlaySoundEx("M4_Bolt","SoundSlot5")
+	  M4CA NOPQRSTU 2 A_WeaponReady(WRF_NOPRIMARY)
+	 
+   Readyloop:
+      M4CA U 0 A_JumpIfNoAmmo("Reload")
+      M4CA U 0 A_JumpIfInventory("Reloading",1,"Reload")
+      M4CA U 1 A_WeaponReady
+      loop
+	  
+   Deselect:
+      TNT1 AAAAAAAAAA 0 A_Lower
+	  
+   DeselectLoop: // Makes sure it wraps up
+      TNT1 A 1 A_Lower
+      loop
+	  
+   Fire:
+      TNT1 A 0 A_JumpIfInventory("IronSight",1,"FireIron")
+      TNT1 A 0 A_JumpIfNoAmmo("DryFire")
+      TNT1 A 0 A_PlaySoundEx("M4_FIRE","SoundSlot5")
+	  TNT1 A 0 A_Recoil(0.2)
+      M4CB A 0 BRIGHT A_Firebullets (3.5,3.5,-1,30,"BulletPuff")
+	  //TNT1 A 0 A_TakeInventory("loadedM4C",1)
+      M4CB A 2 A_FireCustomMissile("M4CTracer",random(-3.5,3.5),0,0,0,0,random(-3.5,3.5))
+	  TNT1 A 0 ACS_ExecuteAlways(505,0)
+	  TNT1 A 0 A_ZoomFactor(.96)
+      M4CB B 1 BRIGHT A_GunFlash
+      //MP7B A 0 A_JumpIfInventory("9mm",1,1) // Line is not needed right now. Supposed to be a goto under it.
+      TNT1 A 0 A_ZoomFactor(1.0)
+	  M4CB C 0 A_ReFire
+      M4CB CDEFGHIJKLMNOPQRSTU 2 A_WeaponReady
+      goto ReadyLoop
+      M4CB A 0 A_JumpIfNoAmmo(2)
+      M4CB A 0 A_ReFire
+      goto ReadyLoop
+      M4CB A 0 A_GiveInventory("Reloading",1)
+      goto Reload
+	  
+	DryFire:
+		M4CB H 10 A_PlayWeaponSound("dryfire")
+		goto ReadyLoop
+	  
+   AltFire:
+      M4CC A 0 A_JumpIfInventory("IronSight",1,"AltFire2")
+      M4CC A 0 A_ZoomFactor(1.5)	
+      M4CC ABCD 1
+      M4CC E 0 A_GiveInventory("IronSight",1)
+      M4CC EFGH 1 A_WeaponReady(WRF_NOBOB)
+      M4CC IJ 2 A_WeaponReady(WRF_NOBOB)
+      //CLTC D 0 ACS_ExecuteAlways(602,0,0,0,0)
+      goto IronSight
+   
+   AltFire2:
+      M4CC J 1 A_ZoomFactor(1.0)
+      M4CC I 1
+      M4CC I 0 A_TakeInventory("IronSight",1)
+      M4CC HGFEDCBA 1
+      //CLTC A 0 ACS_ExecuteAlways(602,0,0,0,0)
+      goto ReadyLoop+2
+	
+
+	  
+	IronSight:
+      M4CC J 0 A_JumpIfInventory("Reloading",1,"Reload")
+      M4CC J 0 A_JumpIfNoAmmo("Reload")
+      M4CC J 1 A_WeaponReady(WRF_NOBOB)
+      loop
+
+   FireIron:
+      TNT1 A 0 A_JumpIfNoAmmo("DryIron")
+      TNT1 A 0 A_PlaySoundEx("M4_FIRE","SoundSlot5")
+	  TNT1 A 0 A_Recoil(0.1)
+      M4CD A 0 BRIGHT A_FireBullets (.1, .1, -1, 15, "BulletPuff")
+	  //TNT1 A 0 A_TakeInventory("loadedM4C",1)
+      M4CD A 2 A_FireCustomMissile("M4CTracer",random(-.1,.1),0,0,0,0,random(-.1,.1))
+	  TNT1 A 0 ACS_ExecuteAlways(505,0)
+	  TNT1 A 0 A_ZoomFactor(1.37)
+      M4CD B 1 BRIGHT A_GunFlash
+	  TNT1 A 0 A_ZoomFactor(1.5)
+      //MP7D D 0 A_JumpIfInventory("9mm",1,1)
+      M4CD C 0 A_ReFire
+      M4CD CDEFGHIJKLMNOPQRSTU 2 A_WeaponReady
+      M4CD A 0 A_JumpIfInventory("556",1,2)
+      M4CD A 0 A_ReFire
+      goto IronSight
+      M4CD A 0 A_JumpIfNoAmmo(2)
+      M4CD A 0 A_ReFire
+      goto IronSight
+      M4CD A 0 A_GiveInventory("Reloading",1)		//Go to reload
+      goto Reload
+	  
+	DryIron:
+		M4CD G 10 A_PlayWeaponSound("dryfire")
+		goto IronSight
+
+   Reload: //This is more or less a confirm state to trigger the animation
+      TNT1 A 0 A_JumpIfInventory("556",1,"ReloadAnimation")
+      TNT1 A 0 A_TakeInventory("Reloading",1) // Bullets = 0. RELOAD DENIED!
+      TNT1 A 0 A_JumpIfInventory("IronSight",1,"IronHack") // Fixes a visual glitch when you have 0 total ammo
+      goto ReadyLoop+2
+	  
+	IronHack: // It's so awesome, I know! :V
+	   goto Ironsight+2
+	  
+   ReloadAnimation:
+      M4CE A 0 A_TakeInventory("IronSight",1)
+      M4CE A 0 A_ZoomFactor(1.0)
+      M4CE AB 2 A_WeaponReady(WRF_NOFIRE)
+      M4CE C 2 A_PlaySoundEx("M4_CLIPO","SoundSlot5")
+      M4CE DEFGHIJKLMNOPQRSTUV 2 A_WeaponReady(WRF_NOFIRE)
+      goto ReloadAmmo
+      
+	  ReloadAmmo: // at this point change in ammo is displayed
+      M4CE V 0 A_GiveInventory("loadedM4C",1)
+      M4CE V 0 A_TakeInventory("556",1)
+      M4CE V 0 A_JumpIfInventory("loadedM4C",30,"ReloadEnd")
+      M4CE V 0 A_JumpIfInventory("556",1,"ReloadAmmo")
+      goto ReloadEnd
+	  
+	  ReloadEnd: // Animation wraps up
+	  TNT1 A 0 A_TakeInventory("Reloading",1)
+      M4CE W 2 A_PlaySoundEx("M4_CLIPI","SoundSlot5")
+	  M4CE XYZ 2 A_WeaponReady(WRF_NOFIRE)
+	  M4CF ABCDEFGHIJKLMNOPQRS 2 A_WeaponReady(WRF_NOFIRE)
+	  M4CF T 2 A_PlaySoundEx("M4_BOLT","SoundSlot5")
+	  M4CF UVWXYZ 2 A_WeaponReady(WRF_NOFIRE)
+	  M4CG ABCDEFGHIJ 2 A_WeaponReady(WRF_NOFIRE)
+      TNT1 A 0 A_ReFire
+	  goto ReadyLoop+2
+	  
+  }
+}

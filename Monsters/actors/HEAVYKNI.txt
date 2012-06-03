@@ -1,0 +1,420 @@
+ACTOR HeavyKnight : Enemy 13204
+{
+  //$Category Federation
+  OBITUARY "%o was destroyed by a Heavy Knight."
+  Health 250
+  GibHealth 60
+  Radius 16
+  Height 40
+  Mass 100
+  Speed 14
+  PainChance 50
+  PainChance "Shock", 255
+  Translation 1
+  BloodType "NashGore_Blood"
+  SeeSound "monster/inisit"
+  AttackSound "MP7/FIRE"
+  PainSound "monster/inipai"
+  DeathSound "monster/inidth"
+  ActiveSound "monster/iniact"
+  
+  DropItem "Clip" 256
+  DropItem "Clip" 128
+  DropItem "cell" 64
+  DropItem "RocketAmmo" 256
+  DropItem "RocketBox" 32
+  
+  DropItem "stimpack" 32
+  Dropitem "HeavyArmor" 4
+  
+  DropItem "MP7" 8
+  DropItem "RPG" 4
+  DropItem "Scythe Minigun" 1
+  
+  //Dropitem "PDA" 2
+  
+  Dropitem "6Beacon" 2
+  Dropitem "ABeacon" 1
+  
+  Species hellknight
+  MONSTER
+  +NOTARGET
+  +DONTHURTSPECIES
+  +MISSILEMORE
+  Decal Bulletchip
+  states
+  {
+  Spawn:
+    HEVY A 0                                                     //
+    HEVY A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    GO99 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    GO99 AB 10 A_LookEx(0,0,random(512,2048),random(1024,4096),random(90,180),"See")// WHERE ARE YOU!
+    goto Spawn+3                                                 //
+  Spawn2:
+    GO99 A 0                                                     //
+    GO99 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    GO99 AB 10 A_LookEx(0,0,random(512,2048),random(1024,4096),random(90,180),"See")// WHERE ARE YOU!
+    goto Spawn2+2                                                //
+  See:
+    GO99 A 0 A_CheckSight("SEE2")                                //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 A 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 A 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 B 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 B 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 C 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 C 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 D 4 A_Chase                                             // NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    GO99 D 4 A_Chase                                             // NORMAL CHASE
+    GO99 D 0 HealThing(1)                                        // HEALING
+    Loop                                                         //
+  See2:
+    GO99 AABBCCDD 4 A_Chase                                      // NORMAL CHASE
+    GO99 D 0 HealThing(1)                                        // HEALING
+    Loop                                                         //
+  Missile:
+    GO99 E 0 A_Jump(80, 8)                                       // NORMAL ATTACK
+    GO99 E 0 A_Jump(128, "FireRocket")                           // ROCKET ATTACK
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 E 10 A_FaceTarget                                       //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 F 10 A_CustomMissile("HeavyGrenade",32,0,random(16,-16),0)// BALLS OF STEEL
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 E 10                                                    //
+    Goto See                                                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 E 10 A_FaceTarget                                       //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 F 0 BRIGHT A_CustomBulletAttack(22.5,22.5,1,random(1,5)*3,"BulletPuff")// 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	GO99 F 1 BRIGHT A_CustomMissile("HeavyTracer",38,0,random(-22.5,22.5),2,random(-22.5,22.5))
+    GO99 E 0 BRIGHT A_CustomBulletAttack(22.5,22.5,1,random(1,5)*3,"BulletPuff")// 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	GO99 F 1 BRIGHT A_CustomMissile("HeavyTracer",38,0,random(-22.5,22.5),2,random(-22.5,22.5))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 F 1                                                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 F 0 BRIGHT A_CustomBulletAttack(22.5,22.5,1,random(1,5)*3,"BulletPuff")// 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	GO99 F 1 BRIGHT A_CustomMissile("HeavyTracer",38,0,random(-22.5,22.5),2,random(-22.5,22.5))
+    GO99 E 0 BRIGHT A_CustomBulletAttack(22.5,22.5,1,random(1,5)*3,"BulletPuff")// 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	GO99 F 1 BRIGHT A_CustomMissile("HeavyTracer",38,0,random(-22.5,22.5),2,random(-22.5,22.5))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 F 1                                                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 F 0 BRIGHT A_CustomBulletAttack(22.5,22.5,1,random(1,5)*3,"BulletPuff")// 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	GO99 F 1 BRIGHT A_CustomMissile("HeavyTracer",38,0,random(-22.5,22.5),2,random(-22.5,22.5))
+    GO99 E 0 BRIGHT A_CustomBulletAttack(22.5,22.5,1,random(1,5)*3,"BulletPuff")// 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	GO99 F 1 BRIGHT A_CustomMissile("HeavyTracer",38,0,random(-22.5,22.5),2,random(-22.5,22.5))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 F 1                                                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 F 0 BRIGHT A_CustomBulletAttack(22.5,22.5,1,random(1,5)*3,"BulletPuff")// 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	GO99 F 1 BRIGHT A_CustomMissile("HeavyTracer",38,0,random(-22.5,22.5),2,random(-22.5,22.5))
+    GO99 E 0 BRIGHT A_CustomBulletAttack(22.5,22.5,1,random(1,5)*3,"BulletPuff")// 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	GO99 F 1 BRIGHT A_CustomMissile("HeavyTracer",38,0,random(-22.5,22.5),2,random(-22.5,22.5))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 F 1                                                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 F 1 BRIGHT A_CustomBulletAttack(22.5,22.5,1,random(1,5)*3,"BulletPuff")// 5TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	GO99 F 1 BRIGHT A_CustomMissile("HeavyTracer",38,0,random(-22.5,22.5),2,random(-22.5,22.5))
+    GO99 E 0 BRIGHT A_CustomBulletAttack(22.5,22.5,1,random(1,5)*3,"BulletPuff")// 5TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	GO99 F 1 BRIGHT A_CustomMissile("HeavyTracer",38,0,random(-22.5,22.5),2,random(-22.5,22.5))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 F 1                                                     //
+    Goto See                                                     //
+  FireRocket:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 E 6 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 F 12 A_CustomMissile("HeavyRocket", 24, 0, random(16,-16), 0)// 1ST ROCKET
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 E 12 A_FaceTarget                                       //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 F 12 A_CustomMissile("HeavyRocket", 24, 0, random(16,-16), 0)// 2ND ROCKET
+    Goto See                                                     //
+  HealthHigh:
+    GO99 A 0 A_ChangeFlag("Frightened", 0)                       // PUSH ONWARD
+    Goto See+5                                                   //   
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    GO99 G 3                                                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    GO99 G 3 A_Pain                                              // OW!
+    GO99 G 0 A_Jump(128,1)                                       // CHANCE RETALIATION
+    Goto Missile                                                 //
+    GO99 G 0                                                     //
+    Goto FireRocket                                              // RETALIATE WITH ROCKETS
+  Pain.Shock:
+    GO99 G 2 A_ChangeFlag("NoPain", 1)                           // STUNNED!
+    GO99 G 300 A_Pain                                            //
+    GO99 G 0 A_ChangeFlag("NoPain", 0)                           //
+    Goto See                                                     //
+  Death: 
+    GO99 H 0 A_JumpIfHealthLower(-60,"Splode")                   //
+    GO99 H 5                                                     //
+    GO99 I 5 A_Scream                                            //
+    GO99 J 5 A_Fall                                              //
+    GO99 K 5                                                     //
+    GO99 L 5                                                     //
+    GO99 M 5                                                     //
+    GO99 N 0 A_Jump(5, 2)                                        // REGENERATING!
+    GO99 N -1                                                    //
+    stop                                                         //
+    GO99 NNNNN 70                                                //
+    GO99 NNNNN 70                                                //
+    GO99 NNNNN 70                                                //
+    GO99 N -1 Thing_Raise(0)                                     // STILL ALIVE
+    Wait                                                         //
+  Splode:
+    GO99 I 1                                                     // xDeath
+    GO99 I 0 A_SpawnDebris("NashGore_Gib9",0)                    // GIBS!
+    GO99 I 0 A_SpawnDebris("NashGore_Gib10",0)                   //
+    GO99 I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+    GO99 I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+    GO99 I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+    GO99 I 0                                                     //
+    GO99 I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+    GO99 I 0 A_XScream                                           //
+    GO99 I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+    GO99 I 0 A_NoBlocking                                        //
+    GO99 I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+    GO99 I 0                                                     //
+    GO99 Z 0 A_SpawnItemEx("DEADInitiateHead",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)//
+    stop                                                         //
+  Death.Fire2:
+    TNT1 A 1 A_SpawnItem("BurnDeath1", 2, 1)                     // SCORCHED
+    stop                                                         //
+  Raise: 
+    GO99 KJ 5                                                    // REVIVED
+    GO99 IH 5 Thing_SetSpecial(0,226,613,0,random(30,40))        // RGA2 EXP COMPATIBILITY
+    Goto See                                                     //
+  Death.head:
+    GO99 O 9 A_PlaySound("headshot/splat")                       //
+    GO99 I 0 A_SpawnDebris("NashGore_Gib3",0)                    // GIBS!
+    GO99 I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+    GO99 I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+    GO99 P 9 A_XScream                                           //
+    GO99 Q 9 A_Fall                                              //
+    GO99 R 5                                                     //
+    GO99 S 5                                                     //
+    GO99 T 0 A_SpawnItemEx("DEADInitiate",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)// FAKE BODY
+    stop                                                         //
+  }
+}
+
+ACTOR HeavyGrenade {
+	Health 10
+	Radius 6
+	Height 8
+	Speed 20
+	SEESOUND "dune/bounce"
+	DEATHSOUND ""
+	PROJECTILE
+	+Shootable
+	+DoomBounce
+	+Randomize
+	-NoGravity
+	states {
+		Spawn:
+			THR2 A 4 A_PlaySound("catharsi/thermtick")
+			THR2 B 16 
+			THR2 A 4 A_PlaySound("catharsi/thermtick")
+			THR2 B 16
+			THR2 A 4 A_PlaySound("catharsi/thermtick")
+			THR2 B 16
+			THR2 A 4 A_PlaySound("catharsi/thermtick")
+			THR2 B 16
+			THR2 A 4 A_PlaySound("catharsi/thermtick")
+			THR2 B 16
+			THR2 ABABABA 3 BRIGHT
+			THR2 B 3 BRIGHT A_Die
+			Loop
+		Death:
+			SDFB B 0 A_CustomMissile("HeavyBurstExplosion",0,0,0,32,0)
+			SDFB B 0 A_CustomMissile("dirtysmokebomb",0,0,0)
+			SDFB B 0 A_CustomMissile("HeavyKnightExplosion",0,0,0)
+			SDFB B 0 Radius_Quake(4,35,0,8,0)
+			SDFB BCDE 6 BRIGHT A_Die
+			Stop
+	}
+}
+
+ACTOR HeavyRocket : Rocket {
+	Health 10
+	+SHOOTABLE
+}
+
+ACTOR HeavyKnightExplosion {
+	Radius 2
+	Height 2
+	Damage 0
+	Speed 0
+	PROJECTILE
+	+NOCLIP
+	RENDERSTYLE ADD
+	ALPHA 0.75
+	Scale 1.0
+	SeeSound "darkinquisitor/bigdeathexpl"
+	States {
+	Spawn:
+		TNT1 A 0 A_SpawnItemEx("ShadowVaporSpawner",0,0,0,0,0,0,0,32)
+		GRNE A 3 Bright A_Explode (32,128,0)
+		GRNE B 3 Bright
+		GRNE CDEFGHIJKLMN 3 Bright
+		stop
+	}
+}
+
+Actor HeavyBurstExplosion {
+	radius 6
+	height 1
+	states {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 1
+			TNT1 A 3 A_PlaySound("Grenade/Flamed")
+			TNT1 A 0 A_CustomMissile("dirtysmokebomb",5,0,0)
+			//
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, 90,CMF_AIMDIRECTION,-25)
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, 45,CMF_AIMDIRECTION,-25)
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, -90,CMF_AIMDIRECTION,-25)
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, -45,CMF_AIMDIRECTION,-25)
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, 180,CMF_AIMDIRECTION,-25)
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, 135,CMF_AIMDIRECTION,-25)
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, 0,CMF_AIMDIRECTION,-25)
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, -135,CMF_AIMDIRECTION,-25)
+			//
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, 90,CMF_AIMDIRECTION,-45)
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, 45,CMF_AIMDIRECTION,-45)
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, -90,CMF_AIMDIRECTION,-45)
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, -45,CMF_AIMDIRECTION,-45)
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, 180,CMF_AIMDIRECTION,-45)
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, 135,CMF_AIMDIRECTION,-45)
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, 0,CMF_AIMDIRECTION,-45)
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, -135,CMF_AIMDIRECTION,-45)
+			//
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, 90,CMF_AIMDIRECTION,-65)
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, 45,CMF_AIMDIRECTION,-65)
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, -90,CMF_AIMDIRECTION,-65)
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, -45,CMF_AIMDIRECTION,-65)
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, 180,CMF_AIMDIRECTION,-65)
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, 135,CMF_AIMDIRECTION,-65)
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, 0,CMF_AIMDIRECTION,-65)
+			TNT1 A 0 A_CustomMissile("HeavyFire", 5, 0, -135,CMF_AIMDIRECTION,-65)
+			stop
+	}
+}
+
+ACTOR FKFire
+{
+   Radius 2
+   Height 4
+   Speed 16
+   Damage 1
+   PROJECTILE
+   RENDERSTYLE ADD
+   DamageType Fire2
+   ALPHA 0.67
+   Scale 0.67
+   SeeSound "weapons/flamer"
+   DeathSound "weapons/scorch"
+   DONTHURTSHOOTER
+   +THRUGHOST
+   States
+   {
+   Spawn:
+      NULL A 2 Bright
+      FRFX ABCD 2 Bright A_Explode(2,8,0)
+      FRFX D 0 Bright A_Gravity
+      FRFX EFG 2 Bright A_Explode(2,16,0)
+      FRFX HIJ 2 Bright A_Explode(2,32,0)
+      FRFX KLM 2 Bright A_Explode(2,64,0)
+      FRFX NO 2 Bright
+      //stop
+   Death:
+      FRFX HIJ 2 Bright A_Explode(2,32)
+	  TNT1 A 0 A_SpawnItemEx("IgnitedSurface",random(-15,15),random(-15,15),random(5,15),0,32)
+      //TNT1 A 0 A_CustomMissile("IgnitedSurface", random(5,15), random(-15, 15), 0, 0)
+      //FRFX J 0 A_CustomMissile ("FKDropFire",0,0,0)
+      FRFX KLM 2 Bright A_Explode(2,64,0)
+      FRFX NO 2 Bright
+      stop
+   }
+}
+
+ACTOR HeavyFire {
+	Radius 2
+	Height 4
+	Speed 1
+	Damage 1
+	PROJECTILE
+	RENDERSTYLE ADD
+	DamageType Fire2
+	ALPHA 0.67
+	Scale 0.67
+	SeeSound "weapons/flamer"
+	DeathSound "weapons/scorch"
+	DONTHURTSHOOTER
+	+THRUGHOST
+	States {
+		Spawn:
+			NULL A 2 Bright
+			FRFX ABCD 2 Bright A_Explode(2,8,0)
+			FRFX D 0 Bright A_Gravity
+			FRFX EFG 2 Bright A_Explode(2,16,0)
+			FRFX HIJ 2 Bright A_Explode(2,32,0)
+			FRFX KLM 2 Bright A_Explode(2,64,0)
+			FRFX NO 2 Bright
+		Death:
+			FRFX HIJ 2 Bright A_Explode(2,32)
+			TNT1 A 0 A_SpawnItemEx("HeavyFlame",random(-15,15),random(-15,15),random(5,15),0,16) // Last parameter here determines the speed
+			FRFX KLM 2 Bright A_Explode(2,64,0)
+			FRFX NO 2 Bright
+			stop
+	}
+}
+
+ACTOR HeavyFlame {
+	Height 2
+	Radius 2
+	Speed 1
+	RenderStyle Add
+	Alpha 0.7
+	Gravity 0.9
+	DamageType "Fire2"
+	-NOGRAVITY
+	+FORCEXYBILLBOARD
+	+DONTSPLASH
+	+NOTELEPORT
+	+NOBLOCKMAP
+	+RIPPER
+	+BLOODLESSIMPACT
+	+CANNOTPUSH
+	+NOINTERACTION
+	-BLOODSPLATTER
+	-ACTIVATEPCROSS
+	-ACTIVATEIMPACT
+	-NOCLIP
+	States {
+		Spawn:
+			FRTF A 0
+			FRTF ABCDEFGHIJKLMNO 1 BRIGHT
+			stop
+	}
+}

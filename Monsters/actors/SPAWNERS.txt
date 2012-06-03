@@ -1,0 +1,355 @@
+ACTOR ZombieManSpawner : RandomSpawner replaces ZombieMan
+{
+ Dropitem "Initiate" 255 63
+ Dropitem "FInitiate" 255 1
+}
+
+ACTOR ImpSpawner : RandomSpawner replaces DoomImp 16843
+{
+ Dropitem "ZoneKnight" 255 63
+ Dropitem "FZoneKnight" 255 1
+ Dropitem "StrikeKnight" 255 15
+ Dropitem "FStrikeKnight" 255 1
+ Dropitem "Legionary" 255 1
+}
+
+ACTOR ShotgunGuySpawner : RandomSpawner replaces ShotgunGuy
+{
+ Dropitem "StrikeKnight" 255 63
+ Dropitem "FStrikeKnight" 255 1
+ Dropitem "TerrorMite" 255 20
+}
+
+ACTOR ChaingunGuySpawner : RandomSpawner replaces ChaingunGuy
+{
+ Dropitem "NextHeavySpawner" 255 31
+ Dropitem "NextGrenadeSpawner" 255 1
+}
+
+ACTOR NextHeavySpawner : RandomSpawner
+{
+ Dropitem "HeavyKnight" 255 63
+ Dropitem "FHeavyKnight" 255 1
+}
+
+ACTOR NextGrenadeSpawner : RandomSpawner
+{
+ Dropitem "GrenadeKnight" 255 63
+ Dropitem "FGrenadeKnight" 255 1
+}
+
+ACTOR CacodemonSpawner : RandomSpawner replaces Cacodemon
+{
+ Dropitem "SkyKnight" 255 15
+ Dropitem "StrikeFlyer" 255 1
+}
+
+ACTOR HellKnightSpawner : RandomSpawner replaces HellKnight
+{
+ Dropitem "KnightCaptain" 255 63
+ Dropitem "FKnightCaptain" 255 1
+}
+
+ACTOR ArchvileSpawner : RandomSpawner replaces Archvile
+{
+ Dropitem "MedicKnight" 255 63
+ Dropitem "FMedicKnight" 255 1
+}
+
+ACTOR BaronOfHellSpawner : RandomSpawner replaces BaronOfHell
+{
+ Dropitem "Justicar" 255 127
+ Dropitem "FJusticar" 255 1
+}
+
+ACTOR DemonSpawner : RandomSpawner replaces Demon 16844
+{
+ Dropitem "BerserkKnight"
+ Dropitem "NextRiotSpawner"
+}
+
+ACTOR NextRiotSpawner : RandomSpawner
+{
+ Dropitem "RiotKnight" 255 63
+ Dropitem "FRiotKnight" 255 1
+}
+
+ACTOR SpectreSpawner : RandomSpawner replaces Spectre 16845
+{
+ Dropitem "NextIceSpawner" 255 11
+ Dropitem "NextFireSpawner" 255 11
+ Dropitem "NextShockSpawner" 255 9
+ Dropitem "NextBioSpawner" 255 11
+}
+
+ACTOR NextIceSpawner : RandomSpawner
+{
+ Dropitem "IceKnight" 255 63
+ Dropitem "FIceKnight" 255 1
+}
+
+ACTOR NextFireSpawner : RandomSpawner
+{
+ Dropitem "FireKnight" 255 63
+ Dropitem "FFireKnight" 255 1
+}
+
+ACTOR NextShockSpawner : RandomSpawner
+{
+ Dropitem "ShockKnight" 255 63
+ Dropitem "FShockKnight" 255 1
+}
+
+ACTOR NextBioSpawner : RandomSpawner
+{
+ Dropitem "BioKnight" 255 63
+ Dropitem "FBioKnight" 255 1
+}
+
+ACTOR MancubusSpawner : RandomSpawner replaces Fatso 16846
+{
+ Dropitem "RookKnight" 255 63
+ Dropitem "FRookKnight" 255 1
+ Dropitem "Legionary" 255 45
+}
+
+ACTOR ArachnotronSpawner : RandomSpawner replaces Arachnotron
+{
+ Dropitem "KnightPlasmaTank" 255
+ Dropitem "Hoplite" 255
+}
+
+ACTOR CyberdemonSpawner : RandomSpawner replaces Cyberdemon 16848
+{
+ Dropitem "FedTemplar"
+ Dropitem "FedCrusader"
+}
+
+// ST Monster replacements
+
+ACTOR DarkImpSpawner : RandomSpawner replaces DarkImp 16849
+{
+ Dropitem "ShotgunGuySpawner"
+}
+
+ACTOR BelphegorSpawner : RandomSpawner replaces Belphegor 16850
+{
+ Dropitem "Justicar"
+}
+
+ACTOR HectebusSpawner : RandomSpawner replaces Hectebus 16851
+{
+ Dropitem "MancubusSpawner"
+}
+
+ACTOR SuperShotgunGuySpawner : RandomSpawner replaces SuperShotgunGuy 16852
+{
+ Dropitem "RiotKnight"
+}
+
+ACTOR CacolanternSpawner : RandomSpawner replaces Cacolantern 16853
+{
+ Dropitem "SkyKnight"
+}
+
+ACTOR BloodDemonSpawner : RandomSpawner replaces BloodDemon 16854
+{
+ Dropitem "BerserkKnight"
+}
+
+ACTOR AbaddonSpawner : RandomSpawner replaces Abaddon 16855
+{
+ Dropitem "StrikeFlyer"
+}
+
+//===============================================================
+//---------------------::::::INVASION::::::----------------------
+//===============================================================
+
+//ACTOR AbaddonSpotSpawner : AbaddonSpot replaces AbaddonSpot
+//{
+// Dropitem "FedTemplarFire"
+//}
+
+//ACTOR ArachnotronSpotSpawner : ArachnotronSpot replaces ArachnotronSpot
+//{
+// Dropitem "KnightPlasmaTank" 255 127
+// Dropitem "Crusader" 255 1
+//}
+
+//ACTOR ArchvileSpotSpawner : ArchvileSpot replaces ArchvileSpot
+//{
+// Dropitem "MedicKnight"
+//}
+
+//ACTOR BaronOfHellSpotSpawner : BaronOfHellSpot replaces BaronOfHellSpot
+//{
+// Dropitem "Justicar"
+//}
+
+//ACTOR BelphegorSpotSpawner : BelphegorSpot replaces BelphegorSpot
+//{
+// Dropitem "Justicar"
+//}
+
+//ACTOR CacodemonSpotSpawner : CacodemonSpot replaces CacodemonSpot
+//{
+// Dropitem "GrenadeKnight"
+//}
+
+//ACTOR CacolanternSpotSpawner : CacolanternSpot replaces CacolanternSpot
+//{
+// Dropitem "SentryKnight"
+//}
+
+//ACTOR CyberdemonSpotSpawner : CyberdemonSpot replaces CyberdemonSpot
+//{
+// Dropitem "FedTemplarFire"
+// Dropitem "Crusader"
+//}
+
+//ACTOR DarkImpSpotSpawner : DarkImpSpot replaces DarkImpSpot
+//{
+// Dropitem "Knight"
+//}
+
+//ACTOR DemonSpotSpawner : DemonSpot replaces DemonSpot
+//{
+// Dropitem "BerserkKnight"
+// Dropitem "RiotKnight"
+//}
+
+//ACTOR FatsoSpotSpawner : FatsoSpot replaces FatsoSpot
+//{
+// Dropitem "RookKnight" 255 127
+// Dropitem "Crusader" 255 1
+//}
+
+//ACTOR HectebusSpotSpawner : HectebusSpot replaces HectebusSpot
+//{
+// Dropitem "RookKnight" 255 63
+// Dropitem "Crusader" 255 1
+//}
+
+//ACTOR HellKnightSpotSpawner : HellKnightSpot replaces HellKnightSpot
+//{
+// Dropitem "KnightCaptain"
+//}
+
+//ACTOR ImpSpotSpawner : ImpSpot replaces ImpSpot
+//{
+// Dropitem "ShockKnight" 255 31
+// Dropitem "BioKnight" 255 1
+//}
+
+//ACTOR LostSoulSpotSpawner : LostSoulSpot replaces LostSoulSpot
+//{
+// Dropitem "FedSentinel"
+//}
+
+//ACTOR PainElementalSpotSpawner : PainElementalSpot replaces PainElementalSpot
+//{
+// Dropitem "SentryKnight"
+//}
+
+//ACTOR RevenantSpotSpawner : RevenantSpot replaces RevenantSpot
+//{
+// Dropitem "FlashKnight"
+//}
+
+//ACTOR SpiderMastermindSpotSpawner : SpiderMastermindSpot replaces SpiderMastermindSpot
+//{
+// Dropitem "Crusader"
+//}
+
+//ACTOR WolfensteinSSSpotSpawner : WolfensteinSSSpot replaces WolfensteinSSSpot
+//{
+// Dropitem "SpectrumKnight"
+//}
+
+
+//ACTOR AbaddonSpotSpawner : AbaddonSpot replaces S_AbaddonSpot
+//{
+//}
+
+//ACTOR ArachnotronSpotSpawner : ArachnotronSpot replaces S_ArachnotronSpot
+//{
+//}
+
+//ACTOR ArchvileSpotSpawner : ArchvileSpot replaces S_ArchvileSpot
+//{
+//}
+
+//ACTOR BaronOfHellSpotSpawner : BaronOfHellSpot replaces S_BaronOfHellSpot
+//{
+//}
+
+//ACTOR BelphegorSpotSpawner : BelphegorSpot replaces S_BelphegorSpot
+//{
+//}
+
+//ACTOR CacodemonSpotSpawner : CacodemonSpot replaces S_CacodemonSpot
+//{
+//}
+
+//ACTOR CacolanternSpotSpawner : CacolanternSpot replaces S_CacolanternSpot
+//{
+//}
+
+//ACTOR CyberdemonSpotSpawner : CyberdemonSpot replaces S_CyberdemonSpot
+//{
+//}
+
+//ACTOR DarkImpSpotSpawner : DarkImpSpot replaces S_DarkImpSpot
+//{
+//}
+
+//ACTOR DemonSpotSpawner : DemonSpot replaces S_DemonSpot
+//{
+//}
+
+//ACTOR FatsoSpotSpawner : FatsoSpot replaces S_FatsoSpot
+//{
+//}
+
+//ACTOR HectebusSpotSpawner : HectebusSpot replaces S_HectebusSpot
+//{
+//}
+
+//ACTOR HellKnightSpotSpawner : HellKnightSpot replaces S_HellKnightSpot
+//{
+//}
+
+//ACTOR ImpSpotSpawner : ImpSpot replaces S_ImpSpot
+//{
+//}
+
+//ACTOR LostSoulSpotSpawner : LostSoulSpot replaces S_LostSoulSpot
+//{
+//}
+
+//ACTOR PainElementalSpotSpawner : PainElementalSpot replaces S_PainElementalSpot
+//{
+//}
+
+//ACTOR RevenantSpotSpawner : RevenantSpot replaces S_RevenantSpot
+//{
+//}
+
+//ACTOR SpiderMastermindSpotSpawner : SpiderMastermindSpot replaces S_SpiderMastermindSpot
+//{
+//}
+
+//ACTOR WolfensteinSSSpotSpawner : WolfensteinSSSpot replaces S_WolfensteinSSSpot
+//{
+//}
+
+//===============================================================
+
+ACTOR DeadPlayerReReplacementRGA2 : DeadMarine replaces DeadMarine
+{ //GTFO
+}
+
+ACTOR GibsReReplacementRGA2 : Gibs replaces Gibs
+{ //GTFO
+}

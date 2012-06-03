@@ -1,0 +1,121 @@
+ACTOR "Wakizashi" : Weapon
+{
+	obituary "\ca %k \cb --> Wakizashi --> \cc %o"
+	inventory.pickupmessage "Wakizashi found."
+
+        Weapon.SelectionOrder 80
+	Weapon.SlotNumber 1
+        Weapon.UpSound "KNI_DEPL"
+        +WEAPON.MELEEWEAPON
+	+NOALERT
+   
+	States
+	{
+	Spawn:
+	   WAKI Z -1 // We have no spawn sprites for any of the guns. Hence DERP
+	   Stop
+
+	Select:
+       WAKA A 0 A_TakeInventory("IronSight",1)
+	   WAKA A 0 A_ZoomFactor(1,ZOOM_INSTANT)
+	   WAKA A 0 A_Raise
+	   loop
+	  
+	Ready:  // This is for show. Just the animation
+	   WAKA ABCDEFGHIJKLMNOPQRS 1 A_WeaponReady(WRF_NOPRIMARY)
+	  
+	Readyloop:
+	   WAKA S 1 A_WeaponReady
+	   loop
+	 
+	Deselect:
+	   TNT1 AAAAAAAAAA 0 A_Lower
+	  
+	DeselectLoop: // Makes sure it wraps up
+	   TNT1 A 1 A_Lower
+	   loop
+	  
+	Fire:
+	   WAKB A 0 A_Jump(128,"Fire2")
+	   WAKB AB 1
+       WAKB C 1 ThrustThing(angle*256/360,2,0,0)
+       WAKB D 1 A_FireCustomMissile("WakizashiSlash")
+       WAKB EFGH 1
+       WAKB IJKLMNOPQR 1
+	   goto ReadyLoop
+	Fire2:
+	   WAKD AB 1
+       WAKD C 1 ThrustThing(angle*256/360,2,0,0)
+       WAKD D 1 A_FireCustomMissile("WakizashiSlash")
+       WAKD EFGH 1
+       WAKD IJKLMNOPQ 1
+	   goto ReadyLoop
+   
+	AltFire:
+       WAKC ABCDE 1
+	   WAKC F 1 A_ZoomFactor(1.05)
+       WAKC F 0 ThrustThing(angle*256/360,4,0,0)
+       WAKC G 1 A_FireCustomMissile("WakizashiStab")
+	   WAKC HIJ 1
+	   WAKC K 1 A_ZoomFactor(1.0)
+	   WAKC LMNOPQRST 1
+	   goto ReadyLoop
+  }
+}
+
+ACTOR WakizashiSlash
+{
+    Height 16
+    Radius 20
+    Damage 40
+    DamageType "WakizashiSlash"
+    Speed 10
+    PROJECTILE
+	+DONTREFLECT
+
+    SeeSound "KNI_SLA"
+
+    States
+    {
+        Spawn:
+            TNT1 A 0
+            TNT1 A 5
+            Stop
+        /*Crash:
+            TNT1 A 0 A_SpawnItemEX("BurstPuff",0,0,0,0,0,0,0)
+            TNT1 A 0 A_PlaySound("KNI_HITW")
+            Stop*/
+        Death:
+            TNT1 A 0 A_PlaySound("KNI_HITW") //A_PlaySound("KNI_STAB")
+            Stop
+    }
+}
+
+ACTOR WakizashiStab
+{
+    Height 8
+    Radius 4
+    Damage 42
+    DamageType "WakizashiStab"
+    Speed 10
+    PROJECTILE
+    +RIPPER
+	+DONTREFLECT
+
+    SeeSound "KNI_SLA"
+
+    States
+    {
+        Spawn:
+            TNT1 A 0
+            TNT1 A 5
+            Stop
+        /*Crash:
+            TNT1 A 0 A_SpawnItemEX("BurstPuff",0,0,0,0,0,0,0)
+            TNT1 A 0 A_PlaySound("KNI_HITW")
+            Stop*/
+        Death:
+            TNT1 A 0 A_PlaySound("KNI_HITW") //A_PlaySound("KNI_STAB")
+            Stop
+    }
+}

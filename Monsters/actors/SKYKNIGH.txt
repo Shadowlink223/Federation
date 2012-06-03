@@ -1,0 +1,758 @@
+ACTOR SkyKnight : Enemy 14954 {
+  //$Category Federation
+
+  Health 320
+  GibHealth 60
+  Radius 16
+  Height 56
+  Mass 10
+  Speed 18//54
+
+  MONSTER 
+  +NOTARGET
+  +DONTHURTSPECIES
+  +MISSILEMORE
+  +FASTER
+  +FLOORCLIP
+  +FLOAT
+  +NOGRAVITY
+  +DONTFALL
+  +FLOATBOB
+
+  DropItem "Clip" 256
+  DropItem "Clip" 128
+  DropItem "FlameAmmo" 128
+  DropItem "LargeFlameAmmo" 32
+  
+  Dropitem "Stimpack" 32
+  Dropitem "ZoneArmor" 4 														// Armor = 220 Armor points
+  
+  DropItem "MP7" 8
+  
+  //Dropitem "PDA" 4
+  
+  //Dropitem "DetatchedLevisphere"
+
+  Translation "112:127=192:199" 												// Translation = Light Blue
+
+  BloodType "NashGore_Blood"
+  Decal "BulletChip"
+
+  PainChance 50
+  PainChance "Shock", 255
+  Damagefactor "SkyShot", 0
+
+  Species "hellknight"
+
+  SeeSound "monster/inisit"
+  AttackSound "MP7/FIRE"
+  PainSound "monster/inipai"
+  DeathSound "monster/inidth"
+  ActiveSound "monster/iniact"
+
+  Obituary "%o was gunned down from the air by a Sky Knight." 
+  HitObituary "%o was dive bombed by a Sky Knight." 
+
+  states {
+
+/******************************************************************************\
+================================MOVEMENT STATES=================================
+\******************************************************************************/
+
+  Spawn:
+    SKFA A 0 
+    SKFA A 0 Thing_SetSpecial(0,226,613,0,random(14,28))         				// RGA2 EXP COMPATIBILITY
+  SpawnLoop:
+    SKFA A 0 A_PlaySoundEx("JetpackZombie/Fly", "SoundSlot7", 1)
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA B 2 A_LookEx(0,0,random(512,2048),random(1024,4096),random(120,180),"See")
+    Loop
+  See:
+    SKFA A 0 A_PlaySoundEx("JetpackZombie/Fly", "SoundSlot7", 1)
+    SKFA A 0 A_JumpIfCloser(1024, "ChanceDodge")
+	SKFA A 0 ThrustThing(angle*256/360 + random(-10,10), 2, 0, 0)
+	SKFA A 0 ThrustThingZ(0, random(-4,4), random(0,1), 1)
+  Chase:
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA B 2 A_Chase
+	SKFA B 0 HealThing(1)
+    Goto See
+  ChanceDodge:
+    SKFA A 0 A_CheckSight(2)
+    SKFA A 0 A_Jump(64, "Dodge")
+    SKFA A 0
+    Goto Chase
+  Dodge:
+    SKFA A 0 A_Jump(128, 4)
+    SKFA A 0 A_FaceTarget
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA B 2 ThrustThing(Angle*256/360-192, 24, 1, 0)
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+	SKFA B 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+	SKFA B 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+	SKFA B 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+	SKFA B 2
+    SKFA A 0 A_Stop
+    Goto Chase
+    SKFA A 0 A_Jump(128, 4)
+    SKFA A 0 A_FaceTarget
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA B 2 ThrustThing(Angle*256/360-64, 24, 1, 0)
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+	SKFA B 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+	SKFA B 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+	SKFA B 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+	SKFA B 2
+    SKFA A 0 A_Stop
+    Goto Chase
+    SKFA A 0 A_Jump(64, 4)
+    SKFA A 0 A_FaceTarget
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA B 2 ThrustThingZ(0, 24, 0, 0)
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+	SKFA B 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+	SKFA B 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+	SKFA B 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+	SKFA B 2
+    SKFA A 0 A_Stop
+    Loop
+    Goto Chase
+    SKFA A 0 A_FaceTarget
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA B 2 ThrustThingZ(0, 24, 1, 0)
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+	SKFA B 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+	SKFA B 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+	SKFA B 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+	SKFA B 2
+    SKFA A 0 A_Stop
+    Goto Chase
+  Missile:
+    SKFA A 0 A_JumpIfCloser(512, "BulletAttack")
+    Goto Snipe
+  BulletAttack:
+	SKFA A 0 ThrustThing(angle*256/360 + random(-20,20), random(-6,6), 0, 0)
+	SKFA A 0 ThrustThingZ(0, random(-12,12), random(0,1), 1)
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA E 2 A_FaceTarget
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA E 2 A_FaceTarget
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA E 2 A_FaceTarget
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA E 2 A_FaceTarget
+    SKFA F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),SkyPuff)   		// 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+    TNT1 A 0 A_AlertMonsters
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+	SKFA F 2 BRIGHT A_CustomMissile("SkyTracer",38,0,random(-10,10),2,random(-10,10))
+    SKFA F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),SkyPuff)   		// 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+    TNT1 A 0 A_AlertMonsters
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+	SKFA F 2 BRIGHT A_CustomMissile("SkyTracer",38,0,random(-10,10),2,random(-10,10))
+    SKFA A 0 A_Jump(64, "StopShooting")
+    SKFA E 0 A_SpidReFire                                        				// KEEP SHOOTING!
+    Goto BulletAttack
+  StopShooting:
+    SKFA A 0
+    Goto See
+  Snipe:
+    SKFA E 2 A_FaceTarget
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA E 2 A_FaceTarget
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA E 2 A_FaceTarget
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA E 2 A_FaceTarget
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA E 2 A_FaceTarget
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA E 2 A_FaceTarget
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA E 2 A_FaceTarget
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA F 0 bright A_CustomBulletAttack(4,4,1,random(1,3),SkyPuff)   				// 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+    TNT1 A 0 A_AlertMonsters
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+	SKFA F 2 BRIGHT A_CustomMissile("SkyTracer",38,0,random(-10,10),2,random(-10,10))
+    Goto See
+	
+/******************************************************************************\
+==================================PAIN STATES===================================
+\******************************************************************************/
+	
+  Pain:
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2 A_Pain
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+	SKFA G 2
+    Goto See
+  Pain.Shock:
+    SKFA G 2 A_ChangeFlag("NoPain", 1)                           				// STUNNED!
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2 A_Pain                                            					//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                            						//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKFA G 2                                           							//
+    SKFA G 0 A_ChangeFlag("NoPain", 0)                           				//
+    Goto See                                                     				//
+	
+/******************************************************************************\
+==================================DEATH STATES==================================
+\******************************************************************************/
+	
+  Death:
+    SKYD A 0 A_StopSound
+    SKYD A 0 A_Scream
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKYD A 2 ThrustThingZ(0, random(2, 8), 0, 0)
+    SKYD A 0 ThrustThing (random(0, 255), random(2, 8), 0, 0)
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKYD B 2 A_NoBlocking
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKYD C 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKYD D 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKYD E 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKYD A 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKYD B 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKYD C 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKYD D 2
+    SKYD A 0 A_ChangeFlag("FloatBob", 0)
+    SKYD A 0 A_StopSoundEx("JetpackZombie/Fly")
+    SKYD A 0 A_SpawnItemEx("JetpackZombieGoreSpawner", Random(-15, 15), Random(-15, 15), Random(20, 30), 0, 0, 0, 0, 128)
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKYD E 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKYD A 2
+    SKYD B 2 A_SpawnItemEx("JetpackZombieExplosion", Random(-20, 20), Random(-20, 20), Random(20, 40), 0, 0, 0, 0, 128)
+    SKYD A 0 A_SpawnItemEx("JetpackZombieGoreSpawner", Random(-15, 15), Random(-15, 15), Random(20, 30), 0, 0, 0, 0, 128)
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKYD C 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKYD D 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKYD A 2 A_SpawnItemEx("JetpackZombieExplosion", Random(-20, 20), Random(-20, 20), Random(20, 40), 0, 0, 0, 0, 128)
+    SKYD A 0 A_SpawnItemEx("JetpackZombieGoreSpawner", Random(-15, 15), Random(-15, 15), Random(20, 30), 0, 0, 0, 0, 128)
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKYD B 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKYD C 2
+	TNT1 A 0 A_SpawnItemEx("Levisphere",15,0,29,0,0,0,180,SXF_NOCHECKPOSITION)
+    SKYD D 2 A_SpawnItemEx("JetpackZombieExplosion", Random(-20, 20), Random(-20, 20), Random(20, 40), 0, 0, 0, 0, 128)SKFA I 0 A_SpawnDebris("NashGore_Gib9",0)                    				// GIBS!
+    SKFA I 0 A_SpawnDebris("NashGore_Gib10",0)                   				//
+    SKFA I 0 A_SpawnDebris("NashGore_Gib11",0)                   				//
+    SKFA I 0 A_SpawnDebris("NashGore_Gib11",0)                   				//
+    SKFA I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        				//
+    SKFA I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        				//
+    SKFA I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        				//
+    SKFA I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        				//
+    SKFA Z 0 A_SpawnItemEx("DEADStrikeKnightHead",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)//
+    SKYD AAAAAAAAAAA 0 A_SpawnItemEx("JetpackZombieExplosion", Random(-30, 30), Random(-30, 30), Random(20, 40), 0, 0, 0, 0, 128)
+    SKYD AAA 0 A_SpawnItemEx("JetpackZombieGoreSpawner", Random(-15, 15), Random(-15, 15), Random(20, 30), 0, 0, 0, 0, 128)
+	MISL B 0 A_CustomMissile("dirtysmokebomb",0,0,0)
+	TNT1 A 0 A_SpawnItemEx("SmokeExplosion",0,0,1,0,0,0,0,0,0)
+	TNT1 A 0 A_PlaySoundEx("Artillery/KABOOM","SoundSlot5")
+	TNT1 A 0 A_PlaySoundEx("farexp","SoundSlot6")
+	TNT1 A 0 Radius_Quake(1,15,0,125,0)
+    Stop
+  Ice:
+	SKFA G 0 A_ChangeFlag("NOGRAVITY",0)
+	SKFA G 0 A_ChangeFlag("DONTFALL",0)
+    SKFA G 5 A_GenericFreezeDeath
+    SKFA G 1 A_FreezeDeathChunks
+    wait
+  }
+}
+
+Actor JetpackZombieExplosion
+{
+  Radius 1
+  Height 1
+  Speed 0
+  Damage 0
+  RenderStyle Add
+  Alpha 0.75
+  +Missile
+  +NoGravity
+  +NoBlockMap
+  +NoClip
+  +NoTeleport
+  States
+  {
+  Spawn:
+    MISL B 0
+    TNT1 A 0 A_AlertMonsters
+	TNT1 A 0 A_Explode(128,256)
+    MISL B 0 A_PlaySound("Weapons/RockLX")
+    MISL BCD 3 Bright
+    Stop
+  }
+}
+
+Actor JetpackZombieGoreSpawner
+{
+  Radius 1
+  Height 1
+  Speed 0
+  Damage 0
+  +NoClip
+  +NoBlockmap
+  +NoTeleport
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 AAA 0 A_SpawnItemEx("Blood", 0, 0, 0, (0.1)*Random(20, 70), 0, (0.1)*Random(-10, 80), Random(0, 360), 128)//AAAAAAAAAA
+    TNT1 AAA 0 A_SpawnItemEx("Blood", 0, 0, 0, (0.1)*Random(20, 70), 0, (0.1)*Random(-10, 80), Random(0, 360), 128)
+    TNT1 AAA 0 A_SpawnItemEx("Blood", 0, 0, 0, (0.1)*Random(20, 70), 0, (0.1)*Random(-10, 80), Random(0, 360), 128)
+    TNT1 AAA 0 A_SpawnItemEx("Blood", 0, 0, 0, (0.1)*Random(20, 70), 0, (0.1)*Random(-10, 80), Random(0, 360), 128)
+    TNT1 A 1
+    Stop
+  }
+}
+
+Actor SkyPuff : BulletPuff {
+	Damagetype "SkyShot"
+}
+
+actor Levisphere {
+	damagefactor "KillMe", 0.0
+	damagefactor "Shock", 1.5
+	damagefactor "Levi", 0
+	Health 10
+	Radius 7
+	Height 13
+	DamageType Levi
+	PainChance 255
+	
+	+NOGRAVITY
+	+SHOOTABLE
+	+NOTELEPORT
+	+NODAMAGETHRUST
+	+THRUGHOST
+	+NORADIUSDMG
+	//+FORCERADIUSDMG
+	//+SERVERSIDEONLY
+	+DEHEXPLOSION
+	+ACTIVATEMCROSS
+	+NOTARGET
+	+GHOST
+	-SOLID
+	+NOBLOOD
+	States {
+		Spawn:
+			TNT1 A 0
+			LEVI A 0 A_SpawnItemEx("LeviTrail",6,4,4,1,1,1,0,SXF_CLIENTSIDE) // Top Right
+			LEVI A 0 A_SpawnItemEx("LeviTrail",6,-4,4,1,-1,1,0,SXF_CLIENTSIDE) // Top Left
+			LEVI A 0 A_SpawnItemEx("LeviTrail",6,4,-4,1,1,-1,0,SXF_CLIENTSIDE) // Bottom Right
+			LEVI A 2 A_SpawnItemEx("LeviTrail",6,-4,-4,1,-1,-1,0,SXF_CLIENTSIDE) // Bottom Left
+			Stop
+		Pain: // Toss Metal
+			TNT1 AAAAA 0 A_SpawnDebris("RiotShieldGibber")
+			TNT1 A 2
+			Stop
+		Death: // Damage User
+			TNT1 AAAAA 0 A_SpawnDebris("RiotShieldGibber")
+			TNT1 AA 0 A_TossGib
+			TNT1 A 1 A_SpawnItem ("LeviHit", 0, 0)
+			TNT1 A 1
+			Stop
+		XDeath: // Kill User
+			TNT1 AAAAA 0 A_SpawnDebris("RiotShieldGibber")
+			TNT1 AA 0 A_TossGib
+			TNT1 A 1 A_SpawnItem ("LeviX", 0, 0)
+			TNT1 A 1
+			Stop
+	}
+}
+
+actor LeviHit {
+	Radius 10
+	Height 10
+	DamageType Levi
+	PROJECTILE
+	+NOGRAVITY
+	+NOTELEPORT
+	+NODAMAGETHRUST
+	+THRUGHOST
+	+NORADIUSDMG
+	+NOEXTREMEDEATH
+	+FORCERADIUSDMG
+	+DEHEXPLOSION
+	+ACTIVATEMCROSS
+	+NOTARGET
+	ExplosionRadius 35
+	ExplosionDamage 40
+	States {
+		Spawn:
+			TNT1 A 0
+			XDT3 A 0 A_Explode(40,35,0)
+			XDT3 A 0 A_Explode(40,35,0)
+			TNT1 AAA 1
+			Stop
+	}
+}
+
+actor LeviX {
+	Radius 10
+	Height 10
+	DamageType Levi
+	PROJECTILE
+	+NOGRAVITY
+	+NOTELEPORT
+	+NODAMAGETHRUST
+	+THRUGHOST
+	+NORADIUSDMG
+	+NOEXTREMEDEATH
+	+FORCERADIUSDMG
+	+DEHEXPLOSION
+	+ACTIVATEMCROSS
+	+NOTARGET
+	ExplosionRadius 35
+	ExplosionDamage 250
+	States {
+		Spawn:
+			TNT1 A 0
+			XDT3 A 0 A_Explode(250,35,0)
+			XDT3 A 0 A_Explode(250,35,0)
+			TNT1 AAA 1
+			Stop
+	}
+}
+
+ACTOR LeviTrail {
+	Radius 7
+	Height 15
+	+NOGRAVITY
+	+NOCLIP
+	+NOTELEPORT
+	+CLIENTSIDEONLY
+	RenderStyle Translucent
+	Alpha 0
+	Scale 0.5
+	States {
+		Spawn:
+			TNT1 A 0
+			LEVI BBBBBBBB 1 A_FadeIn(0.125)
+		FadeOut:
+			LEVI B 1 A_FadeOut(0.125)
+			Loop
+	}
+}

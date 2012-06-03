@@ -1,0 +1,476 @@
+#include "actors/SPAWNERS.txt"
+#include "actors/ENEMY.txt"
+
+#include "actors/INITIATE.txt"
+#include "actors/ZONEKNIG.txt"
+#include "actors/STRIKEKN.txt"
+#include "actors/KNIGTANK.txt"
+#include "actors/RIOTKNIG.txt"
+#include "actors/BERSERKK.txt"
+#include "actors/HEAVYKNI.txt"
+#include "actors/FLASHKNI.txt"
+#include "actors/BIOKNIGH.txt"
+#include "actors/ICEKNIGH.txt"
+#include "actors/FIREKNIG.txt"
+#include "actors/GRENADEK.txt"
+#include "actors/ROOKKNIG.txt"
+#include "actors/SKYKNIGH.txt"
+#include "actors/SENTINEL.txt"
+#include "actors/SENTKNIG.txt"
+#include "actors/MEDICKNI.txt"
+#include "actors/CAPTAINK.txt"
+#include "actors/JUSTICAR.txt"
+#include "actors/CRUSADER.txt"
+#include "actors/SPECTRUM.txt"
+#include "actors/SHOCKKNI.txt"
+#include "actors/KNIGTFLY.txt"
+#include "actors/BISHOPKN.txt"
+#include "actors/MIRAGEKN.txt"
+//#include "actors/FOGSENTI.txt"
+//#include "actors/SPECOPSK.txt"
+#include "actors/TREMORKN.txt"
+//#include "actors/STRIKECY.txt"
+//#include "actors/INQUISIT.txt"
+//#include "actors/PALADINK.txt"
+//#include "actors/ASTROKNI.txt"
+#include "actors/TERRORMI.txt"
+#include "actors/LEGIONAR.txt"
+#include "actors/HOPLITE.txt"
+
+#include "actors/TEMPLAR.txt"
+#include "actors/FTEMPLAR.txt"
+#include "actors/ITEMPLAR.txt"
+//#include "actors/ETEMPLAR.txt"
+//#include "actors/STEMPLAR.txt"
+#include "actors/DTEMPLAR.txt"
+#include "actors/LTEMPLAR.txt"
+
+//#include "actors/ANDREIRO.txt"
+//#include "actors/JEREMIES.txt"
+//#include "actors/CLARETTA.txt"
+//#include "actors/CHIMAZAN.txt"
+//#include "actors/JUNTSUYA.txt"
+//#include "actors/LUANNASC.txt"
+//#include "actors/AHAVAMOR.txt"
+//#include "actors/FINNIANW.txt"
+//#include "actors/GORDONMA.txt"
+//#include "actors/YOTANZO.txt"
+
+//#include "actors/ADIAS.txt"
+//#include "actors/RICHARDS.txt"
+//#include "actors/AZARA.txt"
+//#include "actors/ZANAGARO.txt"
+//#include "actors/TERRAGAR.txt"
+//#include "actors/SUSUKE.txt"
+//#include "actors/MAGANOWA.txt"
+//#include "actors/LEOKERRO.txt"
+
+//#include "actors/BERGMAN.txt"
+
+#include "actors/CIVILIAN.txt"
+
+#include "actors/FINITIAT.txt"
+#include "actors/FZONEKNI.txt"
+#include "actors/FSTRIKEK.txt"
+#include "actors/FRIOTKNI.txt"
+#include "actors/FHEAVYKN.txt"
+#include "actors/FBIOKNIG.txt"
+#include "actors/FICEKNIG.txt"
+#include "actors/FFIREKNI.txt"
+#include "actors/FSHOCKKN.txt"
+#include "actors/FGRENADE.txt"
+#include "actors/FROOKKNI.txt"
+#include "actors/FMEDICKN.txt"
+#include "actors/FCAPTAIN.txt"
+#include "actors/FJUSTICA.txt"
+#include "actors/FBISHOPK.txt"
+
+//#include "actors/SHOWHEAL.txt"
+
+#include "actors/BLOOD.txt"
+#include "actors/HEAD_SYS.txt"
+#include "actors/GIBS.txt"
+
+#include "actors/FEDDECOR.txt"
+
+#include "actors/FBEACONI.txt"
+#include "actors/FITEM.txt"
+#include "actors/FINVITEM.txt"
+#include "actors/FARMORS.txt"
+
+#include "actors/FBULLETP.txt"
+#include "actors/FTRACERS.txt"
+
+#include "actors/FEDDIALO.txt"
+
+//==========Mapper notes
+
+//The Roach is a fairly annoying monster that can regenerate 1 health every
+//6 tics (almost 6 health per second, and can fully heal itself in under 30
+//seconds).
+
+//When it is under 40 health, it will switch on the Frightened flag and run
+//away. When it hits 120 health, it'll turn the flag off and attack again.
+
+//If the first argument is 1, it won't play a see sound.
+//If the first argument is 2, it will alert other monsters in the vicinity
+//when it sees a player.
+
+actor TargetHealth : Inventory
+{
+    inventory.amount 0
+    inventory.maxamount 10000
+}
+
+actor TargetHealthPrint : CustomInventory
+{
+  inventory.maxamount 99999
+  +ALWAYSPICKUP
+  states
+  {
+  Spawn:
+    TNT1 A 5
+    stop
+  Pickup:
+    TNT1 A 0 ACS_ExecuteAlways(50,0,0,0,0)
+    stop
+  }
+}
+
+actor Alert
+{ 
+States 
+   { 
+   Spawn: 
+    TNT1 A 0 A_Look
+    TNT1 A 8 A_AlertMonsters 
+    Loop 
+   } 
+} 
+
+//               BURN A 0 A_Playsound("firedeath")
+//		 BURN A 0 A_Fall
+//		 BURN A 0 A_UnSetSolid
+//		 BURN A 0 A_UnSetShootable
+//		 BURN ABCDEFGHIJKLMNOPQRSTUV 4 BRIGHT
+//		 BURN V -1
+//		 stop
+
+ACTOR BurnDeath1
+{
+	Radius 12
+	Height 56
+	Speed 6
+	Scale 0.85
+	+FIREDAMAGE
+	+FLOORCLIP
+	+LOOKALLAROUND
+	Obituary "%o was near someone in flames."
+	SeeSound "burningup"
+	RenderStyle Add
+	Alpha 0.9
+	ExplosionDamage 4
+	ExplosionRadius 32
+	States
+	{
+	Spawn:
+		BDT1 A 0
+		BDT1 A 0 A_Jump(32,7)
+		BDT1 DDDDDD 1 Bright A_Look
+		Goto Death
+		BDT1 E 0 A_PlaySound("grunt/death")
+		BDT1 E 0 A_SpawnItem("BurnedSkeleton1",1,0,0)
+		BDT1 EFGHIJKLM 4 Bright A_Explode
+		BDT1 N 5 Bright
+		BDT1 O 6 Bright
+		Stop
+	See:
+		BDT1 A 0 A_Explode
+		BDT1 A 0 A_PlaySound("grunt/pain")
+		BDT1 A 0 A_Jump(100, 13)
+		BDT1 AAA 1 Bright A_Wander
+		BDT1 A 0 A_Explode
+		BDT1 BBB 1 Bright A_Wander
+		BDT1 B 0 A_Explode
+		TNT1 A 0 A_CustomMissile("IgnitedSurface", random(5,15), random(-15, 15), 0, 0)
+		BDT1 CCC 1 Bright A_Wander
+		BDT1 B 0 A_Explode
+		BDT1 DDD 1 Bright A_Wander
+		BDT1 C 0 A_PlaySound("grunt/pain")
+		BDT1 C 0 A_Explode
+		BDT1 AAA 1 Bright A_Wander
+		BDT1 C 0 A_Explode
+		BDT1 BBB 1 Bright A_Wander
+		BDT1 D 0 A_Explode
+		BDT1 CCC 1 Bright A_Wander
+		BDT1 D 0 A_Explode
+		TNT1 A 0 A_CustomMissile("IgnitedSurface", random(5,15), random(-15, 15), 0, 0)
+		BDT1 DDD 1 Bright A_Wander
+		BDT1 A 0 A_PlaySound("grunt/sight")
+		BDT1 A 0 A_Explode
+		BDT1 A 0 A_Jump(68, 16)
+		BDT1 AAA 1 Bright A_Wander
+		BDT1 A 0 A_Explode
+		BDT1 BBB 1 Bright A_Wander
+		BDT1 B 0 A_Explode
+		BDT1 CCC 1 Bright A_Wander
+		BDT1 B 0 A_Explode
+		BDT1 DDD 1 Bright A_Wander
+		BDT1 C 0 A_Explode
+		BDT1 C 0 A_PlaySound("grunt/pain")
+		BDT1 AAA 1 Bright A_Wander
+		BDT1 C 0 A_Explode
+		BDT1 BBB 1 Bright A_Wander
+		BDT1 D 0 A_Explode
+		TNT1 A 0 A_CustomMissile("IgnitedSurface", random(5,15), random(-15, 15), 0, 0)
+		BDT1 CCC 1 Bright A_Wander
+		BDT1 D 0 A_Explode
+		BDT1 DDD 1 Bright A_Wander
+		BDT1 A 0 A_PlaySound("grunt/pain")
+		BDT1 A 0 A_Explode
+		BDT1 AAA 1 Bright A_Wander
+		BDT1 A 0 A_Explode
+		BDT1 BBB 1 Bright A_Wander
+		BDT1 B 0 A_Explode
+		TNT1 A 0 A_CustomMissile("IgnitedSurface", random(5,15), random(-15, 15), 0, 0)
+		BDT1 CCC 1 Bright A_Wander
+		BDT1 B 0 A_Explode
+		BDT1 DDD 1 Bright A_Wander
+		BDT1 C 0 A_Explode
+		BDT1 C 0 A_PlaySound("grunt/sight")
+		BDT1 AAA 1 Bright A_Chase
+		BDT1 C 0 A_Explode
+		BDT1 BBB 1 Bright A_Wander
+		BDT1 D 0 A_Explode
+		TNT1 A 0 A_CustomMissile("IgnitedSurface", random(5,15), random(-15, 15), 0, 0)
+		BDT1 CCC 1 Bright A_Wander
+		BDT1 D 0 A_Explode
+		BDT1 DDD 1 Bright A_Wander
+		BDT1 A 0 A_PlaySound("grunt/pain")
+		BDT1 A 0 A_Explode
+		BDT1 AAA 1 Bright A_Wander
+		BDT1 A 0 A_Explode
+		BDT1 BBB 1 Bright A_Wander
+		BDT1 B 0 A_Explode
+		BDT1 CCC 1 Bright A_Wander
+		BDT1 B 0 A_Explode
+		BDT1 DDD 1 Bright A_Wander
+	Death:
+		BDT1 E 0 A_PlaySound("grunt/death")
+		BDT1 EFGHIJKLM 4 Bright A_Explode
+		BDT1 N 5 Bright
+		BDT1 O 6 Bright
+		Stop
+	}
+}
+
+ACTOR BurnDeath2 : BurnDeath1
+{
+	SeeSound "FEBURNME"
+}
+
+actor RocketFire
+{
+ Height 2
+ Radius 2
+ Speed 3
+ RenderStyle Add
+ Alpha 0.9
+ Scale 0.75
+ DamageType "Fire2"
+ +NOGRAVITY
+ +FORCEXYBILLBOARD
+ +DONTSPLASH
+ +NOTELEPORT
+ +NOBLOCKMAP
+ +RIPPER
+ +BLOODLESSIMPACT
+ +CANNOTPUSH
+ -BLOODSPLATTER
+ -ACTIVATEPCROSS
+ -ACTIVATEIMPACT
+ -NOCLIP
+ States
+ {
+ Spawn:
+ 	64P1 A 0
+ 	64P1 A 0 A_Jump(127, "Spawn2", "Spawn3")
+ 	64P1 ABCDEFGHIJKLMNOPQRSTUVWXYZ 1 BRIGHT
+ 	stop
+ Spawn2:
+ 	64P2 ABCDEFGHIJKLMNOPQRSTUVWXYZ 1 BRIGHT
+ 	stop
+ Spawn3:
+ 	64P3 ABCDEFGHIJKLMNOPQRSTUVWXYZ 1 BRIGHT
+ 	stop
+ }
+}
+
+actor IgnitedSurfaceFlame : RocketFire
+{
+	Scale 0.3
+	Alpha 0.7
+        DamageType "Fire2"
+	+NOINTERACTION
+}
+
+actor IgnitedSurface
+{
+ Projectile
+ Height 5
+ Radius 2
+ BounceFactor 0.0
+ obituary "%o was purified by cleansing flame."
+ RenderStyle Add
+ Scale 0.5
+ ReactionTime 120
+ DamageType "Fire2"
+ -SOLID
+ +NODAMAGETHRUST
+ +LOWGRAVITY
+ -NOGRAVITY
+ +HEXENBOUNCE
+ +SKYEXPLODE
+ +DONTSPLASH
+ States
+ {
+ Spawn:
+ TFIR A 0 A_CountDown
+ TNT1 A 0 A_SpawnItemEx("IgnitedSurfaceFlame", random(-8,8), Random(-8,8), 0, 0, 0, Random(1, 2), 0, 128, 0)
+ TNT1 A 2 A_Explode(3, 18, 1)
+ TNT1 A 0 A_JumpIf(waterlevel == 3, "Disappear")
+ loop
+ Death:
+ TNT1 A 1
+ stop
+ Disappear:
+ TNT1 A 0
+ TNT1 A 1
+ stop
+ }
+}
+
+ACTOR BurnedSkeleton1
+{
+	Radius 12
+	Height 56
+	+SOLID
+	+FLOORCLIP
+	Scale 0.60
+	States
+	{
+	Spawn:
+		2BRN OPQRSTUVW 2
+		2BRN W 0 A_UnSetSolid
+		2BRN W -1
+		Stop
+	}
+}
+
+actor OrbitFriendly
+{
+radius 6
+height 8
+SeeSound ""
+PROJECTILE
++NOCLIP
++DONTSPLASH
+Speed 10
+States
+{
+Spawn:
+FRIE BBBBB 1 Bright
+FRIE B 1 Bright A_JumpIfInTargetInventory("isDead",1,"Poof")
+FRIE B 0 A_CustomMissile("OrbitFriendly", 0, 0, 50)
+Stop
+Poof:
+FRIE B 1 Bright
+Stop
+}
+}
+
+actor OrbitFriendly2 : OrbitFriendly
+{
+States
+{
+Spawn:
+FRIE BBBBB 1 Bright
+FRIE B 1 Bright A_JumpIfInTargetInventory("isDead",1,"Poof")
+FRIE B 0 A_CustomMissile("OrbitFriendly2", 0, 0, -50)
+Stop
+Poof:
+FRIE B 1 Bright
+Stop
+}
+}
+
+actor isDead : inventory
+{
+Inventory.MaxAmount "1"
+}
+
+/*actor traitor : inventory
+{
+Inventory.MaxAmount "1"
+}*/
+
+actor FedBossEye : BossEye replaces BossEye
+{
+  DropItem "Initiate"			255 50
+  DropItem "ZoneKnight"			255 50
+  DropItem "StrikeKnight"		255 50
+  DropItem "KnightPlasmaTank"	255 30
+  DropItem "StrikeFlyer"		255 30
+  DropItem "HeavyKnight"		255 40
+  DropItem "GrenadeKnight"		255 30
+  DropItem "BerserkKnight"		255 50
+  DropItem "RiotKnight"			255 50
+  DropItem "BioKnight"			255 50
+  DropItem "IceKnight"			255 50
+  DropItem "FireKnight"			255 50
+  DropItem "ShockKnight"		255 50
+  DropItem "SentryKnight"		255 40
+  DropItem "FedSentinel"		255 30
+  DropItem "BishopKnight"		255 5
+  DropItem "RookKnight"			255 50
+  DropItem "SkyKnight"			255 50
+  DropItem "MirageKnight"		255 0
+  DropItem "TremorKnight"		255 20
+  DropItem "Legionary"			255 40
+  DropItem "TerrorMite"			255 20
+  DropItem "Hoplite"			255 30
+  DropItem "FlashKnight"		255 20
+  DropItem "MedicKnight"		255 5
+  DropItem "KnightCaptain"		255 50
+  DropItem "Justicar"			255 20
+  DropItem "FedCrusader"		255 10
+  DropItem "FedTemplar"			255 5
+  DropItem "SpectrumKnight"		255 1
+}
+
+actor KillMe {
+	Radius 10
+	Height 10
+	DamageType KillMe
+	PROJECTILE
+	+NOGRAVITY
+	+NOTELEPORT
+	+NODAMAGETHRUST
+	+THRUGHOST
+	+NORADIUSDMG
+	+NOEXTREMEDEATH
+	+FORCERADIUSDMG
+	+DEHEXPLOSION
+	+ACTIVATEMCROSS
+	+NOTARGET
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Explode(5,500)
+			Stop
+	}
+}
+
+Actor FBulletPuff : BulletPuff {
+	Damagetype "FriendBullet"
+}

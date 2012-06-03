@@ -1,0 +1,20 @@
+decal FreezeBlastMelt
+{
+	pic BSMEAR1
+	x-scale 1.1
+	y-scale 1.1
+	shade "DD DD FF"
+	randomflipx
+	animator BloodSmearer
+}
+
+decal BioSludgeOoze
+{
+	pic BSMEAR1
+	x-scale 1.1
+	y-scale 1.1
+	shade "00 44 00"
+	randomflipx
+	fullbright
+	animator BloodSmearer
+}

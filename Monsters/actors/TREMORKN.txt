@@ -1,0 +1,357 @@
+ACTOR TremorKnight : Enemy 11332
+{
+	//$Category Federation
+   Health 250
+   GibHealth 60
+   Radius 16
+   Height 40
+   Mass 100
+   Speed 15
+   PainChance 50
+   PainChance "Shock", 255
+   Species hellknight
+   MONSTER 
+   +NOTARGET
+   +DONTHURTSPECIES
+   +MISSILEMORE
+   //+REFLECTIVE
+   //+SHIELDREFLECT
+   +FASTER
+   +LOOKALLAROUND
+   +NOCLIP
+   -SOLID
+   -SHOOTABLE
+   +NOBLOCKMONST
+   +FIXMAPTHINGPOS
+   
+   DropItem "Clip" 256
+   DropItem "Clip" 128
+   DropItem "GrenadeAmmo" 32
+   DropItem "20mmGrenade" 16
+   
+   Dropitem "Stimpack" 32
+   Dropitem "StrikeArmor" 4
+   
+   DropItem "MP7" 8
+   
+   //Dropitem "PDA" 4
+   
+   BloodType "NashGore_Blood"
+   SeeSound ""
+   AttackSound "MP7/FIRE"
+   PainSound "monster/inipai"
+   DeathSound "monster/inidth"
+   ActiveSound "monster/iniact"
+   Obituary "%o was swept off the ground by a Tremor Knight." 
+   Decal BulletChip
+  states
+  {
+  Spawn:
+    ASSN A 0                                                     //
+    ASNR A 0 A_ChangeFlag("SHOOTABLE",0)                         //
+    ASNR A 0 A_ChangeFlag("SOLID",0)                             //
+    ASNR A 0 A_ChangeFlag("NOCLIP",1)                            //
+    TNT1 A 0 Thing_SetSpecial(0,226,613,0,random(30,40))         // RGA2 EXP COMPATIBILITY
+    TNT1 A 1 A_LookEx(0,0,random(64,256),random(2048,4096),360,"See")// WHERE ARE YOU!
+    goto Spawn+5                                                 //
+  Popup:
+    ASNR A 0 Radius_Quake(5,35,0,2,0)                            //
+    ASNR A 0 A_Explode(8,16,0)                                   //
+    ASNR A 0 A_SpawnItemEx("DirtBurst",0,0,0,0,0,0,0)            //
+    ASNR A 0 A_PlaySound("Tremor/Popup")                         //
+    ASNR A 0 A_CustomMissile("dirtysmokebomb",0,0,0)             //
+    ASNR ABCDEF 1                                                //
+    ASNR A 0 A_ChangeFlag("SHOOTABLE",1)                         //
+    ASNR A 0 A_ChangeFlag("SOLID",1)                             //
+    ASNR A 0 A_ChangeFlag("NOCLIP",0)                            //
+    ASSN A 0 ThrustThingZ(0,30,0,1)                              //
+    goto Missile                                                 //
+  Tunnel:
+    ASNR A 0 A_ChangeFlag("SHOOTABLE",0)                         //
+    ASNR A 0 A_ChangeFlag("SOLID",0)                             //
+    ASNR A 0 A_ChangeFlag("NOCLIP",1)                            //
+    ASNR A 0 A_PlaySound("Tremor/Tunnel")                        //
+    ASNR FEDCBA 1                                                //
+    goto See                                                     //
+  See:
+    ASNR A 0 A_ChangeFlag("SHOOTABLE",0)                         //
+    ASNR A 0 A_ChangeFlag("SOLID",0)                             //
+    ASNR A 0 A_ChangeFlag("NOCLIP",1)                            //
+    TNT1 A 4 A_Chase("","Popup")                                 // NORMAL CHASE
+    TNT1 A 0 HealThing(1)                                        // HEALING
+    Goto See                                                     //
+  Missile:
+    ASSN E 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    ASSN E 0 A_Jump(64, 31)                                      // CHANCE TEST IF CLOSE
+    ASSN E 10 A_FaceTarget                                       //
+    ASSN E 0 A_JumpIfInventory("KnightAmmo", 10, 25)             // CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    //ASSN F 2 bright A_CustomBulletAttack(10,10,1,1,BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	ASSN F 2 BRIGHT A_CustomMissile("TremorTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    ASSN E 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    //ASSN F 2 bright A_CustomBulletAttack(10,10,1,1,BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	ASSN F 2 BRIGHT A_CustomMissile("TremorTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    ASSN E 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    //ASSN F 2 bright A_CustomBulletAttack(10,10,1,1,BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	ASSN F 2 BRIGHT A_CustomMissile("TremorTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    ASSN E 2 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    //ASSN F 2 bright A_CustomBulletAttack(10,10,1,1,BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+	ASSN F 2 BRIGHT A_CustomMissile("TremorTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    ASSN E 2 A_FaceTarget                                        //
+    ASSN E 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    ASSN E 0 A_Jump(32, 2)                                       // CHANCE STOP SHOOTING
+    ASSN E 0 A_SpidReFire                                        // KEEP SHOOTING!
+    Goto Missile+3                                               //
+    ASSN E 0                                                     //
+    goto Tunnel                                                  //
+    ASSN E 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    ASSN E 8 A_PlaySound("ZSec/DryFire")                         //
+    ASSN E 55 A_PlaySound("ZSec/Reload")                         //
+    ASSN E 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto Tunnel                                                  //
+    ASSN E 0 A_JumpIfCloser(1768, 1)                              // LAUNCH GRENADE IF NEAR
+    Goto Missile+2                                               //
+    ASSN E 0 A_Jump(16,6)                                        // CHANCE SMOKE GRENADE
+    ASSN E 8 A_FaceTarget                                        // GRENADE!
+    ASSN F 0 bright A_PlaySound("weapons/rocklf")                //
+    ASSN F 2 bright A_CustomMissile("KnightGrenadeShell",28,5,random(-15,15),2,random(0,10))//
+    ASSN E 6 A_FaceTarget                                        //
+    ASSN E 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    Goto Tunnel                                                  //
+    ASSN E 8 A_FaceTarget                                        // SMOKE GRENADE!
+    ASSN F 0 bright A_PlaySound("weapons/rocklf")                //
+    ASSN F 2 bright A_CustomMissile("KnightSmokeGrenade", 28,5,0)//
+    ASSN E 6 A_FaceTarget                                        //
+    ASSN E 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    Goto Tunnel                                                  //  
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    ASSN G 3                                                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            // MAKE HEADSHOT BOX
+    ASSN G 3 A_Pain                                              // OW!
+    goto Mirage                                                  //
+  Pain.Shock:
+    ASSN G 2 A_ChangeFlag("NoPain", 1)                           // STUNNED!
+    ASSN G 300 A_Pain                                            //
+    ASSN G 0 A_ChangeFlag("NoPain", 0)                           //
+    Goto Tunnel                                                  //
+  Death:
+    ASSN H 0 A_JumpIfHealthLower(-60,"Splode")                   //
+    ASSN H 5                                                     //
+    ASSN I 5 A_Scream                                            //
+    ASSN J 5 A_Fall                                              //
+    ASSN K 5                                                     //
+    ASSN L 5                                                     //
+    ASSN M 5                                                     //
+    ASSN N 0 A_Jump(5, 2)                                        // REGENERATING!
+    ASSN N -1                                                    //
+    stop                                                         //
+    ASSN NNNNN 70                                                //
+    ASSN NNNNN 70                                                //
+    ASSN NNNNN 70                                                //
+    ASSN N -1 Thing_Raise(0)                                     // STILL ALIVE
+    Wait                                                         //
+  Splode:
+    ASSN I 1                                                     // xDeath
+    ASSN I 0 A_SpawnDebris("NashGore_Gib9",0)                    // GIBS!
+    ASSN I 0 A_SpawnDebris("NashGore_Gib10",0)                   //
+    ASSN I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+    ASSN I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+    ASSN I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+    ASSN I 0                                                     //
+    ASSN I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+    ASSN I 0 A_XScream                                           //
+    ASSN I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+    ASSN I 0 A_NoBlocking                                        //
+    ASSN I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+    ASSN I 0                                                     //
+    ASSN W 0 A_SpawnItemEx("DEADTremorKnightHead",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)//
+    stop                                                         //
+  Death.Fire2:
+    TNT1 A 1 A_SpawnItem("BurnDeath1", 2, 1)                     // SCORCHED
+    stop                                                         //
+  Raise:
+    ASSN KJ 5                                                    // REVIVED
+    ASSN IH 5 Thing_SetSpecial(0,226,613,0,random(30,40))        // RGA2 EXP COMPATIBILITY
+    Goto Tunnel                                                  //
+  Death.head:
+    ASSN H 9 A_PlaySound("headshot/splat")                       //
+    ASSN I 0 A_SpawnDebris("NashGore_Gib3",0)                    // GIBS!
+    ASSN I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+    ASSN I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+    ASSN I 9 A_XScream                                           //
+    ASSN J 9 A_Fall                                              //
+    ASSN K 5                                                     //
+    ASSN L 5                                                     //
+    ASSN M 0 A_SpawnItemEx("DEADTremorKnight",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)// FAKE BODY
+    stop                                                         //
+  }
+}
+
+ACTOR DEADTremorKnight
+{
+ +FLOORCLIP
+ Radius 12
+ Height 11
+ States
+ {
+  Spawn:
+   SKFA N 0
+   SKFA N -1
+   stop
+ }
+}
+
+ACTOR DEADTremorKnightHead
+{
+ +FLOORCLIP
+ Radius 12
+ Height 11
+ States
+ {
+  Spawn:
+   SKFA W 0
+   SKFA W -1
+   stop
+ }
+}
+
+ACTOR DirtBit
+{
+  PROJECTILE
+  -NOGRAVITY
+  +CLIENTSIDEONLY
+  scale 2.0
+  States
+  {
+    Spawn:
+      DBIT A 1
+      loop
+    Death:
+      DBIT AAAAAAAAAA 35
+      Stop
+  }
+}
+
+ACTOR DirtBurst
+{
+  Height 32
+  Radius 16
+  +NOINTERACTION
+  States
+  {
+    Spawn:
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 1 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 1 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 1 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 1 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 0 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    TNT1 A 1 A_SpawnItemEX("DirtBit",0,0,0,random(1,10),random(1,10),random(5,15),random(0,255))//
+    stop
+  }
+}

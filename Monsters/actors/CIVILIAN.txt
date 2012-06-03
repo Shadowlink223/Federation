@@ -1,0 +1,185 @@
+ACTOR Fright : Inventory 13099
+{
+  Inventory.Amount 1
+  Inventory.MaxAmount 1
+}
+
+ACTOR HealthBonusReplacer replaces HealthBonus {
+	+FRIENDLY
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("StimBonus",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+			TNT1 A 0 A_SpawnItemEx("CivilianSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+			stop
+	}
+}
+
+ACTOR ArmorBonusReplacer replaces ArmorBonus {
+	+FRIENDLY
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("ArmorShard",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+			TNT1 A 0 A_SpawnItemEx("CivilianSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+			stop
+	}
+}
+
+ACTOR CivilianSpawner : RandomSpawner {
+	+FRIENDLY
+	DropItem "CivilianStanding"
+	DropItem "ACivilianStanding"
+	DropItem "BCivilianStanding"
+	DropItem "PCivilianStanding"
+	DropItem "WCivilianStanding"
+}
+
+Actor CivilianStanding 13001
+{
+	//$Category Federation
+  Health 31
+  PainChance 200
+  Speed 3
+  Radius 8
+  Height 56
+  
+  damagefactor "KillMe", 0.0
+  
+  dropitem "Stimbonus" 32
+  
+  Monster
+  +FRIENDLY
+  -COUNTKILL
+  +NOSPLASHALERT
+  +NOBLOCKMONST
+  +QUICKTORETALIATE
+  -FRIGHTENED
+  +DROPOFF
+  +PUSHABLE
+  
+  MinMissileChance 150
+  
+  MaxStepHeight 16
+  MaxDropoffHeight 32
+  
+  SeeSound "Civilian/See"
+  ActiveSound "Civilian/Active"
+  AttackSound "Weapon/Hit"
+  PainSound "monster/inipa1"
+  DeathSound "FEPSDTHA"
+  
+  HitObituary "%o should have never picked a fight with a civilian."
+  
+  States
+  {
+  Spawn:
+    PEAS A 0
+	TNT1 A 0 A_SpawnItem ("KillMe")
+  SpawnLoop:
+    PEAS A 10 A_Look
+	Loop
+  See:
+    //PEAS A 0 A_JumpIfInventory("Fright",1,2)
+	PEAS A 0 A_Jump(128,"Run")
+    PEAS AAAAAAAAAABBBBBBBBBBCCCCCCCCCCDDDDDDDDDD 1 A_Chase
+    Loop
+  Run:
+	PEAS AAAAAAAAAABBBBBBBBBBCCCCCCCCCCDDDDDDDDDD 1 A_Wander
+	Goto See
+  Melee:
+    PEAS E 10 A_FaceTarget
+    PEAS F 8 A_CustomMeleeAttack((1),"monster/inipunc1","none")
+    PEAS E 8
+    Goto See
+  Pain:
+    PEAS O 3 //A_ChangeFlag("FRIGHTENED",1)
+    PEAS O 0 //A_GiveInventory("Fright",1)
+    PEAS O 3 A_Pain
+    Goto Melee
+  Wound:
+    PEAS G 5
+    PEAS H 10 A_GetHurt
+    PEAS I 6
+    Goto Wound+1
+  Death:
+    PEAS G 5 ACS_ExecuteAlways(760,0,0,0,0)
+    PEAS H 5 A_Scream
+    PEAS I 6
+    PEAS J 5 A_NoBlocking
+    PEAS K 5
+    PEAS L 6
+    PEAS M 8
+    PEAS N -1
+    Stop
+  XDeath:
+    PEAS G 1 ACS_Execute(760,0,0,0,0)
+    PEAS I 0 A_SpawnDebris("NashGore_Gib9",0)
+    PEAS I 0 A_SpawnDebris("NashGore_Gib10",0)
+    PEAS I 0 A_SpawnDebris("NashGore_Gib11",0)
+    PEAS I 0 A_SpawnDebris("NashGore_Gib11",0)
+    PEAS I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)
+    PEAS I 0
+    PEAS I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)
+    PEAS I 0 A_XScream
+    PEAS I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)
+    PEAS I 0 A_NoBlocking
+    PEAS I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)
+    PEAS I 0
+    TNT1 A -1
+    stop
+   Death.Fire2:
+	TNT1 A 0 ACS_Execute(760,0,0,0,0)
+    TNT1 A 1 A_SpawnItem("BurnDeath1", 2, 1)
+    stop
+   Death.poison:
+      DISR A 5 ACS_Execute(760,0,0,0,0)
+      DISR B 5 A_Scream
+      DISR C 5 A_Fall
+      DISR D 5
+      DISR E 5
+      DISR F 5
+      DISR G 5
+      DISR H 5
+      DISR I 5
+      DISR J 5
+      stop
+   }
+}
+
+ACTOR ACivilianStanding : CivilianStanding {
+	SeeSound "Alcoholic/See"
+	ActiveSound "Alcoholic/Active"
+}
+
+ACTOR BCivilianStanding : CivilianStanding {
+	SeeSound "Bigman/See"
+	ActiveSound "Bigman/Active"
+}
+
+ACTOR PCivilianStanding : CivilianStanding {
+	SeeSound "Pink/See"
+	ActiveSound "Pink/Active"
+}
+
+ACTOR WCivilianStanding : CivilianStanding {
+	SeeSound "White/See"
+	ActiveSound "White/Active"
+}
+
+ACTOR Civilian : CivilianStanding 13002
+{
+	//$Category Federation
+  States
+  {
+  Spawn:
+    PEAS A 1
+    goto See
+  See:
+    PEAS A 0 A_JumpIfInventory("Fright",1,2)
+    PEAS AABBCCDD 5 A_Wander
+    Loop
+    PEAS AABBCCDD 2 A_Chase
+    Loop
+  }
+}

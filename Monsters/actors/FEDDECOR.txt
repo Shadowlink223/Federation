@@ -1,0 +1,994 @@
+actor Corp01 replaces DeadZombieMan
+{
+  radius 15
+  height 20
+  states
+  {
+  Spawn:
+    CORA A -1
+    Stop
+  }
+}
+
+actor Corp02 replaces DeadDoomImp
+{
+  radius 15
+  height 20
+  states
+  {
+  Spawn:
+    CORB A -1
+    Stop
+  }
+}
+
+actor Corp03 replaces DeadCacodemon
+{
+  radius 15
+  height 20
+  states
+  {
+  Spawn:
+    CORC A -1
+    Stop
+  }
+}
+
+actor CarcassSittingMarine replaces DeadShotgunGuy
+{
+  -Solid
+  Height 32
+  Radius 20
+  states
+  {
+  Spawn:
+    SIT1 A -1
+  }
+}
+
+actor CarcassSittingMaintenance replaces DeadDemon
+{
+  -Solid
+  Height 32
+  Radius 20
+  states
+  {
+  Spawn:
+    SIT2 A -1
+  }
+}
+
+Actor DeadMaleScientist replaces Gibs
+{
+  Radius 32
+  Height 16
+  States
+  {
+  Spawn:
+    MSCI N -1
+    Loop
+  }
+}
+
+Actor DeadFemaleScientist replaces SmallBloodPool
+{
+  Radius 32
+  Height 16
+  States
+  {
+  Spawn:
+    FSCI N -1
+    Loop
+  }
+}
+
+
+Actor Shrub1 30699
+{
+  Radius 8
+  Height 16
+  Scale 1.5
+  Mass 999999
+  speed 0
+  +NOINTERACTION
+  -NOGRAVITY
+  states
+  {
+  Spawn:
+    SHR9 A 0
+    SHR9 A 1 A_Jump(16,"IBeAFakeShrub")
+  IBeAShrub:
+    SHR1 A -1
+    Stop
+  IBeAFakeShrub:
+    TNT1 A 1 A_SpawnItemEx("MirageKnightShrub1",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    Stop
+  }
+}
+
+Actor Shrub2 30698
+{
+  Radius 8
+  Height 16
+  Mass 999999
+  speed 0
+    Scale 1.5
+  +NOINTERACTION
+  -NOGRAVITY
+  states
+  {
+  Spawn:
+    SHR9 A 0
+    SHR9 A 1 A_Jump(16,"IBeAFakeShrub")
+  IBeAShrub:
+    SHR2 A -1
+    Stop
+  IBeAFakeShrub:
+    TNT1 A 1 A_SpawnItemEx("MirageKnightShrub2",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    Stop
+  }
+}
+
+Actor Shrub3 30697
+{
+  Radius 8
+  Height 16
+  Mass 999999
+  speed 0
+    Scale 1.5
+  +NOINTERACTION
+  -NOGRAVITY
+  states
+  {
+  Spawn:
+    SHR9 A 0
+    SHR9 A 1 A_Jump(16,"IBeAFakeShrub")
+  IBeAShrub:
+    SHR3 A -1
+    Stop
+  IBeAFakeShrub:
+    TNT1 A 1 A_SpawnItemEx("MirageKnightShrub3",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    Stop
+  }
+}
+
+Actor Shrub4 30696
+{
+  Radius 8
+  Height 16
+  Mass 999999
+  speed 0
+    Scale 1.5
+  +NOINTERACTION
+  -NOGRAVITY
+  states
+  {
+  Spawn:
+    SHR9 A 0
+    SHR9 A 1 A_Jump(16,"IBeAFakeShrub")
+  IBeAShrub:
+    SHR4 A -1
+    Stop
+  IBeAFakeShrub:
+    TNT1 A 1 A_SpawnItemEx("MirageKnightShrub4",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    Stop
+  }
+}
+
+Actor shrub5 30695
+{
+  Radius 8
+  Height 16
+  Mass 999999
+  speed 0
+    Scale 1.5
+  +NOINTERACTION
+  -NOGRAVITY
+  states
+  {
+  Spawn:
+    SHR9 A 0
+    SHR9 A 1 A_Jump(16,"IBeAFakeShrub")
+  IBeAShrub:
+    SHR5 A -1
+    Stop
+  IBeAFakeShrub:
+    TNT1 A 1 A_SpawnItemEx("MirageKnightShrub5",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    Stop
+  }
+}
+
+Actor shrub6 30694
+{
+  Radius 8
+  Height 16
+  Mass 999999
+  speed 0
+    Scale 1.5
+  +NOINTERACTION
+  -NOGRAVITY
+  states
+  {
+  Spawn:
+    SHR9 A 0
+    SHR9 A 1 A_Jump(16,"IBeAFakeShrub")
+  IBeAShrub:
+    SHR6 A -1
+    Stop
+  IBeAFakeShrub:
+    TNT1 A 1 A_SpawnItemEx("MirageKnightShrub6",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    Stop
+  }
+}
+
+Actor shrub7 30693
+{
+  Radius 8
+  Height 16
+  Mass 999999
+  speed 0
+    Scale 1.5
+  +NOINTERACTION
+  -NOGRAVITY
+  states
+  {
+  Spawn:
+    SHR9 A 0
+    SHR9 A 1 A_Jump(16,"IBeAFakeShrub")
+  IBeAShrub:
+    SHR7 A -1
+    Stop
+  IBeAFakeShrub:
+    TNT1 A 1 A_SpawnItemEx("MirageKnightShrub7",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    Stop
+  }
+}
+
+Actor shrub8 30692
+{
+  Radius 8
+  Height 16
+  Mass 999999
+  speed 0
+    Scale 1.5
+  +NOINTERACTION
+  -NOGRAVITY
+  states
+  {
+  Spawn:
+    SHR9 A 0
+    SHR9 A 1 A_Jump(16,"IBeAFakeShrub")
+  IBeAShrub:
+    SHR8 A -1
+    Stop
+  IBeAFakeShrub:
+    TNT1 A 1 A_SpawnItemEx("MirageKnightShrub8",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    Stop
+  }
+}
+
+Actor shrub9 30691
+{
+  Radius 8
+  Height 16
+  Mass 999999
+  speed 0
+    Scale 1.5
+  +NOINTERACTION
+  -NOGRAVITY
+  states
+  {
+  Spawn:
+    SHR9 A 0
+    SHR9 A 1 A_Jump(16,"IBeAFakeShrub")
+  IBeAShrub:
+    SHR9 A -1
+    Stop
+  IBeAFakeShrub:
+    TNT1 A 1 A_SpawnItemEx("MirageKnightShrub9",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    Stop
+  }
+}
+
+Actor Grass 30690
+{
+  Radius 8
+  Height 16
+  Mass 999999
+  speed 0
+  Scale 0.5
+  -NOGRAVITY
+  +NOINTERACTION
+  states
+  {
+  Spawn:
+    EGRS A -1
+    Stop
+  }
+}
+
+ACTOR FedShortGreenColumn replaces ShortGreenColumn 30031
+{
+  Radius 16
+  Height 40
+  -SOLID
+  Mass 999999
+  speed 0
+  +NOINTERACTION
+  -NOGRAVITY
+  States
+  {
+  Spawn:
+    COL2 A 0
+    COL2 A 1 A_Jump(32,"IBeAFakeColumn")
+    TNT1 A 0 A_ChangeFlag("SOLID",1)
+  IBeAColumn:
+    COL2 A -1
+    Stop
+  IBeAFakeColumn:
+    TNT1 A 1 A_SpawnItemEx("MirageKnightShortGreenColumn",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    Stop
+  }
+}
+
+ACTOR FedTallGreenColumn replaces TallGreenColumn 30030
+{
+  Radius 16
+  Height 52
+  -SOLID
+  Mass 999999
+  speed 0
+  +NOINTERACTION
+  -NOGRAVITY
+  States
+  {
+  Spawn:
+    COL1 A 0
+    COL1 A 1 A_Jump(32,"IBeAFakeColumn")
+    TNT1 A 0 A_ChangeFlag("SOLID",1)
+  IBeAColumn:
+    COL1 A -1
+    Stop
+  IBeAFakeColumn:
+    TNT1 A 1 A_SpawnItemEx("MirageKnightTallGreenColumn",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    Stop
+  }
+}
+
+ACTOR FedStalagtite replaces Stalagtite 30047
+{
+  Radius 16
+  Height 40
+  -SOLID
+  Mass 999999
+  speed 0
+  +NOINTERACTION
+  -NOGRAVITY
+  States
+  {
+  Spawn:
+    SMIT A 0
+    SMIT A 1 A_Jump(32,"Quack")
+    SMIT A 1 A_Jump(32,"IBeAFakeStalagMITE")
+    TNT1 A 0 A_ChangeFlag("SOLID",1)
+  IBeAStalagMITE:
+    SMIT A -1
+    stop
+  IBeAFakeStalagMITE:
+    TNT1 A 1 A_SpawnItemEx("MirageKnightStalagtite",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    stop
+  Quack:
+    SMIT A 1 A_SpawnItemEx("TremorKnightSetter",0,0,0,0,0,0,random(0,360))
+    SMIT A 1 A_SpawnItemEx("TremorKnightSetter",0,0,0,0,0,0,random(0,360))
+    SMIT A 1 A_Jump(32,"IBeAFakeStalagMITE")
+    TNT1 A 0 A_ChangeFlag("SOLID",1)
+    goto IBeAStalagMITE
+  }
+}
+
+actor FedTallRedColumn replaces TallRedColumn 30032
+{
+  Radius 16
+  Height 52
+  -SOLID
+  Mass 999999
+  speed 0
+  +NOINTERACTION
+  -NOGRAVITY
+  States
+  {
+  Spawn:
+    COL3 A 0
+    COL3 A 1 A_Jump(32,"IBeAFakeColumn")
+    TNT1 A 0 A_ChangeFlag("SOLID",1)
+  IBeAColumn:
+    COL3 A -1
+    Stop
+  IBeAFakeColumn:
+    TNT1 A 1 A_SpawnItemEx("MirageKnightTallRedColumn",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    Stop
+  }
+}
+
+ACTOR FedSkullColumn replaces SkullColumn 30037
+{
+  Radius 16
+  Height 40
+  -SOLID
+  Mass 999999
+  speed 0
+  +NOINTERACTION
+  -NOGRAVITY
+  States
+  {
+  Spawn:
+    COL6 A 0
+    COL6 A 1 A_Jump(32,"IBeAFakeColumn")
+    TNT1 A 0 A_ChangeFlag("SOLID",1)
+  IBeAColumn:
+    COL6 A -1
+    stop
+  IBeAFakeColumn:
+    TNT1 A 1 A_SpawnItemEx("MirageKnightSkullColumn",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    Stop
+  }
+}
+
+ACTOR FedShortRedColumn replaces ShortRedColumn 30033
+{
+  Radius 16
+  Height 40
+  -SOLID
+  Mass 999999
+  speed 0
+  +NOINTERACTION
+  -NOGRAVITY
+  States
+  {
+  Spawn:
+    COL4 A 0
+    COL4 A 1 A_Jump(32,"IBeAFakeColumn")
+    TNT1 A 0 A_ChangeFlag("SOLID",1)
+  IBeAColumn:
+    COL4 A -1
+    Stop
+  IBeAFakeColumn:
+    TNT1 A 1 A_SpawnItemEx("MirageKnightShortRedColumn",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    Stop
+  }
+}
+
+ACTOR FedHeartColumn replaces HeartColumn 30036
+{
+  Radius 16
+  Height 40
+  -SOLID
+  Mass 999999
+  speed 0
+  +NOINTERACTION
+  -NOGRAVITY
+  States
+  {
+  Spawn:
+    COL5 A 0
+    COL5 A 1 A_Jump(32,"IBeAFakeColumn")
+    TNT1 A 0 A_ChangeFlag("SOLID",1)
+  IBeAColumn:
+    COL5 AB 14
+    Loop
+  IBeAFakeColumn:
+    TNT1 A 1 A_SpawnItemEx("MirageKnightHeartColumn",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    Stop
+  }
+}
+
+ACTOR HasSet : Inventory
+{
+  Inventory.MaxAmount "30"
+}
+
+ACTOR FedBigTree replaces BigTree 30054
+{
+  Radius 32
+  Height 108
+  +SOLID
+  States
+  {
+  Spawn:
+    TRE2 A 0
+    TRE2 A 0 A_JumpIfInventory("HasSet",15,"IBeATree")
+    TRE2 A 0 A_GiveInventory("HasSet",1)
+    TRE2 A 1 A_SpawnItemEx("ShrubSetterBig",0,0,0,0,0,0,random(0,360))
+    loop
+  IBeATree:
+    TRE2 A -1
+    Stop
+  }
+}
+
+ACTOR FedSmallTree replaces TorchTree 30043
+{
+  Radius 16
+  Height 56
+  +SOLID
+  States
+  {
+  Spawn:
+    TRE1 A 0
+    TRE1 A 0 A_JumpIfInventory("HasSet",15,"IBeATree")
+    TRE1 A 0 A_GiveInventory("HasSet",1)
+    TRE1 A 1 A_SpawnItemEx("ShrubSetterSmall",0,0,0,0,0,0,random(0,360))
+    loop
+  IBeATree:
+    TRE1 A -1
+    Stop
+  }
+}
+
+ACTOR ShrubSetterBig
+{
+  Radius 2
+  Height 4
+  Speed 60
+  MaxStepHeight 64
+  MaxDropOffHeight 64
+  -SOLID
+  +CANTLEAVEFLOORPIC
+  +SERVERSIDEONLY
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 0 A_JumpIfInventory("HasSet",30,"IBeAShrub")
+    TNT1 A 0 A_GiveInventory("HasSet",1)
+    TNT1 A 1 A_Wander
+    loop
+  IBeAShrub:
+    TNT1 A 1 A_SpawnItemEx("ShrubBig",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    Stop
+  }
+}
+
+ACTOR ShrubSetterSmall
+{
+  Radius 2
+  Height 4
+  Speed 60
+  MaxStepHeight 64
+  MaxDropOffHeight 64
+  -SOLID
+  +CANTLEAVEFLOORPIC
+  +SERVERSIDEONLY
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 0 A_JumpIfInventory("HasSet",30,"IBeAShrub")
+    TNT1 A 0 A_GiveInventory("HasSet",1)
+    TNT1 A 1 A_Wander
+    loop
+  IBeAShrub:
+    TNT1 A 1 A_SpawnItemEx("ShrubSmall",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    Stop
+  }
+}
+
+ACTOR ShrubBig : RandomSpawner
+{
+  dropitem "Shrub1"
+  dropitem "Shrub1"
+  dropitem "Shrub2"
+  dropitem "Shrub2"
+  dropitem "Shrub3"
+  dropitem "Shrub4"
+  dropitem "Shrub4"
+  dropitem "Shrub5"
+  dropitem "Shrub5"
+  dropitem "Shrub5"
+  dropitem "Shrub5"
+  dropitem "Shrub5"
+  dropitem "Shrub5"
+  dropitem "Shrub6"
+  dropitem "Shrub6"
+  dropitem "Shrub6"
+  dropitem "Shrub6"
+  dropitem "Shrub6"
+  dropitem "Shrub6"
+  dropitem "Shrub7"
+  dropitem "Shrub7"
+  dropitem "Shrub8"
+  dropitem "Shrub8"
+  dropitem "Shrub9"
+  dropitem "Shrub9"
+  dropitem "GrassSeed"
+  dropitem "GrassSeed"
+  dropitem "GrassSeed"
+  dropitem "GrassSeed"
+  dropitem "GrassSeed"
+  dropitem "GrassSeed"
+  dropitem "GrassSeed"
+  dropitem "GrassSeed"
+  dropitem "GrassSeed"
+  dropitem "GrassSeed"
+  dropitem "MirageKnightSetterBig"
+  dropitem "MirageKnightSetterBig"
+  dropitem "MirageKnightSetterBig"
+  dropitem "MirageKnightSetterBig"
+  dropitem "BishopKnightSetter"
+}
+
+ACTOR ShrubSmall : RandomSpawner
+{
+  dropitem "Shrub1"
+  dropitem "Shrub1"
+  dropitem "Shrub2"
+  dropitem "Shrub2"
+  dropitem "Shrub3"
+  dropitem "Shrub4"
+  dropitem "Shrub4"
+  dropitem "Shrub5"
+  dropitem "Shrub5"
+  dropitem "Shrub5"
+  dropitem "Shrub5"
+  dropitem "Shrub5"
+  dropitem "Shrub5"
+  dropitem "Shrub6"
+  dropitem "Shrub6"
+  dropitem "Shrub6"
+  dropitem "Shrub6"
+  dropitem "Shrub6"
+  dropitem "Shrub6"
+  dropitem "Shrub7"
+  dropitem "Shrub7"
+  dropitem "Shrub8"
+  dropitem "Shrub8"
+  dropitem "Shrub9"
+  dropitem "Shrub9"
+  dropitem "GrassSeed"
+  dropitem "GrassSeed"
+  dropitem "GrassSeed"
+  dropitem "GrassSeed"
+  dropitem "GrassSeed"
+  dropitem "GrassSeed"
+  dropitem "GrassSeed"
+  dropitem "GrassSeed"
+  dropitem "GrassSeed"
+  dropitem "GrassSeed"
+  dropitem "MirageKnightSetterSmall"
+  dropitem "MirageKnightSetterSmall"
+  dropitem "MirageKnightSetterSmall"
+  dropitem "MirageKnightSetterSmall"
+  dropitem "BishopKnightSetter"
+}
+
+ACTOR GrassSeed
+{
+  Radius 2
+  Height 4
+  -SOLID
+  +CANTLEAVEFLOORPIC
+  +SERVERSIDEONLY
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 0 A_JumpIfInventory("HasSet",5,"IBeNothing")
+    TNT1 A 0 A_GiveInventory("HasSet",1)
+    TNT1 A 1 A_SpawnItemEx("GrassSetter",0,0,0,0,0,0,random(0,360))
+    loop
+  IBeNothing:
+    TNT1 A 0
+    Stop
+  }
+}
+
+ACTOR GrassSetter
+{
+  Radius 2
+  Height 4
+  Speed 30
+  MaxStepHeight 64
+  MaxDropOffHeight 64
+  -SOLID
+  +CANTLEAVEFLOORPIC
+  +SERVERSIDEONLY
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 0 A_JumpIfInventory("HasSet",30,"IBeGrass")
+    TNT1 A 0 A_GiveInventory("HasSet",1)
+    TNT1 A 1 A_Wander
+    loop
+  IBeGrass:
+    TNT1 A 1 A_SpawnItemEx("Grass",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    Stop
+  }
+}
+
+ACTOR MirageKnightSetterBig
+{
+  Radius 20
+  Height 56
+  Speed 30
+  MaxStepHeight 64
+  MaxDropOffHeight 64
+  -SOLID
+  +CANTLEAVEFLOORPIC
+  +SERVERSIDEONLY
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 0 A_JumpIfInventory("HasSet",30,"IBeAFakeTree")
+    TNT1 A 0 A_GiveInventory("HasSet",1)
+    TNT1 A 1 A_Wander
+    loop
+  IBeAFakeTree:
+    TNT1 A 1 A_SpawnItemEx("MirageKnightBigTree",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    Stop
+  }
+}
+
+ACTOR MirageKnightSetterSmall
+{
+  Radius 20
+  Height 56
+  Speed 30
+  MaxStepHeight 64
+  MaxDropOffHeight 64
+  -SOLID
+  +CANTLEAVEFLOORPIC
+  +SERVERSIDEONLY
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 0 A_JumpIfInventory("HasSet",30,"IBeAFakeTree")
+    TNT1 A 0 A_GiveInventory("HasSet",1)
+    TNT1 A 1 A_Wander
+    loop
+  IBeAFakeTree:
+    TNT1 A 1 A_SpawnItemEx("MirageKnightSmallTree",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    Stop
+  }
+}
+
+ACTOR TremorKnightSetter
+{
+  Radius 20
+  Height 56
+  Speed 30
+  MaxStepHeight 64
+  MaxDropOffHeight 64
+  -SOLID
+  +CANTLEAVEFLOORPIC
+  +SERVERSIDEONLY
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 0 A_JumpIfInventory("HasSet",30,"IBeDirt")
+    TNT1 A 0 A_GiveInventory("HasSet",1)
+    TNT1 A 1 A_Wander
+    loop
+  IBeDirt:
+    TNT1 A 1 A_SpawnItemEx("TremorKnight",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    Stop
+  }
+}
+
+ACTOR BishopKnightSetter
+{
+  Radius 20
+  Height 56
+  Speed 30
+  MaxStepHeight 64
+  MaxDropOffHeight 64
+  -SOLID
+  +CANTLEAVEFLOORPIC
+  +SERVERSIDEONLY
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 0 A_JumpIfInventory("HasSet",30,"IBeAProfessional")
+    TNT1 A 0 A_GiveInventory("HasSet",1)
+    TNT1 A 1 A_Wander
+    loop
+  IBeAProfessional:
+    TNT1 A 1 A_SpawnItemEx("BishopKnight",0,0,0,0,0,0,random(0,360))
+    TNT1 A 0
+    Stop
+  }
+}
+
+ACTOR TemplarStatue replaces EvilEye 15118
+{
+	Radius 20
+	Height 70
+	+SOLID
+        +FLOATBOB
+        +LOOKALLAROUND
+        //+SYNCHRONIZED
+	States
+	{
+	Spawn:
+                SDIS A 0
+		SDIS A 35 A_FaceTarget
+                SDIS AAAAAAAA 35
+                SDIS A 0 A_Jump(192,"Whisper")
+                SDIS A 35 A_LookEx(LOF_NOSOUNDCHECK,0,1024,0,0,"Spawn")
+		Goto Spawn
+        Whisper:
+                SDIS A 0
+                SDIS A 1 A_PlaySound("WHISPER2",4,1,0)
+                Goto Spawn
+	}
+}
+
+ACTOR TemplarStatue2 : TemplarStatue replaces FloatingSkull 15119
+{
+}
+
+/*ACTOR EvilTemplarStatue 15120
+{
+	Radius 20
+	Height 70
+        Health 500
+        Speed 3
+        Mass 320
+        Dropitem "Megasphere" 256
+        MONSTER
+	+SOLID
+        +FLOATBOB
+        +FASTER
+        +LOOKALLAROUND
+        //+SYNCHRONIZED
+        +NOBLOOD
+        +BOSS
+        meleedamage 200
+        meleerange 8
+        meleesound ""
+        SeeSound ""
+        ActiveSound ""
+        DeathSound "monster/avadth"
+        Obituary "%o has met a terrible fate..."
+        HitObituary "%o has met a terrible fate..."
+	States
+	{
+	Spawn:
+                SDIS A 0
+		SDIS AAAAAAAAA 35 A_LookEx(LOF_NOSOUNDCHECK,0,1024,0,0,"See")
+                SDIS A 0 A_Jump(192,"Whisper")
+                SDIS A 35 A_LookEx(LOF_NOSOUNDCHECK,0,1024,0,0,"See")
+		Goto Spawn
+        See:
+                SDIS A 0 A_JumpIfInTargetLOS("Still")
+                SDIS A 1 A_Chase("TerribleFate","",CHF_NIGHTMAREFAST)
+                Loop
+        Still:
+                SDIS A 0
+		SDIS AAAAAAAA 35
+                SDIS A 0 A_Jump(32,"WhisperStill")
+                Goto See
+        TerribleFate:
+                SDIS A A_MeleeAttack
+        Whisper:
+                SDIS A 0
+                SDIS A 1 A_PlaySound("WHISPER2",4,1,0)
+                Goto Spawn
+        WhisperStill:
+                SDIS A 0
+                SDIS A 1 A_PlaySound("WHISPER2",4,1,0)
+                Goto See
+	}
+}*/
+
+ACTOR FedEye replaces EvilEye {
+	Radius 16
+	Height 54
+	Health 250
+	Painchance 0
+	Speed 0
+	Mass 9999999
+	MONSTER
+	+FLOATBOB
+	-SOLID
+	+VISIBILITYPULSE
+	+LOOKALLAROUND
+	+NOICEDEATH
+	+NOBLOOD
+	+DONTGIB
+	+DONTSPLASH
+	Renderstyle Translucent
+	Scale 0.25
+	
+	SeeSound "WHISPER2"
+	ActiveSound ""
+	DeathSound "Glass/Glass"
+	
+	States {
+		Spawn:
+			FEDE A 1 A_LookEx(LOF_NOSOUNDCHECK,0,2048,0,0,"See")
+			loop
+		See:
+			FEDE A 35 A_SpawnItemEx("FedEyeTeleportFog",random(-512,512),random(-512,512),0,0,0,0,random(0,360))
+			FEDE AAAAAAAAAA 35 A_AlertMonsters
+			loop
+		Death:
+			FEDE A 0 A_Scream
+			FEDE A 1 A_Burst("FedEyeChunkSpawner")
+			stop
+	}
+}
+
+ACTOR FedEyeTeleportFog {
+	+FIXMAPTHINGPOS
+	Radius 20
+	Height 56
+	dropitem FedEyeKnightSpawner
+	States {
+		Spawn:
+			FEDT A 0
+			TNT1 A 0 A_PlaySound("Teleport/Teleport",0)
+			FEDT ABCDE 6
+			Goto Death
+		Death:
+			FEDT F 6 A_NoBlocking
+			FEDT EDCBA 6
+			stop
+	}
+}
+
+ACTOR FedEyeKnightSpawner : RandomSpawner {
+	dropitem "Initiate" 255 10
+	dropitem "StrikeKnight" 255 20
+	dropitem "HeavyKnight" 255 3
+	dropitem "IceKnight" 255 3
+	dropitem "FireKnight" 255 3
+	dropitem "BioKnight" 255 3
+	dropitem "ShockKnight" 255 3
+	dropitem "KnightCaptain" 255 1
+}
+
+ACTOR FedEyeChunkSpawner : RandomSpawner {
+	dropitem "FedEyeWhiteChunk"
+	dropitem "FedEyeBlackChunk"
+}
+
+ACTOR FedEyeWhiteChunk : IceChunk {
+	Scale 0.5
+	Renderstyle Translucent
+	Alpha 0.5
+	Translation "0:255=80:95"
+}
+
+ACTOR FedEyeBlackChunk : IceChunk {
+	Scale 0.5
+	Renderstyle Translucent
+	Alpha 0.5
+	Translation "0:255=96:111"
+}

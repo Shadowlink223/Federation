@@ -1,0 +1,489 @@
+#library "FEDWACS"
+#include "zcommon.acs"
+
+// Armor Damage Check Arrays
+//int currentArmorArray[32] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+//int previousArmorArray[32] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+// Weather
+//int weather_rain = 0;
+//int weather_thunder = 0;
+//int weather_snow = 0;
+//int weather_ash = 0;
+
+// RELOAD
+Script 500 (void) NET {
+    If (CheckWeapon("Raging Bull") == 1 && CheckInventory("Loaded357") < 6 && CheckInventory("357") != 0 ) {
+    GiveInventory("Reloading",1);
+	}
+	Else If (CheckWeapon("Desert Eagle") == 1 && CheckInventory("LoadedDE") < 7 && CheckInventory("50AE") != 0 ) {
+    GiveInventory("Reloading",1);
+	}
+	Else if (CheckWeapon("Grenade Launcher") == 1 ){
+    GiveInventory("Reloading",1);
+	}
+	Else if (CheckWeapon("FBR3 Lance") == 1 && CheckInventory("LoadedBSR") < 10 && CheckInventory("50BMG") != 0 ){
+    GiveInventory("Reloading",1);
+	}
+	Else if (CheckWeapon("M4 Carbine") == 1 && CheckInventory("LoadedM4C") < 30 && CheckInventory("556") != 0 ){
+    GiveInventory("Reloading",1);
+	}
+	Else if (CheckWeapon("M9 Pistol") == 1 && CheckInventory("LoadedM9") < 15 && CheckInventory("9mm") != 0 ){
+    GiveInventory("Reloading",1);
+	}
+	Else If (CheckWeapon("MP7") == 1 && CheckInventory("LoadedMP7") < 30 && CheckInventory("9mm") != 0 ){
+    GiveInventory("Reloading",1);
+	}
+	Else If (CheckWeapon("Spas12") == 1 && CheckInventory("LoadedS12") < 6 && CheckInventory("BuckShot") != 0 ){
+    GiveInventory("Reloading",1);
+	}
+	Else If (CheckWeapon("Sawed-Off Shotgun") == 1 && CheckInventory("LoadedSOS") < 6 && CheckInventory("BuckShot") != 0 ){
+    GiveInventory("Reloading",1);
+	}
+	Else If (CheckWeapon("Silenced MP5") == 1 && CheckInventory("LoadedMP5") < 30 && CheckInventory("9mm") != 0 ){
+    GiveInventory("Reloading",1);
+	}
+	Else If (CheckWeapon("OICW") == 1 && CheckInventory("LoadedOICW") < 30 && CheckInventory("556") != 0 ){
+    GiveInventory("Reloading",1);
+	}
+}
+
+//Kickback
+script 505 (void) NET CLIENTSIDE
+{
+	int WeapKick; 
+	if(CheckWeapon("FBR3 Lance"))
+		WeapKick = 450;
+	if(CheckWeapon("M4 Carbine"))
+		WeapKick = 200;
+	if(CheckWeapon("M9 Pistol"))
+		WeapKick = 150;
+	if(CheckWeapon("Desert Eagle"))
+		WeapKick = 550;
+	if(CheckWeapon("Silenced MP5"))
+		WeapKick = 160;
+	if(CheckWeapon("MP7"))
+		WeapKick = 200;
+	if(CheckWeapon("OICW"))
+		WeapKick = 250;
+	if(CheckWeapon("Raging Bull"))
+		WeapKick = 400;
+	if(CheckWeapon("Spas12"))
+		WeapKick = 375;
+	if(CheckWeapon("Sawed-Off Shotgun"))
+		WeapKick = 550;
+	if(CheckWeapon("RPG"))
+		WeapKick = 175;
+	if(CheckWeapon("Scythe Minigun"))
+		WeapKick = 175;
+	if(CheckWeapon("Flamethrower"))
+		WeapKick = 50;
+
+	int CAngle = GetActorAngle(0) + random(-WeapKick,WeapKick);
+	int CPitch = GetActorPitch(0) - WeapKick;
+	
+	SetActorAngle(0,CAngle);
+	SetActorPitch(0,CPitch);
+}
+
+//Special Fire Kickback
+script 506 (void) NET CLIENTSIDE
+{
+	int WeapKick; 
+	if(CheckWeapon("FBR3 Lance"))
+		WeapKick = 300;
+	if(CheckWeapon("Sawed-Off Shotgun"))
+		WeapKick = 800;
+	if(CheckWeapon("MP7"))
+		WeapKick = 300;
+	if(CheckWeapon("OICW"))
+		WeapKick = 300;
+		
+	int CAngle = GetActorAngle(0) + random(-WeapKick,WeapKick);
+	int CPitch = GetActorPitch(0) - WeapKick;
+	
+	SetActorAngle(0,CAngle);
+	SetActorPitch(0,CPitch);
+}
+
+// SPECIAL FIRE (grenade launcher, Justicar gun, etc)
+Script 510 (void) NET {
+	GiveInventory("SpecFire",1);
+}
+
+// RATE OF FIRE
+Script 520 (void) NET {
+	GiveInventory("RoF",1);
+	if(CheckWeapon("Sawed-Off Shotgun")) {
+		if(CheckInventory("RoF_sos")) {
+			Print(s:"\c-Rate of Fire set to \ccDouble Barrel");
+		}
+		else {
+			Print(s:"\c-Rate of Fire set to \ccSingle Barrel");
+		}
+	}
+}
+
+// PRIMARY AMMO TYPE SWAP
+Script 530 (void) NET {
+
+}
+
+// GRENADE TYPE/SECONDARY AMMO TYPE SWAP
+Script 540 (void) NET {
+	
+	If (CheckInventory("FireGrenG") == 1 ) {
+		TakeInventory("FireGrenG",1);
+		GiveInventory("FireGrenF",1);
+		Print(s:"\c-Swaped to \ci20MM Fire Grenades");
+	}
+	Else If (CheckInventory("FireGrenF") == 1 ) {
+		TakeInventory("FireGrenF",1);
+		GiveInventory("FireGrenI",1);
+		Print(s:"\c-Swaped to \cn20MM Ice Grenades");
+	}
+	Else If (CheckInventory("FireGrenI") == 1 ) {
+		TakeInventory("FireGrenI",1);
+		GiveInventory("FireGrenB",1);
+		Print(s:"\c-Swaped to \cd20MM Bio Grenades");
+	}
+	Else If (CheckInventory("FireGrenB") == 1 ) {
+		TakeInventory("FireGrenB",1);
+		GiveInventory("FireGrenS",1);
+		Print(s:"\c-Swaped to \ck20MM Shock Grenades");
+	}
+	Else If (CheckInventory("FireGrenS") == 1 ) {
+		TakeInventory("FireGrenS",1);
+		GiveInventory("FireGrenG",1);
+		Print(s:"\c-Swaped to \cc20MM Grenades");
+	}
+}
+
+Script 550 enter {
+	Thing_ChangeTID(0, 1000 + PlayerNumber());
+}
+
+/*Script 551 open {
+	While(true) {
+		for (int p=0;p<PlayerCount();p++) {
+			currentArmorArray[p] = CheckActorInventory(1000 + p,"Armor");
+			if (PlayerInGame(p) && currentArmorArray[p] < previousArmorArray[p]) {
+				GiveActorInventory(1000 + p,"ArmorDamagedIndicator",1);
+			}
+			previousArmorArray[p] = currentArmorArray[p];
+		}
+		delay(1);
+	}
+}*/
+
+/*Script 560 open {
+	switch(random(1,53)) {
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+		case 5:
+		case 6:
+		case 7:
+		case 8:
+		case 9:
+		case 10:
+		case 11:
+		case 12: // Rain
+			weather_rain = 1;
+			weather_thunder = 0;
+			weather_snow = 0;
+			weather_ash = 0;
+			break;
+		case 13:
+		case 14:
+		case 15:
+		case 16:
+		case 17:
+		case 18:
+		case 19:
+		case 20: // Light Thunderstorm
+			weather_rain = 0;
+			weather_thunder = 1;
+			weather_snow = 0;
+			weather_ash = 0;
+			break;
+		case 21:
+		case 22:
+		case 23:
+		case 24: // Heavy Thunderstorm
+			weather_rain = 1;
+			weather_thunder = 1;
+			weather_snow = 0;
+			weather_ash = 0;
+			break;
+		case 25:
+		case 26:
+		case 27:
+		case 28: // Snow
+			weather_rain = 0;
+			weather_thunder = 0;
+			weather_snow = 1;
+			weather_ash = 0;
+			break;
+		case 29:
+		case 30:
+		case 31:
+		case 32: // Ash
+			weather_rain = 0;
+			weather_thunder = 0;
+			weather_snow = 0;
+			weather_ash = 1;
+			break;
+		case 33: // Snow and Ash
+			weather_rain = 0;
+			weather_thunder = 0;
+			weather_snow = 1;
+			weather_ash = 1;
+			break;
+		case 34: // Rain and Ash
+			weather_rain = 1;
+			weather_thunder = 0;
+			weather_snow = 0;
+			weather_ash = 1;
+			break;
+		case 35: // Thunderstorm and Ash
+			weather_rain = 0;
+			weather_thunder = 1;
+			weather_snow = 0;
+			weather_ash = 1;
+			break;
+		case 36:
+		case 37:
+		case 38:
+		case 39:
+		case 40:
+		case 41:
+		case 42:
+		case 43:
+		case 44:
+		case 45:
+		case 46:
+		case 47:
+		case 48:
+		case 49:
+		case 50:
+		case 51:
+		case 52:
+		case 53: // No weather
+			weather_rain = 0;
+			weather_thunder = 0;
+			weather_snow = 0;
+			weather_ash = 0;
+			break;
+    }
+	if (weather_rain == 1 && weather_thunder == 0 && weather_ash == 0) { // Rain
+		Print(s:"\cnA shower of rain soaks the ground.");
+	}
+	if (weather_rain == 0 && weather_thunder == 1 && weather_ash == 0) { // Light Thunderstorm
+		Print(s:"\cnA storm is brewing overhead.");
+	}
+	if (weather_rain == 1 && weather_thunder == 1) { // Heavy Thunderstorm
+		Print(s:"\cnA thunderstorm rumbles across the battlefield.");
+	}
+	if (weather_snow == 1 && weather_ash == 0) { // Snow
+		Print(s:"\cnA silent snow falls upon the land.");
+	}
+	if (weather_snow == 0 && weather_ash == 1 && weather_rain == 0 && weather_thunder == 0) { // Ash
+		Print(s:"\cnThe tides of war have swept through the air.");
+	}
+	if (weather_snow == 1 && weather_ash == 1) { // Snow and Ash
+		Print(s:"\cnCold and death fill the sky.");
+	}
+	if (weather_rain == 1 && weather_ash == 1) { // Rain and Ash
+		Print(s:"\cnThe sky weeps for the lost.");
+	}
+	if (weather_thunder == 1 && weather_ash == 1) { // Thunderstorm and Ash
+		Print(s:"\cnSoldiers fall like raindrops.");
+	}
+}*/
+
+/*Script 561 open {
+	while(true) {
+		if(weather_rain == 1 || weather_thunder == 1 || weather_snow == 1 || weather_ash == 1) {
+			if (weather_rain == 1 || weather_thunder == 1) {
+				SetMusic("AMBRAIN",0);
+			}
+			if (weather_rain == 1 || weather_thunder == 1 || weather_snow == 1) {
+				if (weather_ash == 0) {
+					ChangeSky("SKYFOG0","SKYFOG0");
+				}
+				if (weather_ash == 1) {
+					ChangeSky("STSKY14","STSKY14");
+				}
+			}
+			if (weather_ash == 1 && weather_rain == 0 && weather_thunder == 0 && weather_snow == 0) {
+				ChangeSky("STSKY9","STSKY9");
+			}
+			SetSkyScrollSpeed(1,512);
+		}
+		if(weather_rain == 1) {
+			for (int r=0;r<PlayerCount();r++) {
+				if(PlayerIsBot(r) == 0) {
+					switch(random(1,20)) {
+						case 1:
+							Spawn("RainSpawner",GetActorX(1000 + r),GetActorY(1000 + r),GetActorFloorZ(1000 + r)+ 2);
+						case 2:
+							Spawn("RainSpawner",GetActorX(1000 + r),GetActorY(1000 + r),GetActorFloorZ(1000 + r)+ 2);
+						case 3:
+							Spawn("RainSpawner",GetActorX(1000 + r),GetActorY(1000 + r),GetActorFloorZ(1000 + r)+ 2);
+						case 4:
+							Spawn("RainSpawner",GetActorX(1000 + r),GetActorY(1000 + r),GetActorFloorZ(1000 + r)+ 2);
+						case 5:
+							Spawn("RainSpawner",GetActorX(1000 + r),GetActorY(1000 + r),GetActorFloorZ(1000 + r)+ 2);
+						case 6:
+							Spawn("RainSpawner",GetActorX(1000 + r),GetActorY(1000 + r),GetActorFloorZ(1000 + r)+ 2);
+						case 7:
+							Spawn("RainSpawner",GetActorX(1000 + r),GetActorY(1000 + r),GetActorFloorZ(1000 + r)+ 2);
+						case 8:
+							Spawn("RainSpawner",GetActorX(1000 + r),GetActorY(1000 + r),GetActorFloorZ(1000 + r)+ 2);
+						case 9:
+							Spawn("RainSpawner",GetActorX(1000 + r),GetActorY(1000 + r),GetActorFloorZ(1000 + r)+ 2);
+						case 10:
+							Spawn("RainSpawner",GetActorX(1000 + r),GetActorY(1000 + r),GetActorFloorZ(1000 + r)+ 2);
+						case 11:
+							Spawn("RainSpawner",GetActorX(1000 + r),GetActorY(1000 + r),GetActorFloorZ(1000 + r)+ 2);
+						case 12:
+							Spawn("RainSpawner",GetActorX(1000 + r),GetActorY(1000 + r),GetActorFloorZ(1000 + r)+ 2);
+						case 13:
+							Spawn("RainSpawner",GetActorX(1000 + r),GetActorY(1000 + r),GetActorFloorZ(1000 + r)+ 2);
+						case 14:
+							Spawn("RainSpawner",GetActorX(1000 + r),GetActorY(1000 + r),GetActorFloorZ(1000 + r)+ 2);
+						case 15:
+							Spawn("RainSpawner",GetActorX(1000 + r),GetActorY(1000 + r),GetActorFloorZ(1000 + r)+ 2);
+						case 16:
+							Spawn("RainSpawner",GetActorX(1000 + r),GetActorY(1000 + r),GetActorFloorZ(1000 + r)+ 2);
+						case 17:
+							Spawn("RainSpawner",GetActorX(1000 + r),GetActorY(1000 + r),GetActorFloorZ(1000 + r)+ 2);
+						case 18:
+							Spawn("RainSpawner",GetActorX(1000 + r),GetActorY(1000 + r),GetActorFloorZ(1000 + r)+ 2);
+						case 19:
+							Spawn("RainSpawner",GetActorX(1000 + r),GetActorY(1000 + r),GetActorFloorZ(1000 + r)+ 2);
+						case 20:
+							Spawn("RainSpawner",GetActorX(1000 + r),GetActorY(1000 + r),GetActorFloorZ(1000 + r)+ 2);
+							break;
+					}
+				}
+			}
+		}
+		if (weather_thunder == 1) {
+			for (int t=0;t<PlayerCount();t++) {
+				if(PlayerIsBot(t) == 0) {
+					switch(random(1,20)) {
+						case 1:
+							Spawn("RainSpawner",GetActorX(1000 + t),GetActorY(1000 + t),GetActorFloorZ(1000 + t)+ 2);
+						case 2:
+							Spawn("RainSpawner",GetActorX(1000 + t),GetActorY(1000 + t),GetActorFloorZ(1000 + t)+ 2);
+						case 3:
+							Spawn("RainSpawner",GetActorX(1000 + t),GetActorY(1000 + t),GetActorFloorZ(1000 + t)+ 2);
+						case 4:
+							Spawn("RainSpawner",GetActorX(1000 + t),GetActorY(1000 + t),GetActorFloorZ(1000 + t)+ 2);
+						case 5:
+							Spawn("RainSpawner",GetActorX(1000 + t),GetActorY(1000 + t),GetActorFloorZ(1000 + t)+ 2);
+						case 6:
+							Spawn("RainSpawner",GetActorX(1000 + t),GetActorY(1000 + t),GetActorFloorZ(1000 + t)+ 2);
+						case 7:
+							Spawn("RainSpawner",GetActorX(1000 + t),GetActorY(1000 + t),GetActorFloorZ(1000 + t)+ 2);
+						case 8:
+							Spawn("RainSpawner",GetActorX(1000 + t),GetActorY(1000 + t),GetActorFloorZ(1000 + t)+ 2);
+						case 9:
+							Spawn("RainSpawner",GetActorX(1000 + t),GetActorY(1000 + t),GetActorFloorZ(1000 + t)+ 2);
+						case 10:
+							Spawn("RainSpawner",GetActorX(1000 + t),GetActorY(1000 + t),GetActorFloorZ(1000 + t)+ 2);
+						case 11:
+							Spawn("RainSpawner",GetActorX(1000 + t),GetActorY(1000 + t),GetActorFloorZ(1000 + t)+ 2);
+						case 12:
+							Spawn("RainSpawner",GetActorX(1000 + t),GetActorY(1000 + t),GetActorFloorZ(1000 + t)+ 2);
+						case 13:
+							Spawn("RainSpawner",GetActorX(1000 + t),GetActorY(1000 + t),GetActorFloorZ(1000 + t)+ 2);
+						case 14:
+							Spawn("RainSpawner",GetActorX(1000 + t),GetActorY(1000 + t),GetActorFloorZ(1000 + t)+ 2);
+						case 15:
+							Spawn("RainSpawner",GetActorX(1000 + t),GetActorY(1000 + t),GetActorFloorZ(1000 + t)+ 2);
+						case 16:
+							Spawn("RainSpawner",GetActorX(1000 + t),GetActorY(1000 + t),GetActorFloorZ(1000 + t)+ 2);
+						case 17:
+							Spawn("RainSpawner",GetActorX(1000 + t),GetActorY(1000 + t),GetActorFloorZ(1000 + t)+ 2);
+						case 18:
+							Spawn("RainSpawner",GetActorX(1000 + t),GetActorY(1000 + t),GetActorFloorZ(1000 + t)+ 2);
+						case 19:
+							Spawn("RainSpawner",GetActorX(1000 + t),GetActorY(1000 + t),GetActorFloorZ(1000 + t)+ 2);
+						case 20:
+							Spawn("RainSpawner",GetActorX(1000 + t),GetActorY(1000 + t),GetActorFloorZ(1000 + t)+ 2);
+							break;
+					}
+				}
+			}
+		}
+		if (weather_snow == 1) {
+			for (int s=0;s<PlayerCount();s++) {
+				if(PlayerIsBot(s) == 0) {
+					switch(random(1,5)) {
+						case 1:
+							Spawn("SnowSpawner",GetActorX(1000 + s),GetActorY(1000 + s),GetActorFloorZ(1000 + s)+ 2);
+						case 2:
+							Spawn("SnowSpawner",GetActorX(1000 + s),GetActorY(1000 + s),GetActorFloorZ(1000 + s)+ 2);
+						case 3:
+							Spawn("SnowSpawner",GetActorX(1000 + s),GetActorY(1000 + s),GetActorFloorZ(1000 + s)+ 2);
+						case 4:
+							Spawn("SnowSpawner",GetActorX(1000 + s),GetActorY(1000 + s),GetActorFloorZ(1000 + s)+ 2);
+						case 5:
+							Spawn("SnowSpawner",GetActorX(1000 + s),GetActorY(1000 + s),GetActorFloorZ(1000 + s)+ 2);
+							break;
+					}
+				}
+			}
+		}
+		if (weather_ash == 1) {
+			for (int a=0;a<PlayerCount();a++) {
+				if(PlayerIsBot(a) == 0) {
+					switch(random(1,5)) {
+						case 1:
+							Spawn("AshSpawner",GetActorX(1000 + a),GetActorY(1000 + a),GetActorFloorZ(1000 + a)+ 2);
+						case 2:
+							Spawn("AshSpawner",GetActorX(1000 + a),GetActorY(1000 + a),GetActorFloorZ(1000 + a)+ 2);
+						case 3:
+							Spawn("AshSpawner",GetActorX(1000 + a),GetActorY(1000 + a),GetActorFloorZ(1000 + a)+ 2);
+						case 4:
+							Spawn("AshSpawner",GetActorX(1000 + a),GetActorY(1000 + a),GetActorFloorZ(1000 + a)+ 2);
+						case 5:
+							Spawn("AshSpawner",GetActorX(1000 + a),GetActorY(1000 + a),GetActorFloorZ(1000 + a)+ 2);
+							break;
+					}
+				}
+			}
+		}
+		if (weather_rain == 0 && weather_thunder == 0) {
+			SetMusic("*",0);
+		}
+		delay(1);
+	}
+}*/
+
+/*Script 562 (void) { // Rain Sky Check
+   if(CheckActorCeilingTexture(0, "F_SKY1")) {
+      SetResultValue( 1 );
+   }
+   else {
+      SetResultValue( 0 );
+   }
+}*/
+
+/*Script 563 Open { // LIGHTNING
+	while(true) {
+		while(weather_rain == 0 && weather_thunder == 1) { // Light Thunderstorm
+			Delay(Random(20, 2625)); // 4/7 - 75 seconds
+			AmbientSound("Federation/Thunder", 127);
+		}
+		while(weather_rain == 1 && weather_thunder == 1) { // Heavy Thunderstorm
+			Delay(Random(20, 525)); // 4/7 - 15 seconds
+			AmbientSound("Federation/Thunder", 127);
+		}
+		Delay(1);
+	}
+}*/

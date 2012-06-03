@@ -1,0 +1,407 @@
+ACTOR FedGreenArmorSpawner : randomspawner replaces GreenArmor
+{
+    dropitem "InitiateArmor" 255 10
+    dropitem "ZoneArmor" 255 9
+    dropitem "StrikeArmor" 255 8
+    dropitem "HeavyArmor" 255 7
+    dropitem "RiotArmor" 255 6
+    dropitem "FireArmor" 255 5
+    dropitem "IceArmor" 255 5
+    dropitem "BioArmor" 255 5
+    dropitem "ShockArmor" 255 5
+}
+
+ACTOR FedBlueArmorSpawner : randomspawner replaces BlueArmor
+{
+    dropitem "GrenadierArmor" 255 20
+    dropitem "RookArmor" 255 20
+    dropitem "BishopArmor" 255 10
+    dropitem "FlashArmor" 255 10
+    dropitem "CaptainArmor" 255 20
+    //dropitem "JusticarArmor" 255 5
+    //dropitem "ERASUREArmor" 255 1
+}
+
+ACTOR InitiateArmor : BasicArmorPickup
+{
+  inventory.pickupmessage "Picked up the Initiate Armor!"
+  inventory.icon "FARMA0"
+  translation "112:127=96:111"
+  armor.saveamount 60
+  armor.savepercent 60
+  armor.maxfullabsorb 10
+  states
+  {
+  Spawn:
+    FARM A 6
+    FARM A 7 bright
+    loop
+  }
+}
+
+ACTOR ZoneArmor : BasicArmorPickup
+{
+  inventory.pickupmessage "Picked up the Zone Armor!"
+  inventory.icon "FARMA0"
+  translation "112:127=240:247"
+  armor.saveamount 120
+  armor.savepercent 60
+  armor.maxfullabsorb 20
+  states
+  {
+  Spawn:
+    FARM A 6
+    FARM A 7 bright
+    loop
+  }
+}
+
+ACTOR StrikeArmor : BasicArmorPickup
+{
+  inventory.pickupmessage "Picked up the Strike Armor!"
+  inventory.icon "FARMB0"
+  translation "112:127=32:47"
+  armor.saveamount 220
+  armor.savepercent 80
+  armor.maxfullabsorb 40
+  states
+  {
+  Spawn:
+    FARM B 6
+    FARM B 7 bright
+    loop
+  }
+}
+
+ACTOR RiotArmor : BasicArmorPickup
+{
+  inventory.pickupmessage "Picked up the Riot Armor!"
+  inventory.icon "FARMA0"
+  translation "112:127=152:159"
+  armor.saveamount 250
+  armor.savepercent 90
+  armor.maxfullabsorb 75
+  states
+  {
+  Spawn:
+    FARM A 6
+    FARM A 7 bright
+    loop
+  }
+}
+
+ACTOR HeavyArmor : BasicArmorPickup
+{
+  inventory.pickupmessage "Picked up the Heavy Armor!"
+  inventory.icon "FARMC0"
+  translation "112:127=64:79"
+  armor.saveamount 250
+  armor.savepercent 80
+  armor.maxfullabsorb 50
+  states
+  {
+  Spawn:
+    FARM C 6
+    FARM C 7 bright
+    loop
+  }
+}
+
+ACTOR GrenadierArmor : BasicArmorPickup
+{
+  inventory.pickupmessage "Picked up the Grenadier Armor!"
+  inventory.icon "FARMC0"
+  translation "112:127=5:8"
+  armor.saveamount 250
+  armor.savepercent 80
+  armor.maxfullabsorb 50
+  DamageFactor "Poison", 0.75
+  DamageFactor "Fire2", 0.75
+  DamageFactor "Ice", 0.75
+  DamageFactor "Shock", 0.75
+  states
+  {
+  Spawn:
+    FARM C 6
+    FARM C 7 bright
+    loop
+  }
+}
+
+ACTOR RookArmor : BasicArmorPickup
+{
+  inventory.pickupmessage "Picked up the Rook Armor!"
+  inventory.icon "FARMA0"
+  translation "112:127=192:207"
+  armor.saveamount 250
+  armor.savepercent 80
+  armor.maxfullabsorb 50
+  DamageFactor "Poison", 0.05
+  DamageFactor "Fire2", 0.05
+  DamageFactor "Ice", 0.05
+  states
+  {
+  Spawn:
+    FARM A 6
+    FARM A 7 bright
+    loop
+  }
+}
+
+ACTOR BioArmor : BasicArmorPickup
+{
+  inventory.pickupmessage "Picked up the Bio Armor!"
+  inventory.icon "FARMB0"
+  //translation "112:127=112:127"
+  armor.saveamount 220
+  armor.savepercent 60
+  armor.maxfullabsorb 20
+  DamageFactor "Poison", 0.00
+  states
+  {
+  Spawn:
+    FARM B 6
+    FARM B 7 bright
+    loop
+  }
+}
+
+ACTOR IceArmor : BasicArmorPickup
+{
+  inventory.pickupmessage "Picked up the Ice Armor!"
+  inventory.icon "FARMB0"
+  translation "112:127=80:95"
+  armor.saveamount 220
+  armor.savepercent 60
+  armor.maxfullabsorb 20
+  DamageFactor "Ice", 0.00
+  states
+  {
+  Spawn:
+    FARM B 6
+    FARM B 7 bright
+    loop
+  }
+}
+
+ACTOR FireArmor : BasicArmorPickup
+{
+  inventory.pickupmessage "Picked up the Fire Armor!"
+  inventory.icon "FARMB0"
+  translation "112:127=208:223"
+  armor.saveamount 220
+  armor.savepercent 60
+  armor.maxfullabsorb 20
+  DamageFactor "Fire2", 0.00
+  states
+  {
+  Spawn:
+    FARM B 6
+    FARM B 7 bright
+    loop
+  }
+}
+
+ACTOR ShockArmor : BasicArmorPickup
+{
+  inventory.pickupmessage "Picked up the Shock Armor!"
+  inventory.icon "FARMB0"
+  translation "112:127=224:231"
+  armor.saveamount 220
+  armor.savepercent 60
+  armor.maxfullabsorb 20
+  DamageFactor "Shock", 0.00
+  states
+  {
+  Spawn:
+    FARM B 6
+    FARM B 7 bright
+    loop
+  }
+}
+
+ACTOR BishopArmor : CustomInventory
+{
+  inventory.pickupmessage "Picked up the Bishop Armor!"
+  translation "112:127=96:111"
+  +VISIBILITYPULSE
+  renderstyle translucent
+  states
+  {
+  Spawn:
+    FARM B 6
+    FARM B 7 bright
+    loop
+  Pickup:
+    TNT1 A 0 A_GiveInventory("BishopArmorItem", 1)
+    TNT1 A 0 A_GiveInventory("BishopStealthItem", 1)
+    Stop
+  }
+}
+
+ACTOR BishopArmorItem : BasicArmorPickup
+{
+  inventory.icon "FARMB0"
+  inventory.pickupmessage "Picked up defective Bishop Armor!"
+  translation "112:127=96:111"
+  +VISIBILITYPULSE
+  renderstyle translucent
+  alpha 0.50
+  armor.saveamount 250
+  armor.savepercent 80
+  armor.maxfullabsorb 25
+  states
+  {
+  Spawn:
+    FARM B 6
+    FARM B 7 bright
+    loop
+  }
+}
+
+ACTOR BishopStealthItem : PowerupGiver
+{
+  inventory.pickupmessage "Bishop Cloaking!"
+  inventory.maxamount 0
+  powerup.type "BishopCloak"
+  +INVENTORY.AUTOACTIVATE
+  translation "112:127=96:111"
+  +VISIBILITYPULSE
+  renderstyle translucent
+  alpha 0.50
+  states
+  {
+  Spawn:
+    FARM B 6
+    FARM B 7 bright
+    loop
+  }
+}
+
+ACTOR PowerBishopCloak : PowerShadow
+{
+  Powerup.Duration 0x7FFFFFFF
+}
+
+ACTOR FlashArmor : CustomInventory
+{
+  inventory.pickupmessage "Picked up the Flash Armor!"
+  translation "112:127=192:207"
+  +VISIBILITYPULSE
+  renderstyle translucent
+  states
+  {
+  Spawn:
+    FARM B 6
+    FARM B 7 bright
+    loop
+  Pickup:
+    TNT1 A 0 A_GiveInventory("FlashArmorItem", 1)
+    TNT1 A 0 A_GiveInventory("FlashSpeedItem", 1)
+    Stop
+  }
+}
+
+ACTOR FlashArmorItem : BasicArmorPickup
+{
+  inventory.pickupmessage "Picked up the Flash Armor!"
+  inventory.icon "FARMB0"
+  translation "112:127=192:207"
+  +VISIBILITYPULSE
+  renderstyle translucent
+  armor.saveamount 220
+  armor.savepercent 80
+  armor.maxfullabsorb 40
+  states
+  {
+  Spawn:
+    FARM B 6
+    FARM B 7 bright
+    loop
+  }
+}
+
+ACTOR FlashSpeedItem : PowerupGiver
+{
+  inventory.pickupmessage "Flash Speed!"
+  inventory.maxamount 0
+  powerup.type "FlashSpeed"
+  +INVENTORY.AUTOACTIVATE
+  translation "112:127=192:207"
+  +VISIBILITYPULSE
+  renderstyle translucent
+  states
+  {
+  Spawn:
+    FARM B 6
+    FARM B 7 bright
+    loop
+  }
+}
+
+ACTOR PowerFlashSpeed : PowerSpeed
+{
+  Speed 2.0
+  Powerup.Duration 0x7FFFFFFF
+}
+
+ACTOR CaptainArmor : BasicArmorPickup
+{
+  inventory.pickupmessage "Picked up the Captain Armor!"
+  inventory.icon "FARMA0"
+  translation "112:127=160:167"
+  armor.saveamount 400
+  armor.savepercent 90
+  armor.maxfullabsorb 70
+  states
+  {
+  Spawn:
+    FARM A 6
+    FARM A 7 bright
+    loop
+  }
+}
+
+ACTOR JusticarArmor : BasicArmorPickup
+{
+  inventory.pickupmessage "Picked up the Justicar Armor!"
+  inventory.icon "FARMA0"
+  translation "112:127=9:12"
+  armor.saveamount 1000
+  armor.savepercent 90
+  armor.maxfullabsorb 50
+  DamageFactor "Poison", 0.05
+  DamageFactor "Fire2", 0.05
+  DamageFactor "Ice", 0.05
+  DamageFactor "Shock", 0.05
+  states
+  {
+  Spawn:
+    FARM A 6
+    FARM A 7 bright
+    loop
+  }
+}
+
+ACTOR ERASUREArmor : BasicArmorPickup
+{
+  inventory.pickupmessage "Picked up the Experimental Radiant Attenuation Suit with Ultraviolet Radiation Emitters!"
+  inventory.icon "FARMB0"
+  translation "112:127=4:4"
+  renderstyle translucent
+  alpha 0.75
+  armor.saveamount 220
+  armor.savepercent 80
+  armor.maxfullabsorb 40
+  DamageFactor "Poison", 0.00
+  DamageFactor "Fire2", 0.00
+  DamageFactor "Ice", 0.00
+  DamageFactor "Shock", 0.00
+  states
+  {
+  Spawn:
+    FARM B 6
+    FARM B 7 bright
+    loop
+  }
+}

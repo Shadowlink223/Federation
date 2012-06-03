@@ -1,0 +1,10 @@
+// 0's on the images (M9PAA0)
+// #Include'd in the DECORATE
+// Weapon is in the KEYCONF
+// Sounds added and marked properly in SNDINFO
+// Reload check in the FEDACS
+// Natural ammo and loaded ammo properly found in AMMO
+
+// Altfire and special ammo will need token checks as well
+
+// Check to see if you can fire the weapon when the reload is wrapped up enough

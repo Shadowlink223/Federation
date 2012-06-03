@@ -1,0 +1,352 @@
+ACTOR FedBFG9KSpawner : RandomSpawner replaces BFG9000 {
+	Dropitem "Scythe Minigun" 255 1
+	Dropitem "Flamethrower" 255 1
+	Dropitem "Cryo Rifle" 255 1
+}
+
+ACTOR FedBFG10KSpawner : RandomSpawner replaces BFG10k {
+	Dropitem "Scythe Minigun" 255 1
+	Dropitem "Flamethrower" 255 1
+	Dropitem "Cryo Rifle" 255 1
+}
+
+ACTOR "Scythe Minigun" : Weapon {
+
+   obituary "\ca %k \cb --> Minigun --> \cc %o "
+   inventory.pickupmessage "Minigun"
+
+   weapon.ammotype "762mm"
+   weapon.ammouse 1
+   weapon.ammogive 500
+
+   weapon.ammotype2 "762mm"
+   weapon.ammouse2 1
+
+   Weapon.SlotNumber 7
+   Decal BulletChip
+   +NOALERT
+   +AMMO_OPTIONAL
+   +ALT_AMMO_OPTIONAL
+   +NOAUTOFIRE
+   +BFG
+   
+   States {
+   Spawn:
+      MINI A -1
+      Stop
+	  
+   Select:
+      MINA A 0 A_TakeInventory("IronSight",1)
+	  MINA A 0 A_ZoomFactor(1,ZOOM_INSTANT)
+      MINA A 0 A_Raise
+      loop
+	  
+   Ready:
+      MINA A 0 A_TakeInventory("Firing",1)
+      MINA A 0 A_TakeInventory("StartUp",7)
+      MINA A 0 A_TakeInventory("WindUp",11)
+      MINA ABCDEFGHIJLMN 2 A_WeaponReady(WRF_NOPRIMARY)
+	 
+   Readyloop:
+      MIND A 0 A_TakeInventory("Firing",1)
+      MINA N 0 A_TakeInventory("StartUp",7)
+      MINA N 1 A_WeaponReady
+      loop
+	  
+   Deselect:
+      MINA A 0 A_TakeInventory("Firing",1)
+      MINA A 0 A_TakeInventory("StartUp",7)
+      MINA A 0 A_TakeInventory("WindUp",11)
+      TNT1 AAAAAAAAAA 0 A_Lower
+	  
+   DeselectLoop: // Makes sure it wraps up
+      TNT1 A 1 A_Lower
+      loop
+	  
+   Fire:
+      MINB A 0 A_JumpIfInventory("Firing",1,3)
+      MINB A 0 A_GiveInventory("Firing",1)
+      MINB A 0 A_PlaySoundEx("MINIUP","SoundSlot5")
+      goto WindUpPrimary
+      MINB A 0
+      goto WindUpPrimary
+
+   WindUpPrimary:
+      MINB A 0 A_JumpIfInventory("WindUp",10,51)
+      MINB A 0 A_JumpIfInventory("WindUp",9,48)
+      MINB A 0 A_JumpIfInventory("WindUp",8,45)
+      MINB A 0 A_JumpIfInventory("WindUp",7,42)
+      MINB A 0 A_JumpIfInventory("WindUp",6,39)
+      MINB A 0 A_JumpIfInventory("WindUp",5,36)
+      MINB A 0 A_JumpIfInventory("WindUp",4,33)
+      MINB A 0 A_JumpIfInventory("WindUp",3,30)
+      MINB A 0 A_JumpIfInventory("WindUp",2,27)
+      MINB A 0 A_JumpIfInventory("WindUp",1,24)
+      MINB A 0 A_JumpIfInventory("StartUp",7,21)
+      MINB A 0 A_JumpIfInventory("StartUp",6,18)
+      MINB A 0 A_JumpIfInventory("StartUp",5,15)
+      MINB A 0 A_JumpIfInventory("StartUp",4,12)
+      MINB A 0 A_JumpIfInventory("StartUp",3,9)
+      MINB A 0 A_JumpIfInventory("StartUp",2,6)
+      MINB A 0 A_JumpIfInventory("StartUp",1,3)
+      MINB A 2 A_GiveInventory("StartUp",1)      // StartUp 0
+      MINB A 0 A_Refire
+      goto ReadyLoop
+      MINB B 2 A_GiveInventory("StartUp",1)      // StartUp 1
+      MINB A 0 A_Refire
+      goto ReadyLoop
+      MINB C 2 A_GiveInventory("StartUp",1)      // StartUp 2
+      MINB A 0 A_Refire
+      goto ReadyLoop
+      MINB D 2 A_GiveInventory("StartUp",1)      // StartUp 3
+      MINB A 0 A_Refire
+      goto ReadyLoop
+      MINB E 2 A_GiveInventory("StartUp",1)      // StartUp 4
+      MINB A 0 A_Refire
+      goto ReadyLoop
+      MINB F 2 A_GiveInventory("StartUp",1)      // StartUp 5
+      MINB A 0 A_Refire
+      goto ReadyLoop
+      MINB G 2 A_GiveInventory("StartUp",1)      // StartUp 6
+      MINB A 0 A_Refire
+      goto ReadyLoop
+      MINB H 2 A_GiveInventory("WindUp",1)       // StartUp 7
+      MINB A 0 A_Refire
+      goto SpinDownStart
+      MINB I 2 A_GiveInventory("WindUp",1)       // WindUp 1
+      MINB A 0 A_Refire
+      goto SpinDownStart
+      MINB J 2 A_GiveInventory("WindUp",1)       // WindUp 2
+      MINB A 0 A_Refire
+      goto SpinDownStart
+      MINB K 2 A_GiveInventory("WindUp",1)       // WindUp 3
+      MINB A 0 A_Refire
+      goto SpinDownStart
+      MINB L 2 A_GiveInventory("WindUp",1)       // WindUp 4
+      MINB A 0 A_Refire
+      goto SpinDownStart
+      MINB M 2 A_GiveInventory("WindUp",1)       // WindUp 5
+      MINB A 0 A_Refire
+      goto SpinDownStart
+      MINB N 2 A_GiveInventory("WindUp",1)       // WindUp 6
+      MINB A 0 A_Refire
+      goto SpinDownStart
+      MINB O 2 A_GiveInventory("WindUp",1)       // WindUp 7
+      MINB A 0 A_Refire
+      goto SpinDownStart
+      MINB P 2 A_GiveInventory("WindUp",1)       // WindUp 8
+      MINB A 0 A_Refire
+      goto SpinDownStart
+      MINB Q 2 A_GiveInventory("WindUp",1)       // WindUp 9
+      MINB A 0 A_Refire
+      goto SpinDownStart
+      MINB R 2 A_GiveInventory("WindUp",1)       // WindUp 10
+      MINB A 0 A_JumpIfNoAmmo("DryFirePrimary")
+      Goto FirePrimary
+
+   FirePrimary:
+      MINC A 0 A_JumpIfNoAmmo("DryFirePrimary")
+      MINC A 0 A_Recoil(0.1)
+	  MINC A 0 Radius_Quake(1,8,0,1,0)
+      MINC A 0 A_PlaySoundEx("MINIFIRE","SoundSlot5")
+      MINC A 0 A_AlertMonsters
+      MINC A 0 BRIGHT A_FireBullets(8,8,-1,15,"BulletPuff")
+      //TNT1 A 0 A_TakeInventory("762mm",1)
+      MINC A 0 A_FireCustomMissile("MiniTracer",random(-8,8),0,0,0,0,random(-8,8))
+      MINC A 0 BRIGHT A_FireBullets(8,8,-1,15,"BulletPuff")
+      //TNT1 A 0 A_TakeInventory("762mm",1)
+      MINC A 1 A_FireCustomMissile("MiniTracer",random(-8,8),0,0,0,0,random(-8,8))
+	  TNT1 A 0 ACS_ExecuteAlways(505,0)
+      MINC B 0 BRIGHT A_FireBullets(8,8,-1,15,"BulletPuff")
+      //TNT1 A 0 A_TakeInventory("762mm",1)
+      MINC A 0 A_FireCustomMissile("MiniTracer",random(-8,8),0,0,0,0,random(-8,8))
+      MINC B 0 BRIGHT A_FireBullets(8,8,-1,15,"BulletPuff")
+      //TNT1 A 0 A_TakeInventory("762mm",1)
+      MINC A 0 A_FireCustomMissile("MiniTracer",random(-8,8),0,0,0,0,random(-8,8))
+      MINC B 1 BRIGHT A_GunFlash
+	  TNT1 A 0 ACS_ExecuteAlways(505,0)
+      MINC A 0 A_JumpIfNoAmmo("DryFirePrimary")
+      MINC A 0 A_PlaySoundEx("MINIFIRE","SoundSlot5")
+      MINC A 0 A_AlertMonsters
+      MINC C 0 BRIGHT A_FireBullets(8,8,-1,15,"BulletPuff")
+      //TNT1 A 0 A_TakeInventory("762mm",1)
+      MINC A 0 A_FireCustomMissile("MiniTracer",random(-8,8),0,0,0,0,random(-8,8))
+      MINC C 0 BRIGHT A_FireBullets(8,8,-1,15,"BulletPuff")
+      //TNT1 A 0 A_TakeInventory("762mm",1)
+      MINC A 1 A_FireCustomMissile("MiniTracer",random(-8,8),0,0,0,0,random(-8,8))
+	  TNT1 A 0 ACS_ExecuteAlways(505,0)
+      MINC A 0 A_Refire
+      goto SpinDownStart
+
+   AltFire:
+      MINB A 0 A_JumpIfInventory("Firing",1,3)
+      MINB A 0 A_GiveInventory("Firing",1)
+      MINB A 0 A_PlaySoundEx("MINIUP","SoundSlot5")
+      goto WindUpSecondary
+      MINB A 0
+      goto WindUpSecondary
+
+   WindUpSecondary:
+      MINB A 0 A_JumpIfInventory("WindUp",10,51)
+      MINB A 0 A_JumpIfInventory("WindUp",9,48)
+      MINB A 0 A_JumpIfInventory("WindUp",8,45)
+      MINB A 0 A_JumpIfInventory("WindUp",7,42)
+      MINB A 0 A_JumpIfInventory("WindUp",6,39)
+      MINB A 0 A_JumpIfInventory("WindUp",5,36)
+      MINB A 0 A_JumpIfInventory("WindUp",4,33)
+      MINB A 0 A_JumpIfInventory("WindUp",3,30)
+      MINB A 0 A_JumpIfInventory("WindUp",2,27)
+      MINB A 0 A_JumpIfInventory("WindUp",1,24)
+      MINB A 0 A_JumpIfInventory("StartUp",7,21)
+      MINB A 0 A_JumpIfInventory("StartUp",6,18)
+      MINB A 0 A_JumpIfInventory("StartUp",5,15)
+      MINB A 0 A_JumpIfInventory("StartUp",4,12)
+      MINB A 0 A_JumpIfInventory("StartUp",3,9)
+      MINB A 0 A_JumpIfInventory("StartUp",2,6)
+      MINB A 0 A_JumpIfInventory("StartUp",1,3)
+      MINB A 2 A_GiveInventory("StartUp",1)      // StartUp 0
+      MINB A 0 A_Refire
+      goto ReadyLoop
+      MINB B 2 A_GiveInventory("StartUp",1)      // StartUp 1
+      MINB A 0 A_Refire
+      goto ReadyLoop
+      MINB C 2 A_GiveInventory("StartUp",1)      // StartUp 2
+      MINB A 0 A_Refire
+      goto ReadyLoop
+      MINB D 2 A_GiveInventory("StartUp",1)      // StartUp 3
+      MINB A 0 A_Refire
+      goto ReadyLoop
+      MINB E 2 A_GiveInventory("StartUp",1)      // StartUp 4
+      MINB A 0 A_Refire
+      goto ReadyLoop
+      MINB F 2 A_GiveInventory("StartUp",1)      // StartUp 5
+      MINB A 0 A_Refire
+      goto ReadyLoop
+      MINB G 2 A_GiveInventory("StartUp",1)      // StartUp 6
+      MINB A 0 A_Refire
+      goto ReadyLoop
+      MINB H 2 A_GiveInventory("WindUp",1)       // StartUp 7
+      MINB A 0 A_Refire
+      goto SpinDownStart
+      MINB I 2 A_GiveInventory("WindUp",1)       // WindUp 1
+      MINB A 0 A_Refire
+      goto SpinDownStart
+      MINB J 2 A_GiveInventory("WindUp",1)       // WindUp 2
+      MINB A 0 A_Refire
+      goto SpinDownStart
+      MINB K 2 A_GiveInventory("WindUp",1)       // WindUp 3
+      MINB A 0 A_Refire
+      goto SpinDownStart
+      MINB L 2 A_GiveInventory("WindUp",1)       // WindUp 4
+      MINB A 0 A_Refire
+      goto SpinDownStart
+      MINB M 2 A_GiveInventory("WindUp",1)       // WindUp 5
+      MINB A 0 A_Refire
+      goto SpinDownStart
+      MINB N 2 A_GiveInventory("WindUp",1)       // WindUp 6
+      MINB A 0 A_Refire
+      goto SpinDownStart
+      MINB O 2 A_GiveInventory("WindUp",1)       // WindUp 7
+      MINB A 0 A_Refire
+      goto SpinDownStart
+      MINB P 2 A_GiveInventory("WindUp",1)       // WindUp 8
+      MINB A 0 A_Refire
+      goto SpinDownStart
+      MINB Q 2 A_GiveInventory("WindUp",1)       // WindUp 9
+      MINB A 0 A_Refire
+      goto SpinDownStart
+      MINB R 2 A_GiveInventory("WindUp",1)       // WindUp 10
+      MINB A 0 A_JumpIfNoAmmo("DryFireSecondary")
+      Goto FireSecondary
+
+   FireSecondary:
+      MINC A 0 A_JumpIfNoAmmo("DryFireSecondary")
+      MINC A 0 A_Recoil(0.05)
+	  MINC A 0 Radius_Quake(1,8,0,1,0)
+      MINC A 0 A_PlaySoundEx("MINIFIRE","SoundSlot5")
+      MINC A 0 A_AlertMonsters
+      MINC A 0 BRIGHT A_FireBullets(8,8,-1,15,"BulletPuff")
+      //TNT1 A 0 A_TakeInventory("762mm",1)
+      MINC A 0 A_FireCustomMissile("MiniTracer",random(-8,8),0,0,0,0,random(-8,8))
+      MINC A 0 BRIGHT A_FireBullets(8,8,-1,15,"BulletPuff")
+      //TNT1 A 0 A_TakeInventory("762mm",1)
+      MINC A 2 A_FireCustomMissile("MiniTracer",random(-8,8),0,0,0,0,random(-8,8))
+	  TNT1 A 0 ACS_ExecuteAlways(505,0)
+      MINC B 0 BRIGHT A_FireBullets(8,8,-1,15,"BulletPuff")
+      //TNT1 A 0 A_TakeInventory("762mm",1)
+      MINC A 0 A_FireCustomMissile("MiniTracer",random(-8,8),0,0,0,0,random(-8,8))
+      MINC B 0 BRIGHT A_FireBullets(8,8,-1,15,"BulletPuff")
+      //TNT1 A 0 A_TakeInventory("762mm",1)
+      MINC A 0 A_FireCustomMissile("MiniTracer",random(-8,8),0,0,0,0,random(-8,8))
+      MINC B 2 BRIGHT A_GunFlash
+	  TNT1 A 0 ACS_ExecuteAlways(505,0)
+      MINC A 0 A_JumpIfNoAmmo("DryFireSecondary")
+      MINC A 0 A_PlaySoundEx("MINIFIRE","SoundSlot5")
+      MINC A 0 A_AlertMonsters
+      MINC C 0 BRIGHT A_FireBullets(8,8,-1,15,"BulletPuff")
+      //TNT1 A 0 A_TakeInventory("762mm",1)
+      MINC A 0 A_FireCustomMissile("MiniTracer",random(-8,8),0,0,0,0,random(-8,8))
+      MINC C 0 BRIGHT A_FireBullets(8,8,-1,15,"BulletPuff")
+      //TNT1 A 0 A_TakeInventory("762mm",1)
+      MINC A 2 A_FireCustomMissile("MiniTracer",random(-8,8),0,0,0,0,random(-8,8))
+	  TNT1 A 0 ACS_ExecuteAlways(505,0)
+      MINC A 0 A_Refire
+      goto SpinDownStart
+	  
+   DryFirePrimary:
+      MINC ABC 1
+      MINC A 0 A_JumpIfInventory("762mm",1,"FirePrimary")
+      MINC A 0 A_Refire
+      goto SpinDownStart
+
+   DryFireSecondary:
+      MINC ABC 2
+      MINC A 0 A_JumpIfInventory("762mm",1,"FireSecondary")
+      MINC A 0 A_Refire
+      goto SpinDownStart
+
+   SpinDownStart:
+      MIND A 0 A_TakeInventory("Firing",1)
+      MIND A 0 A_PlaySoundEx("MINIDOWN","SoundSlot5")
+      goto SpinDown
+   SpinDown:
+      MIND A 0 A_JumpIfInventory("WindUp",11,11)
+      MIND A 0 A_JumpIfInventory("WindUp",10,12)
+      MIND A 0 A_JumpIfInventory("WindUp",9,13)
+      MIND A 0 A_JumpIfInventory("WindUp",8,14)
+      MIND A 0 A_JumpIfInventory("WindUp",7,15)
+      MIND A 0 A_JumpIfInventory("WindUp",6,16)
+      MIND A 0 A_JumpIfInventory("WindUp",5,17)
+      MIND A 0 A_JumpIfInventory("WindUp",4,18)
+      MIND A 0 A_JumpIfInventory("WindUp",3,19)
+      MIND A 0 A_JumpIfInventory("WindUp",2,20)
+      MIND A 0 A_JumpIfInventory("WindUp",1,21)
+      MIND A 0 A_TakeInventory("WindUp",1)
+      MIND A 2 A_WeaponReady
+      MIND A 0 A_TakeInventory("WindUp",1)
+      MIND B 2 A_WeaponReady
+      MIND A 0 A_TakeInventory("WindUp",1)
+      MIND C 2 A_WeaponReady
+      MIND A 0 A_TakeInventory("WindUp",1)
+      MIND D 2 A_WeaponReady
+      MIND A 0 A_TakeInventory("WindUp",1)
+      MIND E 2 A_WeaponReady
+      MIND A 0 A_TakeInventory("WindUp",1)
+      MIND F 2 A_WeaponReady
+      MIND A 0 A_TakeInventory("WindUp",1)
+      MIND G 2 A_WeaponReady
+      MIND A 0 A_TakeInventory("WindUp",1)
+      MIND H 2 A_WeaponReady
+      MIND A 0 A_TakeInventory("WindUp",1)
+      MIND I 2 A_WeaponReady
+      MIND A 0 A_TakeInventory("WindUp",1)
+      MIND J 2 A_WeaponReady
+      MIND A 0 A_TakeInventory("WindUp",1)
+      MIND K 2 A_WeaponReady
+      goto ReadyLoop
+  }
+}
+
+ACTOR StartUp : Ammo { inventory.maxamount 7 }
+ACTOR WindUp : Ammo { inventory.maxamount 11 }
+ACTOR Firing : Ammo { inventory.maxamount 1 }

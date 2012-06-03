@@ -1,0 +1,367 @@
+ACTOR Justicar : Enemy 13233
+{ 
+	//$Category Federation
+Health 1000 
+GibHealth 60
+Radius 20 
+Height 56 
+Mass 100 
+Speed 22 
+PainChance 20
+PainChance "Shock", 64
+Species hellknight
+Translation "112:127=9:12"
+MONSTER
+MeleeDamage 10
+Obituary "A Justicar tore a smoldering hole through %o."
+HitObituary "%o was pushed aside by a Justicar."
++NOTARGET
++MISSILEMORE
++NORADIUSDMG
++BOSS
++REFLECTIVE
++SHIELDREFLECT
++FASTER
++DONTHURTSPECIES
+BloodType "NashGore_Blood"
+SeeSound "Justicar/sight"
+AttackSound "monster/railshot"
+PainSound "Justicar/pain"
+DeathSound "Justicar/death"
+ActiveSound "Justicar/taunt1"
+
+DropItem "Clip" 256
+DropItem "Clip" 256
+DropItem "Shell" 256
+Dropitem "Cell" 256
+Dropitem "Clipbox" 64
+Dropitem "Shellbox" 64
+Dropitem "Cellpack" 64
+
+Dropitem "Stimpack" 128
+Dropitem "Medikit" 64
+Dropitem "JusticarArmor" 4
+
+Dropitem "Backpack" 8
+
+DropItem "M4 Carbine" 8
+DropItem "OICW" 8
+DropItem "SPAS12" 8
+
+DropItem "2Beacon" 64
+Dropitem "FBeacon" 8
+Dropitem "UpgradeStamina2" 32
+
+Decal GreenRailScorch
+States 
+   { 
+   Spawn:
+    GO99 A 0                                                     //
+    GO99 A 0 Thing_SetSpecial(0,226,613,0,random(160,180))       // RGA2 EXP COMPATIBILITY
+    GO99 AAAAAA 1 A_LookEx(0,0,random(2048,4096),random(4096,8192),random(170,180),"SeeAlert")// ON LOOKOUT
+    GO99 A 0 HealThing(2)                                        // HEALING
+    goto Spawn+2                                                 //
+  SeeAlert:
+    GO99 A 0                                                     //
+    GO99 A 0 A_AlertMonsters                                     // ALERT OTHERS
+    Goto See                                                     //
+  See:
+    GO99 B 0 A_JumpIfInventory("CaptainScared", 1, 2)            // IF THIS JUSTICAR IS RETREATING
+    GO99 B 0 A_Jump(32, "Stand")                                 // STANDBY
+    GO99 B 0 A_JumpIfInventory("CaptainScared", 1, 1)            // IF THIS JUSTICAR IS RETREATING
+    Goto See+4                                                   //
+    GO99 B 0 A_JumpIfHealthLower(120, 1)                         // IF HEALTH IS LOW
+    Goto HealthHigh                                              //
+    GO99 B 0 A_JumpIfInventory("CaptainScared", 1, 2)            // IF THIS JUSTICAR IS RETREATING
+    GO99 B 0 A_JumpIfHealthLower(40, "HealthLow")                // IF HEALTH IS LOW
+    GO99 BB 2 A_Chase("Melee", "", 2)                            // CHARGE AND PUNCH
+    GO99 B 2 A_Chase                                             // CHASE
+    GO99 C 0 HealThing(2)                                        // HEALING
+    GO99 C 0 A_JumpIfInventory("CaptainScared", 1, 1)            // IF THIS JUSTICAR IS RETREATING
+    Goto See+13                                                  //
+    GO99 C 0 A_JumpIfHealthLower(120, 1)                         // IF HEALTH IS LOW
+    Goto HealthHigh                                              //
+    GO99 C 0 A_JumpIfInventory("CaptainScared", 1, 2)            // IF THIS JUSTICAR IS RETREATING
+    GO99 C 0 A_JumpIfHealthLower(40, "HealthLow")                // IF HEALTH IS LOW
+    GO99 CC 2 A_Chase("Melee", "", 2)                            // CHARGE AND PUNCH
+    GO99 C 2 A_Chase                                             // CHASE
+    GO99 D 0 HealThing(2)                                        // HEALING
+    GO99 D 0 A_JumpIfInventory("CaptainScared", 1, 1)            // IF THIS JUSTICAR IS RETREATING
+    Goto See+22                                                  //
+    GO99 D 0 A_JumpIfHealthLower(120, 1)                         // IF HEALTH IS LOW
+    Goto HealthHigh                                              //
+    GO99 D 0 A_JumpIfInventory("CaptainScared", 1, 2)            // IF THIS JUSTICAR IS RETREATING
+    GO99 D 0 A_JumpIfHealthLower(40, "HealthLow")                // IF HEALTH IS LOW
+    GO99 DD 2 A_Chase("Melee", "", 2)                            // CHARGE AND PUNCH
+    GO99 D 2 A_Chase                                             // CHARGE
+    GO99 E 0 HealThing(2)                                        // HEALING
+    GO99 E 0 A_JumpIfInventory("CaptainScared", 1, 1)            // IF THIS JUSTICAR IS RETREATING
+    Goto See+31                                                  //
+    GO99 E 0 A_JumpIfHealthLower(120, 1)                         // IF HEALTH IS LOW
+    Goto HealthHigh                                              //
+    GO99 E 0 A_JumpIfInventory("CaptainScared", 1, 2)            // IF THIS JUSTICAR IS RETREATING
+    GO99 E 0 A_JumpIfHealthLower(40, "HealthLow")                // IF HEALTH IS LOW
+    GO99 EE 2 A_Chase("Melee", "", 2)                            // CHARGE AND PUNCH
+    GO99 E 2 A_Chase                                             // CHARGE
+    GO99 B 0 HealThing(2)                                        // HEALING
+    Loop                                                         //
+  Stand:
+    GO99 A 0 A_Chase("Melee", "Missile", 18)                     // CHASE
+    GO99 A 3 A_FaceTarget                                        //
+    GO99 A 0 HealThing(2)                                        // HEALING
+    GO99 A 0 A_Chase("Melee", "Missile", 18)                     // CHASE
+    GO99 A 3 A_FaceTarget                                        //
+    GO99 A 0 HealThing(2)                                        // HEALING
+    GO99 A 0 A_Chase("Melee", "Missile", 18)                     // CHASE
+    GO99 A 3 A_FaceTarget                                        //
+    GO99 A 0 HealThing(2)                                        // HEALING
+    GO99 A 0 A_Chase("Melee", "Missile", 18)                     // CHASE
+    GO99 A 3 A_FaceTarget                                        //
+    GO99 A 0 HealThing(2)                                        // HEALING
+    GO99 A 0 A_Chase("Melee", "Missile", 18)                     // CHASE
+    GO99 A 3 A_FaceTarget                                        //
+    GO99 A 0 HealThing(2)                                        // HEALING
+    GO99 A 0 A_Chase("Melee", "Missile", 18)                     // CHASE
+    GO99 A 3 A_FaceTarget                                        //
+    GO99 A 0 HealThing(2)                                        // HEALING
+    GO99 A 0 A_Chase("Melee", "Missile", 18)                     // CHASE
+    GO99 A 3 A_FaceTarget                                        //
+    GO99 A 0 HealThing(2)                                        // HEALING
+    GO99 A 0 A_Chase("Melee", "Missile", 18)                     // CHASE
+    GO99 A 3 A_FaceTarget                                        //
+    GO99 A 0 HealThing(2)                                        // HEALING
+    GO99 A 0 A_Chase("Melee", "Missile", 18)                     // CHASE
+    GO99 A 3 A_FaceTarget                                        //
+    GO99 A 0 HealThing(2)                                        // HEALING
+    GO99 A 0 A_Jump(192, 1)                                      // STOP STANDING AROUND?
+    Goto See+1                                                   //
+    GO99 A 0                                                     //
+    Loop                                                         //
+  HealthLow:
+    GO99 A 0 A_GiveInventory("CaptainScared", 1)                 // JUSTICAR IS RETREATING
+    GO99 A 0 A_ChangeFlag("Frightened", 1)                       // RETREAT
+    Goto See+4                                                   //
+  HealthHigh:
+    GO99 A 0 A_TakeInventory("CaptainScared", 1)                 // JUSTICAR IS NO LONGER RETREATING
+    GO99 A 0 A_ChangeFlag("Frightened", 0)                       // PUSH ONWARD
+    Goto See+4                                                   //
+  Melee:
+    GO99 A 0 A_FaceTarget                                        //
+	GO99 A 0 A_Jump(2,"CastFist")
+  Punch:
+    GO99 E 3 A_CustomMeleeAttack(10,"monster/inipunc1","none")   // PAWNCH
+    GO99 A 0 A_Jump(255, 1)                                      // KNOCKBACK
+    Goto See                                                     //
+    GO99 A 0 A_FaceTarget                                        //
+    GO99 A 3 A_CustomMissile("Knockback",32,0,0,0)               // KNOCKBACK TARGET
+    Goto See                                                     //
+  CastFist:
+	GO99 A 40 A_PlaySound("Justicar/CASTFIST",0,1,0,ATTN_NONE)
+	GO99 A 1 A_ChangeFlag("Invulnerable",1)
+	GO99 A 0 A_CustomMissile("FireBurstExplosion",0,0,0,32,0)
+    GO99 A 0 A_CustomMissile("dirtysmokebomb",0,0,0)
+	GO99 A 0 A_CustomMissile("DarkInquisitorBigExplosion",0,0,0)
+	GO99 A 35 Radius_Quake(9,70,0,140,0)
+	GO99 A 0 A_ChangeFlag("Invulnerable",0)
+	Goto See
+  Missile:
+    GO99 E 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    GO99 E 0 A_Jump(64, 27)                                      // CHANCE SPECIAL ATTACK
+    GO99 E 2 A_FaceTarget                                        //
+    GO99 E 0 A_JumpIfInventory("KnightAmmo", 10, 21)             // CHECK AMMO
+    GO99 F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("monster/railshot","SoundSlot6")
+	GO99 F 2 BRIGHT A_CustomMissile("JusticarTracer",38,0,random(-10,10),2,random(-10,10))
+    GO99 E 2 A_FaceTarget                                        //
+    GO99 F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("monster/railshot","SoundSlot6")
+	GO99 F 2 BRIGHT A_CustomMissile("JusticarTracer",38,0,random(-10,10),2,random(-10,10))
+    GO99 E 2 A_FaceTarget                                        //
+    GO99 F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("monster/railshot","SoundSlot6")
+	GO99 F 2 BRIGHT A_CustomMissile("JusticarTracer",38,0,random(-10,10),2,random(-10,10))
+    GO99 E 2 A_FaceTarget                                        //
+    GO99 F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),BulletPuff)   // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("monster/railshot","SoundSlot6")
+	GO99 F 2 BRIGHT A_CustomMissile("JusticarTracer",38,0,random(-10,10),2,random(-10,10))
+    GO99 E 2 A_FaceTarget                                        //
+    GO99 E 0 A_GiveInventory("KnightAmmo", 1)                    // LESSEN AMMO
+    GO99 E 0 A_Jump(32, 2)                                       //
+    GO99 E 0 A_SpidReFire                                        // SHOOT AGAIN!
+    Goto Missile+3                                               //
+    GO99 E 0                                                     //
+    goto See                                                     //
+    GO99 E 0 A_TakeInventory("KnightAmmo", 10)                   // RELOAD!
+    GO99 E 8 A_PlaySound("ZSec/DryFire")                         //
+    GO99 E 55 A_PlaySound("ZSec/Reload")                         //
+    GO99 E 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    goto See                                                     //
+    GO99 E 10 A_FaceTarget                                       //
+    GO99 F 0 bright A_CustomBulletAttack(5,5,3,random(1,3),BulletPuff)     // 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("monster/railshot","SoundSlot6")
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarTracer",38,0,random(-5,5),2,random(-5,5))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarTracer",38,0,random(-5,5),2,random(-5,5))
+	GO99 F 2 BRIGHT A_CustomMissile("JusticarTracer",38,0,random(-5,5),2,random(-5,5))
+    GO99 E 2 A_FaceTarget                                        //
+    GO99 F 0 bright A_CustomBulletAttack(5,5,3,random(1,3),BulletPuff)     // 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("monster/railshot","SoundSlot6")
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarTracer",38,0,random(-5,5),2,random(-5,5))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarTracer",38,0,random(-5,5),2,random(-5,5))
+	GO99 F 2 BRIGHT A_CustomMissile("JusticarTracer",38,0,random(-5,5),2,random(-5,5))
+    GO99 E 2 A_FaceTarget                                        //
+    GO99 F 0 bright A_CustomBulletAttack(5,5,3,random(1,3),BulletPuff)     // 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("monster/railshot","SoundSlot6")
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarTracer",38,0,random(-5,5),2,random(-5,5))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarTracer",38,0,random(-5,5),2,random(-5,5))
+	GO99 F 2 BRIGHT A_CustomMissile("JusticarTracer",38,0,random(-5,5),2,random(-5,5))
+    GO99 E 2 A_FaceTarget                                        //
+    GO99 F 0 bright A_CustomBulletAttack(5,5,3,random(1,3),BulletPuff)     // 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("monster/railshot","SoundSlot6")
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarTracer",38,0,random(-5,5),2,random(-5,5))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarTracer",38,0,random(-5,5),2,random(-5,5))
+	GO99 F 2 BRIGHT A_CustomMissile("JusticarTracer",38,0,random(-5,5),2,random(-5,5))
+    GO99 E 2 A_FaceTarget                                        //
+    GO99 E 4 Bright A_FaceTarget                                 //
+    GO99 E 0 A_PlaySound("monster/warning")                      // WARNING!
+    GO99 E 4 Bright A_FaceTarget                                 //
+    GO99 E 0 A_PlaySound("monster/warning")                      // WARNING!
+    GO99 E 4 Bright A_FaceTarget                                 //
+    GO99 E 0 A_PlaySound("monster/warning")                      // WARNING!
+    GO99 E 4 Bright A_FaceTarget                                 //
+    GO99 E 0 A_PlaySound("monster/warning")                      // WARNING!
+    GO99 E 4 Bright A_FaceTarget                                 //
+    GO99 E 0 A_PlaySound("monster/warning")                      // WARNING!
+    GO99 E 4 Bright A_FaceTarget                                 //
+    GO99 E 0 Bright A_JumpIfCloser(384,7)                        // FIRE SHOTGUN IF CLOSER
+    GO99 E 96 Bright A_PlaySound("Justicar/taunt3")              // TAUNT
+    GO99 E 0 Bright A_FaceTarget                                 //
+    GO99 E 0 Bright A_PlaySound("monster/railshot")              //
+    GO99 F 4 Bright A_CustomRailgun (100, 0, FF0000, 00FF00)     // RAILGUN
+    GO99 E 4 Bright                                              //
+    GO99 E 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    Goto See                                                     //
+    GO99 E 96 A_PlaySound("Justicar/taunt2")                     // TAUNT
+    GO99 E 0 A_FaceTarget                                        //
+    GO99 E 0 A_PlaySound("monster/Spreadsh")                     //
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(-8,-4),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(-8,-4),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(-8,-4),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(-8,-4),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(-8,-4),2,random(-6,6))
+    //GO99 F 0 A_CustomMissile ("Projectile2",28,0,-6,0)           // SHOTGUN SHELL 1
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(-6,-2),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(-6,-2),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(-6,-2),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(-6,-2),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(-6,-2),2,random(-6,6))
+    //GO99 F 0 A_CustomMissile ("Projectile2",28,0,-4,0)           // SHOTGUN SHELL 2
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(-4,0),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(-4,0),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(-4,0),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(-4,0),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(-4,0),2,random(-6,6))
+    //GO99 F 0 A_CustomMissile ("Projectile2",28,0,-2,0)           // SHOTGUN SHELL 3
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(0,4),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(0,4),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(0,4),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(0,4),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(0,4),2,random(-6,6))
+    //GO99 F 0 A_CustomMissile ("Projectile2",28,0,2,0)            // SHOTGUN SHELL 4
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(2,6),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(2,6),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(2,6),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(2,6),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(2,6),2,random(-6,6))
+    //GO99 F 0 A_CustomMissile ("Projectile2",28,0,4,0)            // SHOTGUN SHELL 5
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(4,8),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(4,8),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(4,8),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(4,8),2,random(-6,6))
+	GO99 F 0 BRIGHT A_CustomMissile("JusticarShotgunTracer",38,0,random(4,8),2,random(-6,6))
+    //GO99 F 3 Bright A_CustomMissile ("Projectile2",28,0,6,0)     // SHOTGUN SHELL 6
+	GO99 F 3 bright A_CustomBulletAttack(8,6,30,random(1,3)*10,BulletPuff)
+    GO99 E 3 Bright                                              //
+    GO99 E 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    Goto See                                                     //
+  Pain:
+    GO99 G 3                                                     //
+    GO99 G 3 A_Pain                                              // OW!
+    GO99 G 0 HealThing(2)                                        // HEALING
+    Goto See                                                     //
+  Pain.Shock:
+    GO99 G 2 A_ChangeFlag("NoPain", 1)                           // STUNNED!
+    GO99 G 300 A_Pain                                            //
+    GO99 G 0 A_ChangeFlag("NoPain", 0)                           //
+    Goto See                                                     //
+  Death:
+    GO99 H 0 A_JumpIfHealthLower(-60,"Splode")                   //
+    GO99 I 8 A_ScreamAndUnblock                                  //
+    GO99 JKLM 6                                                  //
+    GO99 N 0 A_Jump(64, 2)                                       // REGENERATING!
+    GO99 N -1                                                    //
+    stop                                                         //
+    GO99 NNNNN 70                                                //
+    GO99 NNNNN 70                                                //
+    GO99 NNNNN 70                                                //
+    GO99 N -1 Thing_Raise(0)                                     // STILL ALIVE
+    Wait                                                         //
+   Splode:
+      GO99 I 1                                                     // xDeath
+      GO99 I 0 A_SpawnDebris("NashGore_Gib9",0)                    // GIBS!
+      GO99 I 0 A_SpawnDebris("NashGore_Gib10",0)                   //
+      GO99 I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+      GO99 I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+      GO99 I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+      GO99 I 0                                                     //
+      GO99 I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+      GO99 I 0 A_XScream                                           //
+      GO99 I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+      GO99 I 0 A_NoBlocking                                        //
+      GO99 I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+      GO99 I 0                                                     //
+      GO99 Z 0 A_SpawnItemEx("DEADInitiateHead",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)//
+      stop                                                         //
+   Death.Fire2:
+      TNT1 A 1 A_SpawnItem("BurnDeath1", 2, 1)                   // SCORCHED
+      stop                                                       //
+  Raise:
+    GO99 KJ 5                                                    // REVIVED
+    GO99 IH 5 Thing_SetSpecial(0,226,613,0,random(160,180))      // RGA2 EXP COMPATIBILITY
+    Goto See                                                     //
+   //Death.head:
+   //   GO99 O 9 A_PlaySound("headshot/splat")                       //
+   //   GO99 I 0 A_SpawnDebris("NashGore_Gib9",0)                    // GIBS!
+   //   GO99 I 0 A_SpawnDebris("NashGore_Gib10",0)                   //
+   //   GO99 I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+   //   GO99 I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+   //   GO99 P 9 A_XScream                                           //
+   //   GO99 Q 9 A_Fall                                              //
+   //   GO99 R 5                                                     //
+   //   GO99 S 5                                                     //
+   //   GO99 T 0 A_SpawnItemEx("DEADInitiate",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)// FAKE BODY
+   //   stop                                                         //
+     } 
+}
+
+Actor Projectile2
+{
+ Scale 0.50
+ Height 5
+ Radius 13
+ Damage 50
+ Speed 50
+ Projectile
+ +NOEXTREMEDEATH
+ +MISSILE
+ +DROPOFF
+ decal "bulletchip"
+ States
+ {
+  Spawn:
+      PROJ A 1
+      Loop
+  Death:
+      PUFF ABCD 4
+      stop
+      }
+}

@@ -1,0 +1,138 @@
+ACTOR "Hand Grenade" : Weapon replaces GrenadeLauncher {
+
+  Weapon.AmmoType1 "FedGrenadeAmmo"
+  Weapon.AmmoGive1 1
+  Weapon.AmmoUse1 1
+
+  Weapon.AmmoType2 "FedGrenadeAmmo"
+  Weapon.AmmoGive2 0
+  Weapon.AmmoUse2 1
+  
+  Weapon.SelectionOrder 115
+  Weapon.SlotNumber 5
+  
+  +NOALERT
+  
+  Scale 0.15
+  
+  Inventory.Icon GHEIA0
+  
+  inventory.pickupmessage "Picked up a hand grenade."
+  obituary "\ca %k \cb --> Hand Grenade --> \cc %o"
+   
+  States {
+  
+  Spawn:
+	GHEI B -1
+	Stop
+
+  Select:
+	GRNA A 0 A_TakeInventory("IronSight",1)
+	GRNA A 0 A_ZoomFactor(1,ZOOM_INSTANT)
+	GRNA A 0 A_Raise
+	loop
+	  
+  Ready:  // This is for show. Just the animation
+	GRNA A 0 A_JumpIfInventory("FedGrenadeAmmo",1,1)
+	goto NoGrenade
+	GRNA ABCDEFGH 1 A_WeaponReady(WRF_NOPRIMARY)
+	//GRNA H 0 A_PlaySound("GRE_PIN")
+	GRNA IJKLMNOPQRSTUVWXYZ 1 A_WeaponReady(WRF_NOPRIMARY)
+	  
+  Readyloop:
+	GRNA Z 1 A_WeaponReady
+	loop
+
+  NoGrenade:
+	GRNB I 1 A_WeaponReady
+	goto Ready
+	 
+  Deselect:
+	TNT1 AAAAAAAAAA 0 A_Lower
+	  
+  DeselectLoop: // Makes sure it wraps up
+	TNT1 A 1 A_Lower
+	loop
+	  
+  Fire:
+	TNT1 A 0
+	GRNB ABC 2
+	TNT1 A 2
+	TNT1 A 0 A_PlaySOund("GRE_THRO")
+	GRNB D 2 A_FireCustomMissile("ThrownGrenade",random(-2,2),1,8,8,0,random(8,12))
+	GRNB EFGHIJKL 2
+	TNT1 A 0 A_CheckReload // No more grenades, switch weapons
+	TNT1 A 0 A_Refire
+	goto Ready // Pull up another grenade
+
+  AltFire:
+	TNT1 A 0
+	GRNC ABC 2
+	TNT1 A 2
+	TNT1 A 0 A_PlaySOund("GRE_THRO")
+	GRNC D 2 A_FireCustomMissile("RolledGrenade",random(-2,2),1,8,-20,0,random(-1,1))
+	GRNC EFGHIJKL 2
+	TNT1 A 0 A_CheckReload // No more grenades, switch weapons
+	TNT1 A 0 A_Refire
+	goto Ready // Pull up another grenade
+  }
+}
+
+ACTOR ThrownGrenade {
+  Radius 2
+  Height 4
+  Speed 20 // previously 24
+  
+  Damage 1
+  damagetype "Explosion"
+  
+  Scale 0.15
+  
+  gravity 0.4
+  bouncefactor 0.5
+  WallBounceFactor 0.55
+  ReactionTime 4
+   
+  PROJECTILE
+  -NOGRAVITY
+  +HEXENBOUNCE
+  //+LOWGRAVITY
+  +NOEXTREMEDEATH
+  +RANDOMIZE
+  +FORCERADIUSDMG
+  +CANBOUNCEWATER
+  +BOUNCEONACTORS
+  +GRENADETRAIL
+  +FULLVOLDEATH
+  
+  //SeeSound "weapons/grnbounce"
+  DeathSound "Grenade/Explode"
+  
+  States {
+  
+  Spawn:
+	GHEA A 0
+	GHEA AEBDBEA 4
+	GHEA C 4 A_Countdown
+	loop
+  Death:
+	GHEA A 0 A_AlertMonsters
+	GHEA A 0 //A_PlaySound("weapons/grnexplode")
+	GHEA A 0 A_CustomMissile("dirtysmokebomb",0,0,0)
+	GHEA A 0 A_SpawnItemEx("Explosion",0,0,1,0,0,0,0,0,0) //Changed from "GrenadeExplosion". If it's broke revert back! also now 1 instead of -1
+	GHEA A 3 Bright
+	Stop
+  }
+}
+
+ACTOR RolledGrenade : ThrownGrenade {
+	Speed 21 // previously 25
+	States {
+	
+	Spawn:
+		GHEA A 0
+		GHEA EFGHIJK 4
+		GHEA L 4 A_Countdown
+		loop
+	}
+}

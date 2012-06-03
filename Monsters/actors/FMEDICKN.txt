@@ -1,0 +1,219 @@
+ACTOR FMedicKnight : MedicKnight 11588
+{
+	//$Category Federation
+  Health 440
+	damagefactor "KillMe", 0.0
+  +NOBLOCKMONST
+  +FRIENDLY
+  states
+  {
+  Spawn:
+    MEHD A 0                                                     //
+    MEHD A 0 A_CustomMissile("OrbitFriendly", 44, 0, 0, 2, 0)    //
+    MEHD A 0 A_CustomMissile("OrbitFriendly2", 44, 0, 180, 2, 0) //
+    MEHD A 1 A_ChangeFlag("FRIENDLY",1)                          // MAKE FRIENDLY
+    MEHD A 0 A_CheckSight("Spawn2")                              // DO NOT SPAWN HEADSHOT BOX 
+    MEHD A 0 Thing_SetSpecial(0,226,613,0,0)                     // RGA2 EXP COMPATIBILITY
+	TNT1 A 0 A_SpawnItem ("KillMe")
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    MEHD AB 4 A_Look                                             // WHERE ARE YOU!
+    goto Spawn+7                                                 //
+  Spawn2:
+    MEHD A 0                                                     //
+    MEHD A 0 Thing_SetSpecial(0,226,613,0,random(0,0))           // RGA2 EXP COMPATIBILITY
+    MEHD AB 4 A_Look                                             // WHERE ARE YOU!
+    goto Spawn2+2                                                //
+  See:
+    MEHD A 0 A_CheckSight("SEE2")                                //
+    MEHD A 0 A_Jump(128,6)                                       // CHANCE VULNERABLE CHASE
+    MEHD A 0 A_ChangeFlag("NoDamage",1)                          // INDESTRUCTIBLE
+    MEHD A 0 A_ChangeFlag("REFLECTIVE",0)                        // DO NOT REFLECT
+    MEHD A 0 A_ChangeFlag("SHIELDREFLECT",0)                     // DO NOT REFLECT FROM FRONT
+    MEHD A 0 A_GiveInventory("MedicShieldOn",1)                  // SHORT PAIN
+    MEHD AABBCCDD 4 A_VileChase                                  // CHASE AND HEAL
+    MEHD A 0 A_ChangeFlag("NoDamage",0)                          // CAN BE HURT
+    MEHD A 0 A_ChangeFlag("REFLECTIVE",1)                        // REFLECT
+    MEHD A 0 A_ChangeFlag("SHIELDREFLECT",1)                     // REFLECT FROM FRONT
+    MEHD A 0 A_TakeInventory("MedicShieldOn",1)                  //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MEHD A 4 A_VileChase                                         // CHASE AND HEAL
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MEHD A 4 A_VileChase                                         // CHASE AND HEAL
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MEHD B 4 A_VileChase                                         // CHASE AND HEAL
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MEHD B 4 A_VileChase                                         // CHASE AND HEAL
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MEHD C 4 A_VileChase                                         // CHASE AND HEAL
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MEHD C 4 A_VileChase                                         // CHASE AND HEAL
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MEHD D 4 A_VileChase                                         // CHASE AND HEAL
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MEHD D 4 A_VileChase                                         // CHASE AND HEAL
+    MEHD D 0 HealThing(1)                                        // HEALING
+    Goto See                                                     //
+  See2:
+    MEHD A 0 A_Jump(128,6)                                       // CHANCE VULNERABLE CHASE
+    MEHD A 0 A_ChangeFlag("NoDamage",1)                          // INDESTRUCTIBLE
+    MEHD A 0 A_ChangeFlag("REFLECTIVE",0)                        // DO NOT REFLECT
+    MEHD A 0 A_ChangeFlag("SHIELDREFLECT",0)                     // DO NOT REFLECT FROM FRONT
+    MEHD A 0 A_GiveInventory("MedicShieldOn",1)                  // SHORT PAIN
+    MEHD AABBCCDD 4 A_VileChase                                  // CHASE AND HEAL
+    MEHD A 0 A_ChangeFlag("NoDamage",0)                          // CAN BE HURT
+    MEHD A 0 A_ChangeFlag("REFLECTIVE",1)                        // REFLECT
+    MEHD A 0 A_ChangeFlag("SHIELDREFLECT",1)                     // REFLECT FROM FRONT
+    MEHD A 0 A_TakeInventory("MedicShieldOn",1)                  //
+    MEHD AABBCCDD 4 A_VileChase                                  // CHASE AND HEAL
+    MEHD D 0 HealThing(1)                                        // HEALING
+    Goto See                                                     //
+  Missile:
+    MEHD E 0 A_ChangeFlag("NoPain", 1)                           // WILL NOT ENTER PAIN STATE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    MEHD E 10 A_FaceTarget                                       //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    MEHD F 20 A_CustomMissile("MedicBlast",32,0)                 // FIRE PLASMA
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          // MAKE HEADSHOT BOX
+    MEHD E 5                                                     //
+    MEHD E 0 A_ChangeFlag("NoPain", 0)                           // WILL ENTER PAIN STATE
+    Goto See                                                     //
+  Heal:
+    //MEHD B 0 A_CustomMissile("TraitorMaker",30,0,0,CMF_AIMDIRECTION,0)// MAKE TRAITOR
+    MEHD BD 5 BRIGHT                                             // REVIVE OTHERS
+    Goto See                                                     //
+  Pain:
+    MEHD G 1                                                     //
+    MEHD G 0 A_JumpIfInventory("MedicShieldOn",1,3)              // SHORT PAIN
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MEHD G 2                                                     //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           // MAKE HEADSHOT BOX
+    MEHD G 3 A_Pain                                              // OW!
+    goto See                                                     //
+    MEHD E 2                                                     //
+    MEHD A 0 A_CustomMissile("ShieldPartVisual", 44, 0, 0)       //
+    MEHD A 0 A_CustomMissile("ShieldPartVisual", 44, 0, 180)     //
+    MEHD A 0 A_CustomMissile("ShieldPartVisual", 44, 0, 90)      //
+    MEHD A 0 A_CustomMissile("ShieldPartVisual", 44, 0, -90)     //
+    MEHD A 0 A_CustomMissile("ShieldPartVisual", 44, 0, 45)      //
+    MEHD A 0 A_CustomMissile("ShieldPartVisual", 44, 0, -45)     //
+    MEHD A 0 A_CustomMissile("ShieldPartVisual", 44, 0, 135)     //
+    MEHD A 0 A_CustomMissile("ShieldPartVisual", 44, 0, -135)    //
+    goto see                                                     //
+  Pain.Shock:
+	MEHD G 2 A_ChangeFlag("NoPain", 1)                           // STUNNED!
+	MEHD G 300 A_Pain                                            //
+	MEHD G 0 A_ChangeFlag("NoPain", 0)                           //
+	Goto See                                                     //
+  Death:
+    MEHD H 0 A_JumpIfHealthLower(-60,"Splode")                   //
+    MEHD H 5 ACS_ExecuteAlways(757,0,random(276,300),0,0)        //
+    MEHD I 5 A_Scream                                            //
+    MEHD J 5 A_Fall                                              //
+    MEHD K 5                                                     //
+    MEHD L 5                                                     //
+    MEHD M 5                                                     //
+    MEHD N 0 A_Jump(5, 3)                                        // REGENERATING!
+    MEHD N 0 A_GiveInventory("isDead", 1)                        //
+    MEHD N -1                                                    //
+    stop                                                         //
+    MEHD NNNNN 70                                                //
+    MEHD NNNNN 70                                                //
+    MEHD NNNNN 70                                                //
+    MEHD N -1 Thing_Raise(0)                                     // STILL ALIVE
+    Wait                                                         //
+  Splode:
+    MEHD I 1 ACS_ExecuteAlways(757,0,random(276,300),0,0)        //
+    MEHD I 0 A_SpawnDebris("NashGore_Gib9",0)                    // GIBS!
+    MEHD I 0 A_SpawnDebris("NashGore_Gib10",0)                   //
+    MEHD I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+    MEHD I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+    MEHD I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+    MEHD I 0                                                     //
+    MEHD I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+    MEHD I 0 A_XScream                                           //
+    MEHD I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+    MEHD I 0 A_NoBlocking                                        //
+    MEHD I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        //
+    MEHD I 0 A_GiveInventory("isDead", 1)                        //
+    MEHD Z 0 A_SpawnItemEx("DEADFMedicKnightHead",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)//
+    stop                                                         //
+  Death.Fire2:
+    TNT1 A 0 ACS_ExecuteAlways(757,0,random(276,300),0,0)        //
+    MEHD N 0 A_GiveInventory("isDead", 1)                        //
+    TNT1 A 1 A_SpawnItem("BurnDeath1", 2, 1)                     // SCORCHED
+    stop                                                         //
+  Raise:
+    MEHD KJ 5 A_ChangeFlag("FRIENDLY",1)                         // REVIVED
+    MEHD N 0 A_TakeInventory("isDead", 1)                        //
+    MEHD A 0 A_CustomMissile("OrbitFriendly", 44, 0, 0, 2, 0)    //
+    MEHD A 0 //A_CustomMissile("OrbitFriendly2", 44, 0, 180, 2, 0) //
+    MEHD IH 5 Thing_SetSpecial(0,226,613,0,0)                    // RGA2 EXP COMPATIBILITY
+	TNT1 A 0 A_SpawnItem ("KillMe")
+    Goto See                                                     //
+  Death.head:
+    TNT1 A 0 ACS_ExecuteAlways(757,0,random(276,300),0,0)        //
+    MEHD O 9 A_PlaySound("headshot/splat")                       //
+    MEHD I 0 A_SpawnDebris("NashGore_Gib3",0)                    // GIBS!
+    MEHD I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+    MEHD I 0 A_SpawnDebris("NashGore_Gib11",0)                   //
+    MEHD P 9 A_XScream                                           //
+    MEHD Q 9 A_Fall                                              //
+    MEHD R 5                                                     //
+    MEHD S 5 A_GiveInventory("isDead", 1)                        //
+    MEHD T 0 A_SpawnItemEx("DEADFMedicKnight",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)// FAKE BODY
+    stop                                                         //
+  }
+}
+
+ACTOR DEADFMedicKnight
+{
+ +FLOORCLIP
+ Radius 12
+ Height 11
+ States
+ {
+  Spawn:
+   MEHD T 0
+   MEHD T -1
+   stop
+ }
+}
+
+ACTOR DEADFMedicKnightHead
+{
+ +FLOORCLIP
+ Radius 12
+ Height 11
+ States
+ {
+  Spawn:
+   MEHD Z 0
+   MEHD Z -1
+   stop
+ }
+}
+
+/*Actor TraitorMaker {
+  Speed 1
+  Radius 4
+  Height 8
+  Damage 1
+  DamageType Traitor
+  PROJECTILE
+  //+FORCEPAIN
+  +DONTREFLECT
+  +FOILINVUL
+  +BLOODLESSIMPACT
+  States {
+	Spawn:
+		TNT1 A 0
+		HEXA A 1
+		TNT1 A 0 A_Stop
+	JustWait:
+		HEXA A 1
+		loop
+	Death:
+		TNT1 A 1
+		stop
+  }
+}*/

@@ -1,0 +1,139 @@
+//R. Bull Sounds
+357_Fire     357_Fire
+357_R1       357_R1
+357_R2       357_R2
+357_R3       357_R3
+357_R4       357_R4
+
+//Desert Eagle
+DE_FIRE		DE_FIRE
+DE_RISE		DE_RISE
+DE_R1		DE_R1
+DE_R2		DE_R2
+DE_SLIDE	DE_SLIDE
+
+//Lance Sounds
+BSR_FIRE	BSR_FIRE
+BSR_R1		BSR_R1
+BSR_R2		BSR_R2
+BSR_Z1		BSR_Z1
+BSR_Z2		BSR_Z2
+
+//M4 Carbine Sounds
+M4_BOLT		M4_BOLT
+M4_CLIPI	M4_CLIPI
+M4_CLIPO	M4_CLIPO
+M4_FIRE		M4_FIRE
+M4_RISE		M4_RISE
+
+//MP7 Sounds
+MP7_FIRE	 MP7_FIRE
+MP7_R1		 MP7_R1
+
+//Silecned MP5 Sounds
+MP5_IN           MP5_IN
+MP5_OUT          MP5_OUT
+MP5_SLID         MP5_SLID
+MP5_FIRE         MP5_FIRE
+
+//M9 Sounds
+M9FIRE		M9FIRE
+USP_R1		USP_R1
+
+//Sawed-Off Sounds
+SOS_FIRE	SOS_FIRE
+SOS_R1		SOS_R1
+SOS_R2		SOS_R2
+SOS_R3		SOS_R3
+
+//Spas12 Sounds
+S12_FIRE	S12_FIRE
+S12_PUMP	S12_PUMP
+$Random S12_R { S12_R1 S12_R2 S12_R3 }
+	S12_R1		S12_R1
+	S12_R2		S12_R2
+	S12_R3		S12_R3
+
+//OICW Sounds
+$random OICW_FIR { OICW_FI1 OICW_FI2 OICW_FI3 }
+OICW_FI1    OICW_FI1
+OICW_FI2    OICW_FI2
+OICW_FI3    OICW_FI3
+OICW_REL    OICW_REL
+
+//Grenade Sounds
+$random Grenade/Explode { GRE_EXP1 GRE_EXP2 GRE_EXP3 }
+GRE_EXP1	GRE_EXP1
+GRE_EXP2	GRE_EXP2
+GRE_EXP3	GRE_EXP3
+GRE_PIN		GRE_PIN
+GRE_THRO	GRE_THRO
+shock/empdie inqempex
+
+//RPG Sounds
+RPG/MissileThrust     RPG_THRU
+RPG/MissileLaunch   RPG_LAUN
+
+//Wakizashi Sounds
+KNI_DEPL     KNI_DEPL
+$random KNI_HIT { KNI_HIT1 KNI_HIT2 KNI_HIT3 KNI_HIT4 }
+    KNI_HIT1     KNI_HIT1
+    KNI_HIT2     KNI_HIT2
+    KNI_HIT3     KNI_HIT3
+    KNI_HIT4     KNI_HIT4
+KNI_HITW     KNI_HITW
+$random KNI_SLA { KNI_SLA1 KNI_SLA2 }
+    KNI_SLA1     KNI_SLA1
+    KNI_SLA2     KNI_SLA2
+    KNI_STAB     KNI_STAB
+    
+//Minigun Sounds
+MINIFIRE    MINIFIRE
+$limit MINIFIRE 0
+MINIDOWN    MINIDOWN
+MINIUP      MINIUP
+
+//Flamer Sounds
+FLAMER		FLAMER
+SCORCH		SORCH
+
+//Cryo Rifle Sounds
+weapons/iceshot		DSICESHT
+weapons/icehit		DSICEHIT
+IceGuyAttack            frosty2
+IceGuyMissileExplode    shards1b
+
+//Misc Sounds
+dryfire		dryfire
+BANG_1		BANG_1
+
+//Splatter Sounds
+bloodsplat1 dsblud01
+bloodsplat2 dsblud02
+bloodsplat3 dsblud03
+$random bloodsplat { bloodsplat1 bloodsplat2 bloodsplat3 }
+$limit bloodsplat 1
+
+Ambient/Rain	AMBRAIN
+$limit Ambient/Rain 1
+
+$random Federation/Thunder { Thunder/Thunder1 Thunder/Thunder2 Thunder/Thunder3 Thunder/Thunder4 Thunder/Thunder5 Thunder/Thunder6 }
+Thunder/Thunder1    THUNDER1
+Thunder/Thunder2    THUNDER2
+Thunder/Thunder3    THUNDER3
+Thunder/Thunder4    THUNDER4
+Thunder/Thunder5    THUNDER5
+Thunder/Thunder6    THUNDER6
+$limit Thunder/Thunder1 0
+$limit Thunder/Thunder2 0
+$limit Thunder/Thunder3 0
+$limit Thunder/Thunder4 0
+$limit Thunder/Thunder5 0
+$limit Thunder/Thunder6 0
+
+BLANKSND	BLANKSND
+
+$random pings {gen/ping1 , gen/ping2 , gen/ping3}
+    gen/ping1	P_RICOCH
+    gen/ping2	P_RICOC1
+    gen/ping3	P_RICOC2

@@ -1,0 +1,355 @@
+ACTOR FStrikeKnight : StrikeKnight 11202
+{
+	//$Category Federation
+  Health 440
+	damagefactor "KillMe", 0.0
+  +NOBLOCKMONST
+  +FRIENDLY
+  States {	
+	
+/******************************************************************************\
+================================HEADSHOT STATES=================================
+\******************************************************************************/
+
+  Spawn:
+    SKFP A 0                                                     				//
+    SKFP A 0 A_CustomMissile("OrbitFriendly", 44, 0, 0, 2, 0)    				//
+    SKFP A 0 A_CustomMissile("OrbitFriendly2", 44, 0, 180, 2, 0) 				//
+    SKFP A 1 A_ChangeFlag("FRIENDLY",1)                          				// MAKE FRIENDLY
+    SKFP A 0 A_CheckSight("Spawn2")                              				// DO NOT SPAWN HEADSHOT BOX 
+    SKFP A 0 Thing_SetSpecial(0,226,613,0,0)         							// RGA2 EXP COMPATIBILITY
+	TNT1 A 0 A_SpawnItem ("KillMe")
+  SpawnLoop:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 15, 40,0)          				// MAKE HEADSHOT BOX
+    SKFP E 1 A_LookEx(0,0,random(512,2048),random(1024,4096),random(120,180),"See")// WHERE ARE YOU!
+    goto SpawnLoop                                               				//
+  See:
+    SKFP A 0 A_CheckSight("See2")                                				//
+    SKFP A 0 A_CheckSight("ChanceCharge")                        				// IF PLAYER IN SIGHT CHANCE CHARGE
+    SKFP A 0 A_GiveInventory("KnightCharge", 1)                  				// READY TO CHARGE
+  IfLowHealth:
+    SKFP A 0 A_JumpIfHealthLower(50, "LowHealth")                				// LOW HEALTH
+    Goto HealthHigh                                              				//
+  Chase:
+    SKFP A 0 A_JumpIfInventory("KnightCharge", 1, "Charge")      				// CHARGE IF READY TO!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP AAAA 1 A_Chase                                             				// NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP AAAA 1 A_Chase                                             				// NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP BBBB 1 A_Chase                                             				// NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP BBBB 1 A_Chase                                             				// NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP CCCC 1 A_Chase                                             				// NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP CCCC 1 A_Chase                                             				// NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP DDDD 1 A_Chase                                             				// NORMAL CHASE
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP DDDD 1 A_Chase                                             				// NORMAL CHASE
+    Goto See                                                     				//
+  HealthHigh:
+    SKFP A 0 A_ChangeFlag("Frightened", 0)                       				// PUSH ONWARD
+    Goto Chase                                                   				// 
+  LowHealth:
+    SKFP A 0 A_Jump(32, "HealUp")                                				// FEARLESS CHANCE
+    SKFP A 0 A_AlertMonsters                                     				// ALERT OTHERS
+    SKFP A 0 A_ChangeFlag("Frightened", 1)                       				// RUN AWAY!
+  HealUp:
+    SKFP D 0 HealThing(1)                                        				// HEALING
+    SKFP A 0                                                     				//
+    Goto Chase                                                   				//
+  ChanceCharge:
+    SKFP A 0 A_Jump(128, "Charge")                               				// CHANCE CHARGE
+    Goto Chase                                                   				//
+  Charge:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP A 0 A_Chase                                             				//
+    SKFP A 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP A 0 A_Chase                                             				//
+    SKFP A 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP A 0 A_Chase                                             				//
+    SKFP A 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP A 0 A_Chase                                             				//
+    SKFP B 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP A 0 A_Chase                                             				//
+    SKFP B 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP A 0 A_Chase                                             				//
+    SKFP B 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP A 0 A_Chase                                             				//
+    SKFP C 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP A 0 A_Chase                                             				//
+    SKFP C 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP A 0 A_Chase                                             				//
+    SKFP C 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP A 0 A_Chase                                             				//
+    SKFP D 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP A 0 A_Chase                                             				//
+    SKFP D 1 A_Chase                                             				// CHARGE!
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP A 0 A_Chase                                             				//
+    SKFP D 1 A_Chase                                             				// CHARGE!
+    SKFP D 0 HealThing(1)                                        				// HEALING
+  NoCharge:
+    SKFP A 0 A_TakeInventory("KnightCharge", 1)                  				// NOT READY TO CHARGE
+    Goto IfLowHealth                                             				//
+
+/******************************************************************************\
+==============================NON-HEADSHOT STATES===============================
+\******************************************************************************/
+
+  Spawn2:
+    SKFP A 0                                                     				//
+    SKFP A 0 Thing_SetSpecial(0,226,613,0,0)         							// RGA2 EXP COMPATIBILITY
+  Spawn2Loop:
+    SKFP E 1 A_LookEx(0,0,random(512,2048),random(1024,4096),random(120,180),"See2")// WHERE ARE YOU!
+    goto Spawn2Loop                                              				//
+  See2:
+    SKFP A 0 A_CheckSight("ChanceCharge2")                       				// IF PLAYER IN SIGHT CHANCE CHARGE
+    SKFP A 0 A_GiveInventory("KnightCharge", 1)                  				// READY TO CHARGE
+  IfLowHealth2:
+    SKFP A 0 A_JumpIfHealthLower(50, "LowHealth2")               				// LOW HEALTH
+    Goto HealthHigh                                              				//
+  Chase2:
+    SKFP A 0 A_JumpIfInventory("KnightCharge", 1, "Charge2")             		// CHARGE IF READY TO!
+    SKFP AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD 1 A_Chase                             // NORMAL CHASE
+    Goto See                                                     				//
+  HealthHigh2:
+    SKFP A 0 A_ChangeFlag("Frightened", 0)                       				// PUSH ONWARD
+    Goto Chase2                                                  				//   
+  LowHealth2:
+    SKFP A 0 A_Jump(32, "HealUp2")                               				// FEARLESS CHANCE
+    SKFP A 0 A_AlertMonsters                                     				// ALERT OTHERS
+    SKFP A 0 A_ChangeFlag("Frightened", 1)                       				// RUN AWAY!
+  HealUp2:
+    SKFP D 0 HealThing(1)                                        				// HEALING
+    Goto Chase2                                                  				//
+  ChanceCharge2:
+    SKFP A 0 A_Jump(128, "Charge2")                              				// CHANCE CHARGE
+    Goto Chase2                                                  				//
+  Charge2:
+    SKFP A 0 A_Chase                                  							// CHARGE!
+    SKFP A 1 A_Chase                                  							//
+    SKFP A 0 A_Chase                                  							//
+    SKFP A 1 A_Chase                                  							//
+    SKFP A 0 A_Chase                                  							//
+    SKFP A 1 A_Chase                                  							//
+    SKFP B 0 A_Chase                                  							//
+    SKFP B 1 A_Chase                                  							//
+    SKFP B 0 A_Chase                                  							//
+    SKFP B 1 A_Chase                                  							//
+    SKFP B 0 A_Chase                                  							//
+    SKFP B 1 A_Chase                                  							//
+    SKFP C 0 A_Chase                                  							//
+    SKFP C 1 A_Chase                                  							//
+    SKFP C 0 A_Chase                                  							//
+    SKFP C 1 A_Chase                                  							//
+    SKFP C 0 A_Chase                                  							//
+    SKFP C 1 A_Chase                                  							//
+    SKFP D 0 A_Chase                                  							//
+    SKFP D 1 A_Chase                                  							//
+    SKFP D 0 A_Chase                                  							//
+    SKFP D 1 A_Chase                                  							//
+    SKFP D 0 A_Chase                                  							//
+    SKFP D 1 A_Chase                                  							//
+    SKFP D 0 HealThing(1)                                        				// HEALING
+  NoCharge2:
+    SKFP A 0 A_TakeInventory("KnightCharge", 1)                  				// NOT READY TO CHARGE
+    Goto IfLowHealth2                                            				//
+
+/******************************************************************************\
+=================================ATTACK STATES==================================
+\******************************************************************************/
+
+  Missile:
+    SKFP E 0 A_ChangeFlag("NoPain", 1)                           				// WILL NOT ENTER PAIN STATE
+    SKFP E 0 A_Jump(64, "IfClose")                               				// CHANCE TEST IF CLOSE
+    SKFP E 10 A_FaceTarget                                       				//
+  BulletAttack:
+    SKFP E 0 A_JumpIfInventory("KnightAmmo", 10, "Reload")             			// CHECK AMMO
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),FBulletPuff)   				// 1ST SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+    TNT1 A 0 A_AlertMonsters
+	SKFP F 2 BRIGHT A_CustomMissile("StrikeTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP E 2 A_FaceTarget                                        				//
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),FBulletPuff)   				// 2ND SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+    TNT1 A 0 A_AlertMonsters
+	SKFP F 2 BRIGHT A_CustomMissile("StrikeTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP E 2 A_FaceTarget                                        				//
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),FBulletPuff)   				// 3RD SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+    TNT1 A 0 A_AlertMonsters
+	SKFP F 2 BRIGHT A_CustomMissile("StrikeTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP E 2 A_FaceTarget                                        				//
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP F 0 bright A_CustomBulletAttack(10,10,1,random(1,3),FBulletPuff)   				// 4TH SHOT
+    TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+    TNT1 A 0 A_AlertMonsters
+	SKFP F 2 BRIGHT A_CustomMissile("StrikeTracer",38,0,random(-10,10),2,random(-10,10))
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           				// MAKE HEADSHOT BOX
+    SKFP E 2 A_FaceTarget                                        				//
+    SKFP E 0 A_GiveInventory("KnightAmmo", 1)                    				// LESSEN AMMO
+    SKFP E 0 A_Jump(32, "StopShooting")                         				// CHANCE STOP SHOOTING
+    SKFP E 0 A_SpidReFire                                        				// KEEP SHOOTING!
+    Goto BulletAttack                                            				//
+  StopShooting:
+    SKFP E 0                                                     				//
+    goto See                                                     				//
+  Reload:
+    SKFP E 0 A_TakeInventory("KnightAmmo", 10)                   				// RELOAD!
+    SKFP E 8 A_PlaySound("ZSec/DryFire")                         				//
+    SKFP E 55 A_PlaySound("ZSec/Reload")                         				//
+    SKFP E 0 A_ChangeFlag("NoPain", 0)                           				// WILL ENTER PAIN STATE
+    goto See                                                     				//
+  IfClose:
+    SKFP E 0 A_JumpIfCloser(1768, 1)                              				// LAUNCH GRENADE IF NEAR
+    Goto Missile+2                                               				//
+  Grenade:
+    SKFP E 0 A_JumpIfCloser(192,"KnifeLunge")                    				// CHANCE KNIFE
+    SKFP E 8 A_FaceTarget                                        				// GRENADE!
+    SKFP F 0 bright A_PlaySound("weapons/rocklf")                				//
+    SKFP F 2 bright A_CustomMissile("KnightGrenadeShell",28,5,random(-15,15),2,random(0,10))//
+    SKFP E 6 A_FaceTarget                                        				//
+    SKFP E 0 A_ChangeFlag("NoPain", 0)                           				// WILL ENTER PAIN STATE
+    Goto See                                                     				//
+  KnifeLunge:
+    SKFP E 5 A_FaceTarget                                        				// KNIFE!
+    SKFP E 0 ThrustThing(angle*256/360,25,0,0)                   				// LUNGE
+    SKFP E 5 A_FaceTarget                                        				//
+    SKFP E 0 A_PlaySound("knife/swing")                          				//
+    SKFP E 2 A_CustomMeleeAttack(34,"knife/swing","knife/swing","Knife",1)		//
+    SKFP E 6 A_FaceTarget                                        				//
+    SKFP E 0 A_ChangeFlag("NoPain", 0)                           				// WILL ENTER PAIN STATE
+    Goto See                                                     				// 
+
+/******************************************************************************\
+==================================PAIN STATES===================================
+\******************************************************************************/
+
+  Pain:
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            				// MAKE HEADSHOT BOX
+    SKFP G 3                                                     				//
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 0, 40,0)            				// MAKE HEADSHOT BOX
+    SKFP G 3 A_Pain                                              				// OW!
+    goto See                                                     				//
+  Pain.Shock:
+    SKFP G 2 A_ChangeFlag("NoPain", 1)                           				// STUNNED!
+    SKFP G 300 A_Pain                                            				//
+    SKFP G 0 A_ChangeFlag("NoPain", 0)                           				//
+    Goto See                                                     				//
+
+/******************************************************************************\
+==================================DEATH STATES==================================
+\******************************************************************************/
+
+  Death:
+    SKFP H 0 A_JumpIfHealthLower(-60,"Splode")                   				//
+    SKFP H 5 ACS_ExecuteAlways(757,0,random(51,75),0,0)          				//
+    TNT1 A 0 A_AlertMonsters
+    SKFP I 5 A_Scream                                            				//
+    SKFP J 5 A_Fall                                              				//
+    SKFP K 5                                                     				//
+    SKFP L 5                                                     				//
+    SKFP M 5                                                     				//
+    SKFP N 0 A_Jump(5, 2)                                        				// REGENERATING!
+    SKFP N 0 A_GiveInventory("isDead", 1)                        				//
+    SKFP N -1                                                    				//
+    stop                                                         				//
+    SKFP NNNNN 70                                                				//
+    SKFP NNNNN 70                                                				//
+    SKFP NNNNN 70                                                				//
+    SKFP N -1 Thing_Raise(0)                                     				// STILL ALIVE
+    Wait                                                         				//
+  Splode:
+    SKFP I 1 ACS_ExecuteAlways(757,0,random(51,75),0,0)          				// xDeath
+    SKFP I 0 A_SpawnDebris("NashGore_Gib9",0)                    				// GIBS!
+    SKFP I 0 A_SpawnDebris("NashGore_Gib10",0)                   				//
+    SKFP I 0 A_SpawnDebris("NashGore_Gib11",0)                   				//
+    SKFP I 0 A_SpawnDebris("NashGore_Gib11",0)                   				//
+    SKFP I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        				//
+    SKFP I 0                                                     				//
+    SKFP I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        				//
+    SKFP I 0 A_XScream                                           				//
+    SKFP I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        				//
+    SKFP I 0 A_NoBlocking                                        				//
+    SKFP I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        				//
+    SKFP I 0 A_GiveInventory("isDead", 1)                        				//
+    SKFP Z 0 A_SpawnItemEx("DEADStrikeKnightHead",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)//
+    stop                                                         				//
+  Death.Fire2:
+    TNT1 A 0 ACS_ExecuteAlways(757,0,random(51,75),0,0)          				//
+    TNT1 A 0 A_AlertMonsters
+    SKFP N 0 A_GiveInventory("isDead", 1)                        				//
+    TNT1 A 1 A_SpawnItem("BurnDeath1", 2, 1)                     				// SCORCHED
+    stop                                                         				//
+  Death.head:
+    TNT1 A 0 ACS_ExecuteAlways(757,0,random(51,75),0,0)          				//
+    SKFP O 9 A_PlaySound("headshot/splat")                       				//
+    SKFP I 0 A_SpawnDebris("NashGore_Gib3",0)                    				// GIBS!
+    SKFP I 0 A_SpawnDebris("NashGore_Gib11",0)                   				//
+    SKFP I 0 A_SpawnDebris("NashGore_Gib11",0)                   				//
+    SKFP P 9 A_XScream                                           				//
+    SKFP Q 9 A_Fall                                              				//
+    SKFP R 5                                                     				//
+    SKFP S 5                                                     				//
+    SKFP T 0 A_SpawnItemEx("DEADStrikeKnight",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)// FAKE BODY
+    stop                                                         				//
+  Raise:
+    SKFP KJ 5 A_ChangeFlag("FRIENDLY",1)                         				// REVIVED
+    SKFP N 0 A_TakeInventory("isDead", 1)                        				//
+    SKFP A 0 A_CustomMissile("OrbitFriendly", 44, 0, 0, 2, 0)    				//
+    SKFP A 0 A_CustomMissile("OrbitFriendly2", 44, 0, 180, 2, 0) 				//
+    SKFP IH 5 Thing_SetSpecial(0,226,613,0,0)        							// RGA2 EXP COMPATIBILITY
+	TNT1 A 0 A_SpawnItem ("KillMe")
+    Goto See                                                     				//
+  Pain.Dialogue:
+    SKFP A 1 A_SpawnItemEx("DialogSK_A_01",0,0,0)                				//
+    Goto See                                                     				//
+    }
+}
+
+ACTOR DEADFStrikeKnight
+{
+ +FLOORCLIP
+ Radius 12
+ Height 11
+ States
+ {
+  Spawn:
+   SKFP T 0
+   SKFP T -1
+   stop
+ }
+}
+
+ACTOR DEADFStrikeKnightHead
+{
+ +FLOORCLIP
+ Radius 12
+ Height 11
+ States
+ {
+  Spawn:
+   SKFP Z 0
+   SKFP Z -1
+   stop
+ }
+}

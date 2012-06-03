@@ -1,0 +1,215 @@
+ACTOR "Sawed-Off Shotgun" : Weapon replaces Shotgun
+{
+
+	obituary "\ca %k \cb --> Sawed-Off Shotgun --> \cc %o "
+	inventory.pickupmessage "Sawed-Off Shotgun found."
+
+	weapon.ammotype "LoadedSOS"
+	weapon.ammouse 1
+	weapon.ammogive 2
+   
+	weapon.ammotype2 "Buckshot"
+	weapon.ammouse2 1
+	weapon.ammogive2 10
+
+	Weapon.SlotNumber 3
+	Decal BulletChip
+	+NOALERT
+	+AMMO_OPTIONAL
+	+NOAUTOFIRE //Keeps altfire from going apeshit. Also lets gun be semi auto
+               // but slow to fire when just held down.
+   
+	States
+	{
+	Spawn:
+      SOSP A -1
+      Stop
+	  
+	Select:
+       SOSA A 0 A_TakeInventory("IronSight",1)
+       SOSA A 0 A_TakeInventory("RoF",1)
+	   SOSA A 0 A_ZoomFactor(1,ZOOM_INSTANT)
+	   SOSA A 0 A_Raise
+	   loop
+	  
+	Ready: // Pretty shit, doesn't really start the true weapon's ready state. See ReadyLoop
+	   SOSA A 2 A_TakeInventory("Reloading",1)
+	   SOSA BCDEFGHIJKLMNOPQR 2 A_WeaponReady(WRF_NOPRIMARY)
+	 
+	ReadyLoop: // Designed to look for our custom features to work at a second's notice.
+	   SOSA R 0 A_JumpIfInventory("Reloading",1,"Reload")
+	   SOSA R 0 A_JumpIfInventory("RoF",1,"RoFChange")
+	   SOSA R 1 A_WeaponReady
+	   SOSA R 0 A_JumpIfNoAmmo("Reload")
+	   loop
+	   
+	RoFChange:
+	   TNT1 A 0 A_TakeInventory("RoF",1)
+	   TNT1 A 0 A_JumpIfInventory("RoF_sos",1,2)
+	   TNT1 A 0 A_GiveInventory("RoF_sos",1)
+	   goto ReadyLoop
+	   TNT1 A 0 A_TakeInventory("RoF_sos",1)
+	   goto ReadyLoop
+	   
+	Deselect: //Simple hack, makes gun quick switch faster than Doom.
+	   TNT1 AAAAAAAAAA 0 A_Lower
+	  
+	DeselectLoop: // Makes sure it wraps up, otherwise shit crashes!
+	   TNT1 A 1 A_Lower
+	   loop
+	   
+	Fire:
+	   TNT1 A 0 A_JumpIfInventory("RoF_sos",1,"FireSingle")
+	   TNT1 A 0 A_JumpIfInventory("LoadedSOS",2,"FireDouble")
+	   goto FireSingle
+	  
+	FireDouble:
+	   //TNT1 A 0 A_JumpIfInventory("IronSight",1,"FireIron")
+	   TNT1 A 0 A_JumpIfNoAmmo("DryFire")
+	   TNT1 A 0 A_PlaySoundEx("SOS_Fire","SoundSlot5")
+	   TNT1 A 0 A_AlertMonsters
+	   TNT1 A 0 A_Recoil(0.2)
+	   SOSB A 0 BRIGHT A_Firebullets(9,9,9,9,"BurstPuff")
+	   SOSB A 0 BRIGHT A_Firebullets(9,9,9,9,"BurstPuff")
+	   //TNT1 A 0 A_TakeInventory("loadedSOS",1)
+	   SOSB A 0 A_FireCustomMissile("SOSTracer",random(-9,9),0,0,0,0,random(-9,9))
+	   SOSB A 0 A_FireCustomMissile("SOSTracer",random(-9,9),0,0,0,0,random(-9,9))
+	   SOSB A 0 A_FireCustomMissile("SOSTracer",random(-9,9),0,0,0,0,random(-9,9))
+	   SOSB A 0 A_FireCustomMissile("SOSTracer",random(-9,9),0,0,0,0,random(-9,9))
+	   SOSB A 0 A_FireCustomMissile("SOSTracer",random(-9,9),0,0,0,0,random(-9,9))
+	   SOSB A 0 A_FireCustomMissile("SOSTracer",random(-9,9),0,0,0,0,random(-9,9))
+	   SOSB A 2 A_FireCustomMissile("SOSTracer",random(-9,9),0,0,0,0,random(-9,9))
+	   SOSB A 0 A_FireCustomMissile("SOSTracer",random(-9,9),0,0,0,0,random(-9,9))
+	   SOSB A 2 A_FireCustomMissile("SOSTracer",random(-9,9),0,0,0,0,random(-9,9))
+	   TNT1 A 0 ACS_ExecuteAlways(506,0)
+	   TNT1 A 0 A_ZoomFactor(0.88)
+	   SOSB B 2 BRIGHT A_GunFlash
+	   TNT1 A 0 A_ZoomFactor(1.0)
+	   SOSB CDEFGH 2
+	   //SOSB IIJJKKLLMMNNOOPPQQRRSSTT 1 A_WeaponReady
+	   SOSB A 0 A_JumpIfInventory("BuckShot",1,1)
+	   goto ReadyLoop
+	   SOSB A 0 A_JumpIfNoAmmo(2)
+	   SOSB A 0 A_ReFire
+	   goto ReadyLoop
+	   SOSB A 0 A_GiveInventory("Reloading",1)
+	   goto Reload
+	   
+	FireSingle:
+	   //TNT1 A 0 A_JumpIfInventory("IronSight",1,"FireIron")
+	   TNT1 A 0 A_JumpIfNoAmmo("DryFire")
+	   TNT1 A 0 A_PlaySoundEx("SOS_Fire","SoundSlot5")
+	   TNT1 A 0 A_AlertMonsters
+	   TNT1 A 0 A_Recoil(0.2)
+	   SOSB A 0 BRIGHT A_Firebullets(9,9,9,9,"BurstPuff")
+	   //TNT1 A 0 A_TakeInventory("loadedSOS",1)
+	   SOSB A 0 A_FireCustomMissile("SOSTracer",random(-9,9),0,0,0,0,random(-9,9))
+	   SOSB A 0 A_FireCustomMissile("SOSTracer",random(-9,9),0,0,0,0,random(-9,9))
+	   SOSB A 0 A_FireCustomMissile("SOSTracer",random(-9,9),0,0,0,0,random(-9,9))
+	   SOSB A 0 A_FireCustomMissile("SOSTracer",random(-9,9),0,0,0,0,random(-9,9))
+	   SOSB A 0 A_FireCustomMissile("SOSTracer",random(-9,9),0,0,0,0,random(-9,9))
+	   SOSB A 0 A_FireCustomMissile("SOSTracer",random(-9,9),0,0,0,0,random(-9,9))
+	   SOSB A 2 A_FireCustomMissile("SOSTracer",random(-9,9),0,0,0,0,random(-9,9))
+	   SOSB A 0 A_FireCustomMissile("SOSTracer",random(-9,9),0,0,0,0,random(-9,9))
+	   SOSB A 2 A_FireCustomMissile("SOSTracer",random(-9,9),0,0,0,0,random(-9,9))
+	   TNT1 A 0 ACS_ExecuteAlways(505,0)
+	   TNT1 A 0 A_ZoomFactor(0.88)
+	   SOSB B 2 BRIGHT A_GunFlash
+	   TNT1 A 0 A_ZoomFactor(1.0)
+	   SOSB CDEFGH 2
+	   SOSB IIJJKKLLMMNNOOPPQQRRSSTT 1 A_WeaponReady
+	   SOSB A 0 A_JumpIfInventory("BuckShot",1,2)
+	   SOSB A 0 A_ReFire
+	   goto ReadyLoop
+	   SOSB A 0 A_JumpIfNoAmmo(2)
+	   SOSB A 0 A_ReFire
+	   goto ReadyLoop
+	   SOSB A 0 A_GiveInventory("Reloading",1)
+	   goto Reload
+	  
+	DryFire: // *click click* Oshi...
+	   SOSB H 10 A_PlayWeaponSound("dryfire")
+	   goto ReadyLoop
+	  
+	/*AltFire: // Known to some as "Iron Sight Aiming".
+	   SOSC A 0 A_JumpIfInventory("IronSight",1,"AltFire2")
+	   SOSC A 0 A_ZoomFactor(1.5)	
+	   SOSC ABCDEFGHIJ 1
+	   SOSC F 0 A_GiveInventory("IronSight",1)
+	   SOSC KLMN 1 A_WeaponReady(WRF_NOBOB)
+	   goto IronSight
+   
+	AltFire2: // Return to hip fire, you sexy devil you
+	   SOSC N 0 A_ZoomFactor(1.0)
+	   TNT1 A 0 A_TakeInventory("IronSight",1)
+	   M9PC LKIFEDCBA 1 A_WeaponReady(WRF_NOBOB)
+	   goto ReadyLoop
+	
+	IronSight: // Fancy version of Ready Loop, but for Ironsighting
+	   SOSC N 0 A_JumpIfInventory("Reloading",1,"Reload")
+	   SOSC N 1 A_WeaponReady(WRF_NOBOB)
+	   SOSC N 0 A_JumpIfNoAmmo("Reload")
+	   loop
+
+	FireIron: // Sadly, we don't have a mod for firing iron bullets. They rust.
+	   TNT1 A 0 A_JumpIfNoAmmo("DryIron")
+	   TNT1 A 0 A_PlaySoundEx("S12_Fire","SoundSlot5")
+	   TNT1 A 0 A_AlertMonsters
+	   TNT1 A 0 A_Recoil(0.05)
+	   SOSD A 0 BRIGHT A_FireBullets (.165, .165, -1, 15, "BulletPuff")
+	   //TNT1 A 0 A_TakeInventory("loadedM9",1)
+	   SOSD A 1 A_FireCustomMissile("M9PTracer",random(-.165,.165),0,0,0,0,random(-.165,.165))
+	   TNT1 A 0 ACS_ExecuteAlways(505,0)
+	   TNT1 A 0 A_ZoomFactor(1.37)
+	   SOSD B 1 BRIGHT A_GunFlash
+	   SOSD C 2 A_ZoomFactor(1.5)
+	   SOSD DEFGH 2 A_WeaponReady
+	   //M9PD A 0 A_JumpIfInventory("9mm",1,2)
+	   SOSD A 0 A_ReFire
+	   goto IronSight
+	   SOSD A 0 A_JumpIfNoAmmo(2)
+	   SOSD A 0 A_ReFire
+	   goto IronSight
+ 	   SOSD A 0 A_GiveInventory("Reloading",1)		//Go to reload
+	   goto Reload
+	  
+	DryIron: // More clicky clicky, luck shitty shitty.
+	   SOSD G 10 A_PlayWeaponSound("dryfire")
+	   goto IronSight*/
+
+	Reload: //This is more or less a confirm state to trigger the animation
+	   TNT1 A 0 A_JumpIfInventory("Buckshot",1,"ReloadAnimation")
+	   TNT1 A 0 A_TakeInventory("Reloading",1) // Bullets = 0. RELOAD DENIED!
+	   //TNT1 A 0 A_JumpIfInventory("IronSight",1,"IronHack") // Fixes a visual glitch when you have 0 total ammo
+	   goto ReadyLoop
+	   
+	/*IronHack: // It's so awesome, I know! :V
+		goto Ironsight*/
+	  
+	ReloadAnimation: // Purely for looking pretty.
+	   SOSC A 0 A_TakeInventory("IronSight",1)
+	   SOSC A 0 A_ZoomFactor(1.0)
+	   SOSC ABCDEF 2 A_WeaponReady(WRF_NOFIRE)
+	   SOSC G 2 A_PlaySoundEx("SOS_R1","SoundSlot5")
+	   SOSC HIJKLMNOPQRSTUVQX 2 A_WeaponReady(WRF_NOFIRE)
+	   SOSC Y 2 A_PlaySoundEx("SOS_R2","SoundSlot5")
+	   SOSC Z 2
+	   SOSD ABCDEF 2 A_WeaponReady(WRF_NOFIRE)
+	   goto ReloadAmmo
+      
+	ReloadAmmo: // at this point animation wraps up and ammo is displayed
+	   SOSD G 0 A_GiveInventory("LoadedSOS",1)
+	   SOSD G 0 A_TakeInventory("Buckshot",1)
+	   SOSD G 0 A_JumpIfInventory("LoadedSOS",2,"ReloadEnd")
+	   SOSD G 0 A_JumpIfInventory("Buckshot",1,"ReloadAmmo")
+	   goto ReloadEnd
+	  
+	ReloadEnd: // Final half of the animation. At this point, bullets are actually in the gun.
+	   TNT1 A 0 A_TakeInventory("Reloading",1)
+	   SOSD G 2 A_PlaySoundEx("SOS_R3","SoundSlot5")
+	   SOSD HIJKL 2 A_WeaponReady(WRF_NOFIRE)
+	   TNT1 A 0 A_ReFire
+	   goto ReadyLoop
+	  
+  }
+}

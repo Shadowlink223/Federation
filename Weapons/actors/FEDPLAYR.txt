@@ -1,0 +1,15 @@
+ACTOR FedPlayer : DoomPlayer
+{
+  Player.StartItem "M9 Pistol"
+  Player.StartItem "LoadedM9", 15
+  Player.StartItem "9mm", 30
+  Player.StartItem "FireGrenG", 1
+  Player.StartItem "Wakizashi", 1
+  Player.StartItem "Hand Grenade", 1
+  Player.StartItem "FedGrenadeAmmo", 1
+  Player.StartItem "GreenArmor", 1
+  Player.DisplayName "Seiko"
+  damagefactor "FriendBullet", 0.0
+  damagefactor "KillMe", 0.0
+  damagefactor "Head", 0.0
+}

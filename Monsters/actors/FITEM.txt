@@ -1,0 +1,68 @@
+/*Submitted: Infirnex
+Decorate: Infirnex
+GLDefs: Infirnex
+Sounds: id Software
+Sprites: id Software
+Sprite Edit: Infirnex
+Idea Base: Quake 2/3/4 Armor Shard*/
+
+actor Stimbonus : Health { // replaces HealthBonus
+	+COUNTITEM
+	+INVENTORY.ALWAYSPICKUP
+	Inventory.Pickupmessage "Picked up a Stimbonus."
+	Inventory.Amount 5
+	Inventory.MaxAmount 200
+	Scale 0.75
+	States {
+	Spawn:
+		SMBS A -1
+		Stop
+	}
+}
+
+/*Submitted: Infirnex
+Decorate: Infirnex
+GLDefs: Infirnex
+Sounds: id Software
+Sprites: id Software
+Sprite Edit: Infirnex
+Idea Base: Quake 2/3/4 armor Shard*/
+
+actor ArmorShard : ArmorBonus {
+	Inventory.Pickupmessage "Picked up an Armor Shard."
+	Inventory.Icon "ARSDA0"
+	Inventory.PickupSound "pickup/armorshard"
+	Armor.Saveamount 5
+	States {
+	Spawn:
+		ARSD ABCDCB 6
+		loop
+	}
+}
+
+ACTOR UpgradeStamina2 : UpgradeStamina {
+	Inventory.MaxAmount 200
+	Inventory.PickupMessage "Max health increased by 10!"
+	States {
+		Spawn:
+			FULL AB 35
+			Loop
+	}
+}
+
+/*ACTOR NightVision : PowerupGiver replaces Infrared {
+	+COUNTITEM
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	Inventory.MaxAmount 0
+	//Powerup.Type "LightAmp"
+	Powerup.Color "Cyan" 1.0
+	//Powerup.Colormap 0.0, 0.0, 1.0, 0.0, 0.0, 0.0
+	Inventory.PickupMessage "Night Vision"
+	States {
+		Spawn:
+			PVIS A 6 Bright
+			PVIS B 6
+			Loop
+	}
+}*/

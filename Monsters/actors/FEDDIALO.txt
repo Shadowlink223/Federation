@@ -1,0 +1,64 @@
+ACTOR FedChatItem : CustomInventory
+{
+  +INVENTORY.INVBAR
+  +INVENTORY.UNDROPPABLE
+  +INVENTORY.KEEPDEPLETED
+  Inventory.MaxAmount 1
+  Inventory.Icon "FCHTA0"
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 1
+    stop
+  Use:
+    TNT1 A 1 A_CustomMissile("FedChat", 32, 0, 0)
+    Stop
+  }
+}
+
+ACTOR FedChat
+{
+  Radius 2
+  height 4
+  Speed 30
+  PROJECTILE
+  DamageType "Dialogue"
+  Damage 1
+  obituary "%o was poked to death."
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 35
+    Stop
+  Death:
+    TNT1 A 1
+    Stop
+  }
+}
+
+ACTOR FedDialogue : CustomInventory
+{
+  Radius 128
+  Height 128
+  INVENTORY.AMOUNT 1
+  INVENTORY.MAXAMOUNT 1
+  +INVENTORY.QUIET
+}
+
+// Strike Knight Dialogue
+
+ACTOR DialogSK_A_01 : FedDialogue
+{
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 1 
+    Stop
+  Pickup:
+    TNT1 A 1 A_PlaySound("Dialogue/SK_A_01") // "Destination, Commander?"
+    Stop
+  }
+}

@@ -1,0 +1,1570 @@
+#library "FEDACS"
+#include "zcommon.acs"
+
+world int 1:civilian_death_count;
+
+Script 757 (int nameNum)
+{
+  /***********************************************************\
+  ::::::::::::::::::::::::::INITIATES::::::::::::::::::::::::::
+  \***********************************************************/
+  if(nameNum==1)
+  {
+    PrintBold(s:"Initiate Darius has been killed in action.");
+  }
+  if(nameNum==2)
+  {
+    PrintBold(s:"Initiate Thaddeus has been killed in action.");
+  }
+  if(nameNum==3)
+  {
+    PrintBold(s:"Initiate Marcel has been killed in action.");
+  }
+  if(nameNum==4)
+  {
+    PrintBold(s:"Initiate Raphael has been killed in action.");
+  }
+  if(nameNum==5)
+  {
+    PrintBold(s:"Initiate Alvaro has been killed in action.");
+  }
+  if(nameNum==6)
+  {
+    PrintBold(s:"Initiate Warner has been killed in action.");
+  }
+  if(nameNum==7)
+  {
+    PrintBold(s:"Initiate Hosea has been killed in action.");
+  }
+  if(nameNum==8)
+  {
+    PrintBold(s:"Initiate Leandro has been killed in action.");
+  }
+  if(nameNum==9)
+  {
+    PrintBold(s:"Initiate Arlie has been killed in action.");
+  }
+  if(nameNum==10)
+  {
+    PrintBold(s:"Initiate Fausto has been killed in action.");
+  }
+  if(nameNum==11)
+  {
+    PrintBold(s:"Initiate Colton has been killed in action.");
+  }
+  if(nameNum==12)
+  {
+    PrintBold(s:"Initiate Tuan has been killed in action.");
+  }
+  if(nameNum==13)
+  {
+    PrintBold(s:"Initiate Johnson has been killed in action.");
+  }
+  if(nameNum==14)
+  {
+    PrintBold(s:"Initiate Waylon has been killed in action.");
+  }
+  if(nameNum==15)
+  {
+    PrintBold(s:"Initiate Kasey has been killed in action.");
+  }
+  if(nameNum==16)
+  {
+    PrintBold(s:"Initiate Nelson has been killed in action.");
+  }
+  if(nameNum==17)
+  {
+    PrintBold(s:"Initiate Matthew has been killed in action.");
+  }
+  if(nameNum==18)
+  {
+    PrintBold(s:"Initiate Malcolm has been killed in action.");
+  }
+  if(nameNum==19)
+  {
+    PrintBold(s:"Initiate Garry has been killed in action.");
+  }
+  if(nameNum==20)
+  {
+    PrintBold(s:"Initiate Marco has been killed in action.");
+  }
+  if(nameNum==21)
+  {
+    PrintBold(s:"Initiate Newton has been killed in action.");
+  }
+  if(nameNum==22)
+  {
+    PrintBold(s:"Initiate Delmer has been killed in action.");
+  }
+  if(nameNum==23)
+  {
+    PrintBold(s:"Initiate Sung has been killed in action.");
+  }
+  if(nameNum==24)
+  {
+    PrintBold(s:"Initiate Mohamed has been killed in action.");
+  }
+  if(nameNum==25)
+  {
+    PrintBold(s:"Initiate Amado has been killed in action.");
+  }
+  /***********************************************************\
+  :::::::::::::::::::::::::ZONE KNIGHTS::::::::::::::::::::::::
+  \***********************************************************/
+  if(nameNum==26)
+  {
+    PrintBold(s:"Zone Knight Fernando has been killed in action.");
+  }
+  if(nameNum==27)
+  {
+    PrintBold(s:"Zone Knight Kurt has been killed in action.");
+  }
+  if(nameNum==28)
+  {
+    PrintBold(s:"Zone Knight Hugh has been killed in action.");
+  }
+  if(nameNum==29)
+  {
+    PrintBold(s:"Zone Knight Lonnie has been killed in action.");
+  }
+  if(nameNum==30)
+  {
+    PrintBold(s:"Zone Knight Neil has been killed in action.");
+  }
+  if(nameNum==31)
+  {
+    PrintBold(s:"Zone Knight Darren has been killed in action.");
+  }
+  if(nameNum==32)
+  {
+    PrintBold(s:"Zone Knight Seth has been killed in action.");
+  }
+  if(nameNum==33)
+  {
+    PrintBold(s:"Zone Knight Arturo has been killed in action.");
+  }
+  if(nameNum==34)
+  {
+    PrintBold(s:"Zone Knight Luther has been killed in action.");
+  }
+  if(nameNum==35)
+  {
+    PrintBold(s:"Zone Knight Wendell has been killed in action.");
+  }
+  if(nameNum==36)
+  {
+    PrintBold(s:"Zone Knight Victor has been killed in action.");
+  }
+  if(nameNum==37)
+  {
+    PrintBold(s:"Zone Knight Russel has been killed in action.");
+  }
+  if(nameNum==38)
+  {
+    PrintBold(s:"Zone Knight Aaron has been killed in action.");
+  }
+  if(nameNum==39)
+  {
+    PrintBold(s:"Zone Knight Robert has been killed in action.");
+  }
+  if(nameNum==40)
+  {
+    PrintBold(s:"Zone Knight Emilio has been killed in action.");
+  }
+  if(nameNum==41)
+  {
+    PrintBold(s:"Zone Knight Chaddock has been killed in action.");
+  }
+  if(nameNum==42)
+  {
+    PrintBold(s:"Zone Knight Rawl has been killed in action.");
+  }
+  if(nameNum==43)
+  {
+    PrintBold(s:"Zone Knight Carow has been killed in action.");
+  }
+  if(nameNum==44)
+  {
+    PrintBold(s:"Zone Knight Ordiway has been killed in action.");
+  }
+  if(nameNum==45)
+  {
+    PrintBold(s:"Zone Knight Coulborne has been killed in action.");
+  }
+  if(nameNum==46)
+  {
+    PrintBold(s:"Zone Knight Yurman has been killed in action.");
+  }
+  if(nameNum==47)
+  {
+    PrintBold(s:"Zone Knight Sorgi has been killed in action.");
+  }
+  if(nameNum==48)
+  {
+    PrintBold(s:"Zone Knight Cliff has been killed in action.");
+  }
+  if(nameNum==49)
+  {
+    PrintBold(s:"Zone Knight Nolan has been killed in action.");
+  }
+  if(nameNum==50)
+  {
+    PrintBold(s:"Zone Knight Goubeaux has been killed in action.");
+  }
+  /***********************************************************\
+  ::::::::::::::::::::::::STRIKE KNIGHTS:::::::::::::::::::::::
+  \***********************************************************/
+  if(nameNum==51)
+  {
+    PrintBold(s:"Strike Knight Lance has been killed in action.");
+  }
+  if(nameNum==52)
+  {
+    PrintBold(s:"Strike Knight Jan has been killed in action.");
+  }
+  if(nameNum==53)
+  {
+    PrintBold(s:"Strike Knight Roman has been killed in action.");
+  }
+  if(nameNum==54)
+  {
+    PrintBold(s:"Strike Knight Abel has been killed in action.");
+  }
+  if(nameNum==55)
+  {
+    PrintBold(s:"Strike Knight Shaefer has been killed in action.");
+  }
+  if(nameNum==56)
+  {
+    PrintBold(s:"Strike Knight Fadale has been killed in action.");
+  }
+  if(nameNum==57)
+  {
+    PrintBold(s:"Strike Knight Silas has been killed in action.");
+  }
+  if(nameNum==58)
+  {
+    PrintBold(s:"Strike Knight Vences has been killed in action.");
+  }
+  if(nameNum==59)
+  {
+    PrintBold(s:"Strike Knight Lehigh has been killed in action.");
+  }
+  if(nameNum==60)
+  {
+    PrintBold(s:"Strike Knight Leonel has been killed in action.");
+  }
+  if(nameNum==61)
+  {
+    PrintBold(s:"Strike Knight Avril has been killed in action.");
+  }
+  if(nameNum==62)
+  {
+    PrintBold(s:"Strike Knight Atterson has been killed in action.");
+  }
+  if(nameNum==63)
+  {
+    PrintBold(s:"Strike Knight Emory has been killed in action.");
+  }
+  if(nameNum==64)
+  {
+    PrintBold(s:"Strike Knight Grav has been killed in action.");
+  }
+  if(nameNum==65)
+  {
+    PrintBold(s:"Strike Knight Cornet has been killed in action.");
+  }
+  if(nameNum==66)
+  {
+    PrintBold(s:"Strike Knight Mcwright has been killed in action.");
+  }
+  if(nameNum==67)
+  {
+    PrintBold(s:"Strike Knight Duhamel has been killed in action.");
+  }
+  if(nameNum==68)
+  {
+    PrintBold(s:"Strike Knight Telle has been killed in action.");
+  }
+  if(nameNum==69)
+  {
+    PrintBold(s:"Strike Knight Odon has been killed in action.");
+  }
+  if(nameNum==70)
+  {
+    PrintBold(s:"Strike Knight Sydney has been killed in action.");
+  }
+  if(nameNum==71)
+  {
+    PrintBold(s:"Strike Knight Ezra has been killed in action.");
+  }
+  if(nameNum==72)
+  {
+    PrintBold(s:"Strike Knight Rubin has been killed in action.");
+  }
+  if(nameNum==73)
+  {
+    PrintBold(s:"Strike Knight Valantin has been killed in action.");
+  }
+  if(nameNum==74)
+  {
+    PrintBold(s:"Strike Knight Sodek has been killed in action.");
+  }
+  if(nameNum==75)
+  {
+    PrintBold(s:"Strike Knight Windfield has been killed in action.");
+  }
+  /***********************************************************\
+  :::::::::::::::::::::::::RIOT KNIGHTS::::::::::::::::::::::::
+  \***********************************************************/
+  if(nameNum==76)
+  {
+    PrintBold(s:"Riot Knight Clattenburg has been killed in action.");
+  }
+  if(nameNum==77)
+  {
+    PrintBold(s:"Riot Knight Nishihara has been killed in action.");
+  }
+  if(nameNum==78)
+  {
+    PrintBold(s:"Riot Knight Zunker has been killed in action.");
+  }
+  if(nameNum==79)
+  {
+    PrintBold(s:"Riot Knight Sleva has been killed in action.");
+  }
+  if(nameNum==80)
+  {
+    PrintBold(s:"Riot Knight Armand has been killed in action.");
+  }
+  if(nameNum==81)
+  {
+    PrintBold(s:"Riot Knight Quinton has been killed in action.");
+  }
+  if(nameNum==82)
+  {
+    PrintBold(s:"Riot Knight Wolever has been killed in action.");
+  }
+  if(nameNum==83)
+  {
+    PrintBold(s:"Riot Knight Llanet has been killed in action.");
+  }
+  if(nameNum==84)
+  {
+    PrintBold(s:"Riot Knight Holdgrafer has been killed in action.");
+  }
+  if(nameNum==85)
+  {
+    PrintBold(s:"Riot Knight Lausell has been killed in action.");
+  }
+  if(nameNum==86)
+  {
+    PrintBold(s:"Riot Knight Auter has been killed in action.");
+  }
+  if(nameNum==87)
+  {
+    PrintBold(s:"Riot Knight Len has been killed in action.");
+  }
+  if(nameNum==88)
+  {
+    PrintBold(s:"Riot Knight Hallmark has been killed in action.");
+  }
+  if(nameNum==89)
+  {
+    PrintBold(s:"Riot Knight Ahmad has been killed in action.");
+  }
+  if(nameNum==90)
+  {
+    PrintBold(s:"Riot Knight Adair has been killed in action.");
+  }
+  if(nameNum==91)
+  {
+    PrintBold(s:"Riot Knight Laflamme has been killed in action.");
+  }
+  if(nameNum==92)
+  {
+    PrintBold(s:"Riot Knight Matlock has been killed in action.");
+  }
+  if(nameNum==93)
+  {
+    PrintBold(s:"Riot Knight Stonge has been killed in action.");
+  }
+  if(nameNum==94)
+  {
+    PrintBold(s:"Riot Knight McElrath has been killed in action.");
+  }
+  if(nameNum==95)
+  {
+    PrintBold(s:"Riot Knight Lammers has been killed in action.");
+  }
+  if(nameNum==96)
+  {
+    PrintBold(s:"Riot Knight Stebbins has been killed in action.");
+  }
+  if(nameNum==97)
+  {
+    PrintBold(s:"Riot Knight Strader has been killed in action.");
+  }
+  if(nameNum==98)
+  {
+    PrintBold(s:"Riot Knight Cofield has been killed in action.");
+  }
+  if(nameNum==99)
+  {
+    PrintBold(s:"Riot Knight Devaughn has been killed in action.");
+  }
+  if(nameNum==100)
+  {
+    PrintBold(s:"Riot Knight Hagerty has been killed in action.");
+  }
+  /***********************************************************\
+  ::::::::::::::::::::::::HEAVY KNIGHTS::::::::::::::::::::::::
+  \***********************************************************/
+  if(nameNum==101)
+  {
+    PrintBold(s:"Heavy Knight Cubbage has been killed in action.");
+  }
+  if(nameNum==102)
+  {
+    PrintBold(s:"Heavy Knight Shane has been killed in action.");
+  }
+  if(nameNum==103)
+  {
+    PrintBold(s:"Heavy Knight Rohloff has been killed in action.");
+  }
+  if(nameNum==104)
+  {
+    PrintBold(s:"Heavy Knight Granata has been killed in action.");
+  }
+  if(nameNum==105)
+  {
+    PrintBold(s:"Heavy Knight Pedro has been killed in action.");
+  }
+  if(nameNum==106)
+  {
+    PrintBold(s:"Heavy Knight Wedding has been killed in action.");
+  }
+  if(nameNum==107)
+  {
+    PrintBold(s:"Heavy Knight Gowins has been killed in action.");
+  }
+  if(nameNum==108)
+  {
+    PrintBold(s:"Heavy Knight Kleckner has been killed in action.");
+  }
+  if(nameNum==109)
+  {
+    PrintBold(s:"Heavy Knight Sutliff has been killed in action.");
+  }
+  if(nameNum==110)
+  {
+    PrintBold(s:"Heavy Knight Shiflett has been killed in action.");
+  }
+  if(nameNum==111)
+  {
+    PrintBold(s:"Heavy Knight Greenawalt has been killed in action.");
+  }
+  if(nameNum==112)
+  {
+    PrintBold(s:"Heavy Knight Palos has been killed in action.");
+  }
+  if(nameNum==113)
+  {
+    PrintBold(s:"Heavy Knight Monte has been killed in action.");
+  }
+  if(nameNum==114)
+  {
+    PrintBold(s:"Heavy Knight Plemons has been killed in action.");
+  }
+  if(nameNum==115)
+  {
+    PrintBold(s:"Heavy Knight Carcamo has been killed in action.");
+  }
+  if(nameNum==116)
+  {
+    PrintBold(s:"Heavy Knight Thresher has been killed in action.");
+  }
+  if(nameNum==117)
+  {
+    PrintBold(s:"Heavy Knight Hochstedler has been killed in action.");
+  }
+  if(nameNum==118)
+  {
+    PrintBold(s:"Heavy Knight Shreves has been killed in action.");
+  }
+  if(nameNum==119)
+  {
+    PrintBold(s:"Heavy Knight Sparger has been killed in action.");
+  }
+  if(nameNum==120)
+  {
+    PrintBold(s:"Heavy Knight Throgmorton has been killed in action.");
+  }
+  if(nameNum==121)
+  {
+    PrintBold(s:"Heavy Knight Hackley has been killed in action.");
+  }
+  if(nameNum==122)
+  {
+    PrintBold(s:"Heavy Knight Lattanzio has been killed in action.");
+  }
+  if(nameNum==123)
+  {
+    PrintBold(s:"Heavy Knight Toriello has been killed in action.");
+  }
+  if(nameNum==124)
+  {
+    PrintBold(s:"Heavy Knight Cerulli has been killed in action.");
+  }
+  if(nameNum==125)
+  {
+    PrintBold(s:"Heavy Knight Warbritton has been killed in action.");
+  }
+  /***********************************************************\
+  :::::::::::::::::::::::::BIO KNIGHTS:::::::::::::::::::::::::
+  \***********************************************************/
+  if(nameNum==126)
+  {
+    PrintBold(s:"Bio Knight Reeh has been killed in action.");
+  }
+  if(nameNum==127)
+  {
+    PrintBold(s:"Bio Knight Suermann has been killed in action.");
+  }
+  if(nameNum==128)
+  {
+    PrintBold(s:"Bio Knight Rispoli has been killed in action.");
+  }
+  if(nameNum==129)
+  {
+    PrintBold(s:"Bio Knight Tyminski has been killed in action.");
+  }
+  if(nameNum==130)
+  {
+    PrintBold(s:"Bio Knight Herbig has been killed in action.");
+  }
+  if(nameNum==131)
+  {
+    PrintBold(s:"Bio Knight Thorburn has been killed in action.");
+  }
+  if(nameNum==132)
+  {
+    PrintBold(s:"Bio Knight Kiah has been killed in action.");
+  }
+  if(nameNum==133)
+  {
+    PrintBold(s:"Bio Knight Millstein has been killed in action.");
+  }
+  if(nameNum==134)
+  {
+    PrintBold(s:"Bio Knight Warehime has been killed in action.");
+  }
+  if(nameNum==135)
+  {
+    PrintBold(s:"Bio Knight Raske has been killed in action.");
+  }
+  if(nameNum==136)
+  {
+    PrintBold(s:"Bio Knight Alphonso has been killed in action.");
+  }
+  if(nameNum==137)
+  {
+    PrintBold(s:"Bio Knight Waldeck has been killed in action.");
+  }
+  if(nameNum==138)
+  {
+    PrintBold(s:"Bio Knight Spartz has been killed in action.");
+  }
+  if(nameNum==139)
+  {
+    PrintBold(s:"Bio Knight Luhr has been killed in action.");
+  }
+  if(nameNum==140)
+  {
+    PrintBold(s:"Bio Knight Koba has been killed in action.");
+  }
+  if(nameNum==141)
+  {
+    PrintBold(s:"Bio Knight Schwiebert has been killed in action.");
+  }
+  if(nameNum==142)
+  {
+    PrintBold(s:"Bio Knight Lengel has been killed in action.");
+  }
+  if(nameNum==143)
+  {
+    PrintBold(s:"Bio Knight Cherico has been killed in action.");
+  }
+  if(nameNum==144)
+  {
+    PrintBold(s:"Bio Knight Scullawl has been killed in action.");
+  }
+  if(nameNum==145)
+  {
+    PrintBold(s:"Bio Knight Priem has been killed in action.");
+  }
+  if(nameNum==146)
+  {
+    PrintBold(s:"Bio Knight Armacost has been killed in action.");
+  }
+  if(nameNum==147)
+  {
+    PrintBold(s:"Bio Knight Nekola has been killed in action.");
+  }
+  if(nameNum==148)
+  {
+    PrintBold(s:"Bio Knight Battis has been killed in action.");
+  }
+  if(nameNum==149)
+  {
+    PrintBold(s:"Bio Knight Mellick has been killed in action.");
+  }
+  if(nameNum==150)
+  {
+    PrintBold(s:"Bio Knight Exford has been killed in action.");
+  }
+  /***********************************************************\
+  :::::::::::::::::::::::::ICE KNIGHTS:::::::::::::::::::::::::
+  \***********************************************************/
+  if(nameNum==151)
+  {
+    PrintBold(s:"Ice Knight Wickenhauser has been killed in action.");
+  }
+  if(nameNum==152)
+  {
+    PrintBold(s:"Ice Knight Danh has been killed in action.");
+  }
+  if(nameNum==153)
+  {
+    PrintBold(s:"Ice Knight Deslatte has been killed in action.");
+  }
+  if(nameNum==154)
+  {
+    PrintBold(s:"Ice Knight Tamlin has been killed in action.");
+  }
+  if(nameNum==155)
+  {
+    PrintBold(s:"Ice Knight McKune has been killed in action.");
+  }
+  if(nameNum==156)
+  {
+    PrintBold(s:"Ice Knight Blayney has been killed in action.");
+  }
+  if(nameNum==157)
+  {
+    PrintBold(s:"Ice Knight Nortz has been killed in action.");
+  }
+  if(nameNum==158)
+  {
+    PrintBold(s:"Ice Knight Parnes has been killed in action.");
+  }
+  if(nameNum==159)
+  {
+    PrintBold(s:"Ice Knight Manire has been killed in action.");
+  }
+  if(nameNum==160)
+  {
+    PrintBold(s:"Ice Knight Crotzer has been killed in action.");
+  }
+  if(nameNum==161)
+  {
+    PrintBold(s:"Ice Knight Seliga has been killed in action.");
+  }
+  if(nameNum==162)
+  {
+    PrintBold(s:"Ice Knight Chase has been killed in action.");
+  }
+  if(nameNum==163)
+  {
+    PrintBold(s:"Ice Knight Berrien has been killed in action.");
+  }
+  if(nameNum==164)
+  {
+    PrintBold(s:"Ice Knight Stoudamire has been killed in action.");
+  }
+  if(nameNum==165)
+  {
+    PrintBold(s:"Ice Knight Hierholzer has been killed in action.");
+  }
+  if(nameNum==166)
+  {
+    PrintBold(s:"Ice Knight Lamport has been killed in action.");
+  }
+  if(nameNum==167)
+  {
+    PrintBold(s:"Ice Knight Elton has been killed in action.");
+  }
+  if(nameNum==168)
+  {
+    PrintBold(s:"Ice Knight Kerkhoff has been killed in action.");
+  }
+  if(nameNum==169)
+  {
+    PrintBold(s:"Ice Knight Benincasa has been killed in action.");
+  }
+  if(nameNum==170)
+  {
+    PrintBold(s:"Ice Knight Tallis has been killed in action.");
+  }
+  if(nameNum==171)
+  {
+    PrintBold(s:"Ice Knight Irie has been killed in action.");
+  }
+  if(nameNum==172)
+  {
+    PrintBold(s:"Ice Knight Venditto has been killed in action.");
+  }
+  if(nameNum==173)
+  {
+    PrintBold(s:"Ice Knight Yon has been killed in action.");
+  }
+  if(nameNum==174)
+  {
+    PrintBold(s:"Ice Knight Argumedo has been killed in action.");
+  }
+  if(nameNum==175)
+  {
+    PrintBold(s:"Ice Knight Jaye has been killed in action.");
+  }
+  /***********************************************************\
+  :::::::::::::::::::::::::FIRE KNIGHTS::::::::::::::::::::::::
+  \***********************************************************/
+  if(nameNum==176)
+  {
+    PrintBold(s:"Fire Knight Cressy has been killed in action.");
+  }
+  if(nameNum==177)
+  {
+    PrintBold(s:"Fire Knight Spallone has been killed in action.");
+  }
+  if(nameNum==178)
+  {
+    PrintBold(s:"Fire Knight Setlock has been killed in action.");
+  }
+  if(nameNum==179)
+  {
+    PrintBold(s:"Fire Knight Reinschmidt has been killed in action.");
+  }
+  if(nameNum==180)
+  {
+    PrintBold(s:"Fire Knight Bowin has been killed in action.");
+  }
+  if(nameNum==181)
+  {
+    PrintBold(s:"Fire Knight Dewilde has been killed in action.");
+  }
+  if(nameNum==182)
+  {
+    PrintBold(s:"Fire Knight Villalobas has been killed in action.");
+  }
+  if(nameNum==183)
+  {
+    PrintBold(s:"Fire Knight Jonsson has been killed in action.");
+  }
+  if(nameNum==184)
+  {
+    PrintBold(s:"Fire Knight Conrad has been killed in action.");
+  }
+  if(nameNum==185)
+  {
+    PrintBold(s:"Fire Knight Elery has been killed in action.");
+  }
+  if(nameNum==186)
+  {
+    PrintBold(s:"Fire Knight Mahany has been killed in action.");
+  }
+  if(nameNum==187)
+  {
+    PrintBold(s:"Fire Knight Leerar has been killed in action.");
+  }
+  if(nameNum==188)
+  {
+    PrintBold(s:"Fire Knight Omtiveros has been killed in action.");
+  }
+  if(nameNum==189)
+  {
+    PrintBold(s:"Fire Knight Mernin has been killed in action.");
+  }
+  if(nameNum==190)
+  {
+    PrintBold(s:"Fire Knight Krygier has been killed in action.");
+  }
+  if(nameNum==191)
+  {
+    PrintBold(s:"Fire Knight Gilliom has been killed in action.");
+  }
+  if(nameNum==192)
+  {
+    PrintBold(s:"Fire Knight Urabe has been killed in action.");
+  }
+  if(nameNum==193)
+  {
+    PrintBold(s:"Fire Knight Ashenfelter has been killed in action.");
+  }
+  if(nameNum==194)
+  {
+    PrintBold(s:"Fire Knight Mosler has been killed in action.");
+  }
+  if(nameNum==195)
+  {
+    PrintBold(s:"Fire Knight Perrino has been killed in action.");
+  }
+  if(nameNum==196)
+  {
+    PrintBold(s:"Fire Knight Angeloni has been killed in action.");
+  }
+  if(nameNum==197)
+  {
+    PrintBold(s:"Fire Knight Rybak has been killed in action.");
+  }
+  if(nameNum==198)
+  {
+    PrintBold(s:"Fire Knight Lowes has been killed in action.");
+  }
+  if(nameNum==199)
+  {
+    PrintBold(s:"Fire Knight Caspi has been killed in action.");
+  }
+  if(nameNum==200)
+  {
+    PrintBold(s:"Fire Knight Glymph has been killed in action.");
+  }
+  /***********************************************************\
+  ::::::::::::::::::::::::SHOCK KNIGHTS::::::::::::::::::::::::
+  \***********************************************************/
+  if(nameNum==201)
+  {
+    PrintBold(s:"Shock Knight Byron has been killed in action.");
+  }
+  if(nameNum==202)
+  {
+    PrintBold(s:"Shock Knight Symmes has been killed in action.");
+  }
+  if(nameNum==203)
+  {
+    PrintBold(s:"Shock Knight Hilst has been killed in action.");
+  }
+  if(nameNum==204)
+  {
+    PrintBold(s:"Shock Knight Lotzer has been killed in action.");
+  }
+  if(nameNum==205)
+  {
+    PrintBold(s:"Shock Knight Plese has been killed in action.");
+  }
+  if(nameNum==206)
+  {
+    PrintBold(s:"Shock Knight Berl has been killed in action.");
+  }
+  if(nameNum==207)
+  {
+    PrintBold(s:"Shock Knight Pierpoint has been killed in action.");
+  }
+  if(nameNum==208)
+  {
+    PrintBold(s:"Shock Knight Ruskin has been killed in action.");
+  }
+  if(nameNum==209)
+  {
+    PrintBold(s:"Shock Knight Twyford has been killed in action.");
+  }
+  if(nameNum==210)
+  {
+    PrintBold(s:"Shock Knight Blancas has been killed in action.");
+  }
+  if(nameNum==211)
+  {
+    PrintBold(s:"Shock Knight Klish has been killed in action.");
+  }
+  if(nameNum==212)
+  {
+    PrintBold(s:"Shock Knight Casano has been killed in action.");
+  }
+  if(nameNum==213)
+  {
+    PrintBold(s:"Shock Knight Cestari has been killed in action.");
+  }
+  if(nameNum==214)
+  {
+    PrintBold(s:"Shock Knight Nothum has been killed in action.");
+  }
+  if(nameNum==215)
+  {
+    PrintBold(s:"Shock Knight Leuenberger has been killed in action.");
+  }
+  if(nameNum==216)
+  {
+    PrintBold(s:"Shock Knight Vanconey has been killed in action.");
+  }
+  if(nameNum==217)
+  {
+    PrintBold(s:"Shock Knight Paget has been killed in action.");
+  }
+  if(nameNum==218)
+  {
+    PrintBold(s:"Shock Knight Ruthanne has been killed in action.");
+  }
+  if(nameNum==219)
+  {
+    PrintBold(s:"Shock Knight Ackerly has been killed in action.");
+  }
+  if(nameNum==220)
+  {
+    PrintBold(s:"Shock Knight Vannah has been killed in action.");
+  }
+  if(nameNum==221)
+  {
+    PrintBold(s:"Shock Knight Balazs has been killed in action.");
+  }
+  if(nameNum==222)
+  {
+    PrintBold(s:"Shock Knight Luma has been killed in action.");
+  }
+  if(nameNum==223)
+  {
+    PrintBold(s:"Shock Knight Eickhorst has been killed in action.");
+  }
+  if(nameNum==224)
+  {
+    PrintBold(s:"Shock Knight Colantro has been killed in action.");
+  }
+  if(nameNum==225)
+  {
+    PrintBold(s:"Shock Knight Fletcher has been killed in action.");
+  }
+  /***********************************************************\
+  ::::::::::::::::::::::::GRENADE KNIGHTS::::::::::::::::::::::
+  \***********************************************************/
+  if(nameNum==226)
+  {
+    PrintBold(s:"Grenade Knight Drinnen has been killed in action.");
+  }
+  if(nameNum==227)
+  {
+    PrintBold(s:"Grenade Knight Tappendorf has been killed in action.");
+  }
+  if(nameNum==228)
+  {
+    PrintBold(s:"Grenade Knight Offley has been killed in action.");
+  }
+  if(nameNum==229)
+  {
+    PrintBold(s:"Grenade Knight Bulan has been killed in action.");
+  }
+  if(nameNum==230)
+  {
+    PrintBold(s:"Grenade Knight Loosli has been killed in action.");
+  }
+  if(nameNum==231)
+  {
+    PrintBold(s:"Grenade Knight Alice has been killed in action.");
+  }
+  if(nameNum==232)
+  {
+    PrintBold(s:"Grenade Knight Duling has been killed in action.");
+  }
+  if(nameNum==233)
+  {
+    PrintBold(s:"Grenade Knight Fuehrer has been killed in action.");
+  }
+  if(nameNum==234)
+  {
+    PrintBold(s:"Grenade Knight Muoio has been killed in action.");
+  }
+  if(nameNum==235)
+  {
+    PrintBold(s:"Grenade Knight Hilde has been killed in action.");
+  }
+  if(nameNum==236)
+  {
+    PrintBold(s:"Grenade Knight Hieatt has been killed in action.");
+  }
+  if(nameNum==237)
+  {
+    PrintBold(s:"Grenade Knight Pautler has been killed in action.");
+  }
+  if(nameNum==238)
+  {
+    PrintBold(s:"Grenade Knight Route has been killed in action.");
+  }
+  if(nameNum==239)
+  {
+    PrintBold(s:"Grenade Knight Meech has been killed in action.");
+  }
+  if(nameNum==240)
+  {
+    PrintBold(s:"Grenade Knight Lory has been killed in action.");
+  }
+  if(nameNum==241)
+  {
+    PrintBold(s:"Grenade Knight Wickell has been killed in action.");
+  }
+  if(nameNum==242)
+  {
+    PrintBold(s:"Grenade Knight Updegrove has been killed in action.");
+  }
+  if(nameNum==243)
+  {
+    PrintBold(s:"Grenade Knight Sneary has been killed in action.");
+  }
+  if(nameNum==244)
+  {
+    PrintBold(s:"Grenade Knight Dante has been killed in action.");
+  }
+  if(nameNum==245)
+  {
+    PrintBold(s:"Grenade Knight Stych has been killed in action.");
+  }
+  if(nameNum==246)
+  {
+    PrintBold(s:"Grenade Knight Sobey has been killed in action.");
+  }
+  if(nameNum==247)
+  {
+    PrintBold(s:"Grenade Knight Zingaro has been killed in action.");
+  }
+  if(nameNum==248)
+  {
+    PrintBold(s:"Grenade Knight Serda has been killed in action.");
+  }
+  if(nameNum==249)
+  {
+    PrintBold(s:"Grenade Knight Sankar has been killed in action.");
+  }
+  if(nameNum==250)
+  {
+    PrintBold(s:"Grenade Knight Vandevoorde has been killed in action.");
+  }
+  /***********************************************************\
+  :::::::::::::::::::::::::ROOK KNIGHTS::::::::::::::::::::::::
+  \***********************************************************/
+  if(nameNum==251)
+  {
+    PrintBold(s:"Rook Knight Ouchi has been killed in action.");
+  }
+  if(nameNum==252)
+  {
+    PrintBold(s:"Rook Knight Christlieb has been killed in action.");
+  }
+  if(nameNum==253)
+  {
+    PrintBold(s:"Rook Knight Mazin has been killed in action.");
+  }
+  if(nameNum==254)
+  {
+    PrintBold(s:"Rook Knight Onkst has been killed in action.");
+  }
+  if(nameNum==255)
+  {
+    PrintBold(s:"Rook Knight Indovina has been killed in action.");
+  }
+  if(nameNum==256)
+  {
+    PrintBold(s:"Rook Knight Sartoris has been killed in action.");
+  }
+  if(nameNum==257)
+  {
+    PrintBold(s:"Rook Knight Kroemer has been killed in action.");
+  }
+  if(nameNum==258)
+  {
+    PrintBold(s:"Rook Knight Cleveland has been killed in action.");
+  }
+  if(nameNum==259)
+  {
+    PrintBold(s:"Rook Knight Emhoff has been killed in action.");
+  }
+  if(nameNum==260)
+  {
+    PrintBold(s:"Rook Knight Khamo has been killed in action.");
+  }
+  if(nameNum==261)
+  {
+    PrintBold(s:"Rook Knight Stettler has been killed in action.");
+  }
+  if(nameNum==262)
+  {
+    PrintBold(s:"Rook Knight Aliberti has been killed in action.");
+  }
+  if(nameNum==263)
+  {
+    PrintBold(s:"Rook Knight Neumeier has been killed in action.");
+  }
+  if(nameNum==264)
+  {
+    PrintBold(s:"Rook Knight Veteto has been killed in action.");
+  }
+  if(nameNum==265)
+  {
+    PrintBold(s:"Rook Knight Snide has been killed in action.");
+  }
+  if(nameNum==266)
+  {
+    PrintBold(s:"Rook Knight Tupick has been killed in action.");
+  }
+  if(nameNum==267)
+  {
+    PrintBold(s:"Rook Knight Galeazzi has been killed in action.");
+  }
+  if(nameNum==268)
+  {
+    PrintBold(s:"Rook Knight Brines has been killed in action.");
+  }
+  if(nameNum==269)
+  {
+    PrintBold(s:"Rook Knight Mody has been killed in action.");
+  }
+  if(nameNum==270)
+  {
+    PrintBold(s:"Rook Knight Cezar has been killed in action.");
+  }
+  if(nameNum==271)
+  {
+    PrintBold(s:"Rook Knight Barke has been killed in action.");
+  }
+  if(nameNum==272)
+  {
+    PrintBold(s:"Rook Knight Misener has been killed in action.");
+  }
+  if(nameNum==273)
+  {
+    PrintBold(s:"Rook Knight Yuengling has been killed in action.");
+  }
+  if(nameNum==274)
+  {
+    PrintBold(s:"Rook Knight Sheng has been killed in action.");
+  }
+  if(nameNum==275)
+  {
+    PrintBold(s:"Rook Knight Misener has been killed in action.");
+  }
+  /***********************************************************\
+  ::::::::::::::::::::::::MEDIC KNIGHTS::::::::::::::::::::::::
+  \***********************************************************/
+  if(nameNum==276)
+  {
+    PrintBold(s:"Medic Knight Roemen has been killed in action.");
+  }
+  if(nameNum==277)
+  {
+    PrintBold(s:"Medic Knight Kortge has been killed in action.");
+  }
+  if(nameNum==278)
+  {
+    PrintBold(s:"Medic Knight Piske has been killed in action.");
+  }
+  if(nameNum==279)
+  {
+    PrintBold(s:"Medic Knight Kiflezghie has been killed in action.");
+  }
+  if(nameNum==280)
+  {
+    PrintBold(s:"Medic Knight Diwan has been killed in action.");
+  }
+  if(nameNum==281)
+  {
+    PrintBold(s:"Medic Knight Medows has been killed in action.");
+  }
+  if(nameNum==282)
+  {
+    PrintBold(s:"Medic Knight Knoth has been killed in action.");
+  }
+  if(nameNum==283)
+  {
+    PrintBold(s:"Medic Knight Train has been killed in action.");
+  }
+  if(nameNum==284)
+  {
+    PrintBold(s:"Medic Knight Geffrard has been killed in action.");
+  }
+  if(nameNum==285)
+  {
+    PrintBold(s:"Medic Knight Giner has been killed in action.");
+  }
+  if(nameNum==286)
+  {
+    PrintBold(s:"Medic Knight Velo has been killed in action.");
+  }
+  if(nameNum==287)
+  {
+    PrintBold(s:"Medic Knight Centini has been killed in action.");
+  }
+  if(nameNum==288)
+  {
+    PrintBold(s:"Medic Knight Branting has been killed in action.");
+  }
+  if(nameNum==289)
+  {
+    PrintBold(s:"Medic Knight Hoople has been killed in action.");
+  }
+  if(nameNum==290)
+  {
+    PrintBold(s:"Medic Knight Nu has been killed in action.");
+  }
+  if(nameNum==291)
+  {
+    PrintBold(s:"Medic Knight Durphey has been killed in action.");
+  }
+  if(nameNum==292)
+  {
+    PrintBold(s:"Medic Knight Kamemoto has been killed in action.");
+  }
+  if(nameNum==293)
+  {
+    PrintBold(s:"Medic Knight Debrot has been killed in action.");
+  }
+  if(nameNum==294)
+  {
+    PrintBold(s:"Medic Knight Olvey has been killed in action.");
+  }
+  if(nameNum==295)
+  {
+    PrintBold(s:"Medic Knight Strenge has been killed in action.");
+  }
+  if(nameNum==296)
+  {
+    PrintBold(s:"Medic Knight Treso has been killed in action.");
+  }
+  if(nameNum==298)
+  {
+    PrintBold(s:"Medic Knight McHardy has been killed in action.");
+  }
+  if(nameNum==299)
+  {
+    PrintBold(s:"Medic Knight Gamotan has been killed in action.");
+  }
+  if(nameNum==300)
+  {
+    PrintBold(s:"Medic Knight Santos has been killed in action.");
+  }
+  /***********************************************************\
+  ::::::::::::::::::::::::BISHOP KNIGHTS:::::::::::::::::::::::
+  \***********************************************************/
+  if(nameNum==301)
+  {
+    PrintBold(s:"Bishop Knight Tredway has been killed in action.");
+  }
+  if(nameNum==302)
+  {
+    PrintBold(s:"Bishop Knight Iuliano has been killed in action.");
+  }
+  if(nameNum==303)
+  {
+    PrintBold(s:"Bishop Knight Rantz has been killed in action.");
+  }
+  if(nameNum==304)
+  {
+    PrintBold(s:"Bishop Knight Agler has been killed in action.");
+  }
+  if(nameNum==305)
+  {
+    PrintBold(s:"Bishop Knight Lande has been killed in action.");
+  }
+  if(nameNum==306)
+  {
+    PrintBold(s:"Bishop Knight Wison has been killed in action.");
+  }
+  if(nameNum==307)
+  {
+    PrintBold(s:"Bishop Knight Holbrooks has been killed in action.");
+  }
+  if(nameNum==308)
+  {
+    PrintBold(s:"Bishop Knight Kassouf has been killed in action.");
+  }
+  if(nameNum==309)
+  {
+    PrintBold(s:"Bishop Knight Sugiki has been killed in action.");
+  }
+  if(nameNum==310)
+  {
+    PrintBold(s:"Bishop Knight Brightharp has been killed in action.");
+  }
+  if(nameNum==311)
+  {
+    PrintBold(s:"Bishop Knight Naftel has been killed in action.");
+  }
+  if(nameNum==312)
+  {
+    PrintBold(s:"Bishop Knight Dimitrov has been killed in action.");
+  }
+  if(nameNum==313)
+  {
+    PrintBold(s:"Bishop Knight Lenci has been killed in action.");
+  }
+  if(nameNum==314)
+  {
+    PrintBold(s:"Bishop Knight Starch has been killed in action.");
+  }
+  if(nameNum==315)
+  {
+    PrintBold(s:"Bishop Knight Cerroni has been killed in action.");
+  }
+  if(nameNum==316)
+  {
+    PrintBold(s:"Bishop Knight Turrigiano has been killed in action.");
+  }
+  if(nameNum==317)
+  {
+    PrintBold(s:"Bishop Knight Hastedt has been killed in action.");
+  }
+  if(nameNum==318)
+  {
+    PrintBold(s:"Bishop Knight Matesic has been killed in action.");
+  }
+  if(nameNum==319)
+  {
+    PrintBold(s:"Bishop Knight Olin has been killed in action.");
+  }
+  if(nameNum==320)
+  {
+    PrintBold(s:"Bishop Knight Biscahall has been killed in action.");
+  }
+  if(nameNum==321)
+  {
+    PrintBold(s:"Bishop Knight Ziccardi has been killed in action.");
+  }
+  if(nameNum==322)
+  {
+    PrintBold(s:"Bishop Knight Flakne has been killed in action.");
+  }
+  if(nameNum==323)
+  {
+    PrintBold(s:"Bishop Knight Barthell has been killed in action.");
+  }
+  if(nameNum==324)
+  {
+    PrintBold(s:"Bishop Knight Hataway has been killed in action.");
+  }
+  if(nameNum==325)
+  {
+    PrintBold(s:"Bishop Knight Fletcher has been killed in action.");
+  }
+  /***********************************************************\
+  ::::::::::::::::::::::::KNIGHT CAPTAINS::::::::::::::::::::::
+  \***********************************************************/
+  if(nameNum==326)
+  {
+    PrintBold(s:"The glorious Knight Captain Rancourt has been defeated!");
+  }
+  if(nameNum==327)
+  {
+    PrintBold(s:"The glorious Knight Captain Locket has been defeated!");
+  }
+  if(nameNum==328)
+  {
+    PrintBold(s:"The glorious Knight Captain Soverns has been defeated!");
+  }
+  if(nameNum==329)
+  {
+    PrintBold(s:"The glorious Knight Captain Rieper has been defeated!");
+  }
+  if(nameNum==330)
+  {
+    PrintBold(s:"The glorious Knight Captain Ankrum has been defeated!");
+  }
+  if(nameNum==331)
+  {
+    PrintBold(s:"The glorious Knight Captain Rosehurst has been defeated!");
+  }
+  if(nameNum==332)
+  {
+    PrintBold(s:"The glorious Knight Captain Asai has been defeated!");
+  }
+  if(nameNum==333)
+  {
+    PrintBold(s:"The glorious Knight Captain Judas has been defeated!");
+  }
+  if(nameNum==334)
+  {
+    PrintBold(s:"The glorious Knight Captain Simon has been defeated!");
+  }
+  if(nameNum==335)
+  {
+    PrintBold(s:"The glorious Knight Captain Rochette has been defeated!");
+  }
+  if(nameNum==336)
+  {
+    PrintBold(s:"The glorious Knight Captain Vincent has been defeated!");
+  }
+  if(nameNum==337)
+  {
+    PrintBold(s:"The glorious Knight Captain Warden has been defeated!");
+  }
+  if(nameNum==338)
+  {
+    PrintBold(s:"The glorious Knight Captain Marvais has been defeated!");
+  }
+  if(nameNum==339)
+  {
+    PrintBold(s:"The glorious Knight Captain Idate has been defeated!");
+  }
+  if(nameNum==340)
+  {
+    PrintBold(s:"The glorious Knight Captain Lorette has been defeated!");
+  }
+  if(nameNum==341)
+  {
+    PrintBold(s:"The glorious Knight Captain Eitzen has been defeated!");
+  }
+  if(nameNum==342)
+  {
+    PrintBold(s:"The glorious Knight Captain Nern has been defeated!");
+  }
+  if(nameNum==343)
+  {
+    PrintBold(s:"The glorious Knight Captain Guardia has been defeated!");
+  }
+  if(nameNum==344)
+  {
+    PrintBold(s:"The glorious Knight Captain Tepp has been defeated!");
+  }
+  if(nameNum==345)
+  {
+    PrintBold(s:"The glorious Knight Captain Niethamer has been defeated!");
+  }
+  if(nameNum==346)
+  {
+    PrintBold(s:"The glorious Knight Captain Donnelley has been defeated!");
+  }
+  if(nameNum==347)
+  {
+    PrintBold(s:"The glorious Knight Captain Gambles has been defeated!");
+  }
+  if(nameNum==348)
+  {
+    PrintBold(s:"The glorious Knight Captain Colbeth has been defeated!");
+  }
+  if(nameNum==349)
+  {
+    PrintBold(s:"The glorious Knight Captain Mazar has been defeated!");
+  }
+  if(nameNum==350)
+  {
+    PrintBold(s:"The glorious Knight Captain DeBryun has been defeated!");
+  }
+  /***********************************************************\
+  ::::::::::::::::::::::::::JUSTICARS::::::::::::::::::::::::::
+  \***********************************************************/
+  if(nameNum==351)
+  {
+    PrintBold(s:"The legendary Justicar Osollo has fallen!");
+  }
+  if(nameNum==352)
+  {
+    PrintBold(s:"The legendary Justicar Hyun has fallen!");
+  }
+  if(nameNum==353)
+  {
+    PrintBold(s:"The legendary Justicar Noia has fallen!");
+  }
+  if(nameNum==354)
+  {
+    PrintBold(s:"The legendary Justicar Faust has fallen!");
+  }
+  if(nameNum==355)
+  {
+    PrintBold(s:"The legendary Justicar Piece-4 has fallen!");
+  }
+  if(nameNum==356)
+  {
+    PrintBold(s:"The legendary Justicar Lominack has fallen!");
+  }
+  if(nameNum==357)
+  {
+    PrintBold(s:"The legendary Justicar Lelias has fallen!");
+  }
+  if(nameNum==358)
+  {
+    PrintBold(s:"The legendary Justicar Linak has fallen!");
+  }
+  if(nameNum==359)
+  {
+    PrintBold(s:"The legendary Justicar Gia has fallen!");
+  }
+  if(nameNum==360)
+  {
+    PrintBold(s:"The legendary Justicar Furuyama has fallen!");
+  }
+  if(nameNum==361)
+  {
+    PrintBold(s:"The legendary Justicar Kain has fallen!");
+  }
+  if(nameNum==362)
+  {
+    PrintBold(s:"The legendary Justicar Nataz has fallen!");
+  }
+  if(nameNum==363)
+  {
+    PrintBold(s:"The legendary Justicar Jin has fallen!");
+  }
+  if(nameNum==364)
+  {
+    PrintBold(s:"The legendary Justicar Mossing has fallen!");
+  }
+  if(nameNum==365)
+  {
+    PrintBold(s:"The legendary Justicar Fierge has fallen!");
+  }
+  if(nameNum==366)
+  {
+    PrintBold(s:"The legendary Justicar Sol has fallen!");
+  }
+  if(nameNum==367)
+  {
+    PrintBold(s:"The legendary Justicar Lutao has fallen!");
+  }
+  if(nameNum==368)
+  {
+    PrintBold(s:"The legendary Justicar Labre has fallen!");
+  }
+  if(nameNum==369)
+  {
+    PrintBold(s:"The legendary Justicar Ramaudar has fallen!");
+  }
+  if(nameNum==370)
+  {
+    PrintBold(s:"The legendary Justicar Alires has fallen!");
+  }
+  if(nameNum==371)
+  {
+    PrintBold(s:"The legendary Justicar Monos-Hilbar has fallen!");
+  }
+  if(nameNum==372)
+  {
+    PrintBold(s:"The legendary Justicar 223 has fallen!");
+  }
+  if(nameNum==373)
+  {
+    PrintBold(s:"The legendary Justicar Darke has fallen!");
+  }
+  if(nameNum==374)
+  {
+    PrintBold(s:"The legendary Justicar Sven has fallen!");
+  }
+  if(nameNum==375)
+  {
+    PrintBold(s:"JOHN MADDEN");
+  }
+}
+
+/*Script 758 ENTER
+{
+   Print(s:"Chat item given.");
+   GiveInventory("FedChatItem",1);
+}*/
+
+Script 759 (void) // Terror Mite and Mortar Sky Check
+{
+   if(CheckActorCeilingTexture(0, "F_SKY1")) {
+      SetResultValue( 1 );
+   }
+   else {
+      SetResultValue( 0 );
+   }
+}
+
+Script 760 (void) {
+	civilian_death_count++;
+	HudMessageBold(i:civilian_death_count,s:" Civilian casualties";HUDMSG_PLAIN,1,17,0.5,0.0,0);
+}

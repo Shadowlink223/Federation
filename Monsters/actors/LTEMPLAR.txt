@@ -1,0 +1,1362 @@
+ACTOR FedTemplarLight : Enemy 28118
+{
+	//$Category Federation
+Health 5000
+PainChance 20
+PainChance "Dark", 64
+Damagefactor "Dark", 1.5
+PainChance "Light", 0
+Damagefactor "Light", 0
+Damagefactor "head", 0.0
+
+Dropitem "Megasphere" 256
+DropItem "2Beacon" 255
+Dropitem "FBeacon" 16
+Dropitem "7Beacon" 32
+Dropitem "UpgradeStamina2" 256
+
+DropItem "FedEye" 16
+
+Speed 22
+Scale 0.90
+Radius 20
+Height 56
+Mass 320
+Species hellknight
+MONSTER
++NOTARGET
++FLOORCLIP
++DONTHURTSPECIES
+-SOLID
+-SHOOTABLE
++FLOAT
++BOSS
++NOGRAVITY
++FASTER
+//+NORADIUSDMG
++REFLECTIVE
+Translation "16:47=224:231", "168:191=224:231"
+Renderstyle Translucent
+Alpha 0.0
+Obituary "%o saw a Light Templar at the end of the tunnel."
+BloodType "NashGore_Blood"
+SeeSound "monster/avasit" 
+PainSound "monster/avapai" 
+DeathSound "monster/avadth" 
+ActiveSound "monster/avaact"
+States 
+   { 
+   Spawn: 
+       TNT1 A 0
+       TNT1 A 0 Thing_SetSpecial(0,226,613,0,random(180,200))    // RGA2 EXP COMPATIBILITY
+       TNT1 A 0 A_JumpIfInventory("Summoned",1,"SpawnVisible")   //
+       TNT1 A 10 A_LookEx(0,0,0,0,0,"SpawnReveal")               // WHERE ARE YOU!?
+       goto Spawn+3                                              //
+   SpawnVisible:
+       DISC AB 10 A_Look                                         //
+       loop                                                      //
+   SpawnReveal:
+       DISC A 70 A_GiveInventory("Summoned",1)                    // REVEAL
+	   DISC A 0 A_FaceTarget									 //
+       DISC A 0 A_SpawnItemEx("IceStalagmite",0,0,0,0,0,0,125,0) //
+       DISC A 0 A_SpawnItemEx("IceStalagmite",0,0,0,0,0,0,90,0)   //
+       DISC A 0 A_SpawnItemEx("IceStalagmite",0,0,0,0,0,0,55,0)  //
+       DISC A 0 A_CustomMissile("OrbitIce",44,0,0,2,0)           //
+       DISC A 0 A_CustomMissile("OrbitIceA",44,0,36,2,0)         //
+       DISC A 0 A_CustomMissile("OrbitIceB",44,0,72,2,0)         //
+       DISC A 0 A_CustomMissile("OrbitIceC",44,0,108,2,0)        //
+       DISC A 0 A_CustomMissile("OrbitIceD",44,0,144,2,0)        //
+       DISC A 0 A_CustomMissile("OrbitIce2",44,0,180,2,0)        //
+       DISC A 0 A_CustomMissile("OrbitIce2A",44,0,216,2,0)       //
+       DISC A 0 A_CustomMissile("OrbitIce2B",44,0,252,2,0)       //
+       DISC A 0 A_CustomMissile("OrbitIce2C",44,0,288,2,0)       //
+       DISC A 0 A_CustomMissile("OrbitIce2D",44,0,324,2,0)       //
+       DISC AAAAAAAAA 3 A_FadeIn(0.1)                            //
+       DISC A 0 A_ChangeFlag("SOLID",1)                          //
+       DISC A 0 A_ChangeFlag("SHOOTABLE",1)                      //
+       DISC A 3 A_FadeIn(0.1)                                    //
+       goto See                                                  //
+   See: 
+       DISC AAABBB 2 A_Chase                                     // NORMAL CHASE
+       DISC A 0 A_JumpIfHealthLower(1000,"SummonBlizzard")       // GO TO RAGE MODE
+       DISC A 0 A_Jump(80,1)                                     // BLUR CHASE
+       Loop                                                      //
+       DISC A 0 A_FastChase                                      // FAST CHASE
+       DISC A 1 A_PlaySound("monster/blur")                      //
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC A 1 A_FastChase                                      // FAST CHASE
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC A 1 A_FastChase                                      // FAST CHASE
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC A 1 A_FastChase                                      // FAST CHASE
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC B 1 A_FastChase                                      // FAST CHASE
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC B 1 A_FastChase                                      // FAST CHASE
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC B 1 A_FastChase                                      // FAST CHASE
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC B 1 A_FastChase                                      // FAST CHASE
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC A 1 A_FastChase                                      // FAST CHASE
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC A 1 A_FastChase                                      // FAST CHASE
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC A 1 A_FastChase                                      // FAST CHASE
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC A 1 A_FastChase                                      // FAST CHASE
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC B 1 A_FastChase                                      // FAST CHASE
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC B 1 A_FastChase                                      // FAST CHASE
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC B 1 A_FastChase                                      // FAST CHASE
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC B 1 A_FastChase                                      // FAST CHASE
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC A 0 A_Jump(96,1)                                     // CHANCE BACK TO NORMAL CHASE
+       Goto See+16                                               //
+       DISC B 0                                                  //
+       Goto See                                                  //
+   Missile:
+       DISC A 1 A_Jump(192,"SpecialAttacks")                     // CHANCE SPECIAL ATTACKS
+       DISC A 0 A_FaceTarget                                     //
+       DISC A 1 A_SkullAttack                                    // DASH AT TARGET
+       DISC A 1 A_PlaySound("monster/blur")                      //
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC A 1 A_SkullAttack                                    // DASH AT TARGET
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC A 1 A_SkullAttack                                    // DASH AT TARGET
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC A 1 A_SkullAttack                                    // DASH AT TARGET
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC A 1 A_SkullAttack                                    // DASH AT TARGET
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC A 1 A_SkullAttack                                    // DASH AT TARGET
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC A 1 A_SkullAttack                                    // DASH AT TARGET
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC A 1 A_SkullAttack                                    // DASH AT TARGET
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC A 1 A_SkullAttack                                    // DASH AT TARGET
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC A 1 A_SkullAttack                                    // DASH AT TARGET
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC A 1 A_SkullAttack                                    // DASH AT TARGET
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       DISC A 1 A_SkullAttack                                    // DASH AT TARGET
+       DISC A 0 A_SpawnItem("LIGHTDSFX3",0,0)                         // MAKE AFTERIMAGE
+       Goto See                                                  //
+   SpecialAttacks:
+       DISC C 0 Bright A_Jump(192,"IceBarrage")                  // CHANCE USE GROUND ICE ATTACK
+       DISC E 1 Bright A_PlaySound("monster/disat1")             //
+       DISC EE 5 Bright A_FaceTarget                             //
+       DISC F 0 Bright A_CustomMissile("IceBall",36,0,-4,0)  // FIREBALL 1
+       DISC F 0 Bright A_CustomMissile("IceBall",36,0,4,0)   // FIREBALL 2
+       DISC F 0 Bright A_CustomMissile("IceBall",36,0,-8,0)  // FIREBALL 3
+       DISC F 0 Bright A_CustomMissile("IceBall",36,0,8,0)   // FIREBALL 4
+       DISC F 8 Bright A_CustomMissile("IceBall",36,0,0,0)   // FIREBALL 5
+       DISC E 0 Bright A_Jump(64,"IceBarrage")                   // CHANCE USE GROUND ICE ATTACK
+       Goto See                                                  //
+   IceBarrage:
+       DISC C 0 Bright A_Jump(128,"Hail")                    // CHANCE USE COMET SHOWER
+       DISC E 1 Bright A_PlaySound("monster/disat2")             //
+       DISC EE 5 Bright A_FaceTarget                             //
+       DISC F 8 Bright A_CustomMissile("GroundIceSeeker",36,0,0,0)// HOMING FIREBALL 1
+       DISC E 1 Bright A_PlaySound("monster/disat2")             //
+       DISC EE 5 Bright A_FaceTarget                             //
+       DISC F 8 Bright A_CustomMissile("GroundIceSeeker",36,0,0,0)// HOMING FIREBALL 2
+       DISC E 1 Bright A_PlaySound("monster/disat2")             //
+       DISC EE 5 Bright A_FaceTarget                             //
+       DISC F 8 Bright A_CustomMissile("GroundIceSeeker",36,0,0,0)// HOMING FIREBALL 3
+       Goto See                                                  //
+   Hail:
+       DISC EE 8 BRIGHT A_FaceTarget                             //
+       DISC F 4 BRIGHT A_CustomMissile ("HailNull",28,0,0,0)// COMET SHOWER SPAWNER 1
+       DISC F 4 BRIGHT A_CustomMissile ("HailNull",28,0,90,0)// COMET SHOWER SPAWNER 2
+       DISC F 4 BRIGHT A_CustomMissile ("HailNull",28,0,180,0)// COMET SHOWER SPAWNER 3
+       DISC F 4 BRIGHT A_CustomMissile ("HailNull",28,0,270,0)// COMET SHOWER SPAWNER 4
+       DISC F 4 BRIGHT                                           //
+       Goto See                                                  //
+   SummonBlizzard:
+       DISC C 0 Bright A_ChangeFlag("NOPAIN",1)                  				// WILL NOT ENTER PAIN STATE
+       DISC C 0 Bright A_Jump(128,"RageAttack2")                            	// CHANCE COMET TRAIL
+       DISC C 0 Bright A_Jump(128,"RageAttack3")                           		// CHANCE GIANT HOMING FIREBALL
+   RageAttack1:
+       DISC C 16 Bright A_PlaySoundEx("monster/avaatk","Voice")  				//
+       DISC C 0 Bright Radius_Quake(5,48,0,8,0)                  				// SHAKE AREA
+   RageAttack1Perform:
+	   TNT1 A 0 A_JumpIfInventory("RageCounter",48,"RageAttackEnd")             // FOR LOOP {
+       DISC C 1 Bright A_SpawnItemEX("IceBall",0,0,0,random(-20,20),random(-20,20),random(-20,20),random(0,255))// RAGE COMET
+	   TNT1 A 0 A_GiveInventory("RageCounter",1)								// RAGECOUNTER++ }
+	   Loop
+   RageAttack2:
+       DISC C 16 Bright A_PlaySoundEx("monster/avaatk","Voice")  				//
+       DISC C 0 Bright Radius_Quake(5,48,0,8,0)                  				// SHAKE AREA
+   RageAttack2Perform:
+	   TNT1 A 0 A_JumpIfInventory("RageCounter",100,"RageAttackEnd")            // FOR LOOP {
+       DISC C 0 Bright A_FaceTarget                              				//
+       DISC C 1 Bright A_CustomMissile("IceNeedle2",36,0,random(-3,3),CMF_AIMDIRECTION,random(-3,3))// ICE NEEDLES
+	   TNT1 A 0 A_GiveInventory("RageCounter",1)								// RAGECOUNTER++ }
+	   Loop
+   RageAttack3:
+       DISC C 16 Bright A_PlaySoundEx("monster/avaatk","Voice")  				//
+       DISC C 0 Bright Radius_Quake(5,35,0,8,0)                  				// SHAKE AREA
+   RageAttack3Perform:
+       DISC C 0 Bright A_CustomMissile("GroundIceSeeker",36,0,0,0)				// ICE SPIKE SEEKER
+       DISC C 0 Bright A_CustomMissile("GroundIceSeeker",36,0,45,0)				// ICE SPIKE SEEKER
+       DISC C 0 Bright A_CustomMissile("GroundIceSeeker",36,0,90,0)				// ICE SPIKE SEEKER
+       DISC C 0 Bright A_CustomMissile("GroundIceSeeker",36,0,135,0)				// ICE SPIKE SEEKER
+       DISC C 0 Bright A_CustomMissile("GroundIceSeeker",36,0,128,0)				// ICE SPIKE SEEKER
+       DISC C 0 Bright A_CustomMissile("GroundIceSeeker",36,0,-135,0)				// ICE SPIKE SEEKER
+       DISC C 0 Bright A_CustomMissile("GroundIceSeeker",36,0,-90,0)				// ICE SPIKE SEEKER
+       DISC C 1 Bright A_CustomMissile("GroundIceSeeker",36,0,-45,0)				// ICE SPIKE SEEKER
+	   Goto RageAttackEnd
+   RageAttackEnd:
+	   TNT1 A 0 A_TakeInventory("RageCounter",100)                              // /*RESET RAGECOUNTER*/
+       DISC C 0 Bright A_ChangeFlag("NOPAIN",0)                  				// WILL ENTER PAIN STATE
+       Goto See                                                  				//
+   Pain: 
+       DISC G 2                                                  //
+       DISC G 2 A_Pain                                           // OW!
+       DISC G 0 A_CustomMissile("IceBall",0,0,0)            	 // PAIN ICE 1
+       DISC G 0 A_CustomMissile("IceBall",0,0,45)           	 // PAIN ICE 2
+       DISC G 0 A_CustomMissile("IceBall",0,0,-45)          	 // PAIN ICE 3
+       DISC G 0 A_CustomMissile("IceBall",0,0,90)           	 // PAIN ICE 4
+       DISC G 0 A_CustomMissile("IceBall",0,0,-90)          	 // PAIN ICE 5
+       DISC G 0 A_CustomMissile("IceBall",0,0,135)          	 // PAIN ICE 6
+       DISC G 0 A_CustomMissile("IceBall",0,0,-135)         	 // PAIN ICE 7
+       DISC G 0 A_CustomMissile("IceBall",0,0,180)          	 // PAIN ICE 8
+       DISC G 4                                                  //
+       Goto See                                                  //
+   Death: 
+       DISC H 8 Bright A_Scream                                  //
+       DISC I 5 A_Burst("IceBall")                        		 // SPAWN DEATH ICE
+       DISC J 5 Bright                                           //
+       DISC K 5 Bright A_NoBlocking                              //
+       DISC L 0 A_GiveInventory("isDead", 1)                     //
+       DISC LMN 4 Bright                                         //
+       DISC O 1 A_Burst("IceBall")                        		 // SPAWN DEATH ICE
+       Stop                                                      //
+   Raise: 
+       DISC ONMLKJIH 5                                           // REVIVED
+       Goto See                                                  //
+   } 
+}
+
+ACTOR LIGHTDSFX3
+{   
+   Radius 2
+   Height 2
+   Speed 0
+   Scale 0.90
+   PROJECTILE
+   Translation "16:47=224:231", "168:191=224:231"
+   RENDERSTYLE Translucent
+   ALPHA 0.90
+   States
+   {
+   Spawn:
+      NULL A 3
+      DISC A 3 A_FadeOut(0.10)
+      goto spawn+1
+   }
+}
+
+/*actor IceTail
+{
+    PROJECTILE
+    RENDERSTYLE ADD
+    +NOCLIP
+    +CLIENTSIDEONLY
+    ALPHA 0.4
+	Alpha 0.75
+    States
+    {
+	Spawn:
+		FRTR A 6 bright A_FadeOut(0.2)
+		loop
+	Death:
+		FRTR BC 4 bright
+		stop
+    }
+}
+
+ACTOR HailNull
+{
+  Radius 0
+  Height 0
+  Speed 8
+  PROJECTILE
+  +FloorClip
+  +Ripper
+  +DoomBounce
+  +CeilingHugger
+  +DontHurtSpecies
+  Translation Ice
+  states
+  {
+  Spawn:
+    ZAP5 A 0 A_Jump(5,"Death")
+    ZAP5 AAAAAA 1 A_Wander
+    ZAP5 A 8 A_CustomMissile("FallingHail",-24,random(0,128),random(0,360),2,random(1,89))
+    Loop
+  Death:
+    ZAP5 A 0
+    Stop
+  }
+}
+
+ACTOR FallingHail
+{
+    Radius 6
+    Height 8
+    Speed 5
+    Damage 5
+    ExplosionDamage 20
+    ExplosionRadius 80
+    Scale .55
+    PROJECTILE
+    SEESOUND "pyro/comet"
+    DEATHSOUND "pyro/cometdeath"
+    -NoGravity
+    -Float
+    +FloorClip
+    +DontHurtSpecies 
+    +SpawnCeiling
+	Decal FreezeBlastMelt
+    DamageType Ice
+	Translation Ice
+    states
+    {
+    Spawn:
+        COMT AAAABBBBCCCC 1 BRIGHT A_SpawnItemEx("IceTail", 0, 0, 0, 0, 0, 0, 0, 128)
+        Loop
+    Death:
+        COMT D 3 BRIGHT A_SpawnItemEx("HailDeathGlow", 0, 0, 0, 0, 0, 0, 0, 128)
+        COMT E 3 BRIGHT A_Explode(20,80,0)
+		//TNT1 A 0 A_CustomMissile("IgnitedSurface", random(5,15), random(-15, 15), 0, 0)
+        COMT E 0 A_SpawnItemEx("HailDeath", 0, 0, 0, 0, 0, 0, 0, 128)
+        Stop
+    }
+}
+
+actor HailDeathGlow : IceTail
+{
+    Scale 2.0
+    Alpha 0.6
+	Translation Ice
+    States
+    {
+    Spawn:
+		TNT1 A 0
+        FRTB ABCDEFGHI 3 Bright
+        Stop
+    }
+}
+
+actor HailDeath
+{
+    PROJECTILE
+    RENDERSTYLE ADD
+    +NOCLIP
+    ALPHA 0.7
+	Translation Ice
+    States
+    {
+    Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("misc/freeze",0)
+		//TNT1 A 0 A_Burst("IceChunk")
+        COMT FGHI 3 Bright
+        Stop
+    }
+}
+
+ACTOR IceBall : IceGuyFX { +SKYEXPLODE }
+
+ACTOR IceNeedle : IceGuyFX2 {}
+
+ACTOR IceNeedle2 : IceNeedle { +NOGRAVITY }
+
+ACTOR IceCrystal : IceGuyFX {
+  Speed 1
+  Radius 8
+  Height 10
+  Health 1
+  damage 1
+  damagetype Ice
+  damagefactor "Ice", 0
+  PROJECTILE
+  +SHOOTABLE
+  -SOLID
+  //+RIPPER
+  -ACTIVATEIMPACT
+  -ACTIVATEPCROSS
+  DeathSound "IceGuyMissileExplode"
+  States {
+	Spawn:
+		ICPR A 0
+		ICPR ABC 2
+		ICPR A 0 A_Jump(256,"Freeze1","Freeze2","Freeze3")
+	Freeze1:
+		ICPR A 0 A_ChangeFlag("SOLID",1)
+		ICPR A 1 A_ChangeFlag("SOLID",1)
+		ICPR A 350 A_Stop
+		Goto Death
+	Freeze2:
+		ICPR B 0 A_ChangeFlag("SOLID",1)
+		ICPR B 1 A_ChangeFlag("SOLID",1)
+		ICPR B 350 A_Stop
+		Goto Death
+	Freeze3:
+		ICPR C 0 A_ChangeFlag("SOLID",1)
+		ICPR C 1 A_ChangeFlag("SOLID",1)
+		ICPR C 350 A_Stop
+		Goto Death
+	Death:
+		ICPR D 4 Bright
+		ICPR E 4 Bright
+		ICPR FG 4 Bright
+		ICPR H 3 Bright
+		Stop
+
+  }
+}
+
+actor OrbitIce
+{
+radius 6
+height 8
+SeeSound ""
+PROJECTILE
++NOCLIP
++RIPPER
+RenderStyle Add
+Alpha 0.75
+Scale 0.50
+DamageType Ice
++DONTSPLASH
++NOTELEPORT
++NOBLOCKMAP
++BLOODLESSIMPACT
++CANNOTPUSH
+-BLOODSPLATTER
+-ACTIVATEPCROSS
+-ACTIVATEIMPACT
+Damage 1
+Speed 10
+States
+{
+Spawn:
+FBLS A 3 bright A_SpawnItem("IceTail")
+FBLS A 3 Bright A_JumpIfInTargetInventory("isDead",1,"Poof")
+FBLS A 0 A_CustomMissile("OrbitIce", 0, 0, 50)
+Stop
+Poof:
+FBLS BCDE 2 Bright
+Stop
+}
+}
+
+actor OrbitIceA : OrbitIce
+{
+Speed 9
+States
+{
+Spawn:
+FBLS A 3 bright A_SpawnItem("IceTail")
+FBLS A 3 Bright A_JumpIfInTargetInventory("isDead",1,"Poof")
+FBLS A 0 A_CustomMissile("OrbitIceA", 0, 0, 50)
+Stop
+}
+}
+
+actor OrbitIceB : OrbitIce
+{
+Speed 8
+States
+{
+Spawn:
+FBLS A 3 bright A_SpawnItem("IceTail")
+FBLS A 3 Bright A_JumpIfInTargetInventory("isDead",1,"Poof")
+FBLS A 0 A_CustomMissile("OrbitIceB", 0, 0, 50)
+Stop
+}
+}
+
+actor OrbitIceC : OrbitIce
+{
+Speed 7
+States
+{
+Spawn:
+FBLS A 3 bright A_SpawnItem("IceTail")
+FBLS A 3 Bright A_JumpIfInTargetInventory("isDead",1,"Poof")
+FBLS A 0 A_CustomMissile("OrbitIceC", 0, 0, 50)
+Stop
+}
+}
+
+actor OrbitIceD : OrbitIce
+{
+Speed 6
+States
+{
+Spawn:
+FBLS A 3 bright A_SpawnItem("IceTail")
+FBLS A 3 Bright A_JumpIfInTargetInventory("isDead",1,"Poof")
+FBLS A 0 A_CustomMissile("OrbitIceD", 0, 0, 50)
+Stop
+}
+}
+
+actor OrbitIce2 : OrbitIce
+{
+States
+{
+Spawn:
+FBLS A 3 bright A_SpawnItem("IceTail")
+FBLS A 3 Bright A_JumpIfInTargetInventory("isDead",1,"Poof")
+FBLS A 0 A_CustomMissile("OrbitIce2", 0, 0, -50)
+Stop
+}
+}
+
+actor OrbitIce2A : OrbitIce2
+{
+Speed 9
+States
+{
+Spawn:
+FBLS A 3 bright A_SpawnItem("IceTail")
+FBLS A 3 Bright A_JumpIfInTargetInventory("isDead",1,"Poof")
+FBLS A 0 A_CustomMissile("OrbitIce2A", 0, 0, -50)
+Stop
+}
+}
+
+actor OrbitIce2B : OrbitIce2
+{
+Speed 8
+States
+{
+Spawn:
+FBLS A 3 bright A_SpawnItem("IceTail")
+FBLS A 3 Bright A_JumpIfInTargetInventory("isDead",1,"Poof")
+FBLS A 0 A_CustomMissile("OrbitIce2B", 0, 0, -50)
+Stop
+}
+}
+
+actor OrbitIce2C : OrbitIce2
+{
+Speed 7
+States
+{
+Spawn:
+FBLS A 3 bright A_SpawnItem("IceTail")
+FBLS A 3 Bright A_JumpIfInTargetInventory("isDead",1,"Poof")
+FBLS A 0 A_CustomMissile("OrbitIce2C", 0, 0, -50)
+Stop
+}
+}
+
+actor OrbitIce2D : OrbitIce2
+{
+Speed 6
+States
+{
+Spawn:
+FBLS A 3 bright A_SpawnItem("IceTail")
+FBLS A 3 Bright A_JumpIfInTargetInventory("isDead",1,"Poof")
+FBLS A 0 A_CustomMissile("OrbitIce2D", 0, 0, -50)
+Stop
+}
+}
+
+Actor IceStalagmite {
+  Renderstyle add
+  Alpha 0.75
+  -SOLID
+  +FLOORHUGGER
+  +NOCLIP
+  States {
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("misc/freeze",0)
+		TNT1 A 0 A_Jump(256,"IceS1","IceS2","Ices3")
+		loop
+	Ices1:
+		TNT1 A 1 A_SpawnItemEx("IceStalagmiteSmall1",0,32,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		stop
+	Ices2:
+		TNT1 A 1 A_SpawnItemEx("IceStalagmiteSmall2",0,32,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		stop
+	Ices3:
+		TNT1 A 1 A_SpawnItemEx("IceStalagmiteLarge",0,32,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		stop
+  }
+}
+
+Actor IceStalagmiteSingle : IceStalagmite {
+  States {
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("misc/freeze",0)
+		TNT1 A 0 A_Jump(256,"IceS1","IceS2","Ices3")
+		loop
+	Ices1:
+		TNT1 A 1 A_SpawnItemEx("IceStalagmiteSmall1Single",0,32,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		stop
+	Ices2:
+		TNT1 A 1 A_SpawnItemEx("IceStalagmiteSmall2Single",0,32,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		stop
+	Ices3:
+		TNT1 A 1 A_SpawnItemEx("IceStalagmiteLargeSingle",0,32,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		stop
+  }
+}*/
+
+/******************************************************************************\
+==============================ICE STALAGMITE LARGE==============================
+\******************************************************************************/
+
+/*ACTOR IceStalagmiteLarge
+{
+  Scale 0.1
+  Radius 24
+  Height 128
+  PROJECTILE
+  +RIPPER
+  +SOLID
+  +FLOORHUGGER
+  damage 1
+  damagetype Ice
+  Obituary "%o was shafted by an Ice Templar."
+  States {
+	Spawn:
+		ICES A 0
+		ICES A 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmite",0,32,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteLargeA",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+ACTOR IceStalagmiteLargeSingle : IceStalagmiteLarge {
+  States {
+	Spawn:
+		ICES A 0
+		ICES A 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteLargeA",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteLargeA : IceStalagmiteLarge {
+  Scale 0.2
+  States {
+	Spawn:
+		ICES A 0
+		ICES A 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteLargeB",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteLargeB : IceStalagmiteLarge {
+  Scale 0.3
+  States {
+	Spawn:
+		ICES A 0
+		ICES A 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteLargeC",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteLargeC : IceStalagmiteLarge {
+  Scale 0.4
+  States {
+	Spawn:
+		ICES A 0
+		ICES A 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteLargeD",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteLargeD : IceStalagmiteLarge {
+  Scale 0.5
+  States {
+	Spawn:
+		ICES A 0
+		ICES A 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteLargeE",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteLargeE : IceStalagmiteLarge {
+  Scale 0.6
+  States {
+	Spawn:
+		ICES A 0
+		ICES A 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteLargeF",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteLargeF : IceStalagmiteLarge {
+  Scale 0.7
+  States {
+	Spawn:
+		ICES A 0
+		ICES A 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteLargeG",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteLargeG : IceStalagmiteLarge {
+  Scale 0.8
+  States {
+	Spawn:
+		ICES A 0
+		ICES A 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteLargeH",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteLargeH : IceStalagmiteLarge {
+  Scale 0.9
+  States {
+	Spawn:
+		ICES A 0
+		ICES A 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteLargeI",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteLargeI : IceStalagmiteLarge {
+  Scale 1
+  States {
+	Spawn:
+		ICES A 0
+		ICES A 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteLargeJ",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteLargeJ : IceStalagmiteLarge {
+  Scale 0.9
+  States {
+	Spawn:
+		ICES A 0
+		ICES A 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteLargeK",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteLargeK : IceStalagmiteLarge {
+  Scale 0.8
+  States {
+	Spawn:
+		ICES A 0
+		ICES A 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteLargeL",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteLargeL : IceStalagmiteLarge {
+  Scale 0.7
+  States {
+	Spawn:
+		ICES A 0
+		ICES A 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteLargeM",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteLargeM : IceStalagmiteLarge {
+  Scale 0.6
+  States {
+	Spawn:
+		ICES A 0
+		ICES A 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteLargeN",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteLargeN : IceStalagmiteLarge {
+  Scale 0.5
+  States {
+	Spawn:
+		ICES A 0
+		ICES A 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteLargeO",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteLargeO : IceStalagmiteLarge {
+  Scale 0.4
+  States {
+	Spawn:
+		ICES A 0
+		ICES A 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteLargeP",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteLargeP : IceStalagmiteLarge {
+  Scale 0.3
+  States {
+	Spawn:
+		ICES A 0
+		ICES A 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteLargeQ",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteLargeQ : IceStalagmiteLarge {
+  Scale 0.2
+  States {
+	Spawn:
+		ICES A 0
+		ICES A 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteLargeR",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteLargeR : IceStalagmiteLarge {
+  Scale 0.1
+  States {
+	Spawn:
+		ICES A 0
+		ICES A 3
+		Stop
+  }
+}*/
+
+/******************************************************************************\
+=============================ICE STALAGMITE SMALL 1=============================
+\******************************************************************************/
+
+/*ACTOR IceStalagmiteSmall1
+{
+  Radius 16
+  Height 32
+  PROJECTILE
+  +RIPPER
+  +SOLID
+  +FLOORHUGGER
+  damage 1
+  damagetype Ice
+  Obituary "%o was shafted by an Ice Templar."
+  States {
+	Spawn:
+		ICES B 0
+		ICES B 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmite",0,32,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall1A",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+ACTOR IceStalagmiteSmall1Single : IceStalagmiteSmall1 {
+  States {
+	Spawn:
+		ICES B 0
+		ICES B 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall1A",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall1A : IceStalagmiteSmall1 {
+  Scale 0.2
+  States {
+	Spawn:
+		ICES B 0
+		ICES B 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall1B",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall1B : IceStalagmiteSmall1 {
+  Scale 0.3
+  States {
+	Spawn:
+		ICES B 0
+		ICES B 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall1C",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall1C : IceStalagmiteSmall1 {
+  Scale 0.4
+  States {
+	Spawn:
+		ICES B 0
+		ICES B 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall1D",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall1D : IceStalagmiteSmall1 {
+  Scale 0.5
+  States {
+	Spawn:
+		ICES B 0
+		ICES B 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall1E",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall1E : IceStalagmiteSmall1 {
+  Scale 0.6
+  States {
+	Spawn:
+		ICES B 0
+		ICES B 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall1F",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall1F : IceStalagmiteSmall1 {
+  Scale 0.7
+  States {
+	Spawn:
+		ICES B 0
+		ICES B 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall1G",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall1G : IceStalagmiteSmall1 {
+  Scale 0.8
+  States {
+	Spawn:
+		ICES B 0
+		ICES B 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall1H",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall1H : IceStalagmiteSmall1 {
+  Scale 0.9
+  States {
+	Spawn:
+		ICES B 0
+		ICES B 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall1I",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall1I : IceStalagmiteSmall1 {
+  Scale 1
+  States {
+	Spawn:
+		ICES B 0
+		ICES B 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall1J",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall1J : IceStalagmiteSmall1 {
+  Scale 0.9
+  States {
+	Spawn:
+		ICES B 0
+		ICES B 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall1K",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall1K : IceStalagmiteSmall1 {
+  Scale 0.8
+  States {
+	Spawn:
+		ICES B 0
+		ICES B 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall1L",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall1L : IceStalagmiteSmall1 {
+  Scale 0.7
+  States {
+	Spawn:
+		ICES B 0
+		ICES B 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall1M",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall1M : IceStalagmiteSmall1 {
+  Scale 0.6
+  States {
+	Spawn:
+		ICES B 0
+		ICES B 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall1N",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall1N : IceStalagmiteSmall1 {
+  Scale 0.5
+  States {
+	Spawn:
+		ICES B 0
+		ICES B 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall1O",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall1O : IceStalagmiteSmall1 {
+  Scale 0.4
+  States {
+	Spawn:
+		ICES B 0
+		ICES B 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall1P",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall1P : IceStalagmiteSmall1 {
+  Scale 0.3
+  States {
+	Spawn:
+		ICES B 0
+		ICES B 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall1Q",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall1Q : IceStalagmiteSmall1 {
+  Scale 0.2
+  States {
+	Spawn:
+		ICES B 0
+		ICES B 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall1R",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall1R : IceStalagmiteSmall1 {
+  Scale 0.1
+  States {
+	Spawn:
+		ICES B 0
+		ICES B 3
+		Stop
+  }
+}*/
+
+/******************************************************************************\
+=============================ICE STALAGMITE SMALL 2=============================
+\******************************************************************************/
+
+/*ACTOR IceStalagmiteSmall2
+{
+  Radius 16
+  Height 32
+  PROJECTILE
+  +RIPPER
+  +SOLID
+  +FLOORHUGGER
+  damage 1
+  damagetype Ice
+  Obituary "%o was shafted by an Ice Templar."
+  States {
+	Spawn:
+		ICES C 0
+		ICES C 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmite",0,32,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall2A",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+ACTOR IceStalagmiteSmall2Single : IceStalagmiteSmall2 {
+  States {
+	Spawn:
+		ICES C 0
+		ICES C 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall2A",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall2A : IceStalagmiteSmall2 {
+  Scale 0.2
+  States {
+	Spawn:
+		ICES C 0
+		ICES C 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall2B",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall2B : IceStalagmiteSmall2 {
+  Scale 0.3
+  States {
+	Spawn:
+		ICES C 0
+		ICES C 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall2C",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall2C : IceStalagmiteSmall2 {
+  Scale 0.4
+  States {
+	Spawn:
+		ICES C 0
+		ICES C 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall2D",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall2D : IceStalagmiteSmall2 {
+  Scale 0.5
+  States {
+	Spawn:
+		ICES C 0
+		ICES C 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall2E",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall2E : IceStalagmiteSmall2 {
+  Scale 0.6
+  States {
+	Spawn:
+		ICES C 0
+		ICES C 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall2F",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall2F : IceStalagmiteSmall2 {
+  Scale 0.7
+  States {
+	Spawn:
+		ICES C 0
+		ICES C 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall2G",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall2G : IceStalagmiteSmall2 {
+  Scale 0.8
+  States {
+	Spawn:
+		ICES C 0
+		ICES C 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall2H",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall2H : IceStalagmiteSmall2 {
+  Scale 0.9
+  States {
+	Spawn:
+		ICES C 0
+		ICES C 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall2I",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall2I : IceStalagmiteSmall2 {
+  Scale 1
+  States {
+	Spawn:
+		ICES C 0
+		ICES C 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall2J",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall2J : IceStalagmiteSmall2 {
+  Scale 0.9
+  States {
+	Spawn:
+		ICES C 0
+		ICES C 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall2K",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall2K : IceStalagmiteSmall2 {
+  Scale 0.8
+  States {
+	Spawn:
+		ICES C 0
+		ICES C 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall2L",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall2L : IceStalagmiteSmall2 {
+  Scale 0.7
+  States {
+	Spawn:
+		ICES C 0
+		ICES C 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall2M",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall2M : IceStalagmiteSmall2 {
+  Scale 0.6
+  States {
+	Spawn:
+		ICES C 0
+		ICES C 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall2N",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall2N : IceStalagmiteSmall2 {
+  Scale 0.5
+  States {
+	Spawn:
+		ICES C 0
+		ICES C 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall2O",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall2O : IceStalagmiteSmall2 {
+  Scale 0.4
+  States {
+	Spawn:
+		ICES C 0
+		ICES C 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall2P",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall2P : IceStalagmiteSmall2 {
+  Scale 0.3
+  States {
+	Spawn:
+		ICES C 0
+		ICES C 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall2Q",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall2Q : IceStalagmiteSmall2 {
+  Scale 0.2
+  States {
+	Spawn:
+		ICES C 0
+		ICES C 3
+		TNT1 A 0 A_SpawnItemEx("IceStalagmiteSmall2R",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Stop
+  }
+}
+
+Actor IceStalagmiteSmall2R : IceStalagmiteSmall2 {
+  Scale 0.1
+  States {
+	Spawn:
+		ICES C 0
+		ICES C 3
+		Stop
+  }
+}
+
+ACTOR GroundIceSeeker
+{
+  Radius 4
+  Height 6
+  Speed 10
+  Damage 0
+  PROJECTILE
+  +FloorHugger
+  +Noclip
+  +Ripper
+  +SeekerMissile
+  states
+  {
+  Spawn:
+	TNT1 A 0
+    TNT1 A 9 BRIGHT A_SpawnItemEx("IceStalagmiteSingle",0,0,0,0,0,0,0,128)
+    TNT1 A 0 BRIGHT A_SeekerMissile(90,90)
+    TNT1 A 9 BRIGHT A_SpawnItemEx("IceStalagmiteSingle",0,0,0,0,0,0,0,128)
+    TNT1 A 0 BRIGHT A_SeekerMissile(90,90)
+    TNT1 A 9 BRIGHT A_SpawnItemEx("IceStalagmiteSingle",0,0,0,0,0,0,0,128)
+    TNT1 A 0 BRIGHT A_SeekerMissile(90,90)
+    TNT1 A 9 BRIGHT A_SpawnItemEx("IceStalagmiteSingle",0,0,0,0,0,0,0,128)
+    TNT1 A 0 BRIGHT A_SeekerMissile(90,90)
+    TNT1 A 9 BRIGHT A_SpawnItemEx("IceStalagmiteSingle",0,0,0,0,0,0,0,128)
+    TNT1 A 0 BRIGHT A_SeekerMissile(90,90)
+    TNT1 A 9 BRIGHT A_SpawnItemEx("IceStalagmiteSingle",0,0,0,0,0,0,0,128)
+    TNT1 A 0 BRIGHT A_SeekerMissile(90,90)
+    TNT1 A 9 BRIGHT A_SpawnItemEx("IceStalagmiteSingle",0,0,0,0,0,0,0,128)
+    TNT1 A 0 BRIGHT A_SeekerMissile(90,90)
+    TNT1 A 9 BRIGHT A_SpawnItemEx("IceStalagmiteSingle",0,0,0,0,0,0,0,128)
+    TNT1 A 0 BRIGHT A_SeekerMissile(90,90)
+    TNT1 A 9 BRIGHT A_SpawnItemEx("IceStalagmiteSingle",0,0,0,0,0,0,0,128)
+    TNT1 A 0 BRIGHT A_SeekerMissile(90,90)
+    TNT1 A 9 BRIGHT A_SpawnItemEx("IceStalagmiteSingle",0,0,0,0,0,0,0,128)
+    TNT1 A 0 BRIGHT A_SeekerMissile(90,90)
+    TNT1 A 9 BRIGHT A_SpawnItemEx("IceStalagmiteSingle",0,0,0,0,0,0,0,128)
+    TNT1 A 0 BRIGHT A_SeekerMissile(90,90)
+    TNT1 A 9 BRIGHT A_SpawnItemEx("IceStalagmiteSingle",0,0,0,0,0,0,0,128)
+    TNT1 A 0 BRIGHT A_SeekerMissile(90,90)
+    TNT1 A 5 BRIGHT A_Stop
+	TNT1 A 0 A_PlaySound("misc/freeze",0)
+    TNT1 AAAAA 1 BRIGHT A_SpawnItemEx("IceCrystal",0,0,0,random(-1,1),random(-1,1),random(1,2))
+    Stop
+  }
+}*/

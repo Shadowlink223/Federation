@@ -1,0 +1,23 @@
+InitiateGrey{
+	#00000  #808080
+}
+
+StrikeKnightRed{
+	#00000  #B0171F
+}
+
+PaladinGold{
+	#00000  #FFD700
+}
+
+JusticarGreen{
+	#00000  #308014
+}
+
+KnightmareBlack{
+	#00000  #1E1E1E
+}
+
+AngelWhite{
+	#00000  #F4F4F4
+}

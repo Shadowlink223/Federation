@@ -1,0 +1,28 @@
+clearplayerclasses 
+addplayerclass FedPlayer nomenu
+
+WeaponSection "Federation"
+setslot 1 "Wakizashi"
+setslot 2 "Raging Bull" "M9 Pistol" "Desert Eagle"
+setslot 3 "Spas12" "Sawed-Off Shotgun"
+setslot 4 "MP7" "Silenced MP5" "M4 Carbine"
+setslot 5 "Hand Grenade" "Grenade Launcher" "RPG"
+setslot 6 "OICW" "FBR3 Lance"
+setslot 7 "Scythe Minigun" "Flamethrower" "Cryo Rifle"
+
+addkeysection "Federation" MySampleKeysection
+
+addmenukey "Reload" Reload
+alias Reload "puke 500"
+
+addmenukey "Special Fire" SpecialFire
+alias SpecialFire "puke 510"
+
+addmenukey "Rate of Fire" RateOfFire
+alias RateOfFire "puke 520"
+
+addmenukey "Ammo Swap" AmmoSwap
+alias AmmoSwap "puke 530"
+
+addmenukey "Grenade Swap" GrenadeSwap
+alias GrenadeSwap "puke 540"
