@@ -106,13 +106,42 @@ ACTOR FHeavyKnight : HeavyKnight 11204
     G99P F 1                                                     //
     Goto See                                                     //
   FireRocket:
+    G99P E 0 A_FaceTarget                                        //
     TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
-    G99P E 6 A_FaceTarget                                        //
+	G99P E 0 A_SpawnItemEx("RLsmoke",-10,0,32,3,0,0,180,SXF_CLIENTSIDE)
+    G99P E 4 A_FaceTarget                                        //
     TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    G99P E 4 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+	G99P E 0 A_SpawnItemEx("RLsmoke",-10,0,32,3,0,0,180,SXF_CLIENTSIDE)
+    G99P E 4 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    G99P E 4 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+	G99P E 0 A_SpawnItemEx("RLsmoke",-10,0,32,3,0,0,180,SXF_CLIENTSIDE)
+    G99P E 4 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    G99P E 4 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+	G99P E 0 A_SpawnItemEx("RLsmoke",-10,0,32,3,0,0,180,SXF_CLIENTSIDE)
+    G99P E 4 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    G99P E 4 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+	G99P E 0 A_SpawnItemEx("RLsmoke",-10,0,32,3,0,0,180,SXF_CLIENTSIDE)
+    G99P E 4 A_FaceTarget                                        //
+    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    GO99 E 4 A_FaceTarget                                        //
+    TNT1 A 0 //A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX - Commented out to avoid hitting head
+	G99P E 0 A_SpawnItemEx("RLsmoke",-10,0,32,3,0,0,180,SXF_CLIENTSIDE)
+    G99P E 4 A_FaceTarget                                        //
+    TNT1 A 0 //A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX - Commented out to avoid hitting head
+    G99P E 4 A_FaceTarget                                        //
+    TNT1 A 0 //A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX - Commented out to avoid hitting head
     G99P F 12 A_CustomMissile("HeavyRocket", 32, 0, random(16,-16), 0)// 1ST ROCKET
-    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TNT1 A 0 //A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX - Commented out to avoid hitting head
     G99P E 12 A_FaceTarget                                       //
-    TNT1 A 0 A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX
+    TNT1 A 0 //A_SpawnItem ("HeadshotTarget10", 0, 40,0)           // MAKE HEADSHOT BOX - Commented out to avoid hitting head
     G99P F 12 A_CustomMissile("HeavyRocket", 32, 0, random(16,-16), 0)// 2ND ROCKET
     Goto See                                                     //
   HealthHigh:
