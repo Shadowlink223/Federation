@@ -795,8 +795,8 @@ Spawn:
 }
 
 actor IceExplosion {
-  Radius 32
-  Height 64
+  Radius 48
+  Height 80
   
   RenderStyle Add
   alpha 0.9
